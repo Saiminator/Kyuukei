@@ -1,0 +1,216 @@
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 150%;
+  background: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+/* Prevent unwanted text selection on draggable areas */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Header – Solid color #362136 */
+header {
+  background: #362136;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+#site-title {
+  font-size: 1.8em;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Navigation */
+nav {
+  text-align: center;
+  margin-top: 5px;
+}
+nav ul {
+  list-style: none;
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+}
+nav li { margin: 0 15px; }
+nav a {
+  text-decoration: none;
+  color: #333;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+nav a:hover { color: #667eea; }
+hr {
+  margin: 10px auto;
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  width: 90%;
+}
+
+/* Content Sections */
+.content-section {
+  padding: 10px 20px;
+  margin: 20px auto;
+  background: #fff;
+  max-width: 1120px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* STORY SECTION – Pan & Zoom Container */
+#panZoomWrapper {
+  width: 100%;
+  max-width: 1120px;
+  height: 70vh;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+#panZoomContainer {
+  width: 1600px;
+  transform-origin: top left;
+}
+
+/* Timeline Styles */
+.timeline {
+  margin-bottom: 40px;
+}
+/* Timeline title colors */
+.timeline.orby-pink h2 { color: #f7cdd5; }
+.timeline.cerulean h2 { color: #0077be; }
+.timeline.shimi-green h2 { color: #216036; }
+.timeline.dreymi h2 { color: #2f191f; }
+.timeline.via h2 { color: #de363d; }
+.timeline.mika h2 { color: #823f25; }
+.timeline.memo h2 { color: #e073bd; }
+.timeline.shizu h2 { color: #4c6095; }
+.timeline h2 {
+  text-align: left;
+  width: 100%;
+  margin: 0 0 10px 10px;
+}
+.timeline-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Chapter Container */
+.chapter-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+.chapter-box {
+  border: 2px solid #ddd;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+  color: inherit;
+}
+.chapter-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* Continuous Underline */
+.timeline-underline {
+  width: 100%;
+  height: 3px;
+  background: #ddd;
+  margin-top: 10px;
+}
+.timeline.orby-pink .timeline-underline { background: #f7cdd5; }
+.timeline.cerulean .timeline-underline { background: #0077be; }
+.timeline.shimi-green .timeline-underline { background: #216036; }
+.timeline.dreymi .timeline-underline { background: #2f191f; }
+.timeline.via .timeline-underline { background: #de363d; }
+.timeline.mika .timeline-underline { background: #823f25; }
+.timeline.memo .timeline-underline { background: #e073bd; }
+.timeline.shizu .timeline-underline { background: #4c6095; }
+
+/* CHARACTERS SECTION – Vertical Drag-to-Scroll Container */
+#characterScrollWrapper {
+  width: 100%;
+  max-width: 1120px;
+  height: 70vh;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #eee;
+  position: relative;
+}
+#characterScrollContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  transform: translateY(0px);
+}
+.character-item {
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+.character-image {
+  width: 210px;
+  height: 210px;
+  background: #ccc;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: center;
+}
+.character-name {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+.nav-buttons a.button, .nav-buttons button {
+  flex: 1;
+  max-width: 200px;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: #667eea;
+  border: none;
+  font-size: 1em;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+.nav-buttons a.button:hover, .nav-buttons button:hover {
+  background: #556cd6;
+}
