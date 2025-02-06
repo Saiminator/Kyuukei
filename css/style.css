@@ -306,3 +306,14 @@ body::-webkit-scrollbar {
   width: 0px;
   height: 0px;
 }
+
+.character-detail {
+  overflow-y: auto; /* ensure scrolling is active */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.character-detail::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
