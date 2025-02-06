@@ -3,77 +3,29 @@ layout: default
 title: Story Timeline
 ---
 
-{% comment %}
-  Base values:
-  - chapterBoxWidth: assumed width of a chapter box (in pixels)
-  - marginBetweenTimelines: extra space between timeline sections
-  - defaultIndent: if offset is missing or 0, use this value (in pixels)
-{% endcomment %}
-{% assign chapterBoxWidth = 150 %}
-{% assign marginBetweenTimelines = 50 %}
-{% assign defaultIndent = 10 %}
-{% assign timeline_names = "Kyuu|Shimi" | split: "|" %}  {# Adjust this list as needed; only timelines that have chapters will appear #}
-
-{%- comment -%}
-  Compute the overall container width by summing each timeline’s local width plus the margin in between.
-{%- endcomment -%}
-{% assign finalWidth = 0 %}
-{% for timeline in timeline_names %}
-  {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
-  {% if timeline_chapters != empty %}
-    {% assign localWidth = 0 %}
-    {% for chapter in timeline_chapters %}
-      {%- assign offset_val = chapter.offset | default: defaultIndent | plus: 0 -%}
-      {% if offset_val == 0 %}{% assign offset_val = defaultIndent %}{% endif %}
-      {% assign chapterRightEdge = offset_val | plus: chapterBoxWidth %}
-      {% if chapterRightEdge > localWidth %}
-         {% assign localWidth = chapterRightEdge %}
-      {% endif %}
-    {% endfor %}
-    {# Add this timeline’s local width plus a margin (except maybe for the last one) #}
-    {% assign finalWidth = finalWidth | plus: localWidth | plus: marginBetweenTimelines %}
-  {% endif %}
-{% endfor %}
-
 <section id="story" class="content-section">
   <h1>Story Timeline</h1>
-  <div id="panZoomWrapper">
-    <!-- The global container holds timeline sections arranged horizontally -->
-    <div id="panZoomContainer" class="no-select" style="width:{{ finalWidth }}px;">
+  <!-- The wrapper has a fixed height so that overflow can be panned -->
+  <div id="panZoomWrapper" style="overflow:hidden; position:relative; height:80vh;">
+    <!-- The container will hold all timeline sections vertically -->
+    <div id="panZoomContainer" class="no-select">
+      {% assign timeline_names = "Kyuu|Shimi|Dreymi|Via|Mika|Memo|Shizu" | split: "|" %}
       {% for timeline in timeline_names %}
         {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
         {% if timeline_chapters != empty %}
-          {%- comment -%}
-            Compute local width for this timeline section.
-          {%- endcomment -%}
-          {% assign localWidth = 0 %}
-          {% for chapter in timeline_chapters %}
-            {%- assign offset_val = chapter.offset | default: defaultIndent | plus: 0 -%}
-            {% if offset_val == 0 %}{% assign offset_val = defaultIndent %}{% endif %}
-            {% assign chapterRightEdge = offset_val | plus: chapterBoxWidth %}
-            {% if chapterRightEdge > localWidth %}
-              {% assign localWidth = chapterRightEdge %}
-            {% endif %}
-          {% endfor %}
-          <div class="timeline" style="display:inline-block; vertical-align: top; width:{{ localWidth }}px; margin-right: {{ marginBetweenTimelines }}px;">
+          <div class="timeline-section">
             <h2>{{ timeline }}</h2>
-            <div class="timeline-wrapper">
-              {# We add a left margin on the chapter container so it aligns with the timeline title #}
-              <div class="chapter-container" style="width:{{ localWidth }}px; margin-left:{{ defaultIndent }}px;">
-                {% for chapter in timeline_chapters %}
-                  {% assign chapter_indent = chapter.offset | default: defaultIndent | plus: 0 %}
-                  {% if chapter_indent == 0 %}{% assign chapter_indent = defaultIndent %}{% endif %}
-                  <a href="{{ chapter.url }}" class="chapter-box" style="margin-left:{{ chapter_indent }}px;">
-                    {% if chapter.chapter_title %}
-                      {{ chapter.chapter_title }}
-                    {% else %}
-                      Chapter {{ chapter.chapter_number }}
-                    {% endif %}
-                  </a>
-                {% endfor %}
-              </div>
-              {# Underline – we also add the same left margin so it starts below the timeline title #}
-              <div class="timeline-underline" style="width:{{ localWidth }}px; margin-left:{{ defaultIndent }}px;"></div>
+            <div class="chapter-container">
+              {% for chapter in timeline_chapters %}
+                {% assign offset_val = chapter.offset | default: 0 %}
+                <a href="{{ chapter.url }}" class="chapter-box" style="margin-left:{{ offset_val }}px;">
+                  {% if chapter.chapter_title %}
+                    {{ chapter.chapter_title }}
+                  {% else %}
+                    Chapter {{ chapter.chapter_number }}
+                  {% endif %}
+                </a>
+              {% endfor %}
             </div>
           </div>
         {% endif %}
