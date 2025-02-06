@@ -2,28 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Kyuukei wo Hanashi | Kyuu’s Breaktime Stories</title>
+  <title>{{ site.title }}</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Base text size enlarged to ~150% */
+    /* Global Styles */
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 20px;
+      font-family: 'Montserrat', sans-serif;
       font-size: 150%;
+      background: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
+    a { color: inherit; }
+    .no-select {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    /* Header */
     header {
-      background: #eee;
-      padding: 10px 20px;
+      background: #362136;
+      padding: 10px;
       text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     #site-title {
-      font-size: 1.5em;
+      font-size: 1.8em;
       text-decoration: none;
-      color: #333;
+      color: #fff;
       cursor: pointer;
+      font-weight: 600;
     }
+    /* Navigation */
     nav {
       text-align: center;
-      margin-top: 10px;
+      margin-top: 5px;
     }
     nav ul {
       list-style: none;
@@ -31,111 +47,176 @@
       padding: 0;
       margin: 0;
     }
-    nav li {
-      margin-right: 15px;
-    }
+    nav li { margin: 0 15px; }
     nav a {
       text-decoration: none;
       color: #333;
       cursor: pointer;
+      font-weight: 500;
+      transition: color 0.3s ease;
     }
+    nav a:hover { color: #667eea; }
     hr {
-      margin-top: 10px;
+      margin: 10px auto;
+      border: 0;
+      height: 1px;
+      background: #ddd;
+      width: 90%;
     }
-    /* Section styling */
+    /* Content Sections */
     .content-section {
-      padding: 20px;
+      padding: 10px 20px;
       display: none;
+      margin: 20px auto;
+      background: #fff;
+      max-width: 1120px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      overflow: hidden;
     }
-    .active {
-      display: block;
-    }
-    /* Center all section titles */
+    .content-section.active { display: block; }
     .content-section h1 {
-      text-align: center;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
-    /* Increase content width for text-heavy pages */
-    #home, 
-    #about, 
-    #questions, 
-    #news,
-    #chapterDetail {
-      text-align: center;
-      max-width: 800px;
+    /* STORY SECTION – Pan & Zoom */
+    #panZoomWrapper {
+      width: 100%;
+      max-width: 1120px;
+      height: 70vh;
       margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid #eee;
     }
-    /* Timeline styles */
+    #panZoomContainer {
+      width: 1600px;
+      transform-origin: top left;
+    }
     .timeline {
       margin-bottom: 40px;
     }
+    .timeline.orby-pink h2 { color: #f7cdd5; }
+    .timeline.cerulean h2 { color: #0077be; }
+    .timeline.shimi-green h2 { color: #216036; }
+    .timeline.dreymi h2 { color: #2f191f; }
+    .timeline.via h2 { color: #de363d; }
+    .timeline.mika h2 { color: #823f25; }
+    .timeline.memo h2 { color: #e073bd; }
+    .timeline.shizu h2 { color: #4c6095; }
     .timeline h2 {
-      margin-bottom: 10px;
+      text-align: left;
+      width: 100%;
+      margin: 0 0 10px 10px;
+    }
+    .timeline-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
     }
     .chapter-container {
       display: flex;
-      align-items: center;
-      flex-wrap: wrap;
+      gap: 30px;
       justify-content: center;
     }
     .chapter-box {
-      border: 1px solid #333;
+      border: 2px solid #ddd;
       padding: 10px 15px;
-      margin: 5px;
       cursor: pointer;
-      background: #f9f9f9;
+      background: #fff;
+      border-radius: 5px;
+      box-sizing: border-box;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
     }
-    .chapter-line {
-      flex: 1;
-      height: 2px;
-      background: #333;
-      min-width: 20px;
-      margin: 5px 0;
+    .chapter-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     }
-    /* Character Wiki styles using CSS Grid for 4 per row */
-    .character-container {
+    .timeline-underline {
+      width: 100%;
+      height: 3px;
+      background: #ddd;
+      margin-top: 10px;
+    }
+    .timeline.orby-pink .timeline-underline { background: #f7cdd5; }
+    .timeline.cerulean .timeline-underline { background: #0077be; }
+    .timeline.shimi-green .timeline-underline { background: #216036; }
+    .timeline.dreymi .timeline-underline { background: #2f191f; }
+    .timeline.via .timeline-underline { background: #de363d; }
+    .timeline.mika .timeline-underline { background: #823f25; }
+    .timeline.memo .timeline-underline { background: #e073bd; }
+    .timeline.shizu .timeline-underline { background: #4c6095; }
+    /* CHARACTERS SECTION – Vertical Drag-to-Scroll */
+    #characterScrollWrapper {
+      width: 100%;
+      max-width: 1120px;
+      height: 70vh;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid #eee;
+      position: relative;
+    }
+    #characterScrollContainer {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-gap: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      justify-items: center;
+      gap: 20px;
+      transform: translateY(0px);
     }
-    .character-box {
-      border: 1px solid #333;
-      padding: 20px;
-      text-align: center;
+    .character-item {
       cursor: pointer;
-      background: #f9f9f9;
-      width: 150px;
+      text-align: center;
     }
-    /* Button styling */
+    .character-image {
+      width: 210px;
+      height: 210px;
+      background: #ccc;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      margin: 0 auto;
+      background-size: cover;
+      background-position: center;
+    }
+    .character-name {
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    /* Navigation Buttons for Chapter Detail */
     .nav-buttons {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       gap: 15px;
       margin-top: 20px;
     }
     .nav-buttons button {
-      padding: 8px 12px;
+      flex: 1;
+      max-width: 200px;
+      padding: 10px 15px;
       cursor: pointer;
-      background: #ddd;
+      background: #667eea;
       border: none;
       font-size: 1em;
+      color: #fff;
+      border-radius: 5px;
+      transition: background 0.3s ease;
     }
-    /* Center text in the Character Detail section */
-    #characterDetail {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
+    .nav-buttons button:hover {
+      background: #556cd6;
     }
   </style>
 </head>
-<body>
-  <!-- Header (clickable to Home) -->
+<body class="no-select">
+  <!-- Header -->
   <header>
     <span id="site-title" onclick="showSection('home')">Kyuukei wo Hanashi | Kyuu’s Breaktime Stories</span>
   </header>
-  <!-- Navigation (Home button removed) -->
+  <!-- Navigation -->
   <nav>
     <ul>
       <li><a onclick="showSection('about')">About</a></li>
@@ -146,8 +227,8 @@
     </ul>
   </nav>
   <hr>
-
-  <!-- Content Sections -->
+  
+  <!-- Main Content Sections -->
   <div id="main-content">
     <!-- Home Section -->
     <section id="home" class="content-section active">
@@ -160,7 +241,7 @@
         The site allows readers to navigate branching narratives, follow individual character stories, and dive into the ever-expanding world of Kyuukei wo Hanashi, where every choice and encounter leaves its mark.
       </p>
     </section>
-
+    
     <!-- About Section -->
     <section id="about" class="content-section">
       <h1>About</h1>
@@ -168,94 +249,75 @@
         This site is a collection of interwoven stories following various timelines and characters. Explore the adventures and mysteries as they unfold in the world of Kyuukei wo Hanashi.
       </p>
     </section>
-
-    <!-- Story Section -->
+    
+    <!-- Story Section with Pan & Zoom -->
     <section id="story" class="content-section">
       <h1>Story Timeline</h1>
-      <!-- Timeline for Cerulean Winds -->
-      <div class="timeline">
-        <h2>Cerulean Winds</h2>
-        <div class="chapter-container">
-          <div class="chapter-box" onclick="showChapterDetail('Cerulean Winds - Chapter A')">Chapter A</div>
-          <div class="chapter-line"></div>
-          <div class="chapter-box" onclick="showChapterDetail('Cerulean Winds - Chapter B')">Chapter B</div>
-          <div class="chapter-line"></div>
-          <div class="chapter-box" onclick="showChapterDetail('Cerulean Winds - Chapter C')">Chapter C</div>
-        </div>
-      </div>
-      <!-- Timeline for Shimi -->
-      <div class="timeline">
-        <h2>Shimi</h2>
-        <div class="chapter-container">
-          <div class="chapter-box" onclick="showChapterDetail('Shimi - Chapter 1')">Chapter 1</div>
-          <div class="chapter-line"></div>
-          <div class="chapter-box" onclick="showChapterDetail('Shimi - Chapter 2')">Chapter 2</div>
-          <div class="chapter-line"></div>
-          <div class="chapter-box" onclick="showChapterDetail('Shimi - Chapter 3')">Chapter 3</div>
-        </div>
-      </div>
-      <!-- Timeline for Kyuu -->
-      <div class="timeline">
-        <h2>Kyuu</h2>
-        <div class="chapter-container">
-          <div class="chapter-box" onclick="showChapterDetail('Kyuu - Chapter X')">Chapter X</div>
-          <div class="chapter-line"></div>
-          <div class="chapter-box" onclick="showChapterDetail('Kyuu - Chapter Y')">Chapter Y</div>
-          <div class="chapter-line"></div>
-          <div class="chapter-box" onclick="showChapterDetail('Kyuu - Chapter Z')">Chapter Z</div>
+      <div id="panZoomWrapper">
+        <div id="panZoomContainer" class="no-select">
+          <!-- Timeline for Kyuu (Orby Pink) -->
+          <div class="timeline orby-pink">
+            <h2>Kyuu</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Kyuu', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          <!-- (Additional timelines would follow the same structure) -->
         </div>
       </div>
     </section>
-
+    
     <!-- Characters Section -->
     <section id="characters" class="content-section">
       <h1>Character Wiki</h1>
-      <div class="character-container">
-        <!-- Existing characters -->
-        <div class="character-box" onclick="showCharacterDetail('Shimi')">Shimi</div>
-        <div class="character-box" onclick="showCharacterDetail('Shizu')">Shizu</div>
-        <div class="character-box" onclick="showCharacterDetail('Dreymi')">Dreymi</div>
-        <!-- Additional characters -->
-        <div class="character-box" onclick="showCharacterDetail('Kyuu')">Kyuu</div>
-        <div class="character-box" onclick="showCharacterDetail('Memo')">Memo</div>
-        <div class="character-box" onclick="showCharacterDetail('Via')">Via</div>
-        <div class="character-box" onclick="showCharacterDetail('Kaji')">Kaji</div>
-        <div class="character-box" onclick="showCharacterDetail('Lyn')">Lyn</div>
-        <div class="character-box" onclick="showCharacterDetail('Ryn')">Ryn</div>
-        <div class="character-box" onclick="showCharacterDetail('Duran')">Duran</div>
-        <div class="character-box" onclick="showCharacterDetail('Ars')">Ars</div>
-        <div class="character-box" onclick="showCharacterDetail('Mika')">Mika</div>
-        <div class="character-box" onclick="showCharacterDetail('Pon')">Pon</div>
-        <div class="character-box" onclick="showCharacterDetail('Sera')">Sera</div>
-        <div class="character-box" onclick="showCharacterDetail('Celest')">Celest</div>
+      <div id="characterScrollWrapper">
+        <div id="characterScrollContainer">
+          {% for character in site.characters %}
+          <div class="character-item">
+            <a href="{{ character.url | relative_url }}">
+              <div class="character-thumb" style="background-image: url('{{ character.image }}');"></div>
+              <span>{{ character.name }}</span>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </section>
-
+    
     <!-- Questions Section -->
     <section id="questions" class="content-section">
       <h1>Questions</h1>
-      <p>Nothing yet, email for any questions.</p>
-      <p>Saiminator@Kyuukei.com</p>
+      <p>Nothing yet, email Saiminator@Kyuukei.com with any questions.</p>
     </section>
-
+    
     <!-- News Section -->
     <section id="news" class="content-section">
       <h1>News</h1>
       <p>Site under development, Look forward to fresh stories out of Kyuu's orby oven.</p>
     </section>
-
+    
     <!-- Chapter Detail Section -->
     <section id="chapterDetail" class="content-section">
       <h1>Chapter Content</h1>
       <p id="chapterText">Chapter Content: Unfinished TBC</p>
       <div class="nav-buttons">
-        <button onclick="alert('Previous Chapter functionality not implemented yet')">Previous Chapter</button>
-        <button onclick="showSection('story')">Back to Story</button>
-        <button onclick="alert('Next Chapter functionality not implemented yet')">Next Chapter</button>
+        <button id="prevChapterBtn" onclick="prevChapter()">Previous Chapter</button>
+        <button id="backChapterBtn" onclick="showSection('story')">Back to Timeline</button>
+        <button id="nextChapterBtn" onclick="nextChapter()">Next Chapter</button>
       </div>
     </section>
-
-    <!-- Character Detail Section -->
+    
+    <!-- Character Detail Section (if needed) -->
     <section id="characterDetail" class="content-section">
       <h1 id="characterName">Character Detail</h1>
       <p id="characterText">Unfinished TBC</p>
@@ -264,28 +326,159 @@
       </div>
     </section>
   </div>
-
+  
   <script>
-    // Function to show the desired section and hide others.
+    // Global flag for dragging
+    let wasDragged = false;
+    const dragThreshold = 5;
+    let panStartX, panStartY;
+    
+    // Timeline navigation variables
+    let currentTimeline = null;
+    let currentChapterIndex = 0;
+    const timelineData = {
+      "Kyuu": 8,
+      "Cerulean Winds": 8,
+      "Shimi": 8,
+      "Dreymi": 8,
+      "Via": 8,
+      "Mika": 8,
+      "Memo": 8,
+      "Shizu": 8
+    };
+    
     function showSection(sectionId) {
-      var sections = document.querySelectorAll('.content-section');
-      sections.forEach(function(section) {
+      document.querySelectorAll('.content-section').forEach(section => {
         section.classList.remove('active');
       });
       document.getElementById(sectionId).classList.add('active');
     }
     
-    // Function to show the chapter detail section and update the text.
-    function showChapterDetail(chapterName) {
-      document.getElementById('chapterText').textContent = chapterName + " - Unfinished TBC";
+    function handleChapterClick(e, timelineName, chapterIndex) {
+      if (wasDragged) {
+        wasDragged = false;
+        return;
+      }
+      updateChapter(timelineName, chapterIndex);
       showSection('chapterDetail');
     }
     
-    // Function to show the character detail section and update the content.
+    function updateChapter(timelineName, chapterIndex) {
+      currentTimeline = timelineName;
+      currentChapterIndex = chapterIndex;
+      document.getElementById('chapterText').textContent = timelineName + " - Chapter " + (chapterIndex + 1) + " - Unfinished TBC";
+      document.getElementById('prevChapterBtn').style.visibility = (chapterIndex === 0) ? "hidden" : "visible";
+      document.getElementById('nextChapterBtn').style.visibility = (chapterIndex === timelineData[timelineName] - 1) ? "hidden" : "visible";
+    }
+    
+    function prevChapter() {
+      if (currentChapterIndex > 0) {
+        updateChapter(currentTimeline, currentChapterIndex - 1);
+      }
+    }
+    function nextChapter() {
+      if (currentChapterIndex < timelineData[currentTimeline] - 1) {
+        updateChapter(currentTimeline, currentChapterIndex + 1);
+      }
+    }
+    
     function showCharacterDetail(characterName) {
       document.getElementById('characterName').textContent = characterName;
       document.getElementById('characterText').textContent = characterName + " - Unfinished TBC";
       showSection('characterDetail');
+    }
+    
+    // Pan & Zoom for timeline
+    const panZoomContainer = document.getElementById('panZoomContainer');
+    const panZoomWrapper = document.getElementById('panZoomWrapper');
+    let isPanning = false;
+    let translateX = 0, translateY = 0;
+    let scale = 1;
+    const buffer = 100;
+    
+    panZoomContainer.addEventListener('mousedown', (e) => {
+      isPanning = true;
+      panStartX = e.clientX;
+      panStartY = e.clientY;
+      wasDragged = false;
+    });
+    document.addEventListener('mouseup', () => { isPanning = false; });
+    document.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      const dx = e.clientX - panStartX;
+      const dy = e.clientY - panStartY;
+      if (Math.abs(dx) > dragThreshold || Math.abs(dy) > dragThreshold) {
+        wasDragged = true;
+      }
+      translateX += dx;
+      translateY += dy;
+      clampPan();
+      panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+      panStartX = e.clientX;
+      panStartY = e.clientY;
+    });
+    panZoomContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomIntensity = 0.001;
+      const delta = -e.deltaY;
+      const zoom = 1 + delta * zoomIntensity;
+      scale *= zoom;
+      if (scale < 0.5) scale = 0.5;
+      if (scale > 3) scale = 3;
+      clampPan();
+      panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    });
+    function clampPan() {
+      const wrapperRect = panZoomWrapper.getBoundingClientRect();
+      const containerRect = panZoomContainer.getBoundingClientRect();
+      const minTranslateX = wrapperRect.width - containerRect.width - buffer;
+      const maxTranslateX = buffer;
+      if (translateX < minTranslateX) translateX = minTranslateX;
+      if (translateX > maxTranslateX) translateX = maxTranslateX;
+      const minTranslateY = wrapperRect.height - containerRect.height - buffer;
+      const maxTranslateY = buffer;
+      if (translateY < minTranslateY) translateY = minTranslateY;
+      if (translateY > maxTranslateY) translateY = maxTranslateY;
+    }
+    
+    // Vertical Drag for Characters Section
+    const characterScrollWrapper = document.getElementById('characterScrollWrapper');
+    const characterScrollContainer = document.getElementById('characterScrollContainer');
+    let isPanningChar = false;
+    let charStartY;
+    let charTranslateY = 0;
+    characterScrollContainer.addEventListener('mousedown', (e) => {
+      isPanningChar = true;
+      charStartY = e.clientY;
+      wasDragged = false;
+    });
+    document.addEventListener('mouseup', () => { isPanningChar = false; });
+    document.addEventListener('mousemove', (e) => {
+      if (!isPanningChar) return;
+      const dy = e.clientY - charStartY;
+      if (Math.abs(dy) > dragThreshold) {
+        wasDragged = true;
+      }
+      charTranslateY += dy;
+      clampCharPan();
+      characterScrollContainer.style.transform = `translateY(${charTranslateY}px)`;
+      charStartY = e.clientY;
+    });
+    function clampCharPan() {
+      const wrapperRect = characterScrollWrapper.getBoundingClientRect();
+      const containerRect = characterScrollContainer.getBoundingClientRect();
+      const minTranslateY = wrapperRect.height - containerRect.height;
+      const maxTranslateY = 0;
+      if (charTranslateY < minTranslateY) charTranslateY = minTranslateY;
+      if (charTranslateY > maxTranslateY) charTranslateY = maxTranslateY;
+    }
+    
+    function handleCharacterClick(e, characterName) {
+      if (wasDragged) {
+        wasDragged = false;
+        return;
+      }
+      showCharacterDetail(characterName);
     }
   </script>
 </body>
