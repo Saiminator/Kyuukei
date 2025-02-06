@@ -4,9 +4,9 @@ title: Story Timeline
 ---
 
 {%- comment -%}
-  First, compute the container width dynamically.
-  We assume a default chapter box width (e.g., 150px) plus each chapter’s offset.
-  Then we add an extra margin (e.g., 100px) to ensure enough space.
+  Compute the container width dynamically.
+  We assume a default chapter box width (e.g., 150px) plus each chapter’s offset,
+  and add an extra margin to ensure enough space.
 {%- endcomment -%}
 
 {% assign containerWidth = 0 %}
@@ -55,7 +55,11 @@ title: Story Timeline
                   {%- assign chapter_indent = 10 -%}
                 {%- endif -%}
                 <a href="{{ chapter.url }}" class="chapter-box" style="margin-left:{{ chapter_indent }}px;">
-                  {{ chapter.chapter_title | default: "Chapter " | append: chapter.chapter_number }}
+                  {% if chapter.chapter_title %}
+                    {{ chapter.chapter_title }}
+                  {% else %}
+                    Chapter {{ chapter.chapter_number }}
+                  {% endif %}
                 </a>
               {% endfor %}
             </div>
