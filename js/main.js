@@ -14,12 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
   if (panZoomWrapper && panZoomContainer) {
     const wrapperRect = panZoomWrapper.getBoundingClientRect();
     const containerRect = panZoomContainer.getBoundingClientRect();
-    // If the container is smaller than the wrapper, center it; otherwise, start at the buffer
+    // Center horizontally if container is smaller than wrapper; otherwise start at a buffer
     if (containerRect.width < wrapperRect.width) {
       translateX = (wrapperRect.width - containerRect.width) / 2;
     } else {
       translateX = buffer;
     }
+    // For vertical, assume centering as well
     if (containerRect.height < wrapperRect.height) {
       translateY = (wrapperRect.height - containerRect.height) / 2;
     } else {
@@ -28,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
     panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   }
   
-  // Start panning when mousedown on the wrapper or container (unless on a chapter link)
   function startPan(e) {
+    // Only start pan if not clicking a chapter link
     if (e.target.closest('.chapter-box')) return;
     isPanning = true;
     panStartX = e.clientX;
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Reworked clampPan to center if the container is smaller than the wrapper
+  // Adjust clamping so that if the container is smaller than the wrapper, it stays centered
   function clampPan() {
     if (!panZoomWrapper || !panZoomContainer) return;
     const wrapperRect = panZoomWrapper.getBoundingClientRect();
