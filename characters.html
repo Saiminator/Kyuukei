@@ -1,0 +1,19 @@
+---
+layout: default
+title: Characters
+---
+
+<section id="characters" class="content-section">
+  <h1>Character Wiki</h1>
+  <div id="characterScrollWrapper">
+    <div id="characterScrollContainer">
+      {% assign sorted_characters = site.characters | sort: "order" %}
+      {% for character in sorted_characters %}
+      <a href="{{ character.url }}" class="character-item">
+        <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+        <div class="character-name">{{ character.title }}</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
