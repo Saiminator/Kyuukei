@@ -1,6 +1,7 @@
-title: "Kyuukei wo Hanashi | Kyuu’s Breaktime Stories"
-baseurl: ""  # leave empty if deploying at the root
 collections:
+  chapters:
+    output: true
+    permalink: /chapters/:title/
   characters:
     output: true
-    permalink: /characters/:name/
+    permalink: /characters/:title/
