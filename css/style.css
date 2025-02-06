@@ -294,3 +294,8 @@ hr {
 .basic-info p {
   margin: 4px 0;
 }
+
+body {
+  overflow-y: auto; /* Allows scrolling when necessary */
+  scrollbar-gutter: stable;
+}
