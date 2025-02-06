@@ -1,0 +1,6 @@
+title: "My Story Site"
+baseurl: ""  # leave empty if deploying to your root domain
+collections:
+  characters:
+    output: true
+    permalink: /characters/:name/
