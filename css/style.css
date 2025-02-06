@@ -1,4 +1,12 @@
-/* Base Styles */
+/* =====================================================
+   Global Reset & Base Styles
+===================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -8,50 +16,54 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
-a { color: inherit; }
-/* Prevent unwanted text selection on draggable areas */
-.no-select {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Header – Solid color #362136 */
+/* =====================================================
+   Header & Navigation
+===================================================== */
 header {
   background: #362136;
   padding: 10px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
 #site-title {
   font-size: 1.8em;
-  text-decoration: none;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
 }
 
-/* Navigation */
 nav {
   text-align: center;
   margin-top: 5px;
 }
+
 nav ul {
   list-style: none;
   display: inline-flex;
   padding: 0;
   margin: 0;
 }
-nav li { margin: 0 15px; }
+
+nav li {
+  margin: 0 15px;
+}
+
 nav a {
-  text-decoration: none;
-  color: #333;
-  cursor: pointer;
   font-weight: 500;
   transition: color 0.3s ease;
 }
-nav a:hover { color: #667eea; }
+
+nav a:hover {
+  color: #667eea;
+}
+
 hr {
   margin: 10px auto;
   border: 0;
@@ -60,7 +72,9 @@ hr {
   width: 90%;
 }
 
-/* Content Sections */
+/* =====================================================
+   Content Sections
+===================================================== */
 .content-section {
   padding: 10px 20px;
   margin: 20px auto;
@@ -72,149 +86,9 @@ hr {
   overflow: hidden;
 }
 
-/* STORY SECTION – Pan & Zoom Container */
-#panZoomWrapper {
-  width: 100%;
-  max-width: 1120px;
-  height: 70vh;
-  margin: 0 auto;
-  overflow: hidden;
-  border: 1px solid #eee;
-}
-#panZoomContainer {
-  width: 1600px;
-  transform-origin: top left;
-}
-
-/* Timeline Styles */
-.timeline {
-  margin-bottom: 40px;
-}
-/* Timeline title colors */
-.timeline.orby-pink h2 { color: #f7cdd5; }
-.timeline.cerulean h2 { color: #0077be; }
-.timeline.shimi-green h2 { color: #216036; }
-.timeline.dreymi h2 { color: #2f191f; }
-.timeline.via h2 { color: #de363d; }
-.timeline.mika h2 { color: #823f25; }
-.timeline.memo h2 { color: #e073bd; }
-.timeline.shizu h2 { color: #4c6095; }
-.timeline h2 {
-  text-align: left;
-  width: 100%;
-  margin: 0 0 10px 10px;
-}
-.timeline-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-/* Chapter Container */
-.chapter-container {
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-}
-.chapter-box {
-  border: 2px solid #ddd;
-  padding: 10px 15px;
-  cursor: pointer;
-  background: #fff;
-  border-radius: 5px;
-  box-sizing: border-box;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  white-space: nowrap;
-  text-decoration: none;
-  color: inherit;
-}
-.chapter-box:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-}
-
-/* Continuous Underline */
-.timeline-underline {
-  width: 100%;
-  height: 3px;
-  background: #ddd;
-  margin-top: 10px;
-}
-.timeline.orby-pink .timeline-underline { background: #f7cdd5; }
-.timeline.cerulean .timeline-underline { background: #0077be; }
-.timeline.shimi-green .timeline-underline { background: #216036; }
-.timeline.dreymi .timeline-underline { background: #2f191f; }
-.timeline.via .timeline-underline { background: #de363d; }
-.timeline.mika .timeline-underline { background: #823f25; }
-.timeline.memo .timeline-underline { background: #e073bd; }
-.timeline.shizu .timeline-underline { background: #4c6095; }
-
-/* CHARACTERS SECTION – Vertical Drag-to-Scroll Container */
-#characterScrollWrapper {
-  width: 100%;
-  max-width: 1120px;
-  height: 70vh;
-  margin: 0 auto;
-  overflow: hidden;
-  border: 1px solid #eee;
-  position: relative;
-}
-#characterScrollContainer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  transform: translateY(0px);
-}
-.character-item {
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
-}
-.character-image {
-  width: 210px;
-  height: 210px;
-  background: #ccc;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  margin: 0 auto;
-  background-size: cover;
-  background-position: center;
-}
-.character-name {
-  margin-top: 10px;
-  font-weight: 600;
-}
-
-/* Navigation Buttons */
-.nav-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  margin-top: 20px;
-}
-.nav-buttons a.button, .nav-buttons button {
-  flex: 1;
-  max-width: 200px;
-  padding: 10px 15px;
-  cursor: pointer;
-  background: #667eea;
-  border: none;
-  font-size: 1em;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  text-align: center;
-  transition: background 0.3s ease;
-}
-.nav-buttons a.button:hover, .nav-buttons button:hover {
-  background: #556cd6;
-}
-/* Character Detail Page Styles */
+/* =====================================================
+   Character Detail Page Styles
+===================================================== */
 .character-detail {
   max-width: 1120px;
   margin: 20px auto;
@@ -231,7 +105,6 @@ hr {
   flex-wrap: wrap;
 }
 
-/* Left Panel: Background, Abilities, and Back Button */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -260,7 +133,6 @@ hr {
   line-height: 1.6;
 }
 
-/* Right Panel: Image and Basic Info */
 .right-panel {
   flex: 1;
   padding-left: 20px;
@@ -295,25 +167,74 @@ hr {
   margin: 4px 0;
 }
 
-html, body {
-  overflow-y: scroll; /* ensures scrolling is enabled */
-  -ms-overflow-style: none;  /* for IE and Edge */
-  scrollbar-width: none;     /* for Firefox */
+/* =====================================================
+   Vertical Timeline Styles
+===================================================== */
+/* The wrapper defines a fixed visible area for dragging */
+#panZoomWrapper {
+  overflow: hidden;
+  position: relative;
+  height: 80vh; /* Adjust as needed */
 }
 
-html::-webkit-scrollbar,
+/* The container holds all timeline sections */
+#panZoomContainer {
+  cursor: grab;
+  /* The transform property is updated via JavaScript */
+}
+
+/* Each timeline section is stacked vertically */
+.timeline-section {
+  margin-bottom: 30px;
+  padding: 0 10px;
+  text-align: left;
+}
+
+.timeline-section h2 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+/* Chapter container holds chapter links for a timeline section */
+.chapter-container {
+  /* No fixed width – it takes available width */
+}
+
+/* Chapter links: each chapter appears as a block-level element */
+.chapter-box {
+  display: block;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  color: #667eea;
+  border: 1px solid transparent;
+  transition: background 0.3s ease;
+}
+
+.chapter-box:hover {
+  background: #f0f0f0;
+}
+
+/* An underline below the chapters (if needed) */
+.timeline-underline {
+  height: 2px;
+  background: #ddd;
+  margin-top: 10px;
+}
+
+/* =====================================================
+   (Optional) Scrollbar Hiding Code
+   Uncomment if you wish to hide scrollbars
+===================================================== */
+/*
 body::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
+  display: none;
 }
 
-.character-detail {
-  overflow-y: auto; /* ensure scrolling is active */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
-.character-detail::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
+*/
