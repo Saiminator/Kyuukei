@@ -7,4 +7,6 @@ chapter_title: "Chapter 1: Dawn"
 offset: 0
 ---
 
-This is the content of Kyuu Chapter 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+This is the content of Kyuu Chapter 1.  
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
+(Additional chapter content here...)
