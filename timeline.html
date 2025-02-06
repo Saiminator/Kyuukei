@@ -9,24 +9,27 @@ title: Story Timeline
     <div id="panZoomContainer" class="no-select">
       {% assign timeline_names = "Kyuu|Cerulean Winds|Shimi|Dreymi|Via|Mika|Memo|Shizu" | split: "|" %}
       {% for timeline in timeline_names %}
-      <div class="timeline 
-           {% if timeline == 'Kyuu' %}orby-pink{% elsif timeline == 'Cerulean Winds' %}cerulean
-              {% elsif timeline == 'Shimi' %}shimi-green{% elsif timeline == 'Dreymi' %}dreymi
-              {% elsif timeline == 'Via' %}via{% elsif timeline == 'Mika' %}mika
-              {% elsif timeline == 'Memo' %}memo{% elsif timeline == 'Shizu' %}shizu{% endif %}">
-        <h2>{{ timeline }}</h2>
-        <div class="timeline-wrapper">
-          <div class="chapter-container">
-            {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
-            {% for chapter in timeline_chapters %}
-            <a href="{{ chapter.url }}" class="chapter-box" {% if chapter.offset %}style="margin-left:{{ chapter.offset }}px;"{% endif %}>
-              {{ chapter.chapter_title | default: "Chapter " | append: chapter.chapter_number }}
-            </a>
-            {% endfor %}
+        {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
+        {% if timeline_chapters != empty %}
+        <div class="timeline 
+             {% if timeline == 'Kyuu' %}orby-pink{% elsif timeline == 'Cerulean Winds' %}cerulean{% elsif timeline == 'Shimi' %}shimi-green{% elsif timeline == 'Dreymi' %}dreymi{% elsif timeline == 'Via' %}via{% elsif timeline == 'Mika' %}mika{% elsif timeline == 'Memo' %}memo{% elsif timeline == 'Shizu' %}shizu{% endif %}">
+          <h2>{{ timeline }}</h2>
+          <div class="timeline-wrapper">
+            <div class="chapter-container">
+              {% for chapter in timeline_chapters %}
+                {% assign chapter_indent = chapter.offset | default: 10 %}
+                {% if chapter_indent == 0 or chapter_indent == "0" %}
+                  {% assign chapter_indent = 10 %}
+                {% endif %}
+                <a href="{{ chapter.url }}" class="chapter-box" style="margin-left:{{ chapter_indent }}px;">
+                  {{ chapter.chapter_title | default: "Chapter " | append: chapter.chapter_number }}
+                </a>
+              {% endfor %}
+            </div>
+            <div class="timeline-underline"></div>
           </div>
-          <div class="timeline-underline"></div>
         </div>
-      </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
