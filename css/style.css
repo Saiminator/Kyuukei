@@ -88,6 +88,7 @@ hr {
 
 /* =====================================================
    Character Detail Page Styles
+   (Retained from your previous design)
 ===================================================== */
 .character-detail {
   max-width: 1120px;
@@ -168,65 +169,107 @@ hr {
 }
 
 /* =====================================================
-   Vertical Timeline Styles
+   Timeline & Drag/Zoom Styles
 ===================================================== */
-/* The wrapper defines a fixed visible area for dragging */
+
+/* The wrapper defines the visible area for the draggable timeline */
 #panZoomWrapper {
   overflow: hidden;
   position: relative;
-  height: 80vh; /* Adjust as needed */
+  height: 70vh;  /* Adjust this height as needed */
 }
 
-/* The container holds all timeline sections */
+/* The container holds all timeline sections and is draggable */
 #panZoomContainer {
   cursor: grab;
-  /* The transform property is updated via JavaScript */
+  /* Its width will be set dynamically via inline style from Liquid code */
 }
 
-/* Each timeline section is stacked vertically */
-.timeline-section {
-  margin-bottom: 30px;
-  padding: 0 10px;
+/* -----------------------------------------------------
+   Timeline Section Styles
+-------------------------------------------------------*/
+/* Each timeline section will appear only if it has chapters */
+.timeline {
+  margin-bottom: 40px;
+}
+
+/* Timeline title colors (adjust these hex values as desired) */
+.timeline.orby-pink h2    { color: #f7cdd5; }
+.timeline.cerulean h2     { color: #0077be; }
+.timeline.shimi-green h2  { color: #216036; }
+.timeline.dreymi h2       { color: #2f191f; }
+.timeline.via h2          { color: #de363d; }
+.timeline.mika h2         { color: #823f25; }
+.timeline.memo h2         { color: #e073bd; }
+.timeline.shizu h2        { color: #4c6095; }
+
+/* Timeline header style: left-aligned with a small left margin */
+.timeline h2 {
   text-align: left;
+  width: 100%;
+  margin: 0 0 10px 10px;
 }
 
-.timeline-section h2 {
-  margin-bottom: 10px;
-  font-size: 1.5em;
-  color: #333;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
+/* Timeline wrapper holds the chapter container and the colored underline */
+.timeline-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-/* Chapter container holds chapter links for a timeline section */
+/* -----------------------------------------------------
+   Chapter Container & Chapter Box Styles
+-------------------------------------------------------*/
+/* The chapter container’s width is computed dynamically */
 .chapter-container {
-  /* No fixed width – it takes available width */
+  display: flex;
+  gap: 30px;
+  justify-content: center;
 }
 
-/* Chapter links: each chapter appears as a block-level element */
+/* Chapter boxes: styled similarly to your original design */
 .chapter-box {
-  display: block;
-  margin-bottom: 5px;
-  padding: 5px 10px;
-  color: #667eea;
-  border: 1px solid transparent;
-  transition: background 0.3s ease;
+  border: 2px solid #ddd;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
 }
 
 .chapter-box:hover {
-  background: #f0f0f0;
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
-/* An underline below the chapters (if needed) */
+/* -----------------------------------------------------
+   Timeline Underline Styles
+-------------------------------------------------------*/
+/* The underline appears below the chapter container */
 .timeline-underline {
-  height: 2px;
+  width: 100%;
+  height: 3px;
   background: #ddd;
   margin-top: 10px;
 }
 
+.timeline.orby-pink .timeline-underline { background: #f7cdd5; }
+.timeline.cerulean .timeline-underline { background: #0077be; }
+.timeline.shimi-green .timeline-underline { background: #216036; }
+.timeline.dreymi .timeline-underline { background: #2f191f; }
+.timeline.via .timeline-underline { background: #de363d; }
+.timeline.mika .timeline-underline { background: #823f25; }
+.timeline.memo .timeline-underline { background: #e073bd; }
+.timeline.shizu .timeline-underline { background: #4c6095; }
+
 /* =====================================================
    (Optional) Scrollbar Hiding Code
-   Uncomment if you wish to hide scrollbars
+   Uncomment the block below if you wish to hide scrollbars
 ===================================================== */
 /*
 body::-webkit-scrollbar {
