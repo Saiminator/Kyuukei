@@ -1,5 +1,5 @@
 title: "Kyuukei wo Hanashi | Kyuu’s Breaktime Stories"
-baseurl: ""  # leave empty if deploying to the root domain
+baseurl: ""  # leave empty if deploying at the root
 collections:
   characters:
     output: true
