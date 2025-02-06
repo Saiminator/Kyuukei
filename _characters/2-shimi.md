@@ -2,7 +2,7 @@
 layout: character
 title: "Shimi"
 order: 2
-image: "[https://i.imgur.com/QRd4drw.png](https://i.imgur.com/pklrIMA.jpeg)"
+image: "https://i.imgur.com/pklrIMA.jpeg"
 age: "20"
 birthday: "May 1st"
 species: "Human"
