@@ -2,40 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ page.title }}</title>
+  <title>{{ page.name }} - Character Detail</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* (Place your CSS styles here, for example, the styles we refined earlier) */
-    body { margin: 0; padding: 20px; font-family: 'Montserrat', sans-serif; font-size: 1.4em; background: #f4f4f9; color: #333; }
-    .character-detail { max-width: 1120px; margin: 0 auto; background: #fff; padding: 20px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .detail-container { display: flex; gap: 20px; }
-    .left-panel { flex: 2; text-align: left; padding-right: 20px; border-right: 1px solid #eee; }
-    .left-panel .back-select-btn { display: inline-block; margin-bottom: 20px; padding: 8px 12px; font-size: 0.9em; background: #667eea; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-    .left-panel .back-select-btn:hover { background: #556cd6; }
-    .section-title { font-weight: 600; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-    .left-panel p { margin: 10px 0; line-height: 1.6; }
-    .right-panel { flex: 1; padding-left: 20px; padding-right: 20px; }
-    .right-panel h1 { text-align: center; margin: 0 0 10px 0; font-size: 2em; color: #0077be; }
-    .image-container { text-align: left; margin-bottom: 10px; }
-    .image-container img { width: 100%; max-width: 400px; height: auto; border: 2px solid #ddd; border-radius: 8px; }
-    .basic-info { text-align: left; }
-    .basic-info p { margin: 4px 0; }
+    /* Global Styles for Character Pages */
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5em;
+      background: #f4f4f9;
+      color: #333;
+    }
+    .character-detail {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .detail-container {
+      display: flex;
+      gap: 20px;
+    }
+    .left-panel {
+      flex: 2;
+      text-align: left;
+      padding-right: 20px;
+      border-right: 1px solid #eee;
+    }
+    .left-panel .back-select-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 12px;
+      font-size: 0.9em;
+      background: #667eea;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .left-panel .back-select-btn:hover {
+      background: #556cd6;
+    }
+    .section-title {
+      font-weight: 600;
+      margin-top: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    .left-panel p {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    .right-panel {
+      flex: 1;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .right-panel h1 {
+      text-align: center;
+      margin: 0 0 10px 0;
+      font-size: 2em;
+      color: #0077be;
+    }
+    .image-container {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    .image-container img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+    }
+    .info-box {
+      background: #f6f6f6;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px 15px;
+      margin-top: 10px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .info-box p {
+      margin: 4px 0;
+    }
+    .info-box strong {
+      display: inline-block;
+      width: 110px;
+    }
   </style>
 </head>
 <body>
   <div class="character-detail">
     <div class="detail-container">
+      <!-- Left Panel: Background and Abilities -->
       <div class="left-panel">
         <button class="back-select-btn" onclick="window.location.href='{{ site.baseurl }}/index.html#characters'">Character Selection</button>
         <div class="section-title">Background</div>
         {{ content | markdownify }}
       </div>
+      <!-- Right Panel: Image and Basic Info -->
       <div class="right-panel">
         <h1>{{ page.name }}</h1>
         <div class="image-container">
           <img src="{{ page.image }}" alt="{{ page.name }}">
         </div>
-        <div class="basic-info">
+        <div class="info-box">
           <p><strong>Age:</strong> {{ page.age }}</p>
           <p><strong>Birthday:</strong> {{ page.birthday }}</p>
           <p><strong>Species:</strong> {{ page.species }}</p>
@@ -44,8 +121,8 @@
           <p><strong>Weight:</strong> {{ page.weight }}</p>
           <p><strong>Cup Size:</strong> {{ page.cup_size }}</p>
           <p><strong>Blood Type:</strong> {{ page.blood_type }}</p>
-          <p><strong>Hair color:</strong> {{ page.hair_color }}</p>
-          <p><strong>Eye color:</strong> {{ page.eye_color }}</p>
+          <p><strong>Hair:</strong> {{ page.hair_color }}</p>
+          <p><strong>Eyes:</strong> {{ page.eye_color }}</p>
         </div>
       </div>
     </div>
