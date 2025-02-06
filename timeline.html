@@ -4,75 +4,65 @@ title: Story Timeline
 ---
 
 {% comment %}
-  Set base values:
-  - chapterBoxWidth: the assumed width of a chapter box (in pixels)
-  - extraMargin: additional pixels to add to the overall container
-  - defaultIndent: if no offset (or offset is 0), use this value
+  Base values:
+  - chapterBoxWidth: assumed width of a chapter box (in pixels)
+  - marginBetweenTimelines: extra space between timeline sections
+  - defaultIndent: if offset is missing or 0, use this value (in pixels)
 {% endcomment %}
 {% assign chapterBoxWidth = 150 %}
-{% assign extraMargin = 100 %}
+{% assign marginBetweenTimelines = 50 %}
 {% assign defaultIndent = 10 %}
-{% assign timeline_names = "Kyuu|Cerulean Winds|Shimi|Dreymi|Via|Mika|Memo|Shizu" | split: "|" %}
+{% assign timeline_names = "Kyuu|Shimi" | split: "|" %}  {# Adjust this list as needed; only timelines that have chapters will appear #}
 
 {%- comment -%}
-  Compute the global container width as the maximum “local width” among all timelines.
-  Each timeline’s local width is the maximum value of (offset + chapterBoxWidth) among its chapters.
+  Compute the overall container width by summing each timeline’s local width plus the margin in between.
 {%- endcomment -%}
-{% assign globalWidth = 0 %}
+{% assign finalWidth = 0 %}
 {% for timeline in timeline_names %}
   {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
   {% if timeline_chapters != empty %}
     {% assign localWidth = 0 %}
     {% for chapter in timeline_chapters %}
-      {% assign offset_val = chapter.offset | default: defaultIndent | plus: 0 %}
-      {% if offset_val == 0 %}
-         {% assign offset_val = defaultIndent %}
-      {% endif %}
+      {%- assign offset_val = chapter.offset | default: defaultIndent | plus: 0 -%}
+      {% if offset_val == 0 %}{% assign offset_val = defaultIndent %}{% endif %}
       {% assign chapterRightEdge = offset_val | plus: chapterBoxWidth %}
       {% if chapterRightEdge > localWidth %}
          {% assign localWidth = chapterRightEdge %}
       {% endif %}
     {% endfor %}
-    {% if localWidth > globalWidth %}
-         {% assign globalWidth = localWidth %}
-    {% endif %}
+    {# Add this timeline’s local width plus a margin (except maybe for the last one) #}
+    {% assign finalWidth = finalWidth | plus: localWidth | plus: marginBetweenTimelines %}
   {% endif %}
 {% endfor %}
-{% assign finalWidth = globalWidth | plus: extraMargin %}
 
 <section id="story" class="content-section">
   <h1>Story Timeline</h1>
   <div id="panZoomWrapper">
-    <!-- Set the global container width dynamically -->
+    <!-- The global container holds timeline sections arranged horizontally -->
     <div id="panZoomContainer" class="no-select" style="width:{{ finalWidth }}px;">
       {% for timeline in timeline_names %}
         {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
         {% if timeline_chapters != empty %}
           {%- comment -%}
-            Compute the local width for this timeline block.
+            Compute local width for this timeline section.
           {%- endcomment -%}
           {% assign localWidth = 0 %}
           {% for chapter in timeline_chapters %}
-            {% assign offset_val = chapter.offset | default: defaultIndent | plus: 0 %}
-            {% if offset_val == 0 %}
-              {% assign offset_val = defaultIndent %}
-            {% endif %}
+            {%- assign offset_val = chapter.offset | default: defaultIndent | plus: 0 -%}
+            {% if offset_val == 0 %}{% assign offset_val = defaultIndent %}{% endif %}
             {% assign chapterRightEdge = offset_val | plus: chapterBoxWidth %}
             {% if chapterRightEdge > localWidth %}
               {% assign localWidth = chapterRightEdge %}
             {% endif %}
           {% endfor %}
-          <div class="timeline 
-             {% if timeline == 'Kyuu' %}orby-pink{% elsif timeline == 'Cerulean Winds' %}cerulean{% elsif timeline == 'Shimi' %}shimi-green{% elsif timeline == 'Dreymi' %}dreymi{% elsif timeline == 'Via' %}via{% elsif timeline == 'Mika' %}mika{% elsif timeline == 'Memo' %}memo{% elsif timeline == 'Shizu' %}shizu{% endif %}">
+          <div class="timeline" style="display:inline-block; vertical-align: top; width:{{ localWidth }}px; margin-right: {{ marginBetweenTimelines }}px;">
             <h2>{{ timeline }}</h2>
             <div class="timeline-wrapper">
-              <!-- Set the chapter container width to the computed localWidth -->
-              <div class="chapter-container" style="width:{{ localWidth }}px;">
+              {# We add a left margin on the chapter container so it aligns with the timeline title #}
+              <div class="chapter-container" style="width:{{ localWidth }}px; margin-left:{{ defaultIndent }}px;">
                 {% for chapter in timeline_chapters %}
                   {% assign chapter_indent = chapter.offset | default: defaultIndent | plus: 0 %}
-                  {% if chapter_indent == 0 %}
-                    {% assign chapter_indent = defaultIndent %}
-                  {% endif %}
+                  {% if chapter_indent == 0 %}{% assign chapter_indent = defaultIndent %}{% endif %}
                   <a href="{{ chapter.url }}" class="chapter-box" style="margin-left:{{ chapter_indent }}px;">
                     {% if chapter.chapter_title %}
                       {{ chapter.chapter_title }}
@@ -82,8 +72,8 @@ title: Story Timeline
                   </a>
                 {% endfor %}
               </div>
-              <!-- Underline matches the width of the chapter container -->
-              <div class="timeline-underline" style="width:{{ localWidth }}px;"></div>
+              {# Underline – we also add the same left margin so it starts below the timeline title #}
+              <div class="timeline-underline" style="width:{{ localWidth }}px; margin-left:{{ defaultIndent }}px;"></div>
             </div>
           </div>
         {% endif %}
