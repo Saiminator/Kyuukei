@@ -1,5 +1,5 @@
-title: "My Story Site"
-baseurl: ""  # leave empty if deploying to your root domain
+title: "Kyuukei wo Hanashi | Kyuu’s Breaktime Stories"
+baseurl: ""  # leave empty if deploying to the root domain
 collections:
   characters:
     output: true
