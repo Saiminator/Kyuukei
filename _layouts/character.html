@@ -1,15 +1,38 @@
 ---
 layout: default
 ---
-<article class="character-detail">
-  <h1>{{ page.title }}</h1>
-  {% if page.image %}
-  <div class="character-image" style="background-image: url('{{ page.image }}');"></div>
-  {% endif %}
-  <div class="character-content">
-    {{ content }}
+<div class="character-detail">
+  <div class="detail-container">
+    <!-- Left Panel: Background, Abilities, etc. -->
+    <div class="left-panel">
+      <!-- Button to go back to Character Selection -->
+      <button class="back-select-btn" onclick="location.href='/characters.html'">Character Selection</button>
+      <!-- You can either hardcode section titles or, if you’d like to allow your markdown to include its own section headers, simply output the content: -->
+      {{ content }}
+    </div>
+    <!-- Right Panel: Image and Basic Info -->
+    <div class="right-panel">
+      <h1>{{ page.title }}</h1>
+      <div class="image-container">
+        <img src="{{ page.image }}" alt="{{ page.title }}">
+      </div>
+      <div class="basic-info">
+        {% if page.age %}<p><strong>Age:</strong> {{ page.age }}</p>{% endif %}
+        {% if page.birthday %}<p><strong>Birthday:</strong> {{ page.birthday }}</p>{% endif %}
+        {% if page.species %}<p><strong>Species:</strong> {{ page.species }}</p>{% endif %}
+        {% if page.gender %}<p><strong>Gender:</strong> {{ page.gender }}</p>{% endif %}
+        {% if page.height %}<p><strong>Height:</strong> {{ page.height }}</p>{% endif %}
+        {% if page.weight %}<p><strong>Weight:</strong> {{ page.weight }}</p>{% endif %}
+        {% if page.cup_size %}<p><strong>Cup Size:</strong> {{ page.cup_size }}</p>{% endif %}
+        {% if page.blood_type %}<p><strong>Blood Type:</strong> {{ page.blood_type }}</p>{% endif %}
+        {% if page.hair_color %}<p><strong>Hair color:</strong> {{ page.hair_color }}</p>{% endif %}
+        {% if page.eye_color %}<p><strong>Eye color:</strong> {{ page.eye_color }}</p>{% endif %}
+      </div>
+    </div>
   </div>
-  <nav class="nav-buttons">
-    <a href="/characters.html" class="button">Back to Characters</a>
-  </nav>
-</article>
+</div>
+
+<script>
+  // (Optional) If you need additional JS for this layout, add it here.
+  // The back button now simply navigates to '/characters.html'
+</script>
