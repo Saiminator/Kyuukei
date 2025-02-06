@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ site.title }}</title>
+  <title>Kyuukei wo Hanashi | Kyuu’s Breaktime Stories</title>
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Global Styles */
+    /* Base Styles */
     body {
       margin: 0;
-      padding: 20px;
       font-family: 'Montserrat', sans-serif;
       font-size: 150%;
       background: #f4f4f9;
@@ -18,11 +17,15 @@
       overflow-x: hidden;
     }
     a { color: inherit; }
+    /* Prevent unwanted text selection on draggable areas */
     .no-select {
       user-select: none;
       -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
-    /* Header */
+    
+    /* Header – Solid color #362136 */
     header {
       background: #362136;
       padding: 10px;
@@ -36,6 +39,7 @@
       cursor: pointer;
       font-weight: 600;
     }
+    
     /* Navigation */
     nav {
       text-align: center;
@@ -63,26 +67,27 @@
       background: #ddd;
       width: 90%;
     }
-    /* Content Sections */
+    
+    /* Content Sections – Increased width to 1120px; reduced top padding */
     .content-section {
       padding: 10px 20px;
       display: none;
       margin: 20px auto;
       background: #fff;
       max-width: 1120px;
-      border: 1px solid #eee;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       text-align: center;
       overflow: hidden;
     }
-    .content-section.active { display: block; }
+    .active { display: block; }
     .content-section h1 {
       margin-top: 0;
       margin-bottom: 20px;
       font-weight: 600;
     }
-    /* STORY SECTION – Pan & Zoom */
+    
+    /* STORY SECTION – Pan & Zoom Container */
     #panZoomWrapper {
       width: 100%;
       max-width: 1120px;
@@ -95,9 +100,12 @@
       width: 1600px;
       transform-origin: top left;
     }
+    
+    /* Timeline Styles */
     .timeline {
       margin-bottom: 40px;
     }
+    /* Timeline title colors */
     .timeline.orby-pink h2 { color: #f7cdd5; }
     .timeline.cerulean h2 { color: #0077be; }
     .timeline.shimi-green h2 { color: #216036; }
@@ -106,6 +114,7 @@
     .timeline.mika h2 { color: #823f25; }
     .timeline.memo h2 { color: #e073bd; }
     .timeline.shizu h2 { color: #4c6095; }
+    /* All timeline titles: left-aligned with a 10px left margin */
     .timeline h2 {
       text-align: left;
       width: 100%;
@@ -119,6 +128,8 @@
       padding-bottom: 10px;
       margin-bottom: 20px;
     }
+    
+    /* Chapter Container */
     .chapter-container {
       display: flex;
       gap: 30px;
@@ -139,6 +150,8 @@
       transform: translateY(-3px);
       box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     }
+    
+    /* Continuous Underline */
     .timeline-underline {
       width: 100%;
       height: 3px;
@@ -153,7 +166,8 @@
     .timeline.mika .timeline-underline { background: #823f25; }
     .timeline.memo .timeline-underline { background: #e073bd; }
     .timeline.shizu .timeline-underline { background: #4c6095; }
-    /* CHARACTERS SECTION – Vertical Drag-to-Scroll */
+    
+    /* CHARACTERS SECTION – Vertical Drag-to-Scroll Container; width increased */
     #characterScrollWrapper {
       width: 100%;
       max-width: 1120px;
@@ -187,16 +201,17 @@
       margin-top: 10px;
       font-weight: 600;
     }
-    /* Navigation Buttons for Chapter Detail */
+    
+    /* Navigation Buttons */
     .nav-buttons {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between;  /* Reserve equal space for three buttons */
       gap: 15px;
       margin-top: 20px;
     }
     .nav-buttons button {
       flex: 1;
-      max-width: 200px;
+      max-width: 200px; /* Fixed max width so they don't change size */
       padding: 10px 15px;
       cursor: pointer;
       background: #667eea;
@@ -253,8 +268,11 @@
     <!-- Story Section with Pan & Zoom -->
     <section id="story" class="content-section">
       <h1>Story Timeline</h1>
+      <!-- Pan/Zoom Wrapper -->
       <div id="panZoomWrapper">
         <div id="panZoomContainer" class="no-select">
+          <!-- Timeline Order: 1. Kyuu, 2. Cerulean Winds, 3. Shimi, 4. Dreymi, 5. Via, 6. Mika, 7. Memo, 8. Shizu -->
+          
           <!-- Timeline for Kyuu (Orby Pink) -->
           <div class="timeline orby-pink">
             <h2>Kyuu</h2>
@@ -272,24 +290,203 @@
               <div class="timeline-underline"></div>
             </div>
           </div>
-          <!-- (Additional timelines would follow the same structure) -->
+          
+          <!-- Timeline for Cerulean Winds -->
+          <div class="timeline cerulean">
+            <h2>Cerulean Winds</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Cerulean Winds', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          
+          <!-- Timeline for Shimi (Green: #216036) -->
+          <div class="timeline shimi-green">
+            <h2>Shimi</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shimi', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          
+          <!-- Timeline for Dreymi (Color: #2f191f) -->
+          <div class="timeline dreymi">
+            <h2>Dreymi</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Dreymi', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          
+          <!-- Timeline for Via (Color: #de363d) -->
+          <div class="timeline via">
+            <h2>Via</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Via', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          
+          <!-- Timeline for Mika (Color: #823f25) -->
+          <div class="timeline mika">
+            <h2>Mika</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Mika', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          
+          <!-- Timeline for Memo (Color: #e073bd) -->
+          <div class="timeline memo">
+            <h2>Memo</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Memo', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          
+          <!-- Timeline for Shizu (Color: #4c6095) -->
+          <div class="timeline shizu">
+            <h2>Shizu</h2>
+            <div class="timeline-wrapper">
+              <div class="chapter-container">
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 0)">Chapter 1</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 1)">Chapter 2</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 2)">Chapter 3</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 3)">Chapter 4</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 4)">Chapter 5</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 5)">Chapter 6</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 6)">Chapter 7</div>
+                <div class="chapter-box" onclick="handleChapterClick(event, 'Shizu', 7)">Chapter 8</div>
+              </div>
+              <div class="timeline-underline"></div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </section>
     
-    <!-- Characters Section -->
+    <!-- Characters Section with Vertical Drag-to-Scroll -->
     <section id="characters" class="content-section">
       <h1>Character Wiki</h1>
       <div id="characterScrollWrapper">
         <div id="characterScrollContainer">
-          {% for character in site.characters %}
-          <div class="character-item">
-            <a href="{{ character.url | relative_url }}">
-              <div class="character-thumb" style="background-image: url('{{ character.image }}');"></div>
-              <span>{{ character.name }}</span>
-            </a>
+          <!-- Each character is a clickable container with an image and name -->
+          <div class="character-item" onclick="handleCharacterClick(event, 'Shimi')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Shimi</div>
           </div>
-          {% endfor %}
+          <div class="character-item" onclick="handleCharacterClick(event, 'Shizu')">
+            <div class="character-image" style="background-image: url('https://via.placeholder.com/420/4c6095/ffffff?text=Shizu');"></div>
+            <div class="character-name">Shizu</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Dreymi')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Dreymi</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Kyuu')">
+            <div class="character-image" style="background-image: url('https://i.imgur.com/QRd4drw.png');"></div>
+            <div class="character-name">Kyuu</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Memo')">
+            <div class="character-image" style="background-image: url('https://via.placeholder.com/420/e073bd/ffffff?text=Memo');"></div>
+            <div class="character-name">Memo</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Via')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Via</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Kaji')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Kaji</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Lyn')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Lyn</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Ryn')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Ryn</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Duran')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Duran</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Ars')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Ars</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Mika')">
+            <div class="character-image" style="background-image: url('https://via.placeholder.com/420/823f25/ffffff?text=Mika');"></div>
+            <div class="character-name">Mika</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Pon')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Pon</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Sera')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Sera</div>
+          </div>
+          <div class="character-item" onclick="handleCharacterClick(event, 'Celest')">
+            <div class="character-image" style="background-image: url('');"></div>
+            <div class="character-name">Celest</div>
+          </div>
         </div>
       </div>
     </section>
@@ -297,7 +494,8 @@
     <!-- Questions Section -->
     <section id="questions" class="content-section">
       <h1>Questions</h1>
-      <p>Nothing yet, email Saiminator@Kyuukei.com with any questions.</p>
+      <p>Nothing yet, email for any questions.</p>
+      <p>Saiminator@Kyuukei.com</p>
     </section>
     
     <!-- News Section -->
@@ -317,7 +515,7 @@
       </div>
     </section>
     
-    <!-- Character Detail Section (if needed) -->
+    <!-- Character Detail Section -->
     <section id="characterDetail" class="content-section">
       <h1 id="characterName">Character Detail</h1>
       <p id="characterText">Unfinished TBC</p>
@@ -328,12 +526,12 @@
   </div>
   
   <script>
-    // Global flag for dragging
+    // Global flag to track if dragging occurred (to prevent accidental clicks)
     let wasDragged = false;
     const dragThreshold = 5;
     let panStartX, panStartY;
     
-    // Timeline navigation variables
+    // Global variables for timeline navigation
     let currentTimeline = null;
     let currentChapterIndex = 0;
     const timelineData = {
@@ -347,6 +545,7 @@
       "Shizu": 8
     };
     
+    // Function to switch between sections
     function showSection(sectionId) {
       document.querySelectorAll('.content-section').forEach(section => {
         section.classList.remove('active');
@@ -354,6 +553,8 @@
       document.getElementById(sectionId).classList.add('active');
     }
     
+    // Wrapper function for chapter clicks that respects dragging.
+    // timelineName is a string (e.g., "Kyuu") and chapterIndex is a 0-based number.
     function handleChapterClick(e, timelineName, chapterIndex) {
       if (wasDragged) {
         wasDragged = false;
@@ -363,10 +564,12 @@
       showSection('chapterDetail');
     }
     
+    // Update the current chapter for a timeline and update the Chapter Detail view.
     function updateChapter(timelineName, chapterIndex) {
       currentTimeline = timelineName;
       currentChapterIndex = chapterIndex;
       document.getElementById('chapterText').textContent = timelineName + " - Chapter " + (chapterIndex + 1) + " - Unfinished TBC";
+      // Use visibility (not display) so space is reserved.
       document.getElementById('prevChapterBtn').style.visibility = (chapterIndex === 0) ? "hidden" : "visible";
       document.getElementById('nextChapterBtn').style.visibility = (chapterIndex === timelineData[timelineName] - 1) ? "hidden" : "visible";
     }
@@ -382,19 +585,20 @@
       }
     }
     
+    // Update and display Character Detail section
     function showCharacterDetail(characterName) {
       document.getElementById('characterName').textContent = characterName;
       document.getElementById('characterText').textContent = characterName + " - Unfinished TBC";
       showSection('characterDetail');
     }
     
-    // Pan & Zoom for timeline
+    // Pan & Zoom for the timeline area
     const panZoomContainer = document.getElementById('panZoomContainer');
     const panZoomWrapper = document.getElementById('panZoomWrapper');
     let isPanning = false;
     let translateX = 0, translateY = 0;
     let scale = 1;
-    const buffer = 100;
+    const buffer = 100; // Buffer of 100px
     
     panZoomContainer.addEventListener('mousedown', (e) => {
       isPanning = true;
@@ -402,7 +606,9 @@
       panStartY = e.clientY;
       wasDragged = false;
     });
+    
     document.addEventListener('mouseup', () => { isPanning = false; });
+    
     document.addEventListener('mousemove', (e) => {
       if (!isPanning) return;
       const dx = e.clientX - panStartX;
@@ -417,6 +623,7 @@
       panStartX = e.clientX;
       panStartY = e.clientY;
     });
+    
     panZoomContainer.addEventListener('wheel', (e) => {
       e.preventDefault();
       const zoomIntensity = 0.001;
@@ -428,31 +635,38 @@
       clampPan();
       panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
     });
+    
+    // Clamp the panZoomContainer so it doesn't leave the visible area with a 100px buffer.
     function clampPan() {
       const wrapperRect = panZoomWrapper.getBoundingClientRect();
       const containerRect = panZoomContainer.getBoundingClientRect();
+      // Horizontal clamp: allow extra 100px on both sides.
       const minTranslateX = wrapperRect.width - containerRect.width - buffer;
       const maxTranslateX = buffer;
       if (translateX < minTranslateX) translateX = minTranslateX;
       if (translateX > maxTranslateX) translateX = maxTranslateX;
+      // Vertical clamp: allow extra 100px on top and bottom.
       const minTranslateY = wrapperRect.height - containerRect.height - buffer;
       const maxTranslateY = buffer;
       if (translateY < minTranslateY) translateY = minTranslateY;
       if (translateY > maxTranslateY) translateY = maxTranslateY;
     }
     
-    // Vertical Drag for Characters Section
+    // Vertical Drag for the Characters Section
     const characterScrollWrapper = document.getElementById('characterScrollWrapper');
     const characterScrollContainer = document.getElementById('characterScrollContainer');
     let isPanningChar = false;
     let charStartY;
     let charTranslateY = 0;
+    
     characterScrollContainer.addEventListener('mousedown', (e) => {
       isPanningChar = true;
       charStartY = e.clientY;
       wasDragged = false;
     });
+    
     document.addEventListener('mouseup', () => { isPanningChar = false; });
+    
     document.addEventListener('mousemove', (e) => {
       if (!isPanningChar) return;
       const dy = e.clientY - charStartY;
@@ -464,6 +678,7 @@
       characterScrollContainer.style.transform = `translateY(${charTranslateY}px)`;
       charStartY = e.clientY;
     });
+    
     function clampCharPan() {
       const wrapperRect = characterScrollWrapper.getBoundingClientRect();
       const containerRect = characterScrollContainer.getBoundingClientRect();
@@ -473,6 +688,7 @@
       if (charTranslateY > maxTranslateY) charTranslateY = maxTranslateY;
     }
     
+    // Wrapper for character clicks that respects dragging
     function handleCharacterClick(e, characterName) {
       if (wasDragged) {
         wasDragged = false;
