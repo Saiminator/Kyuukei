@@ -295,7 +295,13 @@ hr {
   margin: 4px 0;
 }
 
+/* For WebKit-based browsers (Chrome, Safari, Opera) */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge, and Firefox */
 body {
-  overflow-y: auto; /* Allows scrolling when necessary */
-  scrollbar-gutter: stable;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }
