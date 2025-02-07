@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "Ars"
-order: 3
+order: 12
 image: "https://i.imgur.com/NQqA9Ru.png"
 age: "24"
 birthday: "TBD"
