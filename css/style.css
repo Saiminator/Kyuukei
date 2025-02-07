@@ -185,7 +185,7 @@ hr {
 #panZoomContainer {
   cursor: grab;
   transform-origin: top left;
-  /* Its width can be set via inline style from timeline.html if needed */
+  /* Its width can be auto or set via inline styles from your timeline template */
 }
 
 /* Timeline Section Styles */
@@ -209,7 +209,7 @@ hr {
   margin: 0 0 10px 10px;
 }
 
-/* Timeline Wrapper: holds the chapter container and the colored underline */
+/* Timeline Wrapper: holds the chapter container and the underline */
 .timeline-wrapper {
   display: flex;
   flex-direction: column;
@@ -219,11 +219,11 @@ hr {
   margin-bottom: 20px;
 }
 
-/* Chapter Container: now left-aligned instead of centered */
+/* Chapter Container: contains chapter boxes (aligned uniformly) */
 .chapter-container {
   display: flex;
   gap: 30px;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 /* Chapter Box Styles */
