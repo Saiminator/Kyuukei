@@ -1,3 +1,15 @@
+# Site settings
+title: "Kyuukei"
+email: "saiminator@kyuukei.com"
+description: "Kyuu’s Breaktime Stories"
+baseurl: ""  # the subpath of your site, e.g. /blog, or empty for root
+url: "https://yourdomain.com"  # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-primer
+
+# Collections
 collections:
   chapters:
     output: true
@@ -5,7 +17,11 @@ collections:
   characters:
     output: true
     permalink: /characters/:title/
-collections:
   news:
     output: true
     permalink: /news/:title/
+
+# Plugins (if you use any)
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
