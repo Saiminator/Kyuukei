@@ -25,8 +25,8 @@ Despite his reserved demeanor, Ars is a dedicated and reliable member of Cerulea
 
 ## Abilities
 
-**Elemental Utility Magic**: Ars is proficient in basic elemental spells, using them primarily for practical and support-based applications rather than direct combat.
+**Elemental Utility Magic:** Ars is proficient in basic elemental spells, using them primarily for practical and support-based applications rather than direct combat.
 
-**Null Magic**: Ars can conjure defensive barriers and basic magical constructs, which he uses primarily for protection rather than offense.
+**Null Magic:** Ars can conjure defensive barriers and basic magical constructs, which he uses primarily for protection rather than offense.
 
-**Magical Toolcrafting**: Ars has an innate talent for crafting and enhancing magical tools, allowing him to design specialized items that assist the team in their adventures.
+**Magical Toolcrafting:** Ars has an innate talent for crafting and enhancing magical tools, allowing him to design specialized items that assist the team in their adventures.
