@@ -5,3 +5,7 @@ collections:
   characters:
     output: true
     permalink: /characters/:title/
+collections:
+  news:
+    output: true
+    permalink: /news/:title/
