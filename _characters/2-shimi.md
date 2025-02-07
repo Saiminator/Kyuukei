@@ -10,7 +10,7 @@ gender: "Female"
 height: "5'4\" | 164cm"
 weight: "128lbs | 58kg"
 cup_size: "D"
-blood_type: "Varies between clones"
+blood_type: "Varies by clones"
 hair_color: "Pink"
 eye_color: "Green"
 ---
