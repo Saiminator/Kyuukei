@@ -21,8 +21,6 @@ Memo is an **ethereal fairy composed entirely of mana**, making her **intangible
 
 Despite her small stature, Memo is incredibly dangerous—her ability to **invade an individual's mana stream and take control of their body** makes her a feared entity in certain circles. Though she does not always act with malicious intent, her **curiosity and hunger for knowledge** often drive her to **test the limits of her abilities** on those she finds interesting.
 
-Memo’s playful and mischievous nature hides a deeper loneliness, as her very existence makes true companionship difficult. Most beings fear **losing their mana and memories** to her touch, leaving her isolated despite her vast knowledge of emotions and experiences.
-
 ## Abilities
 
 **Intangible Body:** Memo is made of **pure mana**, allowing her to phase through objects and remain untouchable unless she willingly **solidifies her form**.
