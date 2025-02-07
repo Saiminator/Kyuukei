@@ -12,7 +12,7 @@ weight: "133lbs | 60kg"
 cup_size: "B"
 blood_type: "B-"
 hair_color: "Blue"
-eye_color: "Blue (Right eye Black"
+eye_color: "L Blue, R Black"
 ---
 
 ## Background
