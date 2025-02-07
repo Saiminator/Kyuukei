@@ -10,27 +10,26 @@ document.addEventListener('DOMContentLoaded', function() {
   const panZoomContainer = document.getElementById('panZoomContainer');
   const panZoomWrapper = document.getElementById('panZoomWrapper');
   
-  // Set initial pan position.
+  // Set initial pan positions based on container and wrapper dimensions
   if (panZoomWrapper && panZoomContainer) {
     const wrapperRect = panZoomWrapper.getBoundingClientRect();
     const containerRect = panZoomContainer.getBoundingClientRect();
-    // Center horizontally if container is narrower than wrapper
+    // If the container is smaller than the wrapper, center it; otherwise, start at the buffer
     if (containerRect.width < wrapperRect.width) {
       translateX = (wrapperRect.width - containerRect.width) / 2;
     } else {
-      translateX = 0;
+      translateX = buffer;
     }
-    // Center vertically if container is shorter than wrapper
     if (containerRect.height < wrapperRect.height) {
       translateY = (wrapperRect.height - containerRect.height) / 2;
     } else {
-      translateY = 0;
+      translateY = buffer;
     }
     panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   }
   
+  // Start panning when mousedown on the wrapper or container (unless on a chapter link)
   function startPan(e) {
-    // Allow normal clicks on chapter links
     if (e.target.closest('.chapter-box')) return;
     isPanning = true;
     panStartX = e.clientX;
@@ -78,11 +77,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Reworked clampPan to center if the container is smaller than the wrapper
   function clampPan() {
     if (!panZoomWrapper || !panZoomContainer) return;
     const wrapperRect = panZoomWrapper.getBoundingClientRect();
     const containerRect = panZoomContainer.getBoundingClientRect();
-    // Horizontal: center if container is narrower; else limit drag
+    
+    // Horizontal adjustment
     if (containerRect.width <= wrapperRect.width) {
       translateX = (wrapperRect.width - containerRect.width) / 2;
     } else {
@@ -91,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (translateX < minTranslateX) translateX = minTranslateX;
       if (translateX > maxTranslateX) translateX = maxTranslateX;
     }
-    // Vertical: center if container is shorter; else limit drag
+    // Vertical adjustment
     if (containerRect.height <= wrapperRect.height) {
       translateY = (wrapperRect.height - containerRect.height) / 2;
     } else {
@@ -102,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Prevent chapter link clicks if dragging occurred
+  // Prevent chapter links from firing if a drag occurred
   document.querySelectorAll('.chapter-box').forEach(function(link) {
     link.addEventListener('click', function(e) {
       if (wasDragged) {
