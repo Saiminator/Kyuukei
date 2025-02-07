@@ -12,7 +12,7 @@ weight: "110lbs | 50kg"
 cup_size: "B-"
 blood_type: "AB"
 hair_color: "Brown"
-eye_color: "Bright Cerulean Blue"
+eye_color: "Bright Cerulean"
 ---
 
 ## Background
