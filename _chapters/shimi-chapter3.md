@@ -4,7 +4,7 @@ title: "Shimi chapter 3 testing"
 timeline: "Shimi"
 chapter_number: 3
 chapter_title: "Chapter 3: test"
-offset: 3232
+offset: 120
 ---
 
 This is the content of Shimi Chapter 2.  
