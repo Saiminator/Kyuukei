@@ -5,5 +5,16 @@ title: News
 
 <section id="news" class="content-section">
   <h1>News</h1>
-  <p>Site under development. Look forward to fresh stories out of Kyuu's orby oven.</p>
+  {% comment %}
+  Loop through all news entries in reverse order (newest first).
+  {% endcomment %}
+  {% for item in site.news reversed %}
+    <div class="news-entry">
+      <h2>{{ item.title }}</h2>
+      <p class="news-date">{{ item.date | date: "%B %d, %Y" }}</p>
+      <div class="news-content">
+        {{ item.content }}
+      </div>
+    </div>
+  {% endfor %}
 </section>
