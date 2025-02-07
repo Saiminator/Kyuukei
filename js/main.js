@@ -77,24 +77,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Reworked clampPan to center if the container is smaller than the wrapper
+  // Clamp the pan so that if content is dragged too far, it stays within limits.
   function clampPan() {
     if (!panZoomWrapper || !panZoomContainer) return;
     const wrapperRect = panZoomWrapper.getBoundingClientRect();
     const containerRect = panZoomContainer.getBoundingClientRect();
-    
-    // Horizontal adjustment
+    // Horizontal clamping
     if (containerRect.width <= wrapperRect.width) {
-      translateX = (wrapperRect.width - containerRect.width) / 2;
+      translateX = 0;  // always start at left if container is narrower
     } else {
       const minTranslateX = wrapperRect.width - containerRect.width - buffer;
       const maxTranslateX = buffer;
       if (translateX < minTranslateX) translateX = minTranslateX;
       if (translateX > maxTranslateX) translateX = maxTranslateX;
     }
-    // Vertical adjustment
+    // Vertical clamping
     if (containerRect.height <= wrapperRect.height) {
-      translateY = (wrapperRect.height - containerRect.height) / 2;
+      translateY = 0;  // always at top if container is shorter
     } else {
       const minTranslateY = wrapperRect.height - containerRect.height - buffer;
       const maxTranslateY = buffer;
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Prevent chapter links from firing if a drag occurred
+  // Prevent chapter links from firing if a drag occurred.
   document.querySelectorAll('.chapter-box').forEach(function(link) {
     link.addEventListener('click', function(e) {
       if (wasDragged) {
@@ -112,4 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+  
+  // --- (Optional) Character drag code removed ---
+  // The custom drag-to-scroll functionality for the character selection page has been removed.
+  // The #characterScrollWrapper now uses native scrolling (via CSS overflow-y: auto).
 });
