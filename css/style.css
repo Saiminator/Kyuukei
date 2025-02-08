@@ -73,7 +73,7 @@ header {
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
-    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
   }
   #site-title .header-line1,
   #site-title .header-line2 {
