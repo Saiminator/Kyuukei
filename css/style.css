@@ -29,6 +29,7 @@ body {
   color: #333;
   line-height: 1.6;
   overflow-x: hidden;
+  padding: 0 1rem; /* This padding will be compensated for in the container */
 }
 
 a {
@@ -39,7 +40,7 @@ a {
 /* =====================================================
    Responsive & Desktop Container
 ===================================================== */
-/* Wrap all content so that on desktop the width is fixed */
+/* Wrap all content (excluding header) so that on desktop it is fixed width */
 .container {
   width: 100%;
 }
@@ -61,8 +62,8 @@ header {
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  /* On mobile/tablet, header will span full width */
-  width: 100%;
+  width: 100vw;
+  /* No negative margins here, so the header background reaches to the edge */
 }
 
 /* Site title: split into two spans */
@@ -115,7 +116,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px; /* 15px margins (as in your old code) */
+  margin: 0 15px; /* 15px margins as in your old style */
 }
 #nav-desktop a {
   font-weight: 500;
@@ -143,7 +144,7 @@ header {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
-    margin-top: 10px; /* Move down slightly */
+    margin-top: 10px;  /* Push the button down */
     margin-bottom: 10px;
   }
   #nav-mobile-menu {
@@ -176,6 +177,7 @@ header {
   padding: 10px 20px;
   margin: 20px auto;
   background: #fff;
+  /* On desktop, content boxes are contained within the .container */
   max-width: 1120px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -298,7 +300,9 @@ header {
   }
 }
 
-/* Character Item Styling */
+/* =====================================================
+   Character Item Styling
+===================================================== */
 .character-item {
   cursor: pointer;
   text-align: center;
@@ -381,7 +385,7 @@ header {
   padding-right: 20px;
   border-right: 1px solid #eee;
 }
-/* Back to Character Selection button: blue and fancy */
+/* Back to Character Selection button: blue, fancy */
 .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
@@ -474,7 +478,7 @@ body {
   display: inline-block;
 }
 @media (min-width: 600px) {
-  /* On screens wider than 600px, hide the mobile nav completely */
+  /* On screens wider than 600px, hide the mobile nav entirely */
   #nav-mobile {
     display: none;
   }
