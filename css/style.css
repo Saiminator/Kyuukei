@@ -35,10 +35,10 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Site title split into two spans */
+/* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row; /* On desktop, display inline */
+  flex-direction: row;  /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -53,7 +53,7 @@ header {
   margin: 0 5px;
 }
 
-/* Mobile: force two lines and adjust font size */
+/* Mobile: Force exactly two lines and use responsive font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -66,10 +66,11 @@ header {
   }
 }
 
-/* Desktop Navigation (visible on screens >600px) */
+/* Desktop Navigation – Old Style */
 #nav-desktop {
   display: block;
   text-align: center;
+  margin-top: 5px;
 }
 #nav-desktop ul {
   list-style: none;
@@ -79,24 +80,20 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 30px;  /* Adjust horizontal spacing on desktop */
+  margin: 0 15px; /* Old style had 15px margin */
 }
 #nav-desktop a {
-  display: inline-block;
-  background: #667eea;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background 0.3s ease;
+  font-weight: 500;
+  color: #333;
+  transition: color 0.3s ease;
 }
 #nav-desktop a:hover {
-  background: #556cd6;
+  color: #667eea;
 }
 
-/* Mobile Navigation (visible on screens ≤600px) */
+/* Mobile Navigation – Different styling */
 #nav-mobile {
-  display: none;
+  display: none; /* hidden on desktop */
 }
 @media (max-width: 600px) {
   #nav-mobile {
@@ -113,7 +110,7 @@ header {
     border-radius: 4px;
     margin-bottom: 10px;
   }
-  #nav-mobile-menu {
+  #nav-mobile ul {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -123,21 +120,25 @@ header {
     padding: 10px 0;
     margin: 0;
   }
-  #nav-mobile-menu li {
+  #nav-mobile li {
     margin: 10px 0;
   }
-  #nav-mobile-menu a {
-    display: inline-block;
-    background: #667eea;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background 0.3s ease;
+  #nav-mobile a {
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s ease;
   }
-  #nav-mobile-menu a:hover {
-    background: #556cd6;
+  #nav-mobile a:hover {
+    color: #667eea;
   }
+}
+
+hr {
+  margin: 10px auto;
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  width: 90%;
 }
 
 /* =====================================================
@@ -272,7 +273,7 @@ header {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
-  /* Reduce container height on mobile so text isn’t cut off */
+  /* Shorten container height on mobile */
   #characterScrollWrapper {
     height: 50vh;
   }
@@ -467,11 +468,12 @@ body {
 }
 
 @media (min-width: 600px) {
+  /* Hide mobile nav on tablet and up */
   #nav-toggle {
     display: none;
   }
   #nav-menu {
-    display: none; /* Not used on desktop */
+    display: none; /* Mobile nav is not used on desktop */
   }
   
   nav li {
