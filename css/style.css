@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  font-size: 150%;  /* You can later adjust this to use rem if desired */
+  font-size: 150%;
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -46,9 +46,9 @@ nav {
   position: relative;
 }
 
-/* Navigation toggle button (visible on mobile) */
+/* Mobile Navigation Toggle Button */
 #nav-toggle {
-  display: none; /* Hidden by default; shown in mobile media query */
+  display: none; /* Hidden on desktop; shown in mobile media query */
   background: #667eea;
   border: none;
   color: #fff;
@@ -57,9 +57,12 @@ nav {
   cursor: pointer;
 }
 
-nav ul {
+/* Navigation Menu */
+#nav-menu {
   list-style: none;
   display: inline-flex;
+  justify-content: center;
+  width: 100%;
   padding: 0;
   margin: 0;
 }
@@ -202,16 +205,31 @@ hr {
   max-width: 1120px;
   height: 70vh;
   margin: 0 auto;
-  overflow-y: auto;  /* now uses native vertical scrolling */
+  overflow-y: auto;  /* Use native vertical scrolling */
   border: 1px solid #eee;
   position: relative;
 }
 
+/* Default (desktop): 4 columns */
 #characterScrollContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   transform: translateY(0px);
+}
+
+/* Tablet: 3 columns */
+@media (max-width: 1023px) {
+  #characterScrollContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile: 2 columns */
+@media (max-width: 600px) {
+  #characterScrollContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .character-item {
