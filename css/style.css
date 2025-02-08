@@ -1,14 +1,14 @@
 /* =====================================================
    Hide Scrollbars Globally (Functional but invisible)
 ===================================================== */
-/* For Chrome, Safari, Opera */
+/* For Chrome, Safari and Opera */
 ::-webkit-scrollbar {
   display: none;
 }
 /* For IE, Edge and Firefox */
 body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
 /* =====================================================
@@ -23,12 +23,13 @@ body {
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem; /* Mobile-first base size */
+  /* Mobile-first base font-size; adjusted via media queries */
+  font-size: 1rem;
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
   overflow-x: hidden;
-  padding: 0; /* No horizontal padding on body */
+  padding: 0;
 }
 
 a {
@@ -37,22 +38,32 @@ a {
 }
 
 /* =====================================================
-   Container for Main Content
+   Page Wrapper & Side Boxes (Desktop Only)
 ===================================================== */
-.container {
+.page-wrapper {
   width: 100%;
-  padding: 0 1rem;
+  /* On smaller screens, it behaves as a normal block element */
 }
-@media (min-width: 600px) {
-  .container {
-    padding: 0 2rem;
-  }
+
+.side-box {
+  display: none; /* Hidden by default */
 }
+
+.main-content {
+  width: 100%;
+}
+
+/* On desktop, show side boxes and use a fixed percentage layout */
 @media (min-width: 1024px) {
-  .container {
-    max-width: 1120px;  /* Fixed width on desktop */
-    margin: 0 auto;
-    padding: 0;
+  .page-wrapper {
+    display: flex;
+  }
+  .side-box {
+    display: block;
+    width: 20%;
+  }
+  .main-content {
+    width: 60%;
   }
 }
 
@@ -60,37 +71,43 @@ a {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width with purple background */
+/* Header: full-width purple background */
 header {
   background: #362136;
-  padding: 10px;
+  padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  width: 100%;
+  width: 100vw;
 }
 
 /* Site title: split into two spans */
 #site-title {
+  display: flex;
+  flex-direction: row;  /* Desktop: inline */
+  justify-content: center;
+  align-items: center;
   font-size: 1.8em;
   color: #fff;
-  cursor: pointer;
-  font-weight: 600;
+  text-decoration: none;
+  margin: 0 auto;
 }
+
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
   margin: 0 5px;
 }
 
-/* On mobile, force two lines and adjust font size */
+/* Mobile: Force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
-    display: block;
+    flex-direction: column;
     font-size: clamp(1.2rem, 5vw, 1.5rem);
   }
   #site-title .header-line1,
   #site-title .header-line2 {
     display: block;
+    white-space: nowrap;
   }
 }
 
@@ -112,7 +129,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px; /* 15px margins, as in your old code */
+  margin: 0 15px;
 }
 #nav-desktop a {
   font-weight: 500;
@@ -173,6 +190,7 @@ header {
   padding: 10px 20px;
   margin: 20px auto;
   background: #fff;
+  /* In desktop, this content box is inside .container (or .page-wrapper > .main-content) */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   text-align: center;
@@ -286,6 +304,7 @@ header {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Reduce container height on mobile */
   #characterScrollWrapper {
     height: 50vh;
   }
@@ -468,6 +487,7 @@ body {
   display: inline-block;
 }
 @media (min-width: 600px) {
+  /* On screens wider than 600px, hide the mobile nav entirely */
   #nav-mobile {
     display: none;
   }
