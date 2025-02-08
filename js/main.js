@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Mobile Navigation Toggle for mobile nav menu
+  // Mobile Navigation Toggle for Mobile Nav Menu
   const navToggle = document.getElementById('nav-toggle');
   const navMobileMenu = document.getElementById('nav-mobile-menu');
   
