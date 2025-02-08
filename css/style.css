@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Base font size, later adjusted via media queries */
+  /* Base font-size is mobile-first; on PC it will scale up */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -49,13 +49,14 @@ header {
   white-space: nowrap;
 }
 
-/* On mobile, force two lines and adjust font size */
+/* On mobile, force exactly two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title .header-line1,
   #site-title .header-line2 {
     display: block;
     white-space: nowrap;
   }
+  /* Use clamp() to control the font size on mobile */
   #site-title {
     font-size: clamp(1rem, 4vw, 1.2rem);
   }
@@ -183,7 +184,7 @@ hr {
 .chapter-container {
   display: flex;
   gap: 30px;
-  justify-content: flex-start;
+  justify-content: flex-start;  /* Left align chapters */
 }
 
 .chapter-box {
@@ -227,13 +228,14 @@ hr {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 70vh;
+  height: 70vh; /* Default height on desktop */
   margin: 0 auto;
-  overflow-y: auto;
+  overflow-y: auto;  /* Native vertical scrolling */
   border: 1px solid #eee;
   position: relative;
 }
 
+/* Responsive grid for character items */
 #characterScrollContainer {
   display: grid;
   gap: 20px;
@@ -264,7 +266,7 @@ hr {
   color: inherit;
 }
 
-/* Character Image: use aspect-ratio for a square, responsive image */
+/* Character Image: use aspect-ratio to maintain square shape */
 .character-image {
   width: 100%;
   aspect-ratio: 1/1;
@@ -456,7 +458,7 @@ body {
   }
   
   nav li {
-    margin: 0 20px;
+    margin: 0 20px;  /* Increase spacing on tablet */
   }
   
   body {
@@ -465,7 +467,11 @@ body {
   }
 }
 
+/* For larger screens (PC) */
 @media (min-width: 1024px) {
+  nav li {
+    margin: 0 30px;  /* Further increase spacing on desktop */
+  }
   body {
     font-size: 1.25rem;
     padding: 0 3rem;
