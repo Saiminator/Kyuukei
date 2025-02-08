@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Mobile Navigation Toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', function() {
+      if (navMenu.style.display === 'block') {
+        navMenu.style.display = 'none';
+      } else {
+        navMenu.style.display = 'block';
+      }
+    });
+  }
+  
+  // Timeline Pan/Zoom Functionality
   let wasDragged = false;
   const dragThreshold = 5;
   let panStartX, panStartY;
@@ -14,17 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (panZoomWrapper && panZoomContainer) {
     const wrapperRect = panZoomWrapper.getBoundingClientRect();
     const containerRect = panZoomContainer.getBoundingClientRect();
-    // If the container is smaller than the wrapper, center it; otherwise, start at the buffer
-    if (containerRect.width < wrapperRect.width) {
-      translateX = (wrapperRect.width - containerRect.width) / 2;
-    } else {
-      translateX = buffer;
-    }
-    if (containerRect.height < wrapperRect.height) {
-      translateY = (wrapperRect.height - containerRect.height) / 2;
-    } else {
-      translateY = buffer;
-    }
+    // Start at top-left (0,0) if container is larger; otherwise center if desired.
+    translateX = 0;
+    translateY = 0;
     panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   }
   
@@ -84,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const containerRect = panZoomContainer.getBoundingClientRect();
     // Horizontal clamping
     if (containerRect.width <= wrapperRect.width) {
-      translateX = 0;  // always start at left if container is narrower
+      translateX = 0;
     } else {
       const minTranslateX = wrapperRect.width - containerRect.width - buffer;
       const maxTranslateX = buffer;
@@ -93,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // Vertical clamping
     if (containerRect.height <= wrapperRect.height) {
-      translateY = 0;  // always at top if container is shorter
+      translateY = 0;
     } else {
       const minTranslateY = wrapperRect.height - containerRect.height - buffer;
       const maxTranslateY = buffer;
@@ -111,8 +118,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-  
-  // --- (Optional) Character drag code removed ---
-  // The custom drag-to-scroll functionality for the character selection page has been removed.
-  // The #characterScrollWrapper now uses native scrolling (via CSS overflow-y: auto).
 });
