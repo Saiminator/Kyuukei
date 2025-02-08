@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (navToggle && navMobileMenu) {
     navToggle.addEventListener('click', function() {
+      // Toggle display of the mobile menu list
       if (navMobileMenu.style.display === 'block') {
         navMobileMenu.style.display = 'none';
       } else {
