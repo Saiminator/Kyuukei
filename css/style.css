@@ -5,7 +5,6 @@
 ::-webkit-scrollbar {
   display: none;
 }
-
 /* For IE, Edge and Firefox */
 body {
   -ms-overflow-style: none;  /* IE and Edge */
@@ -38,6 +37,21 @@ a {
 }
 
 /* =====================================================
+   Responsive & Desktop Container
+===================================================== */
+/* Wrap all content so that on desktop the width is fixed */
+.container {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+}
+
+/* =====================================================
    Header & Navigation
 ===================================================== */
 
@@ -47,22 +61,8 @@ header {
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  width: 100vw;
-  /* Extend header to the edges */
-  margin-left: calc(-1 * 1rem);
-  margin-right: calc(-1 * 1rem);
-}
-@media (min-width: 600px) {
-  header {
-    margin-left: calc(-1 * 2rem);
-    margin-right: calc(-1 * 2rem);
-  }
-}
-@media (min-width: 1024px) {
-  header {
-    margin-left: calc(-1 * 3rem);
-    margin-right: calc(-1 * 3rem);
-  }
+  /* On mobile/tablet, header will span full width */
+  width: 100%;
 }
 
 /* Site title: split into two spans */
@@ -115,7 +115,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px;
+  margin: 0 15px; /* 15px margins (as in your old code) */
 }
 #nav-desktop a {
   font-weight: 500;
@@ -143,7 +143,7 @@ header {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
-    margin-top: 10px;
+    margin-top: 10px; /* Move down slightly */
     margin-bottom: 10px;
   }
   #nav-mobile-menu {
@@ -278,12 +278,6 @@ header {
   border: 1px solid #eee;
   position: relative;
 }
-/* Adjust container height for tablet screens */
-@media (min-width: 601px) and (max-width: 1023px) {
-  #characterScrollWrapper {
-    height: 60vh;
-  }
-}
 #characterScrollContainer {
   display: grid;
   gap: 20px;
@@ -298,7 +292,7 @@ header {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
-  /* Reduce container height on mobile */
+  /* For mobile, reduce container height */
   #characterScrollWrapper {
     height: 50vh;
   }
@@ -369,7 +363,7 @@ header {
   gap: 20px;
   flex-direction: row;
 }
-/* On mobile, stack panels vertically with the right panel first */
+/* On mobile, stack panels vertically with right panel first */
 @media (max-width: 600px) {
   .detail-container {
     flex-direction: column;
@@ -480,7 +474,7 @@ body {
   display: inline-block;
 }
 @media (min-width: 600px) {
-  /* On screens wider than 600px, hide the mobile nav entirely */
+  /* On screens wider than 600px, hide the mobile nav completely */
   #nav-mobile {
     display: none;
   }
