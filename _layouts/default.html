@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Viewport meta tag for responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }}</title>
   <!-- Link to external CSS and Google Fonts -->
@@ -18,7 +19,8 @@
   </header>
   <!-- Navigation -->
   <nav>
-    <ul>
+    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+    <ul id="nav-menu">
       <li><a href="/about.html">About</a></li>
       <li><a href="/timeline.html">Story</a></li>
       <li><a href="/characters.html">Characters</a></li>
