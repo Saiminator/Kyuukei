@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Base font-size will be adjusted in media queries */
+  /* Base font-size will adjust in media queries */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -53,15 +53,17 @@ nav {
   background: #667eea;
   border: none;
   color: #fff;
-  padding: 10px 15px;
+  padding: 8px 12px;
   font-size: 1em;
   cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
 }
 
 /* Navigation Menu */
 #nav-menu {
   list-style: none;
-  /* On desktop, display as inline-flex buttons centered horizontally */
+  /* On desktop, display as inline-flex buttons */
   display: inline-flex;
   justify-content: center;
   width: 100%;
@@ -73,13 +75,13 @@ nav li {
   margin: 0 10px;
 }
 
-/* Navigation links styled as blue buttons */
+/* Blue button styling for nav links */
 nav a {
   display: inline-block;
   background: #667eea;
   color: #fff;
-  padding: 10px 15px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 4px;
   text-decoration: none;
   transition: background 0.3s ease;
 }
@@ -214,12 +216,12 @@ hr {
   position: relative;
 }
 
-/* Default (desktop): 4 columns */
+/* Responsive grid for character items */
 #characterScrollContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  transform: translateY(0px);
+  /* Desktop: 4 columns */
+  grid-template-columns: repeat(4, 1fr);
 }
 
 /* Tablet: 3 columns */
@@ -236,15 +238,7 @@ hr {
   }
 }
 
-/* Ensure images scale to fill the grid cell */
-.character-image {
-  width: 100%;
-  height: auto;
-  max-width: 210px;  /* On larger screens, still limit to 210px */
-  display: block;
-  margin: 0 auto;
-}
-
+/* Character item styling */
 .character-item {
   cursor: pointer;
   text-align: center;
@@ -252,6 +246,18 @@ hr {
   color: inherit;
 }
 
+/* Character Image: for div with background-image, maintain a square aspect ratio */
+.character-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+/* Character Name */
 .character-name {
   margin-top: 10px;
   font-weight: 600;
