@@ -23,8 +23,7 @@ body {
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Mobile-first base font-size; adjusted via media queries */
-  font-size: 1rem;
+  font-size: 1rem; /* Mobile-first base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -42,7 +41,7 @@ a {
 ===================================================== */
 .page-wrapper {
   width: 100%;
-  /* On mobile/tablet, the side boxes will be hidden */
+  /* By default, stack blocks on mobile */
   display: block;
 }
 
@@ -50,7 +49,7 @@ a {
   width: 100%;
 }
 
-/* On desktop (min-width: 1024px), display as three columns */
+/* On desktop (min-width: 1024px), use a three-column layout */
 @media (min-width: 1024px) {
   .page-wrapper {
     display: flex;
@@ -75,20 +74,20 @@ a {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background */
+/* Header: full-width purple background that covers entire top */
 header {
   background: #362136;
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  width: 100vw;
+  width: 100%;
   margin: 0;
 }
 
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -102,7 +101,7 @@ header {
   margin: 0 5px;
 }
 
-/* Mobile: Force two lines and adjust font size */
+/* Mobile: force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -470,10 +469,6 @@ header {
 /* =====================================================
    Responsive & Mobile Styles
 ===================================================== */
-body {
-  font-size: 1rem;
-  padding: 0;
-}
 @media (min-width: 600px) {
   body {
     font-size: 1.125rem;
