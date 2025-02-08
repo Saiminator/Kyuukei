@@ -143,7 +143,6 @@ header {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
-    /* Move the button down slightly */
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -279,6 +278,12 @@ header {
   border: 1px solid #eee;
   position: relative;
 }
+/* Adjust container height for tablet screens */
+@media (min-width: 601px) and (max-width: 1023px) {
+  #characterScrollWrapper {
+    height: 60vh;
+  }
+}
 #characterScrollContainer {
   display: grid;
   gap: 20px;
@@ -299,9 +304,7 @@ header {
   }
 }
 
-/* =====================================================
-   Character Item Styling
-===================================================== */
+/* Character Item Styling */
 .character-item {
   cursor: pointer;
   text-align: center;
@@ -361,14 +364,11 @@ header {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-/* Detail container: two panels side-by-side on desktop */
 .detail-container {
   display: flex;
   gap: 20px;
   flex-direction: row;
 }
-
 /* On mobile, stack panels vertically with the right panel first */
 @media (max-width: 600px) {
   .detail-container {
@@ -381,15 +381,13 @@ header {
     order: 2;
   }
 }
-
 .left-panel {
   flex: 2;
   text-align: left;
   padding-right: 20px;
   border-right: 1px solid #eee;
 }
-
-/* Back to Character Selection button: blue, fancy */
+/* Back to Character Selection button: blue and fancy */
 .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
@@ -404,7 +402,6 @@ header {
 .back-select-btn:hover {
   background: #556cd6;
 }
-
 .right-panel {
   flex: 1;
   padding-left: 20px;
