@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Mobile Navigation Toggle
+  // Mobile Navigation Toggle for Mobile Nav Menu
   const navToggle = document.getElementById('nav-toggle');
-  const navMenu = document.getElementById('nav-menu');
+  const navMobileMenu = document.getElementById('nav-mobile-menu');
   
-  if (navToggle && navMenu) {
+  if (navToggle && navMobileMenu) {
     navToggle.addEventListener('click', function() {
-      if (navMenu.style.display === 'block') {
-        navMenu.style.display = 'none';
+      if (navMobileMenu.style.display === 'block') {
+        navMobileMenu.style.display = 'none';
       } else {
-        navMenu.style.display = 'block';
+        navMobileMenu.style.display = 'block';
       }
     });
   }
