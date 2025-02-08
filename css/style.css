@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Mobile-first base font-size; will scale up on larger screens */
+  /* Mobile-first base font size; will scale via media queries */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -27,12 +27,28 @@ a {
    Header & Navigation
 ===================================================== */
 
-/* Header styling */
+/* Header: Force full-width background */
 header {
   background: #362136;
-  padding: 10px;
+  padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  width: 100vw;
+  /* The following negative margins counter the body's horizontal padding */
+  margin-left: calc(-1 * 1rem);
+  margin-right: calc(-1 * 1rem);
+}
+@media (min-width: 600px) {
+  header {
+    margin-left: calc(-1 * 2rem);
+    margin-right: calc(-1 * 2rem);
+  }
+}
+@media (min-width: 1024px) {
+  header {
+    margin-left: calc(-1 * 3rem);
+    margin-right: calc(-1 * 3rem);
+  }
 }
 
 /* Site title: split into two spans */
@@ -53,7 +69,7 @@ header {
   margin: 0 5px;
 }
 
-/* On mobile, force two lines and adjust font size */
+/* Mobile: Force exactly two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -73,13 +89,10 @@ header {
   margin-top: 5px;
 }
 @media (max-width: 600px) {
-  /* Hide desktop nav on mobile */
   #nav-desktop {
     display: none;
   }
 }
-
-/* Desktop nav styling (old style: text links with 15px margins) */
 #nav-desktop ul {
   list-style: none;
   display: inline-flex;
@@ -88,7 +101,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px;
+  margin: 0 15px; /* Original spacing: 15px */
 }
 #nav-desktop a {
   font-weight: 500;
@@ -116,12 +129,13 @@ header {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
+    /* Move the mobile button down a bit */
+    margin-top: 10px;
     margin-bottom: 10px;
   }
-  /* Hide the mobile menu list by default */
   #nav-mobile-menu {
     list-style: none;
-    display: none;
+    display: none; /* Hidden by default; toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -167,7 +181,6 @@ header {
   overflow: hidden;
   border: 1px solid #eee;
 }
-
 #panZoomContainer {
   width: 1600px;
   transform-origin: top left;
@@ -179,7 +192,6 @@ header {
 .timeline {
   margin-bottom: 40px;
 }
-
 .timeline.orby-pink h2    { color: #f7cdd5; }
 .timeline.cerulean h2     { color: #0077be; }
 .timeline.shimi-green h2  { color: #216036; }
@@ -188,13 +200,11 @@ header {
 .timeline.mika h2         { color: #823f25; }
 .timeline.memo h2         { color: #e073bd; }
 .timeline.shizu h2        { color: #4c6095; }
-
 .timeline h2 {
   text-align: left;
   width: 100%;
   margin: 0 0 10px 10px;
 }
-
 .timeline-wrapper {
   display: flex;
   flex-direction: column;
@@ -210,7 +220,6 @@ header {
   gap: 30px;
   justify-content: flex-start;
 }
-
 .chapter-box {
   border: 2px solid #ddd;
   padding: 10px 15px;
@@ -223,19 +232,16 @@ header {
   text-decoration: none;
   color: inherit;
 }
-
 .chapter-box:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
-
 .timeline-underline {
   width: 100%;
   height: 3px;
   background: #ddd;
   margin-top: 10px;
 }
-
 .timeline.orby-pink .timeline-underline { background: #f7cdd5; }
 .timeline.cerulean .timeline-underline { background: #0077be; }
 .timeline.shimi-green .timeline-underline { background: #216036; }
@@ -257,24 +263,20 @@ header {
   border: 1px solid #eee;
   position: relative;
 }
-
 #characterScrollContainer {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(4, 1fr);
 }
-
 @media (max-width: 1023px) {
   #characterScrollContainer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 @media (max-width: 600px) {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
-  /* Reduce container height on mobile */
   #characterScrollWrapper {
     height: 50vh;
   }
@@ -287,7 +289,6 @@ header {
   text-decoration: none;
   color: inherit;
 }
-
 .character-image {
   width: 100%;
   aspect-ratio: 1/1;
@@ -297,7 +298,6 @@ header {
   border-radius: 5px;
   margin: 0 auto;
 }
-
 .character-name {
   margin-top: 10px;
   font-weight: 600;
@@ -312,7 +312,6 @@ header {
   gap: 15px;
   margin-top: 20px;
 }
-
 .nav-buttons a.button, .nav-buttons button {
   flex: 1;
   max-width: 200px;
@@ -327,7 +326,6 @@ header {
   text-align: center;
   transition: background 0.3s ease;
 }
-
 .nav-buttons a.button:hover, .nav-buttons button:hover {
   background: #556cd6;
 }
@@ -344,20 +342,17 @@ header {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
 .detail-container {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
-
 .left-panel {
   flex: 2;
   text-align: left;
   padding-right: 20px;
   border-right: 1px solid #eee;
 }
-
 .left-panel .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
@@ -369,34 +364,28 @@ header {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .left-panel .back-select-btn:hover {
   background: #556cd6;
 }
-
 .left-panel p {
   margin: 10px 0;
   line-height: 1.6;
 }
-
 .right-panel {
   flex: 1;
   padding-left: 20px;
   padding-right: 20px;
 }
-
 .right-panel h1 {
   text-align: center;
   margin: 0 0 10px 0;
   font-size: 2em;
   color: #0077be;
 }
-
 .image-container {
   text-align: left;
   margin-bottom: 10px;
 }
-
 .image-container img {
   width: 100%;
   max-width: 400px;
@@ -404,11 +393,9 @@ header {
   border: 2px solid #ddd;
   border-radius: 8px;
 }
-
 .basic-info {
   text-align: left;
 }
-
 .basic-info p {
   margin: 4px 0;
 }
@@ -425,18 +412,15 @@ header {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   text-align: left;
 }
-
 .news-entry h2 {
   margin: 0 0 5px;
   font-size: 1.5em;
 }
-
 .news-date {
   font-size: 0.9em;
   color: #999;
   margin-bottom: 10px;
 }
-
 .news-content {
   font-size: 1.1em;
   line-height: 1.5;
@@ -450,7 +434,6 @@ body {
   font-size: 1rem;
   padding: 0 1rem;
 }
-
 #nav-menu {
   display: none;
   flex-direction: column;
@@ -459,27 +442,26 @@ body {
   padding: 10px 0;
   margin: 0;
 }
-
 #nav-menu li {
   margin: 10px 0;
 }
-
 #nav-toggle {
   display: inline-block;
 }
-
 @media (min-width: 600px) {
-  /* On screens wider than 600px, hide the mobile nav entirely */
+  /* On screens wider than 600px, hide mobile nav */
   #nav-mobile {
     display: none;
   }
-  /* Desktop nav is already shown via #nav-desktop */
+  /* Ensure desktop nav is visible */
+  #nav-desktop {
+    display: block;
+  }
   body {
     font-size: 1.125rem;
     padding: 0 2rem;
   }
 }
-
 @media (min-width: 1024px) {
   body {
     font-size: 1.25rem;
