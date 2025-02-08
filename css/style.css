@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Base font-size will adjust in media queries */
+  /* Base font size, later adjusted via media queries */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -33,12 +33,32 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+/* Header: split title */
 #site-title {
-  font-size: 1.8em;
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
+  display: block;
+  text-align: center;
   font-weight: 600;
+  color: #fff;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#site-title .header-line1,
+#site-title .header-line2 {
+  display: inline;
+  white-space: nowrap;
+}
+
+/* On mobile, force two lines and adjust font size */
+@media (max-width: 600px) {
+  #site-title .header-line1,
+  #site-title .header-line2 {
+    display: block;
+    white-space: nowrap;
+  }
+  #site-title {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
 }
 
 nav {
@@ -49,7 +69,7 @@ nav {
 
 /* Mobile Navigation Toggle Button */
 #nav-toggle {
-  display: none; /* Shown only on mobile */
+  display: none; /* hidden on desktop */
   background: #667eea;
   border: none;
   color: #fff;
@@ -63,7 +83,6 @@ nav {
 /* Navigation Menu */
 #nav-menu {
   list-style: none;
-  /* On desktop, display as inline-flex buttons */
   display: inline-flex;
   justify-content: center;
   width: 100%;
@@ -72,15 +91,15 @@ nav {
 }
 
 nav li {
-  margin: 0 10px; /* Default for mobile; will be increased for larger screens */
+  margin: 0 10px;
 }
 
-/* Blue button styling for nav links */
+/* Navigation links styled as blue buttons */
 nav a {
   display: inline-block;
   background: #667eea;
   color: #fff;
-  padding: 6px 12px;  /* Reduced vertical padding for a less tall button */
+  padding: 8px 12px;
   border-radius: 4px;
   text-decoration: none;
   transition: background 0.3s ease;
@@ -136,7 +155,6 @@ hr {
   margin-bottom: 40px;
 }
 
-/* Timeline title colors */
 .timeline.orby-pink h2    { color: #f7cdd5; }
 .timeline.cerulean h2     { color: #0077be; }
 .timeline.shimi-green h2  { color: #216036; }
@@ -165,7 +183,7 @@ hr {
 .chapter-container {
   display: flex;
   gap: 30px;
-  justify-content: flex-start;  /* Left align chapters */
+  justify-content: flex-start;
 }
 
 .chapter-box {
@@ -174,7 +192,6 @@ hr {
   cursor: pointer;
   background: #fff;
   border-radius: 5px;
-  box-sizing: border-box;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   white-space: nowrap;
@@ -210,35 +227,32 @@ hr {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 70vh; /* Default height on desktop */
+  height: 70vh;
   margin: 0 auto;
-  overflow-y: auto;  /* Use native vertical scrolling */
+  overflow-y: auto;
   border: 1px solid #eee;
   position: relative;
 }
 
-/* Responsive grid for character items */
 #characterScrollContainer {
   display: grid;
   gap: 20px;
-  /* Desktop: 4 columns */
   grid-template-columns: repeat(4, 1fr);
 }
 
-/* Tablet: 3 columns */
 @media (max-width: 1023px) {
   #characterScrollContainer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Mobile: 2 columns and shorter container height */
 @media (max-width: 600px) {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Shorten the container height on mobile so text below isn't cut off */
   #characterScrollWrapper {
-    height: 50vh; /* Reduced height so that scrolling doesn't cut off content */
+    height: 50vh;
   }
 }
 
@@ -250,10 +264,10 @@ hr {
   color: inherit;
 }
 
-/* Character Image: using background images with aspect-ratio */
+/* Character Image: use aspect-ratio for a square, responsive image */
 .character-image {
   width: 100%;
-  aspect-ratio: 1/1; /* Ensure square shape */
+  aspect-ratio: 1/1;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -297,7 +311,7 @@ hr {
 }
 
 /* =====================================================
-   Character Detail Page Styles (Repeating for consistency)
+   Character Detail Page Styles
 ===================================================== */
 .character-detail {
   max-width: 1120px;
@@ -415,9 +429,8 @@ body {
   padding: 0 1rem;
 }
 
-/* Navigation adjustments for mobile */
 #nav-menu {
-  display: none; /* hidden by default on mobile */
+  display: none;
   flex-direction: column;
   width: 100%;
   background: #f4f4f9;
@@ -429,12 +442,10 @@ body {
   margin: 10px 0;
 }
 
-/* Show nav toggle button on mobile */
 #nav-toggle {
   display: inline-block;
 }
 
-/* For screens wider than 600px, show nav menu inline */
 @media (min-width: 600px) {
   #nav-toggle {
     display: none;
@@ -445,7 +456,7 @@ body {
   }
   
   nav li {
-    margin: 0 20px;  /* Increased spacing */
+    margin: 0 20px;
   }
   
   body {
@@ -454,24 +465,9 @@ body {
   }
 }
 
-/* For larger screens */
 @media (min-width: 1024px) {
   body {
     font-size: 1.25rem;
     padding: 0 3rem;
-  }
-}
-
-/* Default (desktop): display header lines inline (one line) */
-#site-title .header-line1,
-#site-title .header-line2 {
-  display: inline;
-}
-
-/* Mobile: for screens with a max-width of 600px, force two lines */
-@media (max-width: 600px) {
-  #site-title .header-line1,
-  #site-title .header-line2 {
-    display: block;
   }
 }
