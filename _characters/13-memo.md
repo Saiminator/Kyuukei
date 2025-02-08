@@ -17,9 +17,9 @@ eye_color: "Pink"
 
 ## Background
 
-Memo is an ethereal fairy composed entirely of mana, making her intangible to the physical world unless she chooses to manifest a temporary body. As a being of pure energy, she thrives by absorbing the mana of others, an act that also allows her to steal fragments of their memories in the process. This ability gives her an unparalleled knowledge of the world, as she carries the experiences of countless individuals within her.
+Memo is an ethereal being composed entirely of mana, making her intangible to the physical world unless she chooses to manifest a temporary body. As a being of pure energy, she thrives by absorbing the mana of others, an act that also allows her to steal fragments of their memories in the process.
 
-Despite her small stature, Memo is incredibly dangerous—her ability to invade an individual's mana stream and take control of their body makes her a feared entity in certain circles. Though she does not always act with malicious intent, her curiosity and hunger for knowledge often drive her to test the limits of her abilities on those she finds interesting.
+Despite her small stature, Memo is incredibly dangerous. She has the ability to invade an individual's mana stream and take control of their body and savor their memories. Though she does not always act with malicious intent, her curiosity and hunger for knowledge often drive her to test the limits of her abilities on those she finds interesting.
 
 ## Abilities
 
