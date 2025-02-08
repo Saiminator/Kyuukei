@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  font-size: 150%;
+  font-size: 150%;  /* You can later adjust this to use rem if desired */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -43,6 +43,18 @@ header {
 nav {
   text-align: center;
   margin-top: 5px;
+  position: relative;
+}
+
+/* Navigation toggle button (visible on mobile) */
+#nav-toggle {
+  display: none; /* Hidden by default; shown in mobile media query */
+  background: #667eea;
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 1em;
+  cursor: pointer;
 }
 
 nav ul {
@@ -115,14 +127,14 @@ hr {
 }
 
 /* Timeline title colors */
-.timeline.orby-pink h2 { color: #f7cdd5; }
-.timeline.cerulean h2 { color: #0077be; }
-.timeline.shimi-green h2 { color: #216036; }
-.timeline.dreymi h2 { color: #2f191f; }
-.timeline.via h2 { color: #de363d; }
-.timeline.mika h2 { color: #823f25; }
-.timeline.memo h2 { color: #e073bd; }
-.timeline.shizu h2 { color: #4c6095; }
+.timeline.orby-pink h2    { color: #f7cdd5; }
+.timeline.cerulean h2     { color: #0077be; }
+.timeline.shimi-green h2  { color: #216036; }
+.timeline.dreymi h2       { color: #2f191f; }
+.timeline.via h2          { color: #de363d; }
+.timeline.mika h2         { color: #823f25; }
+.timeline.memo h2         { color: #e073bd; }
+.timeline.shizu h2        { color: #4c6095; }
 
 .timeline h2 {
   text-align: left;
@@ -190,7 +202,7 @@ hr {
   max-width: 1120px;
   height: 70vh;
   margin: 0 auto;
-  overflow-y: auto;  /* Changed from hidden to auto */
+  overflow-y: auto;  /* now uses native vertical scrolling */
   border: 1px solid #eee;
   position: relative;
 }
@@ -336,20 +348,6 @@ hr {
 }
 
 /* =====================================================
-   Optional Scrollbar Hiding Code (Comment out if not needed)
-===================================================== */
-/*
-body::-webkit-scrollbar {
-  display: none;
-}
-
-body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-*/
-
-/* =====================================================
    News Entry Styles
 ===================================================== */
 .news-entry {
@@ -376,4 +374,61 @@ body {
 .news-content {
   font-size: 1.1em;
   line-height: 1.5;
+}
+
+/* =====================================================
+   Responsive & Mobile Styles
+===================================================== */
+
+/* Mobile-first default: adjust font sizes and padding */
+body {
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+
+/* Navigation adjustments for mobile */
+#nav-menu {
+  display: none; /* hidden by default on mobile */
+  flex-direction: column;
+  width: 100%;
+  background: #f4f4f9;
+  padding: 10px 0;
+  margin: 0;
+}
+
+#nav-menu li {
+  margin: 10px 0;
+}
+
+/* Show nav toggle button on mobile */
+#nav-toggle {
+  display: inline-block;
+}
+
+/* For screens wider than 600px, show nav menu inline */
+@media (min-width: 600px) {
+  #nav-toggle {
+    display: none;
+  }
+  #nav-menu {
+    display: inline-flex;
+    flex-direction: row;
+  }
+  
+  nav li {
+    margin: 0 15px;
+  }
+  
+  body {
+    font-size: 1.125rem;
+    padding: 0 2rem;
+  }
+}
+
+/* For larger screens */
+@media (min-width: 1024px) {
+  body {
+    font-size: 1.25rem;
+    padding: 0 3rem;
+  }
 }
