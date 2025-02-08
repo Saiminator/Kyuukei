@@ -34,11 +34,10 @@ header {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100vw;
-  /* Negative margins to extend to the screen edges (adjust if your body has horizontal padding) */
+  /* Extend header to screen edges */
   margin-left: calc(-1 * 1rem);
   margin-right: calc(-1 * 1rem);
 }
-
 @media (min-width: 600px) {
   header {
     margin-left: calc(-1 * 2rem);
@@ -55,7 +54,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row; /* Desktop: inline */
+  flex-direction: row;  /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -70,11 +69,11 @@ header {
   margin: 0 5px;
 }
 
-/* On mobile, force two lines and adjust font size */
+/* Mobile: force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
-    font-size: clamp(1.2rem, 5vw, 1.5rem); /* Increased minimum and maximum for better mobile legibility */
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
   }
   #site-title .header-line1,
   #site-title .header-line2 {
@@ -83,7 +82,7 @@ header {
   }
 }
 
-/* Desktop Navigation – Visible on screens wider than 600px */
+/* Desktop Navigation (visible on screens wider than 600px) */
 #nav-desktop {
   display: block;
   text-align: center;
@@ -102,7 +101,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px; /* Original 15px margins */
+  margin: 0 15px;
 }
 #nav-desktop a {
   font-weight: 500;
@@ -113,7 +112,7 @@ header {
   color: #667eea;
 }
 
-/* Mobile Navigation – Visible on screens 600px and below */
+/* Mobile Navigation (visible on screens 600px and below) */
 #nav-mobile {
   display: none;
 }
@@ -130,7 +129,7 @@ header {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
-    /* Move the button down slightly for spacing */
+    /* Push the button down a bit */
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -193,7 +192,6 @@ header {
 .timeline {
   margin-bottom: 40px;
 }
-
 .timeline.orby-pink h2    { color: #f7cdd5; }
 .timeline.cerulean h2     { color: #0077be; }
 .timeline.shimi-green h2  { color: #216036; }
@@ -208,7 +206,6 @@ header {
   width: 100%;
   margin: 0 0 10px 10px;
 }
-
 .timeline-wrapper {
   display: flex;
   flex-direction: column;
@@ -224,7 +221,6 @@ header {
   gap: 30px;
   justify-content: flex-start;
 }
-
 .chapter-box {
   border: 2px solid #ddd;
   padding: 10px 15px;
@@ -237,19 +233,16 @@ header {
   text-decoration: none;
   color: inherit;
 }
-
 .chapter-box:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
-
 .timeline-underline {
   width: 100%;
   height: 3px;
   background: #ddd;
   margin-top: 10px;
 }
-
 .timeline.orby-pink .timeline-underline { background: #f7cdd5; }
 .timeline.cerulean .timeline-underline { background: #0077be; }
 .timeline.shimi-green .timeline-underline { background: #216036; }
@@ -271,19 +264,16 @@ header {
   border: 1px solid #eee;
   position: relative;
 }
-
 #characterScrollContainer {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(4, 1fr);
 }
-
 @media (max-width: 1023px) {
   #characterScrollContainer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 @media (max-width: 600px) {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
@@ -301,7 +291,6 @@ header {
   text-decoration: none;
   color: inherit;
 }
-
 .character-image {
   width: 100%;
   aspect-ratio: 1/1;
@@ -311,7 +300,6 @@ header {
   border-radius: 5px;
   margin: 0 auto;
 }
-
 .character-name {
   margin-top: 10px;
   font-weight: 600;
@@ -326,7 +314,6 @@ header {
   gap: 15px;
   margin-top: 20px;
 }
-
 .nav-buttons a.button, .nav-buttons button {
   flex: 1;
   max-width: 200px;
@@ -341,7 +328,6 @@ header {
   text-align: center;
   transition: background 0.3s ease;
 }
-
 .nav-buttons a.button:hover, .nav-buttons button:hover {
   background: #556cd6;
 }
@@ -359,28 +345,14 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* The detail container uses flexbox */
+/* The detail container uses flexbox to arrange panels side-by-side on desktop */
 .detail-container {
   display: flex;
   gap: 20px;
-  /* Desktop: side by side; Mobile: stack vertically */
   flex-direction: row;
 }
 
-/* On mobile, reverse the order so that the right-panel comes first */
-@media (max-width: 600px) {
-  .detail-container {
-    flex-direction: column;
-  }
-  .right-panel {
-    order: 1;
-  }
-  .left-panel {
-    order: 2;
-  }
-}
-
-/* Left Panel: Background, Abilities, etc. */
+/* Left Panel: Background, abilities, etc. */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -388,24 +360,7 @@ header {
   border-right: 1px solid #eee;
 }
 
-/* Back button styling (remains at the top) */
-.back-select-btn {
-  display: inline-block;
-  margin-bottom: 20px;
-  padding: 8px 12px;
-  font-size: 0.9em;
-  background: #667eea;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.back-select-btn:hover {
-  background: #556cd6;
-}
-
-/* Right Panel: Image and Basic Info */
+/* Right Panel: Character image and basic info */
 .right-panel {
   flex: 1;
   padding-left: 20px;
@@ -420,7 +375,7 @@ header {
 }
 
 .image-container {
-  text-align: left;
+  text-align: center;
   margin-bottom: 10px;
 }
 
@@ -440,6 +395,19 @@ header {
   margin: 4px 0;
 }
 
+/* Mobile: Reorder panels so that the right panel (image/info) comes first */
+@media (max-width: 600px) {
+  .detail-container {
+    flex-direction: column;
+  }
+  .left-panel {
+    order: 2;
+  }
+  .right-panel {
+    order: 1;
+  }
+}
+
 /* =====================================================
    News Entry Styles
 ===================================================== */
@@ -452,18 +420,15 @@ header {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   text-align: left;
 }
-
 .news-entry h2 {
   margin: 0 0 5px;
   font-size: 1.5em;
 }
-
 .news-date {
   font-size: 0.9em;
   color: #999;
   margin-bottom: 10px;
 }
-
 .news-content {
   font-size: 1.1em;
   line-height: 1.5;
@@ -496,7 +461,7 @@ body {
 }
 
 @media (min-width: 600px) {
-  /* On screens wider than 600px, hide the mobile nav completely */
+  /* On screens wider than 600px, hide mobile nav completely */
   #nav-mobile {
     display: none;
   }
