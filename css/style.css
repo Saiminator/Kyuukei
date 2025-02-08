@@ -1,11 +1,11 @@
 /* =====================================================
-   Hide Scrollbars Globally (Functional but not visible)
+   Hide Scrollbars Globally (Functional but invisible)
 ===================================================== */
-/* For Chrome, Safari, Opera */
+/* Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-/* For IE, Edge and Firefox */
+/* IE, Edge, and Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -41,8 +41,7 @@ a {
 ===================================================== */
 .page-wrapper {
   width: 100%;
-  /* By default, stack blocks on mobile */
-  display: block;
+  display: block; /* Default: stacked on mobile */
 }
 
 .main-content {
@@ -57,6 +56,14 @@ a {
   .side-box {
     display: block;
     width: 20%;
+    height: 100vh; /* Fill the viewport height */
+    overflow: hidden;
+  }
+  .side-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .main-content {
     width: 60%;
@@ -74,7 +81,7 @@ a {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background that covers entire top */
+/* Header: full-width purple background */
 header {
   background: #362136;
   padding: 10px 0;
@@ -87,7 +94,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row; /* Desktop: inline */
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -378,7 +385,7 @@ header {
   gap: 20px;
   flex-direction: row;
 }
-/* On mobile, stack panels vertically with right panel first */
+/* On mobile, stack panels vertically with the right panel first */
 @media (max-width: 600px) {
   .detail-container {
     flex-direction: column;
