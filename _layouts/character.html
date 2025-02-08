@@ -2,10 +2,16 @@
 layout: default
 ---
 <div class="character-detail">
-  <!-- Back to Character Selection always on top -->
-  <button class="back-select-btn" onclick="location.href='/characters.html'">Character Selection</button>
+  <!-- Back to Character Selection: Always on top -->
+  <button class="back-select-btn" onclick="location.href='/characters.html'">
+    Character Selection
+  </button>
   <div class="detail-container">
-    <!-- Right Panel: Character Image and Basic Info -->
+    <!-- Left Panel: Character Background/Abilities (mobile: will appear below) -->
+    <div class="left-panel">
+      {{ content }}
+    </div>
+    <!-- Right Panel: Character Image and Basic Info (mobile: will appear above) -->
     <div class="right-panel">
       <h1>{{ page.title }}</h1>
       <div class="image-container">
@@ -24,13 +30,9 @@ layout: default
         {% if page.eye_color %}<p><strong>Eye color:</strong> {{ page.eye_color }}</p>{% endif %}
       </div>
     </div>
-    <!-- Left Panel: Character Background, Abilities, etc. -->
-    <div class="left-panel">
-      {{ content }}
-    </div>
   </div>
 </div>
 
 <script>
-  // (Optional) Additional JavaScript for the character page can go here.
+  // Optional: Add any page-specific JavaScript here.
 </script>
