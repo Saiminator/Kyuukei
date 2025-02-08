@@ -72,7 +72,7 @@ nav {
 }
 
 nav li {
-  margin: 0 10px;
+  margin: 0 10px; /* Default for mobile; will be increased for larger screens */
 }
 
 /* Blue button styling for nav links */
@@ -80,7 +80,7 @@ nav a {
   display: inline-block;
   background: #667eea;
   color: #fff;
-  padding: 8px 12px;
+  padding: 6px 12px;  /* Reduced vertical padding for a less tall button */
   border-radius: 4px;
   text-decoration: none;
   transition: background 0.3s ease;
@@ -174,6 +174,7 @@ hr {
   cursor: pointer;
   background: #fff;
   border-radius: 5px;
+  box-sizing: border-box;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   white-space: nowrap;
@@ -209,7 +210,7 @@ hr {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 70vh;
+  height: 70vh; /* Default height on desktop */
   margin: 0 auto;
   overflow-y: auto;  /* Use native vertical scrolling */
   border: 1px solid #eee;
@@ -231,10 +232,13 @@ hr {
   }
 }
 
-/* Mobile: 2 columns */
+/* Mobile: 2 columns and shorter container height */
 @media (max-width: 600px) {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
+  }
+  #characterScrollWrapper {
+    height: 50vh; /* Reduced height so that scrolling doesn't cut off content */
   }
 }
 
@@ -246,10 +250,10 @@ hr {
   color: inherit;
 }
 
-/* Character Image: for div with background-image, maintain a square aspect ratio */
+/* Character Image: using background images with aspect-ratio */
 .character-image {
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1; /* Ensure square shape */
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -441,7 +445,7 @@ body {
   }
   
   nav li {
-    margin: 0 15px;
+    margin: 0 20px;  /* Increased spacing */
   }
   
   body {
