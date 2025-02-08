@@ -25,11 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const panZoomContainer = document.getElementById('panZoomContainer');
   const panZoomWrapper = document.getElementById('panZoomWrapper');
   
-  // Set initial pan positions based on container and wrapper dimensions
-  if (panZoomWrapper && panZoomContainer) {
-    const wrapperRect = panZoomWrapper.getBoundingClientRect();
-    const containerRect = panZoomContainer.getBoundingClientRect();
-    // Start at top-left (0,0) if container is larger; otherwise center if desired.
+  // Set initial pan positions to start at top left (0,0)
+  if (panZoomContainer) {
     translateX = 0;
     translateY = 0;
     panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
@@ -118,4 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+  
+  // --- (Optional) Character drag code removed ---
+  // The custom drag-to-scroll functionality for the character selection page has been removed.
+  // The #characterScrollWrapper now uses native scrolling (via CSS overflow-y: auto).
 });
