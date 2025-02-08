@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Base font-size is mobile-first; adjusted via media queries */
+  /* Base font size is mobile-first; adjusted via media queries */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -27,7 +27,7 @@ a {
    Header & Navigation
 ===================================================== */
 
-/* Header styling: using flex so that on desktop the title is one line */
+/* Header styling */
 header {
   background: #362136;
   padding: 10px;
@@ -35,9 +35,10 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+/* Site title is split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;       /* On desktop, inline */
+  flex-direction: row; /* On desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -52,13 +53,12 @@ header {
   margin: 0 5px;
 }
 
-/* Mobile: force two lines (column) and adjust font-size */
+/* On mobile (max-width: 600px), force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
     font-size: clamp(1rem, 4vw, 1.2rem);
   }
-  /* Ensure exactly two lines */
   #site-title .header-line1,
   #site-title .header-line2 {
     display: block;
@@ -94,9 +94,23 @@ nav {
   margin: 0;
 }
 
-/* On desktop, increase spacing between nav items */
+/* Default nav list item margins (mobile fallback) */
 nav li {
-  margin: 0 30px;
+  margin: 0 10px;
+}
+
+/* For screens wider than 600px, increase spacing */
+@media (min-width: 600px) {
+  nav li {
+    margin: 0 20px;
+  }
+}
+
+/* For desktop (min-width: 1024px), further increase spacing */
+@media (min-width: 1024px) {
+  nav li {
+    margin: 0 30px;
+  }
 }
 
 /* Navigation links styled as blue buttons */
@@ -114,7 +128,7 @@ nav a:hover {
   background: #556cd6;
 }
 
-/* Mobile Navigation: show toggle button and stack nav items vertically */
+/* Mobile Navigation: Show toggle button and stack menu vertically */
 @media (max-width: 600px) {
   #nav-toggle {
     display: inline-block;
@@ -129,14 +143,6 @@ nav a:hover {
   nav li {
     margin: 10px 0;
   }
-}
-
-hr {
-  margin: 10px auto;
-  border: 0;
-  height: 1px;
-  background: #ddd;
-  width: 90%;
 }
 
 /* =====================================================
@@ -271,7 +277,7 @@ hr {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
-  /* Reduce container height on mobile to prevent cutting off text */
+  /* Reduce container height on mobile so text isn’t cut off */
   #characterScrollWrapper {
     height: 50vh;
   }
@@ -442,7 +448,7 @@ hr {
 /* =====================================================
    Responsive & Mobile Styles
 ===================================================== */
-/* Mobile-first default */
+/* Mobile-first defaults */
 body {
   font-size: 1rem;
   padding: 0 1rem;
