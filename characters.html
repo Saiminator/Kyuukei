@@ -10,7 +10,7 @@ title: Characters
       {% assign sorted_characters = site.characters | sort: "order" %}
       {% for character in sorted_characters %}
       <a href="{{ character.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+        <div class="character-image" style="background-image: url('{{ character.image | default: "https://via.placeholder.com/420" }}');"></div>
         <div class="character-name">{{ character.title }}</div>
       </a>
       {% endfor %}
