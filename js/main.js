@@ -115,8 +115,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-  
-  // --- (Optional) Character drag code removed ---
-  // The custom drag-to-scroll functionality for the character selection page has been removed.
-  // The #characterScrollWrapper now uses native scrolling (via CSS overflow-y: auto).
 });
