@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="no-select">
-  <!-- Header: full-width -->
+  <!-- Header (full-width) -->
   <header>
     <a href="/index.html" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
@@ -18,36 +18,49 @@
     </a>
   </header>
   
-  <!-- Content Container: scales with resolution -->
-  <div class="container">
-    <!-- Desktop Navigation (visible on screens wider than 600px) -->
-    <nav id="nav-desktop">
-      <ul>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/timeline.html">Story</a></li>
-        <li><a href="/characters.html">Characters</a></li>
-        <li><a href="/questions.html">Questions</a></li>
-        <li><a href="/news.html">News</a></li>
-      </ul>
-    </nav>
+  <!-- Page Wrapper: Contains side boxes (only on desktop) and main content -->
+  <div class="page-wrapper">
+    <!-- Left side placeholder (only visible on desktop) -->
+    <div class="side-box left-box">
+      <!-- Placeholder content for left image (you can add an <img> tag later) -->
+    </div>
     
-    <!-- Mobile Navigation (visible on screens 600px and below) -->
-    <nav id="nav-mobile">
-      <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
-      <ul id="nav-mobile-menu">
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/timeline.html">Story</a></li>
-        <li><a href="/characters.html">Characters</a></li>
-        <li><a href="/questions.html">Questions</a></li>
-        <li><a href="/news.html">News</a></li>
-      </ul>
-    </nav>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Desktop Navigation (visible on screens wider than 600px) -->
+      <nav id="nav-desktop">
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/timeline.html">Story</a></li>
+          <li><a href="/characters.html">Characters</a></li>
+          <li><a href="/questions.html">Questions</a></li>
+          <li><a href="/news.html">News</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Mobile Navigation (visible on screens 600px and below) -->
+      <nav id="nav-mobile">
+        <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+        <ul id="nav-mobile-menu">
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/timeline.html">Story</a></li>
+          <li><a href="/characters.html">Characters</a></li>
+          <li><a href="/questions.html">Questions</a></li>
+          <li><a href="/news.html">News</a></li>
+        </ul>
+      </nav>
+      
+      <hr>
+      <main>
+        {{ content }}
+      </main>
+    </div>
     
-    <hr>
-    <main>
-      {{ content }}
-    </main>
-  </div><!-- End .container -->
+    <!-- Right side placeholder (only visible on desktop) -->
+    <div class="side-box right-box">
+      <!-- Placeholder content for right image (add an <img> tag later if desired) -->
+    </div>
+  </div><!-- End .page-wrapper -->
   
   <script src="/js/main.js"></script>
 </body>
