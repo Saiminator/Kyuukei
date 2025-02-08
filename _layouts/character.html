@@ -3,14 +3,11 @@ layout: default
 ---
 <div class="character-detail">
   <div class="detail-container">
-    <!-- Left Panel: Background, Abilities, etc. -->
-    <div class="left-panel">
-      <!-- Button to go back to Character Selection -->
+    <!-- Back Button Container -->
+    <div class="back-container">
       <button class="back-select-btn" onclick="location.href='/characters.html'">Character Selection</button>
-      <!-- You can either hardcode section titles or, if you’d like to allow your markdown to include its own section headers, simply output the content: -->
-      {{ content }}
     </div>
-    <!-- Right Panel: Image and Basic Info -->
+    <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <h1>{{ page.title }}</h1>
       <div class="image-container">
@@ -29,10 +26,9 @@ layout: default
         {% if page.eye_color %}<p><strong>Eye color:</strong> {{ page.eye_color }}</p>{% endif %}
       </div>
     </div>
+    <!-- Left Panel: Additional Background/Abilities Content -->
+    <div class="left-panel">
+      {{ content }}
+    </div>
   </div>
 </div>
-
-<script>
-  // (Optional) If you need additional JS for this layout, add it here.
-  // The back button now simply navigates to '/characters.html'
-</script>
