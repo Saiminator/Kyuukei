@@ -468,3 +468,28 @@ body {
     padding: 0 3rem;
   }
 }
+
+/* Character Detail Page: Responsive Reordering */
+.detail-container {
+  display: flex;
+  flex-direction: row; /* Desktop: side-by-side */
+  gap: 20px;
+}
+
+/* Mobile: stack vertically and reorder */
+@media (max-width: 600px) {
+  .detail-container {
+    flex-direction: column;
+  }
+  .back-container {
+    order: 1;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .right-panel {
+    order: 2;
+  }
+  .left-panel {
+    order: 3;
+  }
+}
