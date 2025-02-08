@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- The viewport meta tag ensures proper scaling on mobile -->
+  <!-- Responsive viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }}</title>
   <!-- Link to external CSS and Google Fonts -->
@@ -10,17 +10,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="no-select">
-  <!-- Header: The title is split into two spans -->
+  <!-- Header -->
   <header>
     <a href="/index.html" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
       <span class="header-line2">Kyuu’s Breaktime Stories</span>
     </a>
   </header>
-  <!-- Navigation -->
-  <nav>
-    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
-    <ul id="nav-menu">
+
+  <!-- Desktop Navigation (visible on screens wider than 600px) -->
+  <nav id="nav-desktop">
+    <ul>
       <li><a href="/about.html">About</a></li>
       <li><a href="/timeline.html">Story</a></li>
       <li><a href="/characters.html">Characters</a></li>
@@ -28,6 +28,19 @@
       <li><a href="/news.html">News</a></li>
     </ul>
   </nav>
+
+  <!-- Mobile Navigation (visible on screens 600px and below) -->
+  <nav id="nav-mobile">
+    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+    <ul id="nav-mobile-menu">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/timeline.html">Story</a></li>
+      <li><a href="/characters.html">Characters</a></li>
+      <li><a href="/questions.html">Questions</a></li>
+      <li><a href="/news.html">News</a></li>
+    </ul>
+  </nav>
+
   <hr>
   <main>
     {{ content }}
