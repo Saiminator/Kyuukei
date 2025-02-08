@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Base font-size is mobile-first; adjusted via media queries */
+  /* Base font size is mobile-first; adjusted via media queries */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -38,7 +38,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Desktop: inline */
+  flex-direction: row; /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -53,7 +53,7 @@ header {
   margin: 0 5px;
 }
 
-/* Mobile: Force exactly two lines and use responsive font size */
+/* On mobile, force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -66,12 +66,13 @@ header {
   }
 }
 
-/* Desktop Navigation – Old Style */
+/* Desktop Navigation (visible on screens >600px) */
 #nav-desktop {
   display: block;
   text-align: center;
   margin-top: 5px;
 }
+
 #nav-desktop ul {
   list-style: none;
   display: flex;
@@ -79,22 +80,26 @@ header {
   padding: 0;
   margin: 0;
 }
+
 #nav-desktop li {
-  margin: 0 15px; /* Old style had 15px margin */
+  margin: 0 30px; /* Spacing between items on desktop */
 }
+
 #nav-desktop a {
   font-weight: 500;
   color: #333;
   transition: color 0.3s ease;
 }
+
 #nav-desktop a:hover {
   color: #667eea;
 }
 
-/* Mobile Navigation – Different styling */
+/* Mobile Navigation (visible on screens ≤600px) */
 #nav-mobile {
-  display: none; /* hidden on desktop */
+  display: none;
 }
+
 @media (max-width: 600px) {
   #nav-mobile {
     display: block;
@@ -110,7 +115,7 @@ header {
     border-radius: 4px;
     margin-bottom: 10px;
   }
-  #nav-mobile ul {
+  #nav-mobile-menu {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -120,25 +125,17 @@ header {
     padding: 10px 0;
     margin: 0;
   }
-  #nav-mobile li {
+  #nav-mobile-menu li {
     margin: 10px 0;
   }
-  #nav-mobile a {
+  #nav-mobile-menu a {
     font-weight: 500;
     color: #333;
     transition: color 0.3s ease;
   }
-  #nav-mobile a:hover {
+  #nav-mobile-menu a:hover {
     color: #667eea;
   }
-}
-
-hr {
-  margin: 10px auto;
-  border: 0;
-  height: 1px;
-  background: #ddd;
-  width: 90%;
 }
 
 /* =====================================================
@@ -273,7 +270,7 @@ hr {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
-  /* Shorten container height on mobile */
+  /* Reduce container height on mobile so content isn't cut off */
   #characterScrollWrapper {
     height: 50vh;
   }
@@ -468,12 +465,13 @@ body {
 }
 
 @media (min-width: 600px) {
-  /* Hide mobile nav on tablet and up */
-  #nav-toggle {
+  /* Hide mobile nav on screens wider than 600px */
+  #nav-mobile {
     display: none;
   }
-  #nav-menu {
-    display: none; /* Mobile nav is not used on desktop */
+  /* Desktop nav is already in #nav-desktop; ensure it is visible */
+  #nav-desktop {
+    display: block;
   }
   
   nav li {
