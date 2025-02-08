@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Base font-size is mobile-first; on PC it will scale up */
+  /* Base font-size is mobile-first; adjusted via media queries */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -26,6 +26,8 @@ a {
 /* =====================================================
    Header & Navigation
 ===================================================== */
+
+/* Header styling: using flex so that on desktop the title is one line */
 header {
   background: #362136;
   padding: 10px;
@@ -33,32 +35,34 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Header: split title */
 #site-title {
-  display: block;
-  text-align: center;
-  font-weight: 600;
+  display: flex;
+  flex-direction: row;       /* On desktop, inline */
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8em;
   color: #fff;
-  max-width: 100%;
+  text-decoration: none;
   margin: 0 auto;
 }
 
 #site-title .header-line1,
 #site-title .header-line2 {
-  display: inline;
   white-space: nowrap;
+  margin: 0 5px;
 }
 
-/* On mobile, force exactly two lines and adjust font size */
+/* Mobile: force two lines (column) and adjust font-size */
 @media (max-width: 600px) {
+  #site-title {
+    flex-direction: column;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+  /* Ensure exactly two lines */
   #site-title .header-line1,
   #site-title .header-line2 {
     display: block;
     white-space: nowrap;
-  }
-  /* Use clamp() to control the font size on mobile */
-  #site-title {
-    font-size: clamp(1rem, 4vw, 1.2rem);
   }
 }
 
@@ -70,7 +74,7 @@ nav {
 
 /* Mobile Navigation Toggle Button */
 #nav-toggle {
-  display: none; /* hidden on desktop */
+  display: none; /* Hidden on desktop */
   background: #667eea;
   border: none;
   color: #fff;
@@ -84,15 +88,15 @@ nav {
 /* Navigation Menu */
 #nav-menu {
   list-style: none;
-  display: inline-flex;
+  display: flex;
   justify-content: center;
-  width: 100%;
   padding: 0;
   margin: 0;
 }
 
+/* On desktop, increase spacing between nav items */
 nav li {
-  margin: 0 10px;
+  margin: 0 30px;
 }
 
 /* Navigation links styled as blue buttons */
@@ -100,7 +104,7 @@ nav a {
   display: inline-block;
   background: #667eea;
   color: #fff;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 4px;
   text-decoration: none;
   transition: background 0.3s ease;
@@ -108,6 +112,23 @@ nav a {
 
 nav a:hover {
   background: #556cd6;
+}
+
+/* Mobile Navigation: show toggle button and stack nav items vertically */
+@media (max-width: 600px) {
+  #nav-toggle {
+    display: inline-block;
+  }
+  #nav-menu {
+    flex-direction: column;
+    width: 100%;
+    background: #f4f4f9;
+    padding: 10px 0;
+    margin: 0;
+  }
+  nav li {
+    margin: 10px 0;
+  }
 }
 
 hr {
@@ -184,7 +205,7 @@ hr {
 .chapter-container {
   display: flex;
   gap: 30px;
-  justify-content: flex-start;  /* Left align chapters */
+  justify-content: flex-start;
 }
 
 .chapter-box {
@@ -205,7 +226,6 @@ hr {
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
-/* Continuous Underline */
 .timeline-underline {
   width: 100%;
   height: 3px;
@@ -228,14 +248,13 @@ hr {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 70vh; /* Default height on desktop */
+  height: 70vh; /* Desktop height */
   margin: 0 auto;
-  overflow-y: auto;  /* Native vertical scrolling */
+  overflow-y: auto;
   border: 1px solid #eee;
   position: relative;
 }
 
-/* Responsive grid for character items */
 #characterScrollContainer {
   display: grid;
   gap: 20px;
@@ -252,13 +271,13 @@ hr {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
-  /* Shorten the container height on mobile so text below isn't cut off */
+  /* Reduce container height on mobile to prevent cutting off text */
   #characterScrollWrapper {
     height: 50vh;
   }
 }
 
-/* Character item styling */
+/* Character Item Styling */
 .character-item {
   cursor: pointer;
   text-align: center;
@@ -266,7 +285,6 @@ hr {
   color: inherit;
 }
 
-/* Character Image: use aspect-ratio to maintain square shape */
 .character-image {
   width: 100%;
   aspect-ratio: 1/1;
@@ -277,7 +295,6 @@ hr {
   margin: 0 auto;
 }
 
-/* Character Name */
 .character-name {
   margin-top: 10px;
   font-weight: 600;
@@ -425,7 +442,7 @@ hr {
 /* =====================================================
    Responsive & Mobile Styles
 ===================================================== */
-/* Mobile-first default: adjust font sizes and padding */
+/* Mobile-first default */
 body {
   font-size: 1rem;
   padding: 0 1rem;
@@ -458,7 +475,7 @@ body {
   }
   
   nav li {
-    margin: 0 20px;  /* Increase spacing on tablet */
+    margin: 0 20px;
   }
   
   body {
@@ -467,10 +484,9 @@ body {
   }
 }
 
-/* For larger screens (PC) */
 @media (min-width: 1024px) {
   nav li {
-    margin: 0 30px;  /* Further increase spacing on desktop */
+    margin: 0 30px;
   }
   body {
     font-size: 1.25rem;
