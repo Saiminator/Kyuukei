@@ -461,3 +461,17 @@ body {
     padding: 0 3rem;
   }
 }
+
+/* Default (desktop): display header lines inline (one line) */
+#site-title .header-line1,
+#site-title .header-line2 {
+  display: inline;
+}
+
+/* Mobile: for screens with a max-width of 600px, force two lines */
+@media (max-width: 600px) {
+  #site-title .header-line1,
+  #site-title .header-line2 {
+    display: block;
+  }
+}
