@@ -10,7 +10,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Mobile-first base font size; will scale via media queries */
+  /* Base font-size is mobile-first; adjusted via media queries */
   font-size: 1rem;
   background: #f4f4f9;
   color: #333;
@@ -27,14 +27,14 @@ a {
    Header & Navigation
 ===================================================== */
 
-/* Header: Force full-width background */
+/* Header styling */
 header {
   background: #362136;
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100vw;
-  /* The following negative margins counter the body's horizontal padding */
+  /* Extend full width by countering body padding */
   margin-left: calc(-1 * 1rem);
   margin-right: calc(-1 * 1rem);
 }
@@ -101,7 +101,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px; /* Original spacing: 15px */
+  margin: 0 15px;
 }
 #nav-desktop a {
   font-weight: 500;
@@ -129,7 +129,7 @@ header {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
-    /* Move the mobile button down a bit */
+    /* Push the button down a bit */
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -192,6 +192,7 @@ header {
 .timeline {
   margin-bottom: 40px;
 }
+
 .timeline.orby-pink h2    { color: #f7cdd5; }
 .timeline.cerulean h2     { color: #0077be; }
 .timeline.shimi-green h2  { color: #216036; }
@@ -200,11 +201,13 @@ header {
 .timeline.mika h2         { color: #823f25; }
 .timeline.memo h2         { color: #e073bd; }
 .timeline.shizu h2        { color: #4c6095; }
+
 .timeline h2 {
   text-align: left;
   width: 100%;
   margin: 0 0 10px 10px;
 }
+
 .timeline-wrapper {
   display: flex;
   flex-direction: column;
@@ -277,6 +280,7 @@ header {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Reduce container height on mobile */
   #characterScrollWrapper {
     height: 50vh;
   }
@@ -331,7 +335,7 @@ header {
 }
 
 /* =====================================================
-   Character Detail Page Styles
+   CHARACTER DETAIL PAGE STYLES
 ===================================================== */
 .character-detail {
   max-width: 1120px;
@@ -342,62 +346,49 @@ header {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+/* The existing layout (desktop) – left panel on the left, right panel on the right */
 .detail-container {
   display: flex;
+  flex-direction: row;
   gap: 20px;
-  flex-wrap: wrap;
 }
+
+/* Desktop: keep the original order */
 .left-panel {
   flex: 2;
   text-align: left;
   padding-right: 20px;
   border-right: 1px solid #eee;
 }
-.left-panel .back-select-btn {
-  display: inline-block;
-  margin-bottom: 20px;
-  padding: 8px 12px;
-  font-size: 0.9em;
-  background: #667eea;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.left-panel .back-select-btn:hover {
-  background: #556cd6;
-}
-.left-panel p {
-  margin: 10px 0;
-  line-height: 1.6;
-}
 .right-panel {
   flex: 1;
   padding-left: 20px;
   padding-right: 20px;
 }
-.right-panel h1 {
-  text-align: center;
-  margin: 0 0 10px 0;
-  font-size: 2em;
-  color: #0077be;
+
+/* Desktop back button inside left-panel (visible on desktop) */
+.desktop-back {
+  display: inline-block;
 }
-.image-container {
-  text-align: left;
-  margin-bottom: 10px;
-}
-.image-container img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-}
-.basic-info {
-  text-align: left;
-}
-.basic-info p {
-  margin: 4px 0;
+
+/* =====================================================
+   Responsive Character Detail Reordering for Mobile
+===================================================== */
+@media (max-width: 600px) {
+  /* Stack panels vertically */
+  .detail-container {
+    flex-direction: column;
+  }
+  /* Hide the desktop back button and show the mobile back container */
+  .desktop-back {
+    display: none;
+  }
+  .mobile-back {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 }
 
 /* =====================================================
@@ -427,36 +418,19 @@ header {
 }
 
 /* =====================================================
-   Responsive & Mobile Styles
+   Responsive & Mobile Global Styles
 ===================================================== */
 /* Mobile-first defaults */
 body {
   font-size: 1rem;
   padding: 0 1rem;
 }
-#nav-menu {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  background: #f4f4f9;
-  padding: 10px 0;
-  margin: 0;
-}
-#nav-menu li {
-  margin: 10px 0;
-}
-#nav-toggle {
-  display: inline-block;
-}
 @media (min-width: 600px) {
-  /* On screens wider than 600px, hide mobile nav */
+  /* On screens wider than 600px, hide the mobile navigation */
   #nav-mobile {
     display: none;
   }
-  /* Ensure desktop nav is visible */
-  #nav-desktop {
-    display: block;
-  }
+  /* Desktop navigation remains as is */
   body {
     font-size: 1.125rem;
     padding: 0 2rem;
@@ -466,30 +440,5 @@ body {
   body {
     font-size: 1.25rem;
     padding: 0 3rem;
-  }
-}
-
-/* Character Detail Page: Responsive Reordering */
-.detail-container {
-  display: flex;
-  flex-direction: row; /* Desktop: side-by-side */
-  gap: 20px;
-}
-
-/* Mobile: stack vertically and reorder */
-@media (max-width: 600px) {
-  .detail-container {
-    flex-direction: column;
-  }
-  .back-container {
-    order: 1;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .right-panel {
-    order: 2;
-  }
-  .left-panel {
-    order: 3;
   }
 }
