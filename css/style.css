@@ -1,15 +1,14 @@
 /* =====================================================
    Hide Scrollbars Globally (Functional, but not visible)
 ===================================================== */
-/* For Chrome, Safari and Opera */
+/* For Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-
-/* For IE, Edge and Firefox */
+/* For IE, Edge, and Firefox */
 body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* =====================================================
@@ -24,8 +23,7 @@ body {
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  /* Mobile-first base font-size; adjusted via media queries */
-  font-size: 1rem;
+  font-size: 1rem; /* Mobile-first base font-size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -68,7 +66,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Desktop: inline */
+  flex-direction: row; /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -87,7 +85,7 @@ header {
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
-    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    font-size: clamp(1.2rem, 5vw, 1.5rem); /* Adjust these values as needed */
   }
   #site-title .header-line1,
   #site-title .header-line2 {
@@ -115,7 +113,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px;
+  margin: 0 15px; /* Original 15px spacing */
 }
 #nav-desktop a {
   font-weight: 500;
@@ -143,6 +141,7 @@ header {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
+    /* Move button down slightly */
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -272,18 +271,26 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 70vh; /* Desktop height */
+  /* Desktop: 70vh; For tablet/mobile, we now reduce the height by the header’s height */
+  height: 70vh;
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
   position: relative;
 }
-/* Adjust container height for tablet screens */
-@media (min-width: 601px) and (max-width: 1023px) {
+
+/* For tablet and mobile, reduce the container height by header height (assumed 60px) */
+@media (max-width: 1023px) {
   #characterScrollWrapper {
-    height: 60vh;
+    height: calc(70vh - 60px);
   }
 }
+@media (max-width: 600px) {
+  #characterScrollWrapper {
+    height: calc(50vh - 60px);
+  }
+}
+
 #characterScrollContainer {
   display: grid;
   gap: 20px;
@@ -297,10 +304,6 @@ header {
 @media (max-width: 600px) {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
-  }
-  /* Reduce container height on mobile */
-  #characterScrollWrapper {
-    height: 50vh;
   }
 }
 
@@ -364,6 +367,8 @@ header {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+/* Detail container: side-by-side panels on desktop */
 .detail-container {
   display: flex;
   gap: 20px;
@@ -480,7 +485,7 @@ body {
   display: inline-block;
 }
 @media (min-width: 600px) {
-  /* On screens wider than 600px, hide the mobile nav entirely */
+  /* On screens wider than 600px, hide mobile nav entirely */
   #nav-mobile {
     display: none;
   }
