@@ -1,5 +1,5 @@
 /* =====================================================
-   1. Reset: Remove Default Margins and Padding
+   Remove Default Margins and Padding
 ===================================================== */
 html, body {
   margin: 0;
@@ -7,7 +7,7 @@ html, body {
 }
 
 /* =====================================================
-   2. Hide Scrollbars Globally (Functional but Invisible)
+   Hide Scrollbars Globally (Functional but Invisible)
 ===================================================== */
 /* Chrome, Safari, Opera */
 ::-webkit-scrollbar {
@@ -20,7 +20,7 @@ body {
 }
 
 /* =====================================================
-   3. Global Reset & Base Styles
+   Global Reset & Base Styles
 ===================================================== */
 *,
 *::before,
@@ -38,40 +38,27 @@ body {
 }
 
 /* =====================================================
-   4. Page Wrapper & Fixed Elements for Desktop
+   Page Wrapper & Side Boxes
 ===================================================== */
-
-/* The page-wrapper wraps the entire fixed layout.
-   On desktop (min-width: 1024px) we use a three‑column layout. */
 .page-wrapper {
   width: 100%;
-  display: block; /* Default on mobile/tablet */
+  display: block; /* Stacked on mobile/tablet */
 }
 
 .main-content {
   width: 100%;
 }
 
-/* Desktop layout: side boxes and fixed main content */
+/* On desktop (min-width: 1024px), use a three-column layout */
 @media (min-width: 1024px) {
   .page-wrapper {
     display: flex;
   }
-  /* Side boxes: 20% width each; fixed height fills viewport minus header (60px) */
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Fill viewport below the 60px header */
     overflow: hidden;
-    position: fixed;
-    top: 60px; /* Immediately below header */
-    z-index: 980;
-  }
-  .side-box.left-box {
-    left: 0;
-  }
-  .side-box.right-box {
-    right: 0;
   }
   .side-box img {
     width: 100%;
@@ -79,35 +66,23 @@ body {
     object-fit: cover;
     display: block;
   }
-  /* Main content: occupies the center 60%, fixed in place */
   .main-content {
-    position: fixed;
-    top: 100px; /* 60px header + 40px nav */
-    left: 20%;
-    right: 20%;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-    z-index: 950;
+    width: 60%;
   }
 }
 
-/* For screens smaller than 1024px, use normal flow and hide side boxes */
+/* Hide side boxes on screens smaller than 1024px */
 @media (max-width: 1023px) {
   .side-box {
     display: none;
   }
-  .main-content {
-    position: static;
-    height: auto;
-    overflow: visible;
-  }
 }
 
 /* =====================================================
-   5. Header & Navigation
+   Header & Navigation
 ===================================================== */
 
-/* Header: full-width; on desktop, we fix its height to 60px */
+/* Header: full-width purple background */
 header {
   background: #362136;
   padding: 10px 0;
@@ -117,26 +92,21 @@ header {
   margin: 0;
 }
 
-/* On desktop, fix the header at 60px and center its content vertically */
+/* Desktop-only: fix header height and vertically center content */
 @media (min-width: 1024px) {
   header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 60px;
-    padding: 0;
+    padding: 0;           /* Remove extra padding on desktop */
     display: flex;
-    align-items: center;
+    align-items: center;  /* Vertically center header content */
     justify-content: center;
-    z-index: 1000;
   }
 }
 
-/* Site title */
+/* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: row;  /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -149,6 +119,8 @@ header {
   white-space: nowrap;
   margin: 0 5px;
 }
+
+/* Mobile: force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -157,18 +129,18 @@ header {
   #site-title .header-line1,
   #site-title .header-line2 {
     display: block;
+    white-space: nowrap;
   }
 }
 
-/* Desktop Navigation: fixed below the header (40px tall) */
-@media (min-width: 1024px) {
+/* Desktop Navigation (visible on screens wider than 600px) */
+#nav-desktop {
+  text-align: center;
+  margin-top: 5px;
+}
+@media (max-width: 600px) {
   #nav-desktop {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    height: 40px;
-    z-index: 990;
+    display: none;
   }
 }
 #nav-desktop ul {
@@ -190,11 +162,11 @@ header {
   color: #667eea;
 }
 
-/* Mobile Navigation */
+/* Mobile Navigation (visible on screens 600px and below) */
+#nav-mobile {
+  display: none;
+}
 @media (max-width: 600px) {
-  #nav-desktop {
-    display: none;
-  }
   #nav-mobile {
     display: block;
     text-align: center;
@@ -212,7 +184,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* Toggled via JS */
+    display: none; /* Hidden by default; toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -234,18 +206,15 @@ header {
 }
 
 /* =====================================================
-   6. Scrollable Container for Page Content
+   Scrollable Container for Page Content
 ===================================================== */
-/* On desktop, .main-content is already fixed and scrolls.
-   For non‑desktop, if you still want a scrollable container,
-   wrap the page content in a .scroll-container (see below). */
 .scroll-container {
-  height: 100%;
+  height: calc(100vh - 60px); /* Same height as the side boxes */
   overflow-y: auto;
 }
 
 /* =====================================================
-   7. Content Sections (for individual pages)
+   Content Sections
 ===================================================== */
 .content-section {
   padding: 10px 20px;
@@ -258,8 +227,23 @@ header {
 }
 
 /* =====================================================
-   8. Additional Section Styles (Timeline, Chapters, etc.)
-   (These sections remain unchanged from your previous design)
+   STORY SECTION – Pan & Zoom Container
+===================================================== */
+#panZoomWrapper {
+  width: 100%;
+  max-width: 1120px;
+  height: 70vh;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+#panZoomContainer {
+  width: 1600px;
+  transform-origin: top left;
+}
+
+/* =====================================================
+   Timeline Styles
 ===================================================== */
 .timeline {
   margin-bottom: 40px;
@@ -284,6 +268,9 @@ header {
   margin-bottom: 20px;
 }
 
+/* =====================================================
+   Chapter Container
+===================================================== */
 .chapter-container {
   display: flex;
   gap: 30px;
@@ -321,7 +308,7 @@ header {
 .timeline.shizu .timeline-underline { background: #4c6095; }
 
 /* =====================================================
-   9. Characters Section
+   CHARACTERS SECTION – Vertical Scroll Container
 ===================================================== */
 #characterScrollWrapper {
   width: 100%;
@@ -351,6 +338,9 @@ header {
   }
 }
 
+/* =====================================================
+   Character Item Styling
+===================================================== */
 .character-item {
   cursor: pointer;
   text-align: center;
@@ -372,7 +362,7 @@ header {
 }
 
 /* =====================================================
-   10. Navigation Buttons (if used)
+   Navigation Buttons
 ===================================================== */
 .nav-buttons {
   display: flex;
@@ -380,8 +370,7 @@ header {
   gap: 15px;
   margin-top: 20px;
 }
-.nav-buttons a.button,
-.nav-buttons button {
+.nav-buttons a.button, .nav-buttons button {
   flex: 1;
   max-width: 200px;
   padding: 10px 15px;
@@ -395,13 +384,12 @@ header {
   text-align: center;
   transition: background 0.3s ease;
 }
-.nav-buttons a.button:hover,
-.nav-buttons button:hover {
+.nav-buttons a.button:hover, .nav-buttons button:hover {
   background: #556cd6;
 }
 
 /* =====================================================
-   11. Character Detail Page Styles
+   CHARACTER DETAIL PAGE STYLES
 ===================================================== */
 .character-detail {
   max-width: 1120px;
@@ -478,7 +466,7 @@ header {
 }
 
 /* =====================================================
-   12. News Entry Styles
+   News Entry Styles
 ===================================================== */
 .news-entry {
   border: 1px solid #ddd;
@@ -504,7 +492,7 @@ header {
 }
 
 /* =====================================================
-   13. Responsive & Mobile Base Styles
+   Responsive & Mobile Styles
 ===================================================== */
 @media (min-width: 600px) {
   body {
