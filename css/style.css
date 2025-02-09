@@ -391,7 +391,7 @@ header {
 /* =====================================================
    CHAPTER DETAIL PAGE STYLES
 ===================================================== */
-.character-detail {
+.chapter-detail {
   max-width: 1120px;
   margin: 20px auto;
   background: #fff;
@@ -399,73 +399,38 @@ header {
   border: 1px solid #eee;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* Add extra bottom margin so content doesn't get hidden under fixed nav */
-  margin-bottom: 80px;
 }
-.detail-container {
-  display: flex;
-  gap: 20px;
-  flex-direction: row;
-}
-@media (max-width: 600px) {
-  .detail-container {
-    flex-direction: column;
-  }
-  .right-panel {
-    order: 1;
-  }
-  .left-panel {
-    order: 2;
-  }
-}
-.left-panel {
-  flex: 2;
+
+.chapter-content {
   text-align: left;
-  padding-right: 20px;
-  border-right: 1px solid #eee;
-}
-.back-select-btn {
-  display: inline-block;
   margin-bottom: 20px;
-  padding: 8px 12px;
-  font-size: 0.9em;
+}
+
+/* Chapter Navigation placed inside the chapter container (not fixed) */
+.chapter-nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.chapter-nav .nav-button {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
   background: #667eea;
   color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
 }
-.back-select-btn:hover {
+
+.chapter-nav .nav-button:hover {
   background: #556cd6;
 }
-.right-panel {
-  flex: 1;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.right-panel h1 {
-  text-align: center;
-  margin: 0 0 10px 0;
-  font-size: 2em;
-  color: #0077be;
-}
-.image-container {
-  text-align: center;
-  margin-bottom: 10px;
-}
-.image-container img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-}
-.basic-info {
-  text-align: left;
-}
-.basic-info p {
-  margin: 4px 0;
-}
+
+/* Hide navigation buttons if there is no previous or next chapter:
+   (This is handled via Liquid conditionals in the template) */
 
 /* =====================================================
    NEWS ENTRY STYLES
@@ -491,45 +456,6 @@ header {
 .news-content {
   font-size: 1.1em;
   line-height: 1.5;
-}
-
-/* =====================================================
-   Fixed Chapter Navigation (for Chapter Detail Page)
-===================================================== */
-.chapter-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 0;
-  z-index: 1000;
-}
-
-.chapter-nav .nav-button {
-  flex: 1;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background: #667eea;
-  padding: 10px;
-  margin: 0 5px;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-.chapter-nav .nav-button:hover {
-  background: #556cd6;
-}
-
-/* A placeholder for when there is no previous or next chapter */
-.chapter-nav .placeholder {
-  flex: 1;
-  margin: 0 5px;
 }
 
 /* =====================================================
