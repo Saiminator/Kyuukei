@@ -8,20 +8,13 @@ title: {{ page.title }}
   <div class="chapter-content">
     {{ content }}
   </div>
+  <div class="chapter-nav">
+    {% if page.previous_chapter %}
+      <a href="{{ page.previous_chapter.url }}" class="nav-button prev-button">Previous Chapter</a>
+    {% endif %}
+    <a href="/timeline.html" class="nav-button back-button">Back to Timeline</a>
+    {% if page.next_chapter %}
+      <a href="{{ page.next_chapter.url }}" class="nav-button next-button">Next Chapter</a>
+    {% endif %}
+  </div>
 </article>
-
-<nav class="chapter-nav">
-  {% if page.previous_chapter %}
-    <a href="{{ page.previous_chapter.url }}" class="nav-button prev-button">Previous Chapter</a>
-  {% else %}
-    <span class="nav-button placeholder"></span>
-  {% endif %}
-  
-  <a href="/timeline.html" class="nav-button back-button">Back to Timeline</a>
-  
-  {% if page.next_chapter %}
-    <a href="{{ page.next_chapter.url }}" class="nav-button next-button">Next Chapter</a>
-  {% else %}
-    <span class="nav-button placeholder"></span>
-  {% endif %}
-</nav>
