@@ -106,7 +106,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Desktop: inline */
+  flex-direction: row;  /* Inline on desktop */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -133,9 +133,30 @@ header {
   }
 }
 
+/* ---------- Navigation Visibility Rules ---------- */
+/* Desktop Navigation: visible on screens wider than 600px */
+@media (min-width: 601px) {
+  #nav-desktop {
+    display: flex;
+  }
+  #nav-mobile {
+    display: none;
+  }
+}
+
+/* Mobile Navigation: visible on screens 600px and below */
+@media (max-width: 600px) {
+  #nav-desktop {
+    display: none;
+  }
+  #nav-mobile {
+    display: block;
+  }
+}
+
 /* ---------- Sticky Navigation Rules ---------- */
 
-/* Desktop Navigation: sticky and recentered; hide mobile menu above 600px */
+/* Desktop Navigation: sticky and recentered */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -143,7 +164,6 @@ header {
     z-index: 100;
     background: #fff;
     padding: 5px 0;
-    display: flex;
     justify-content: center;
     align-items: center;
   }
@@ -157,19 +177,9 @@ header {
     z-index: 100;
     background: #fff;
     padding: 5px 0;
-    display: block;
     text-align: center;
   }
 }
-
-/* Ensure that mobile nav is hidden on screens above 600px */
-@media (min-width: 601px) {
-  #nav-mobile {
-    display: none;
-  }
-}
-
-/* ---------- End Sticky Navigation Rules ---------- */
 
 /* Desktop Navigation Menu */
 #nav-desktop ul {
@@ -232,6 +242,7 @@ header {
     color: #667eea;
   }
 }
+/* ---------- End Navigation Visibility & Sticky Rules ---------- */
 
 /* =====================================================
    Scrollable Container for Page Content
