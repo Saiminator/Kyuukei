@@ -9,11 +9,11 @@ html, body {
 /* =====================================================
    Hide Scrollbars Globally (Functional but invisible)
 ===================================================== */
-/* For Chrome, Safari, Opera */
+/* Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-/* For IE, Edge, and Firefox */
+/* IE, Edge, and Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    /* The height will be set in the desktop media query below */
+    height: calc(100vh - 60px); /* Subtract header height (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -82,7 +82,7 @@ body {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background (default – no fixed height for mobile) */
+/* Header: full-width purple background */
 header {
   background: #362136;
   padding: 10px 0;
@@ -92,10 +92,21 @@ header {
   margin: 0;
 }
 
+/* Desktop-only: Fix header height and vertically center content */
+@media (min-width: 1024px) {
+  header {
+    height: 60px;
+    padding: 0; /* Remove extra padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Desktop: inline */
+  flex-direction: row; /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -191,20 +202,6 @@ header {
   }
   #nav-mobile-menu a:hover {
     color: #667eea;
-  }
-}
-
-/* =====================================================
-   Desktop-Only Header & Side Box Adjustments
-   (Applies only when min-width is 1024px)
-===================================================== */
-@media (min-width: 1024px) {
-  header {
-    height: 60px;
-    line-height: 60px;
-  }
-  .side-box {
-    height: calc(100vh - 60px);
   }
 }
 
