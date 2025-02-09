@@ -17,31 +17,8 @@
       <span class="header-line2">Kyuu’s Breaktime Stories</span>
     </a>
   </header>
-
-  <!-- Desktop Navigation (fixed, visible on screens wider than 600px) -->
-  <nav id="nav-desktop">
-    <ul>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/timeline.html">Story</a></li>
-      <li><a href="/characters.html">Characters</a></li>
-      <li><a href="/questions.html">Questions</a></li>
-      <li><a href="/news.html">News</a></li>
-    </ul>
-  </nav>
-
-  <!-- Mobile Navigation (visible on screens 600px and below) -->
-  <nav id="nav-mobile">
-    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
-    <ul id="nav-mobile-menu">
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/timeline.html">Story</a></li>
-      <li><a href="/characters.html">Characters</a></li>
-      <li><a href="/questions.html">Questions</a></li>
-      <li><a href="/news.html">News</a></li>
-    </ul>
-  </nav>
-
-  <!-- Page Wrapper: Contains side boxes and the scrollable main content -->
+  
+  <!-- Page Wrapper: Contains side boxes and main content -->
   <div class="page-wrapper">
     <!-- Left Side Box (Desktop Only) -->
     <div class="side-box left-box">
@@ -50,6 +27,30 @@
     
     <!-- Main Content (Scrollable) -->
     <div class="main-content scroll-container">
+      <!-- Desktop Navigation (visible on screens wider than 600px) -->
+      <nav id="nav-desktop">
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/timeline.html">Story</a></li>
+          <li><a href="/characters.html">Characters</a></li>
+          <li><a href="/questions.html">Questions</a></li>
+          <li><a href="/news.html">News</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Mobile Navigation (visible on screens 600px and below) -->
+      <nav id="nav-mobile">
+        <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+        <ul id="nav-mobile-menu">
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/timeline.html">Story</a></li>
+          <li><a href="/characters.html">Characters</a></li>
+          <li><a href="/questions.html">Questions</a></li>
+          <li><a href="/news.html">News</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Page Content -->
       {{ content }}
     </div>
     
@@ -58,7 +59,7 @@
       <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
     </div>
   </div><!-- End .page-wrapper -->
-
+  
   <script src="/js/main.js"></script>
 </body>
 </html>
