@@ -1,20 +1,57 @@
----
-layout: default
-title: {{ page.title }}
----
-
-<article class="chapter-detail">
-  <h1>{{ page.title }}</h1>
-  <div class="chapter-content">
-    {{ content }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Responsive viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="no-select">
+  <header>
+    <a href="/index.html" id="site-title">
+      <span class="header-line1">Kyuukei wo Hanashi |</span>
+      <span class="header-line2">Kyuu’s Breaktime Stories</span>
+    </a>
+  </header>
+  
+  <div class="page-wrapper">
+    <div class="side-box left-box">
+      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
+    </div>
+    <div class="main-content scroll-container">
+      <article class="chapter-detail">
+         <h1>{{ page.title }}</h1>
+         <div class="chapter-content">
+           {{ content }}
+         </div>
+      </article>
+    </div>
+    <div class="side-box right-box">
+      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+    </div>
   </div>
-  <div class="chapter-nav">
-    {% if page.previous_chapter %}
-      <a href="{{ page.previous_chapter.url }}" class="nav-button prev-button">Previous Chapter</a>
-    {% endif %}
-    <a href="/timeline.html" class="nav-button back-button">Back to Timeline</a>
-    {% if page.next_chapter %}
-      <a href="{{ page.next_chapter.url }}" class="nav-button next-button">Next Chapter</a>
-    {% endif %}
-  </div>
-</article>
+  
+  <!-- Fixed Chapter Navigation at Bottom -->
+  <nav class="chapter-nav">
+    <div class="chapter-nav-container">
+      {% if page.previous_chapter %}
+         <a href="{{ page.previous_chapter.url }}" class="nav-button prev-button">Previous Chapter</a>
+      {% else %}
+         <span class="nav-button placeholder"></span>
+      {% endif %}
+      
+      <a href="/timeline.html" class="nav-button back-button">Back to Timeline</a>
+      
+      {% if page.next_chapter %}
+         <a href="{{ page.next_chapter.url }}" class="nav-button next-button">Next Chapter</a>
+      {% else %}
+         <span class="nav-button placeholder"></span>
+      {% endif %}
+    </div>
+  </nav>
+  
+  <script src="/js/main.js"></script>
+</body>
+</html>
