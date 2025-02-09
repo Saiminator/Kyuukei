@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Header is fixed at 60px */
+    /* The height will be set in the desktop media query below */
     overflow: hidden;
   }
   .side-box img {
@@ -82,11 +82,10 @@ body {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background, fixed height */
+/* Header: full-width purple background (default – no fixed height for mobile) */
 header {
   background: #362136;
-  height: 60px;
-  line-height: 60px;
+  padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
@@ -96,7 +95,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row; /* Desktop: inline */
+  flex-direction: row;  /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -141,7 +140,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px; /* 15px margins */
+  margin: 0 15px;
 }
 #nav-desktop a {
   font-weight: 500;
@@ -192,6 +191,20 @@ header {
   }
   #nav-mobile-menu a:hover {
     color: #667eea;
+  }
+}
+
+/* =====================================================
+   Desktop-Only Header & Side Box Adjustments
+   (Applies only when min-width is 1024px)
+===================================================== */
+@media (min-width: 1024px) {
+  header {
+    height: 60px;
+    line-height: 60px;
+  }
+  .side-box {
+    height: calc(100vh - 60px);
   }
 }
 
