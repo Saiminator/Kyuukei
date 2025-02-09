@@ -5,33 +5,24 @@ title: Story Timeline
 
 <section id="story" class="content-section">
   <h1>Story Timeline</h1>
-  <!-- Pan/Zoom Wrapper -->
-  <div id="panZoomWrapper">
-    <div id="panZoomContainer" class="no-select">
-      {% assign timeline_names = "Kyuu|Cerulean Winds|Shimi|Dreymi|Via|Mika|Memo|Shizu" | split: "|" %}
-      {% for timeline in timeline_names %}
-        {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
-        {% if timeline_chapters != empty %}
-          <div class="timeline 
-               {% if timeline == 'Kyuu' %}orby-pink{% elsif timeline == 'Cerulean Winds' %}cerulean{% elsif timeline == 'Shimi' %}shimi-green{% elsif timeline == 'Dreymi' %}dreymi{% elsif timeline == 'Via' %}via{% elsif timeline == 'Mika' %}mika{% elsif timeline == 'Memo' %}memo{% elsif timeline == 'Shizu' %}shizu{% endif %}">
-            <h2>{{ timeline }}</h2>
-            <div class="timeline-wrapper">
-              <div class="chapter-container">
-                {% for chapter in timeline_chapters %}
-                  <a href="{{ chapter.url }}" class="chapter-box">
-                    {% if chapter.chapter_title %}
-                      {{ chapter.chapter_title }}
-                    {% else %}
-                      Chapter {{ chapter.chapter_number }}
-                    {% endif %}
-                  </a>
-                {% endfor %}
-              </div>
-              <div class="timeline-underline"></div>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
+  {% assign timeline_names = "Kyuu|Cerulean Winds|Shimi|Dreymi|Via|Mika|Memo|Shizu" | split: "|" %}
+  {% for timeline in timeline_names %}
+    {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
+    {% if timeline_chapters != empty %}
+      <div class="timeline-group">
+        <h2>{{ timeline }}</h2>
+        <div class="chapter-list">
+          {% for chapter in timeline_chapters %}
+            <a href="{{ chapter.url }}" class="chapter-box">
+              {% if chapter.chapter_title %}
+                {{ chapter.chapter_title }}
+              {% else %}
+                Chapter {{ chapter.chapter_number }}
+              {% endif %}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
 </section>
