@@ -201,7 +201,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* Toggled via JS */
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -226,6 +226,7 @@ header {
 
 /* =====================================================
    Scrollable Container for Page Content
+   (Wraps each page’s main content)
 ===================================================== */
 .scroll-container {
   height: calc(100vh - 60px);
@@ -370,7 +371,7 @@ header {
   margin: 20px auto;
   background: #fff;
   padding: 20px;
-  padding-bottom: 120px; /* Extra bottom padding so content is not hidden by fixed nav */
+  padding-bottom: 120px; /* Extra bottom padding so content is not hidden under nav */
   border: 1px solid #eee;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -380,7 +381,7 @@ header {
   margin-bottom: 20px;
 }
 
-/* Fixed Chapter Navigation - always visible at bottom of viewport */
+/* Fixed Chapter Navigation at Bottom of the Content */
 .chapter-nav {
   position: fixed;
   bottom: 0;
@@ -456,5 +457,3 @@ header {
     font-size: 1.25rem;
   }
 }
-
-/* FULL CSS END */
