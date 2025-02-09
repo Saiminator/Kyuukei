@@ -71,6 +71,14 @@ body {
   }
 }
 
+/* On tablets (min-width: 601px and max-width: 1023px), center main content */
+@media (min-width: 601px) and (max-width: 1023px) {
+  .main-content {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+}
+
 /* Hide side boxes on screens smaller than 1024px */
 @media (max-width: 1023px) {
   .side-box {
@@ -156,7 +164,7 @@ header {
 
 /* ---------- Sticky Navigation Rules ---------- */
 
-/* Desktop Navigation: sticky and recentered */
+/* Desktop Navigation: sticky and recentered (applies on min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -169,7 +177,7 @@ header {
   }
 }
 
-/* Mobile Navigation: sticky and recentered */
+/* Mobile Navigation: sticky and recentered (applies on max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -181,7 +189,7 @@ header {
   }
 }
 
-/* Desktop Navigation Menu */
+/* ---------- Desktop Navigation Menu ---------- */
 #nav-desktop ul {
   list-style: none;
   display: flex;
@@ -206,7 +214,7 @@ header {
   color: #667eea;
 }
 
-/* Mobile Navigation Menu */
+/* ---------- Mobile Navigation Menu ---------- */
 @media (max-width: 600px) {
   #nav-mobile button {
     background: #667eea;
@@ -242,7 +250,7 @@ header {
     color: #667eea;
   }
 }
-/* ---------- End Navigation Visibility & Sticky Rules ---------- */
+/* ---------- End Navigation Visibility Rules ---------- */
 
 /* =====================================================
    Scrollable Container for Page Content
