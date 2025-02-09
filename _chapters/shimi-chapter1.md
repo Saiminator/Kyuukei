@@ -9,4 +9,3 @@ offset: 40
 
 This is the content of Shimi Chapter 1.  
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
-(Additional chapter content here...)
