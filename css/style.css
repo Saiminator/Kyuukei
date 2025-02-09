@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Fill viewport below header (60px) */
+    height: calc(100vh - 60px); /* Exactly fill viewport below header */
     overflow: hidden;
   }
   .side-box img {
@@ -106,7 +106,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Desktop: inline */
+  flex-direction: row;  /* Inline on desktop */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -133,35 +133,28 @@ header {
   }
 }
 
-/* ---------- STICKY NAVIGATION RULES ---------- */
+/* ---------- Sticky Navigation Rules ---------- */
 
-/* Anchor the desktop nav to the top of the viewport */
+/* Desktop Navigation: sticky and recentered; hide on mobile */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: #fff;  /* Solid background to cover content beneath */
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-}
-
-/* For mobile, make the nav sticky too */
-@media (max-width: 600px) {
-  #nav-mobile {
-    position: sticky;
-    top: 0;
-    z-index: 100;
     background: #fff;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (max-width: 600px) {
+  #nav-desktop {
+    display: none;
   }
 }
 
-/* ---------- END STICKY NAVIGATION RULES ---------- */
-
-/* Desktop Navigation */
+/* Desktop Navigation Menu */
 #nav-desktop ul {
   list-style: none;
   display: flex;
@@ -186,12 +179,14 @@ header {
   color: #667eea;
 }
 
-/* Mobile Navigation */
-#nav-mobile {
-  display: none;
-}
+/* Mobile Navigation: sticky and recentered */
 @media (max-width: 600px) {
   #nav-mobile {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    padding: 5px 0;
     display: block;
     text-align: center;
   }
@@ -229,6 +224,7 @@ header {
     color: #667eea;
   }
 }
+/* ---------- End Sticky Navigation Rules ---------- */
 
 /* =====================================================
    Scrollable Container for Page Content
