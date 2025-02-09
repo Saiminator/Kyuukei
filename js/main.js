@@ -25,14 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const panZoomContainer = document.getElementById('panZoomContainer');
   const panZoomWrapper = document.getElementById('panZoomWrapper');
   
-  // Set initial pan positions to start at top left (0,0)
   if (panZoomContainer) {
     translateX = 0;
     translateY = 0;
     panZoomContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   }
   
-  // Start panning when mousedown on the wrapper or container (unless on a chapter link)
   function startPan(e) {
     if (e.target.closest('.chapter-box')) return;
     isPanning = true;
@@ -81,12 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Clamp the pan so that if content is dragged too far, it stays within limits.
   function clampPan() {
     if (!panZoomWrapper || !panZoomContainer) return;
     const wrapperRect = panZoomWrapper.getBoundingClientRect();
     const containerRect = panZoomContainer.getBoundingClientRect();
-    // Horizontal clamping
     if (containerRect.width <= wrapperRect.width) {
       translateX = 0;
     } else {
@@ -95,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (translateX < minTranslateX) translateX = minTranslateX;
       if (translateX > maxTranslateX) translateX = maxTranslateX;
     }
-    // Vertical clamping
     if (containerRect.height <= wrapperRect.height) {
       translateY = 0;
     } else {
@@ -106,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Prevent chapter links from firing if a drag occurred.
   document.querySelectorAll('.chapter-box').forEach(function(link) {
     link.addEventListener('click', function(e) {
       if (wasDragged) {
