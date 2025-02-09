@@ -96,9 +96,9 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0;           /* Remove extra padding on desktop */
+    padding: 0; /* Remove extra padding on desktop */
     display: flex;
-    align-items: center;  /* Vertically center header content */
+    align-items: center; /* Vertically center header content */
     justify-content: center;
   }
 }
@@ -106,7 +106,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Inline on desktop */
+  flex-direction: row; /* Inline on desktop */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -285,6 +285,7 @@ header {
   overflow-x: auto;
   gap: 10px;
   padding-bottom: 10px;
+  justify-content: flex-start; /* Left aligned */
 }
 
 .chapter-box {
@@ -306,16 +307,23 @@ header {
 }
 
 /* =====================================================
-   STORY SECTION – Legacy Timeline (if needed)
+   Legacy Chapter Container (if needed elsewhere)
 ===================================================== */
-/* (Optional: you can remove these if not used elsewhere)
+.chapter-container {
+  display: flex;
+  gap: 30px;
+  justify-content: flex-start;
+}
+.chapter-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
 .timeline-underline {
   width: 100%;
   height: 3px;
   background: #ddd;
   margin-top: 10px;
 }
-*/
 
 /* =====================================================
    CHARACTERS SECTION – Vertical Scroll Container
