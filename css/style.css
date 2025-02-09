@@ -49,7 +49,7 @@ body {
   width: 100%;
 }
 
-/* On desktop (min-width: 1024px), use a three-column layout */
+/* On desktop (min-width: 1024px), use a three‑column layout */
 @media (min-width: 1024px) {
   .page-wrapper {
     display: flex;
@@ -71,14 +71,6 @@ body {
   }
 }
 
-/* On tablets (min-width: 601px and max-width: 1023px), center main content */
-@media (min-width: 601px) and (max-width: 1023px) {
-  .main-content {
-    max-width: 1120px;
-    margin: 0 auto;
-  }
-}
-
 /* Hide side boxes on screens smaller than 1024px */
 @media (max-width: 1023px) {
   .side-box {
@@ -90,12 +82,12 @@ body {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background */
+/* Header: full‑width purple background */
 header {
   background: #362136;
   padding: 10px 0;
   text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   width: 100%;
   margin: 0;
 }
@@ -104,9 +96,9 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0;           /* Remove extra padding on desktop */
+    padding: 0; /* Remove extra padding on desktop */
     display: flex;
-    align-items: center;  /* Vertically center header content */
+    align-items: center; /* Vertically center header content */
     justify-content: center;
   }
 }
@@ -114,7 +106,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Inline on desktop */
+  flex-direction: row; /* Inline on desktop */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -291,50 +283,51 @@ header {
 }
 
 /* =====================================================
-   Timeline Styles
+   Timeline Styles (New, Simple Chapter Links)
 ===================================================== */
-.timeline {
-  margin-bottom: 40px;
-}
-.timeline.orby-pink h2 { color: #f7cdd5; }
-.timeline.cerulean h2 { color: #0077be; }
-.timeline.shimi-green h2 { color: #216036; }
-.timeline.dreymi h2 { color: #2f191f; }
-.timeline.via h2 { color: #de363d; }
-.timeline.mika h2 { color: #823f25; }
-.timeline.memo h2 { color: #e073bd; }
-.timeline.shizu h2 { color: #4c6095; }
-.timeline h2 {
+.timeline-group {
+  margin-bottom: 30px;
   text-align: left;
-  margin: 0 0 10px 10px;
 }
-.timeline-wrapper {
+
+.timeline-group h2 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  color: #0077be;
+}
+
+.chapter-list {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  overflow-x: auto;
+  gap: 10px;
   padding-bottom: 10px;
-  margin-bottom: 20px;
+}
+
+.chapter-box {
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 200px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.chapter-box:hover {
+  background: #f9f9f9;
+  border-color: #ccc;
 }
 
 /* =====================================================
-   Chapter Container
+   Chapter Container (Legacy, if needed elsewhere)
 ===================================================== */
 .chapter-container {
   display: flex;
   gap: 30px;
   justify-content: flex-start;
-}
-.chapter-box {
-  border: 2px solid #ddd;
-  padding: 10px 15px;
-  cursor: pointer;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  white-space: nowrap;
-  text-decoration: none;
-  color: inherit;
 }
 .chapter-box:hover {
   transform: translateY(-3px);
@@ -346,14 +339,6 @@ header {
   background: #ddd;
   margin-top: 10px;
 }
-.timeline.orby-pink .timeline-underline { background: #f7cdd5; }
-.timeline.cerulean .timeline-underline { background: #0077be; }
-.timeline.shimi-green .timeline-underline { background: #216036; }
-.timeline.dreymi .timeline-underline { background: #2f191f; }
-.timeline.via .timeline-underline { background: #de363d; }
-.timeline.mika .timeline-underline { background: #823f25; }
-.timeline.memo .timeline-underline { background: #e073bd; }
-.timeline.shizu .timeline-underline { background: #4c6095; }
 
 /* =====================================================
    CHARACTERS SECTION – Vertical Scroll Container
@@ -446,7 +431,7 @@ header {
   padding: 20px;
   border: 1px solid #eee;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .detail-container {
   display: flex;
@@ -522,7 +507,7 @@ header {
   padding: 15px;
   margin-bottom: 20px;
   background: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
 .news-entry h2 {
