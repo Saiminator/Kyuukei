@@ -7,7 +7,7 @@ html, body {
 }
 
 /* =====================================================
-   Hide Scrollbars Globally (Functional but invisible)
+   Hide Scrollbars Globally (Functional but Invisible)
 ===================================================== */
 /* For Chrome, Safari, Opera */
 ::-webkit-scrollbar {
@@ -133,15 +133,35 @@ header {
   }
 }
 
-/* Desktop Navigation */
-#nav-desktop {
-  /* Use flexbox to center menu buttons */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5px;
+/* ---------- STICKY NAVIGATION RULES ---------- */
+
+/* Anchor the desktop nav to the top of the viewport */
+@media (min-width: 1024px) {
+  #nav-desktop {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;  /* Solid background to cover content beneath */
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }
 
+/* For mobile, make the nav sticky too */
+@media (max-width: 600px) {
+  #nav-mobile {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+
+/* ---------- END STICKY NAVIGATION RULES ---------- */
+
+/* Desktop Navigation */
 #nav-desktop ul {
   list-style: none;
   display: flex;
@@ -215,7 +235,7 @@ header {
    (Wraps each page’s main content)
 ===================================================== */
 .scroll-container {
-  height: calc(100vh - 60px); /* Adjust if needed (e.g., calc(100vh - 70px)) */
+  height: calc(100vh - 60px);
   overflow-y: auto;
 }
 
