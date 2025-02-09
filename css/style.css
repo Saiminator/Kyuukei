@@ -9,11 +9,11 @@ html, body {
 /* =====================================================
    Hide Scrollbars Globally (Functional but invisible)
 ===================================================== */
-/* Chrome, Safari, Opera */
+/* For Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, and Firefox */
+/* For IE, Edge, and Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Exactly fill remaining viewport (header is 60px) */
+    height: calc(100vh - 60px); /* Side boxes fill viewport minus header (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -82,17 +82,17 @@ body {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background with fixed height on desktop (and all devices) */
+/* Header: full-width purple background */
 header {
   background: #362136;
-  padding: 10px 0; /* Extra padding on mobile; will be overridden on desktop */
+  padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
   margin: 0;
 }
 
-/* Desktop-only header adjustments */
+/* Desktop-only: Fix header height and vertically center content */
 @media (min-width: 1024px) {
   header {
     height: 60px;
@@ -207,9 +207,10 @@ header {
 
 /* =====================================================
    Scrollable Container for Page Content
+   (This container wraps each page’s main content)
 ===================================================== */
 .scroll-container {
-  height: calc(100vh - 60px); /* Fixed height: viewport minus header */
+  height: calc(100vh - 70px); /* Slightly shorter than side boxes */
   overflow-y: auto;
 }
 
@@ -495,7 +496,7 @@ header {
    Scrollable Container for Page Content
 ===================================================== */
 .scroll-container {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 70px);
   overflow-y: auto;
 }
 
