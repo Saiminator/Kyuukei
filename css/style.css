@@ -1,5 +1,5 @@
 /* =====================================================
-   Remove Default Padding/Margins on html and body
+   Remove Default Margins and Padding
 ===================================================== */
 html, body {
   margin: 0;
@@ -57,8 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    /* Updated height: subtract header height (assumed 60px) from viewport height */
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Header is fixed at 60px */
     overflow: hidden;
   }
   .side-box img {
@@ -83,10 +82,11 @@ body {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background */
+/* Header: full-width purple background, fixed height */
 header {
   background: #362136;
-  padding: 10px 0;
+  height: 60px;
+  line-height: 60px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
@@ -96,7 +96,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -141,7 +141,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px;
+  margin: 0 15px; /* 15px margins */
 }
 #nav-desktop a {
   font-weight: 500;
@@ -174,7 +174,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none;
+    display: none; /* Hidden by default; toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -344,7 +344,7 @@ header {
 }
 
 /* =====================================================
-   Navigation Buttons (if used elsewhere)
+   Navigation Buttons
 ===================================================== */
 .nav-buttons {
   display: flex;
@@ -387,7 +387,6 @@ header {
   gap: 20px;
   flex-direction: row;
 }
-/* On mobile, stack panels vertically with right panel first */
 @media (max-width: 600px) {
   .detail-container {
     flex-direction: column;
@@ -405,7 +404,6 @@ header {
   padding-right: 20px;
   border-right: 1px solid #eee;
 }
-/* Back to Character Selection button: blue, fancy */
 .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
