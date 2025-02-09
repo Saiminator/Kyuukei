@@ -1,22 +1,15 @@
 /* =====================================================
-   Remove Default Padding/Margins on html and body
+   Hide Scrollbars Globally (Functional, but not visible)
 ===================================================== */
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-/* =====================================================
-   Hide Scrollbars Globally (Functional but invisible)
-===================================================== */
-/* For Chrome, Safari, Opera */
+/* For Chrome, Safari and Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-/* For IE, Edge, and Firefox */
+
+/* For IE, Edge and Firefox */
 body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
 /* =====================================================
@@ -29,59 +22,19 @@ body {
 }
 
 body {
+  margin: 0;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem; /* Mobile-first base size */
+  /* Mobile-first base font-size; adjusted via media queries */
+  font-size: 1rem;
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Remove any default padding on body */
 a {
   color: inherit;
   text-decoration: none;
-}
-
-/* =====================================================
-   Page Wrapper & Side Boxes
-===================================================== */
-.page-wrapper {
-  width: 100%;
-  display: block; /* Stacked on mobile/tablet */
-}
-
-.main-content {
-  width: 100%;
-}
-
-/* On desktop (min-width: 1024px), use a three-column layout */
-@media (min-width: 1024px) {
-  .page-wrapper {
-    display: flex;
-  }
-  .side-box {
-    display: block;
-    width: 20%;
-    height: 100vh; /* Full viewport height */
-    overflow: hidden;
-  }
-  .side-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .main-content {
-    width: 60%;
-  }
-}
-
-/* Hide side boxes on screens smaller than 1024px */
-@media (max-width: 1023px) {
-  .side-box {
-    display: none;
-  }
 }
 
 /* =====================================================
@@ -94,14 +47,28 @@ header {
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  width: 100%;
-  margin: 0;
+  width: 100vw;
+  /* Extend header to the edges */
+  margin-left: calc(-1 * 1rem);
+  margin-right: calc(-1 * 1rem);
+}
+@media (min-width: 600px) {
+  header {
+    margin-left: calc(-1 * 2rem);
+    margin-right: calc(-1 * 2rem);
+  }
+}
+@media (min-width: 1024px) {
+  header {
+    margin-left: calc(-1 * 3rem);
+    margin-right: calc(-1 * 3rem);
+  }
 }
 
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row; /* Desktop: inline */
+  flex-direction: row;  /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -109,13 +76,14 @@ header {
   text-decoration: none;
   margin: 0 auto;
 }
+
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
   margin: 0 5px;
 }
 
-/* Mobile: force two lines and adjust font size */
+/* Mobile: Force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -130,6 +98,7 @@ header {
 
 /* Desktop Navigation (visible on screens wider than 600px) */
 #nav-desktop {
+  display: block;
   text-align: center;
   margin-top: 5px;
 }
@@ -146,7 +115,7 @@ header {
   margin: 0;
 }
 #nav-desktop li {
-  margin: 0 15px; /* 15px margins as before */
+  margin: 0 15px;
 }
 #nav-desktop a {
   font-weight: 500;
@@ -207,6 +176,7 @@ header {
   padding: 10px 20px;
   margin: 20px auto;
   background: #fff;
+  max-width: 1120px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   text-align: center;
@@ -235,22 +205,24 @@ header {
 .timeline {
   margin-bottom: 40px;
 }
-.timeline.orby-pink h2 { color: #f7cdd5; }
-.timeline.cerulean h2 { color: #0077be; }
-.timeline.shimi-green h2 { color: #216036; }
-.timeline.dreymi h2 { color: #2f191f; }
-.timeline.via h2 { color: #de363d; }
-.timeline.mika h2 { color: #823f25; }
-.timeline.memo h2 { color: #e073bd; }
-.timeline.shizu h2 { color: #4c6095; }
+.timeline.orby-pink h2    { color: #f7cdd5; }
+.timeline.cerulean h2     { color: #0077be; }
+.timeline.shimi-green h2  { color: #216036; }
+.timeline.dreymi h2       { color: #2f191f; }
+.timeline.via h2          { color: #de363d; }
+.timeline.mika h2         { color: #823f25; }
+.timeline.memo h2         { color: #e073bd; }
+.timeline.shizu h2        { color: #4c6095; }
 .timeline h2 {
   text-align: left;
+  width: 100%;
   margin: 0 0 10px 10px;
 }
 .timeline-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
@@ -306,6 +278,12 @@ header {
   border: 1px solid #eee;
   position: relative;
 }
+/* Adjust container height for tablet screens */
+@media (min-width: 601px) and (max-width: 1023px) {
+  #characterScrollWrapper {
+    height: 60vh;
+  }
+}
 #characterScrollContainer {
   display: grid;
   gap: 20px;
@@ -320,14 +298,13 @@ header {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Reduce container height on mobile */
   #characterScrollWrapper {
     height: 50vh;
   }
 }
 
-/* =====================================================
-   Character Item Styling
-===================================================== */
+/* Character Item Styling */
 .character-item {
   cursor: pointer;
   text-align: center;
@@ -392,7 +369,7 @@ header {
   gap: 20px;
   flex-direction: row;
 }
-/* On mobile, stack panels vertically with right panel first */
+/* On mobile, stack panels vertically with the right panel first */
 @media (max-width: 600px) {
   .detail-container {
     flex-direction: column;
@@ -410,7 +387,7 @@ header {
   padding-right: 20px;
   border-right: 1px solid #eee;
 }
-/* Back to Character Selection button: blue, fancy */
+/* Back to Character Selection button: blue and fancy */
 .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
@@ -483,13 +460,39 @@ header {
 /* =====================================================
    Responsive & Mobile Styles
 ===================================================== */
+/* Mobile-first defaults */
+body {
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+#nav-menu {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background: #f4f4f9;
+  padding: 10px 0;
+  margin: 0;
+}
+#nav-menu li {
+  margin: 10px 0;
+}
+#nav-toggle {
+  display: inline-block;
+}
 @media (min-width: 600px) {
+  /* On screens wider than 600px, hide the mobile nav entirely */
+  #nav-mobile {
+    display: none;
+  }
+  /* Desktop nav is handled by #nav-desktop */
   body {
     font-size: 1.125rem;
+    padding: 0 2rem;
   }
 }
 @media (min-width: 1024px) {
   body {
     font-size: 1.25rem;
+    padding: 0 3rem;
   }
 }
