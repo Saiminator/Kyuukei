@@ -7,13 +7,13 @@ html, body {
 }
 
 /* =====================================================
-   Hide Scrollbars Globally (Functional but Invisible)
+   Hide Scrollbars Globally (Functional but invisible)
 ===================================================== */
-/* Chrome, Safari, Opera */
+/* For Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, and Firefox */
+/* For IE, Edge, and Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Fill viewport below the 60px header */
+    height: calc(100vh - 60px); /* Fill viewport below header (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -96,9 +96,9 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0;           /* Remove extra padding on desktop */
+    padding: 0; /* Remove extra padding on desktop */
     display: flex;
-    align-items: center;  /* Vertically center header content */
+    align-items: center; /* Vertically center header content */
     justify-content: center;
   }
 }
@@ -133,11 +133,29 @@ header {
   }
 }
 
-/* Desktop Navigation (visible on screens wider than 600px) */
+/* --- NEW STICKY NAVIGATION RULES --- */
+
+/* Make the desktop navigation sticky at the top of its scrollable container */
 #nav-desktop {
-  text-align: center;
-  margin-top: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff; /* Ensure a solid background */
+  padding-top: 5px; /* Optional: slight padding for aesthetics */
 }
+
+/* Make the mobile navigation sticky as well */
+#nav-mobile {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  padding-top: 5px;
+}
+
+/* ---------------------------------------------------
+   Existing Navigation Rules (remain unchanged)
+----------------------------------------------------- */
 @media (max-width: 600px) {
   #nav-desktop {
     display: none;
@@ -162,7 +180,6 @@ header {
   color: #667eea;
 }
 
-/* Mobile Navigation (visible on screens 600px and below) */
 #nav-mobile {
   display: none;
 }
@@ -207,9 +224,10 @@ header {
 
 /* =====================================================
    Scrollable Container for Page Content
+   (Wraps each page’s main content)
 ===================================================== */
 .scroll-container {
-  height: calc(100vh - 60px); /* Same height as the side boxes */
+  height: calc(100vh - 60px); /* Adjust this value if needed */
   overflow-y: auto;
 }
 
