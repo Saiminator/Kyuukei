@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="no-select">
-  <!-- Header (full-width) -->
+  <!-- Header (full-width, fixed 60px height) -->
   <header>
     <a href="/index.html" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
@@ -51,7 +51,9 @@
       </nav>
       
       <hr>
-      <main>
+      
+      <!-- Scrollable Container for Page Content -->
+      <main class="scroll-container">
         {{ content }}
       </main>
     </div>
