@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Fill viewport minus header height */
+    height: calc(100vh - 60px); /* Fill viewport below the 60px header */
     overflow: hidden;
   }
   .side-box img {
@@ -92,27 +92,51 @@ header {
   margin: 0;
 }
 
-/* Desktop-only: Fix header height and vertically center content */
+/* Desktop-only: fix header height and vertically center content */
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0;
+    padding: 0;           /* Remove extra padding on desktop */
     display: flex;
-    align-items: center;
+    align-items: center;  /* Vertically center header content */
     justify-content: center;
   }
 }
 
-/* Desktop Navigation */
+/* Site title: split into two spans */
+#site-title {
+  display: flex;
+  flex-direction: row;  /* Desktop: inline */
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8em;
+  color: #fff;
+  text-decoration: none;
+  margin: 0 auto;
+}
+#site-title .header-line1,
+#site-title .header-line2 {
+  white-space: nowrap;
+  margin: 0 5px;
+}
+
+/* Mobile: force two lines and adjust font size */
+@media (max-width: 600px) {
+  #site-title {
+    flex-direction: column;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+  }
+  #site-title .header-line1,
+  #site-title .header-line2 {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+/* Desktop Navigation (visible on screens wider than 600px) */
 #nav-desktop {
   text-align: center;
-  margin-top: 0; /* Remove extra top margin so it aligns just below the header */
-}
-@media (min-width: 1024px) {
-  #nav-desktop {
-    height: 40px;
-    line-height: 40px;
-  }
+  margin-top: 5px;
 }
 @media (max-width: 600px) {
   #nav-desktop {
@@ -138,7 +162,7 @@ header {
   color: #667eea;
 }
 
-/* Mobile Navigation */
+/* Mobile Navigation (visible on screens 600px and below) */
 #nav-mobile {
   display: none;
 }
@@ -160,7 +184,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none;
+    display: none; /* Hidden by default; toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -183,12 +207,9 @@ header {
 
 /* =====================================================
    Scrollable Container for Page Content
-   (This container scrolls while header and nav remain fixed)
 ===================================================== */
 .scroll-container {
-  /* On desktop, set height to the remainder of the viewport
-     after subtracting the header and nav heights (60px + 40px = 100px) */
-  height: calc(100vh - 100px);
+  height: calc(100vh - 60px); /* Same height as the side boxes */
   overflow-y: auto;
 }
 
