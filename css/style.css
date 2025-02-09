@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Subtract header height (60px) */
+    height: calc(100vh - 60px); /* Exactly fill remaining viewport (header is 60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -82,23 +82,23 @@ body {
    Header & Navigation
 ===================================================== */
 
-/* Header: full-width purple background */
+/* Header: full-width purple background with fixed height on desktop (and all devices) */
 header {
   background: #362136;
-  padding: 10px 0;
+  padding: 10px 0; /* Extra padding on mobile; will be overridden on desktop */
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
   margin: 0;
 }
 
-/* Desktop-only: Fix header height and vertically center content */
+/* Desktop-only header adjustments */
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0; /* Remove extra padding */
+    padding: 0;           /* Remove extra padding on desktop */
     display: flex;
-    align-items: center;
+    align-items: center;  /* Vertically center header content */
     justify-content: center;
   }
 }
@@ -106,7 +106,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row; /* Desktop: inline */
+  flex-direction: row;  /* Desktop: inline */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -203,6 +203,14 @@ header {
   #nav-mobile-menu a:hover {
     color: #667eea;
   }
+}
+
+/* =====================================================
+   Scrollable Container for Page Content
+===================================================== */
+.scroll-container {
+  height: calc(100vh - 60px); /* Fixed height: viewport minus header */
+  overflow-y: auto;
 }
 
 /* =====================================================
@@ -481,6 +489,14 @@ header {
 .news-content {
   font-size: 1.1em;
   line-height: 1.5;
+}
+
+/* =====================================================
+   Scrollable Container for Page Content
+===================================================== */
+.scroll-container {
+  height: calc(100vh - 60px);
+  overflow-y: auto;
 }
 
 /* =====================================================
