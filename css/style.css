@@ -96,9 +96,9 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0; /* Remove extra padding on desktop */
+    padding: 0;           /* Remove extra padding on desktop */
     display: flex;
-    align-items: center; /* Vertically center header content */
+    align-items: center;  /* Vertically center header content */
     justify-content: center;
   }
 }
@@ -133,53 +133,40 @@ header {
   }
 }
 
-/* --- NEW STICKY NAVIGATION RULES --- */
-
-/* Make the desktop navigation sticky at the top of its scrollable container */
+/* Desktop Navigation */
 #nav-desktop {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: #fff; /* Ensure a solid background */
-  padding-top: 5px; /* Optional: slight padding for aesthetics */
+  /* Use flexbox to center menu buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
 }
 
-/* Make the mobile navigation sticky as well */
-#nav-mobile {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: #fff;
-  padding-top: 5px;
-}
-
-/* ---------------------------------------------------
-   Existing Navigation Rules (remain unchanged)
------------------------------------------------------ */
-@media (max-width: 600px) {
-  #nav-desktop {
-    display: none;
-  }
-}
 #nav-desktop ul {
   list-style: none;
-  display: inline-flex;
+  display: flex;
   justify-content: center;
+  align-items: center;
   padding: 0;
   margin: 0;
 }
+
 #nav-desktop li {
   margin: 0 15px;
 }
+
 #nav-desktop a {
   font-weight: 500;
   color: #333;
   transition: color 0.3s ease;
+  text-decoration: none; /* Remove underline */
 }
+
 #nav-desktop a:hover {
   color: #667eea;
 }
 
+/* Mobile Navigation */
 #nav-mobile {
   display: none;
 }
@@ -216,6 +203,7 @@ header {
     font-weight: 500;
     color: #333;
     transition: color 0.3s ease;
+    text-decoration: none; /* Remove underline */
   }
   #nav-mobile-menu a:hover {
     color: #667eea;
@@ -227,7 +215,7 @@ header {
    (Wraps each page’s main content)
 ===================================================== */
 .scroll-container {
-  height: calc(100vh - 60px); /* Adjust this value if needed */
+  height: calc(100vh - 60px); /* Adjust if needed (e.g., calc(100vh - 70px)) */
   overflow-y: auto;
 }
 
