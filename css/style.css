@@ -1,6 +1,6 @@
 /* =====================================================
    Remove Default Margins and Padding
-==================================================== */
+===================================================== */
 html, body {
   margin: 0;
   padding: 0;
@@ -8,7 +8,7 @@ html, body {
 
 /* =====================================================
    Hide Scrollbars Globally (Functional but Invisible)
-==================================================== */
+===================================================== */
 /* For Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
@@ -21,7 +21,7 @@ body {
 
 /* =====================================================
    Global Reset & Base Styles
-==================================================== */
+===================================================== */
 *,
 *::before,
 *::after {
@@ -39,7 +39,7 @@ body {
 
 /* =====================================================
    Page Wrapper & Side Boxes
-==================================================== */
+===================================================== */
 .page-wrapper {
   width: 100%;
   display: block; /* Stacked on mobile/tablet */
@@ -49,7 +49,7 @@ body {
   width: 100%;
 }
 
-/* On desktop (min-width: 1024px), use a three‑column layout */
+/* On desktop (min-width: 1024px), use a three-column layout */
 @media (min-width: 1024px) {
   .page-wrapper {
     display: flex;
@@ -88,7 +88,9 @@ body {
 
 /* =====================================================
    Header & Navigation
-==================================================== */
+===================================================== */
+
+/* Header: full-width purple background */
 header {
   background: #362136;
   padding: 10px 0;
@@ -102,9 +104,9 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0; /* Remove extra padding on desktop */
+    padding: 0;           /* Remove extra padding on desktop */
     display: flex;
-    align-items: center; /* Vertically center header content */
+    align-items: center;  /* Vertically center header content */
     justify-content: center;
   }
 }
@@ -112,7 +114,7 @@ header {
 /* Site title: split into two spans */
 #site-title {
   display: flex;
-  flex-direction: row; /* Inline on desktop */
+  flex-direction: row;  /* Inline on desktop */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -149,6 +151,7 @@ header {
     display: none;
   }
 }
+
 /* Mobile Navigation: visible on screens 600px and below */
 @media (max-width: 600px) {
   #nav-desktop {
@@ -160,6 +163,7 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
+
 /* Desktop Navigation: sticky and recentered (applies on min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
@@ -172,6 +176,7 @@ header {
     align-items: center;
   }
 }
+
 /* Mobile Navigation: sticky and recentered (applies on max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
@@ -193,15 +198,18 @@ header {
   padding: 0;
   margin: 0;
 }
+
 #nav-desktop li {
   margin: 0 15px;
 }
+
 #nav-desktop a {
   font-weight: 500;
   color: #333;
   transition: color 0.3s ease;
-  text-decoration: none;
+  text-decoration: none; /* Remove underline */
 }
+
 #nav-desktop a:hover {
   color: #667eea;
 }
@@ -221,7 +229,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* Toggled via JS */
+    display: none; /* Hidden by default; toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -236,7 +244,7 @@ header {
     font-weight: 500;
     color: #333;
     transition: color 0.3s ease;
-    text-decoration: none;
+    text-decoration: none; /* Remove underline */
   }
   #nav-mobile-menu a:hover {
     color: #667eea;
@@ -247,21 +255,15 @@ header {
 /* =====================================================
    Scrollable Container for Page Content
    (Wraps each page’s main content)
-==================================================== */
+===================================================== */
 .scroll-container {
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
-/* For tablets (601px to 1023px) adjust scroll container height if header is smaller */
-@media (min-width: 601px) and (max-width: 1023px) {
-  .scroll-container {
-    height: calc(100vh - 50px);
-  }
-}
 
 /* =====================================================
    Content Sections
-==================================================== */
+===================================================== */
 .content-section {
   padding: 10px 20px;
   margin: 20px auto;
@@ -273,8 +275,24 @@ header {
 }
 
 /* =====================================================
-   STORY SECTION – Timeline (Horizontal Scroll)
-==================================================== */
+   STORY SECTION – Pan & Zoom Container
+===================================================== */
+#panZoomWrapper {
+  width: 100%;
+  max-width: 1120px;
+  height: 70vh;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+#panZoomContainer {
+  width: 1600px;
+  transform-origin: top left;
+}
+
+/* =====================================================
+   Timeline Styles
+===================================================== */
 .timeline {
   margin-bottom: 40px;
 }
@@ -298,43 +316,48 @@ header {
   margin-bottom: 20px;
 }
 
-/* New Timeline Styles: Simple Horizontal Scroll */
-.timeline-group {
-  margin-bottom: 30px;
-  text-align: left;
-}
-.timeline-group h2 {
-  margin-bottom: 10px;
-  font-size: 1.5em;
-  color: #0077be;
-}
-.chapter-list {
+/* =====================================================
+   Chapter Container
+===================================================== */
+.chapter-container {
   display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  padding-bottom: 10px;
+  gap: 30px;
   justify-content: flex-start;
 }
 .chapter-box {
-  background: #fff;
   border: 2px solid #ddd;
-  border-radius: 5px;
-  padding: 15px 10px;
-  min-width: 220px;
+  padding: 10px 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
   text-decoration: none;
   color: inherit;
 }
 .chapter-box:hover {
-  background: #f9f9f9;
-  border-color: #ccc;
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
+.timeline-underline {
+  width: 100%;
+  height: 3px;
+  background: #ddd;
+  margin-top: 10px;
+}
+.timeline.orby-pink .timeline-underline { background: #f7cdd5; }
+.timeline.cerulean .timeline-underline { background: #0077be; }
+.timeline.shimi-green .timeline-underline { background: #216036; }
+.timeline.dreymi .timeline-underline { background: #2f191f; }
+.timeline.via .timeline-underline { background: #de363d; }
+.timeline.mika .timeline-underline { background: #823f25; }
+.timeline.memo .timeline-underline { background: #e073bd; }
+.timeline.shizu .timeline-underline { background: #4c6095; }
 
 /* =====================================================
    CHARACTERS SECTION – Vertical Scroll Container
-==================================================== */
+===================================================== */
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
@@ -365,7 +388,7 @@ header {
 
 /* =====================================================
    Character Item Styling
-==================================================== */
+===================================================== */
 .character-item {
   cursor: pointer;
   text-align: center;
@@ -387,8 +410,8 @@ header {
 }
 
 /* =====================================================
-   Navigation Buttons (General)
-==================================================== */
+   Navigation Buttons
+===================================================== */
 .nav-buttons {
   display: flex;
   justify-content: space-between;
@@ -414,9 +437,9 @@ header {
 }
 
 /* =====================================================
-   CHAPTER DETAIL PAGE STYLES
-==================================================== */
-.chapter-detail {
+   CHARACTER DETAIL PAGE STYLES
+===================================================== */
+.character-detail {
   max-width: 1120px;
   margin: 20px auto;
   background: #fff;
@@ -425,47 +448,74 @@ header {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.chapter-content {
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-/* Fixed Chapter Navigation at Bottom of the Viewport */
-.chapter-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255,255,255,0.97);
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-.chapter-nav-container {
-  max-width: 1120px;
-  margin: 0 auto;
+.detail-container {
   display: flex;
-  justify-content: space-around;
-  padding: 10px;
+  gap: 20px;
+  flex-direction: row;
 }
-.chapter-nav .nav-button {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
+@media (max-width: 600px) {
+  .detail-container {
+    flex-direction: column;
+  }
+  .right-panel {
+    order: 1;
+  }
+  .left-panel {
+    order: 2;
+  }
+}
+.left-panel {
+  flex: 2;
+  text-align: left;
+  padding-right: 20px;
+  border-right: 1px solid #eee;
+}
+.back-select-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  font-size: 0.9em;
   background: #667eea;
   color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
-.chapter-nav .nav-button:hover {
+.back-select-btn:hover {
   background: #556cd6;
 }
-/* End Chapter Navigation */
+.right-panel {
+  flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.right-panel h1 {
+  text-align: center;
+  margin: 0 0 10px 0;
+  font-size: 2em;
+  color: #0077be;
+}
+.image-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.image-container img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+.basic-info {
+  text-align: left;
+}
+.basic-info p {
+  margin: 4px 0;
+}
 
 /* =====================================================
-   NEWS ENTRY STYLES
-==================================================== */
+   News Entry Styles
+===================================================== */
 .news-entry {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -491,7 +541,7 @@ header {
 
 /* =====================================================
    Responsive & Mobile Styles
-==================================================== */
+===================================================== */
 @media (min-width: 600px) {
   body {
     font-size: 1.125rem;
