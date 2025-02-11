@@ -483,6 +483,6 @@ header {
 }
 .section-fixed-title .section-scroll {
   /* Scrollable area height = container height minus (menu area 60px + section header area 50px + gap 5px) */
-  height: calc(100vh - 100px - 115px); /* = calc(100vh - 215px) */
+  height: calc(100vh - 125px - 115px); /* = calc(100vh - 215px) */
   overflow-y: auto;
 }
