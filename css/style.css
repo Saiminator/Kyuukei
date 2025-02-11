@@ -1,14 +1,18 @@
-/* Base Styles */
+/* =====================================================
+   Base Styles
+===================================================== */
 body {
   margin: 0;
   padding: 20px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.4em;
+  font-size: 1.4em;  /* Adjust as needed */
   background: #f4f4f9;
   color: #333;
 }
 
-/* Character Detail Container */
+/* =====================================================
+   Character Detail Container
+===================================================== */
 .character-detail {
   max-width: 1120px;
   margin: 0 auto;
@@ -19,13 +23,15 @@ body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Two-Column Layout */
+/* =====================================================
+   Two-Column Layout for Character Detail
+===================================================== */
 .detail-container {
   display: flex;
   gap: 20px;
 }
 
-/* Left Panel */
+/* Left Panel: Background, Abilities, etc. */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -49,7 +55,7 @@ body {
   background: #556cd6;
 }
 
-/* Section Titles */
+/* Section Titles (for Background, Abilities, etc.) */
 .section-title {
   font-weight: 600;
   margin-top: 20px;
@@ -63,14 +69,16 @@ body {
   line-height: 1.6;
 }
 
-/* Right Panel */
+/* =====================================================
+   Right Panel: Name, Image, Basic Info
+===================================================== */
 .right-panel {
   flex: 1;
   padding-left: 20px;
   padding-right: 20px;
 }
 
-/* Right Panel - Name */
+/* Character Name (displayed above the image) */
 .right-panel h1 {
   text-align: center;
   margin: 0 0 10px;
@@ -99,7 +107,9 @@ body {
   margin: 4px 0;
 }
 
-/* Responsive Adjustments */
+/* =====================================================
+   Responsive Adjustments
+===================================================== */
 @media (max-width: 800px) {
   .detail-container {
     flex-direction: column;
