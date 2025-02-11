@@ -118,20 +118,17 @@ header {
   margin: 0 5px;
 }
 
-/* For screens between 601px and 700px, reduce header text size */
+/* Media Queries for Header Text Scaling */
 @media (min-width: 601px) and (max-width: 700px) {
   #site-title {
     font-size: 1.5em;
   }
 }
-/* For screens between 701px and 800px, use 1.6em */
 @media (min-width: 701px) and (max-width: 800px) {
   #site-title {
     font-size: 1.6em;
   }
 }
-
-/* Mobile (max-width: 600px): force two lines */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -165,7 +162,7 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
-/* Desktop Navigation: sticky and recentered (min-width: 1024px) */
+/* Desktop Navigation (min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -177,7 +174,7 @@ header {
     align-items: center;
   }
 }
-/* Tablet Navigation: for screens between 601px and 1279px */
+/* Tablet Navigation (min-width: 601px and max-width: 1279px) */
 @media (min-width: 601px) and (max-width: 1279px) {
   #nav-desktop {
     position: sticky;
@@ -190,7 +187,7 @@ header {
     align-items: center;
   }
 }
-/* Mobile Navigation: sticky and recentered (max-width: 600px) */
+/* Mobile Navigation (max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -219,6 +216,7 @@ header {
   color: #333;
   transition: color 0.3s ease;
   text-decoration: none;
+  font-size: 1.25rem;  /* Increased font size */
 }
 #nav-desktop a:hover {
   color: #667eea;
@@ -231,7 +229,7 @@ header {
     border: none;
     color: #fff;
     padding: 8px 12px;
-    font-size: 1em;
+    font-size: 1rem;
     cursor: pointer;
     border-radius: 4px;
     margin-top: 10px;
@@ -255,12 +253,12 @@ header {
     color: #333;
     transition: color 0.3s ease;
     text-decoration: none;
+    font-size: 1.25rem;  /* Increased font size for mobile nav too */
   }
   #nav-mobile-menu a:hover {
     color: #667eea;
   }
 }
-/* ---------- End Navigation Visibility Rules ---------- */
 
 /* =====================================================
    Scrollable Container for Page Content
@@ -270,7 +268,6 @@ header {
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
-/* For tablets (601px to 1023px), adjust scroll container height */
 @media (min-width: 601px) and (max-width: 1023px) {
   .scroll-container {
     height: calc(100vh - 50px);
@@ -307,8 +304,6 @@ header {
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
-
-/* New Timeline Styles: Simple Horizontal Scroll */
 .timeline-group {
   margin-bottom: 30px;
   text-align: left;
@@ -503,7 +498,11 @@ header {
 ===================================================== */
 @media (min-width: 600px) {
   body {
-    /* Keeping consistent base font size */
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1024px) {
+  body {
     font-size: 1rem;
   }
 }
