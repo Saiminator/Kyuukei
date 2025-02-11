@@ -9,11 +9,11 @@ html, body {
 /* =====================================================
    Hide Scrollbars Globally (Functional but Invisible)
 ===================================================== */
-/* For Chrome, Safari, Opera */
+/* Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-/* For IE, Edge, and Firefox */
+/* IE, Edge, Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* below the header (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -109,7 +109,6 @@ header {
   text-decoration: none;
   margin: 0 auto;
 }
-
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
@@ -139,7 +138,8 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* Desktop: we place the menu inside the fixed container so no external desktop nav */
+/* For desktop, the menu is placed inside the fixed container.
+   External desktop nav is not used. */
 @media (min-width: 601px) {
   #nav-mobile {
     display: none;
@@ -157,7 +157,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none;
+    display: none; /* toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -184,7 +184,7 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  /* Set fixed height and remove any gap */
+  /* Set a fixed height and remove extra gap so it sits flush at the top */
   height: 60px;
   display: flex;
   align-items: center;
@@ -297,7 +297,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;  /* Expanded height for Character Wiki to fill the page */
+  height: 100vh;  /* Expanded height for Character Wiki */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -466,10 +466,11 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 50px); /* Expanded container: almost full viewport (subtracting only 50px) */
+  /* Expanded container: nearly full viewport minus 25px */
+  height: calc(100vh - 25px);
   overflow: hidden;
-  margin: 0 auto; /* Flush with header */
-  background: #f4f4f9; /* Matches page background */
+  margin: 0 auto;
+  background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -483,6 +484,7 @@ header {
   margin-bottom: 5px;
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 50px - 55px); /* Scrollable area height: header (50px) + gap (5px) */
+  /* Scrollable area height = container height minus the sum of the desktop menu (60px) and section header (50px + 5px gap) */
+  height: calc(100vh - 25px - 115px);
   overflow-y: auto;
 }
