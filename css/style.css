@@ -94,7 +94,7 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0; /* Remove extra padding on desktop */
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,7 +104,7 @@ header {
 /* Site title styling */
 #site-title {
   display: flex;
-  flex-direction: row; /* Inline on desktop */
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -166,7 +166,7 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
-/* Desktop Navigation: sticky and recentered (applies on min-width: 1024px) */
+/* Desktop Navigation: sticky and recentered (min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -178,7 +178,7 @@ header {
     align-items: center;
   }
 }
-/* Tablet Navigation: for screens between 601px and 1279px, force centering */
+/* Tablet Navigation: for screens between 601px and 1279px */
 @media (min-width: 601px) and (max-width: 1279px) {
   #nav-desktop {
     position: sticky;
@@ -191,7 +191,7 @@ header {
     align-items: center;
   }
 }
-/* Mobile Navigation: sticky and recentered (applies on max-width: 600px) */
+/* Mobile Navigation: sticky and recentered (max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -271,7 +271,7 @@ header {
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
-/* For tablets (601px to 1023px) adjust scroll container height if header is smaller */
+/* For tablets (601px to 1023px), adjust scroll container height if header is smaller */
 @media (min-width: 601px) and (max-width: 1023px) {
   .scroll-container {
     height: calc(100vh - 50px);
@@ -294,30 +294,7 @@ header {
 /* =====================================================
    STORY SECTION – Timeline (Horizontal Scroll)
 ===================================================== */
-.timeline {
-  margin-bottom: 40px;
-}
-.timeline.orby-pink h2 { color: #f7cdd5; }
-.timeline.cerulean h2 { color: #0077be; }
-.timeline.shimi-green h2 { color: #216036; }
-.timeline.dreymi h2 { color: #2f191f; }
-.timeline.via h2 { color: #de363d; }
-.timeline.mika h2 { color: #823f25; }
-.timeline.memo h2 { color: #e073bd; }
-.timeline.shizu h2 { color: #4c6095; }
-.timeline h2 {
-  text-align: left;
-  margin: 0 0 10px 10px;
-}
-.timeline-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-/* New Timeline Styles: Simple Horizontal Scroll */
+/* Old timeline color rules removed */
 .timeline-group {
   margin-bottom: 30px;
   text-align: left;
@@ -480,7 +457,6 @@ header {
 .chapter-nav .nav-button:hover {
   background: #556cd6;
 }
-/* End Chapter Navigation */
 
 /* =====================================================
    NEWS ENTRY STYLES
