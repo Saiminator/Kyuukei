@@ -13,7 +13,7 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, and Firefox */
+/* IE, Edge, Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;  /* Increased base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Below header (60px) */
+    height: calc(100vh - 60px); /* below header (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -116,14 +116,10 @@ header {
 }
 
 @media (min-width: 601px) and (max-width: 700px) {
-  #site-title {
-    font-size: 1.5em;
-  }
+  #site-title { font-size: 1.5em; }
 }
 @media (min-width: 701px) and (max-width: 800px) {
-  #site-title {
-    font-size: 1.6em;
-  }
+  #site-title { font-size: 1.6em; }
 }
 @media (max-width: 600px) {
   #site-title {
@@ -137,10 +133,20 @@ header {
   }
 }
 
-/* ---------- Mobile Navigation (for viewports ≤600px) ---------- */
+/* ---------- Navigation Rules ---------- */
+/* Mobile-only nav (ID #nav-mobile) shows only on viewports ≤600px */
+@media (min-width: 601px) {
+  #nav-mobile { display: none !important; }
+  .nav-menu-desktop { display: flex !important; }
+}
+@media (max-width: 600px) {
+  #nav-mobile { display: block !important; }
+  .nav-menu-desktop { display: none !important; }
+}
+
+/* Mobile Navigation (for ≤600px) */
 @media (max-width: 600px) {
   #nav-mobile {
-    display: block;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -150,7 +156,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* toggled via JS */
+    display: none; /* Toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -169,29 +175,12 @@ header {
   #nav-mobile-menu a:hover { color: #667eea; }
 }
 
-/* (For viewports ≥601px, the desktop menu is placed inside the fixed container.) */
-
-/* =====================================================
-   6. Fixed Container for Page Content
-   (Used by pages such as News, Questions, Character Wiki, etc.)
-===================================================== */
-/* We use a flex layout so inner items can expand and the scroll area fills remaining space */
-.section-fixed-title {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 100px); /* Overall container height: full viewport minus 100px */
-  overflow: hidden;
-  margin: 0 auto; /* flush with header */
-  background: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Desktop Navigation Menu inside Fixed Container */
+/* ---------- Desktop Navigation Menu inside Fixed Container ---------- */
 .nav-menu-desktop {
-  flex: 0 0 60px; /* Fixed height for menu area */
   margin: 0;
   padding: 0;
+  /* Fixed area for desktop menu, visible only on viewports ≥601px */
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -208,7 +197,7 @@ header {
 .nav-menu-desktop a {
   font-weight: 500;
   background: #f7cdd5; /* Orby pink background */
-  color: #fff;
+  color: #fff;        /* White text */
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -217,7 +206,23 @@ header {
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
 
-/* Section Header (Page Title) */
+/* =====================================================
+   6. Fixed Container for Page Content
+   (For News, Questions, Character Wiki, etc.)
+===================================================== */
+/* Using a flex layout so inner areas (menu, header, scrollable content) can adjust */
+.section-fixed-title {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px); /* Overall container: full viewport minus 100px */
+  overflow: hidden;
+  margin: 0 auto;
+  background: #f4f4f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Section header (page title) */
 .section-header {
   flex: 0 0 50px;
   padding: 10px 20px;
@@ -225,7 +230,7 @@ header {
   border-bottom: 1px solid #eee;
   text-align: center;
   line-height: 50px;
-  margin: 0; /* Remove extra gap */
+  margin: 0;  /* Remove extra gap */
 }
 
 /* Scrollable Content Area inside Fixed Container */
@@ -314,7 +319,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;  /* Expanded height for Character Wiki */
+  height: 100vh;  /* Expanded height for Character Wiki to fill the page */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -468,10 +473,10 @@ header {
    16. Responsive & Mobile Styles
 ===================================================== */
 @media (min-width: 600px) {
-  body { font-size: 1rem; }
+  body { font-size: 1.1rem; }
 }
 @media (min-width: 1024px) {
-  body { font-size: 1rem; }
+  body { font-size: 1.1rem; }
 }
 
 /* =====================================================
@@ -479,7 +484,7 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  /* Expanded container: nearly full viewport minus 100px */
+  /* Container height nearly full viewport minus 100px */
   height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
@@ -494,16 +499,17 @@ header {
   text-align: center;
   height: 50px;
   line-height: 50px;
-  margin-bottom: 5px;
+  margin: 0; /* Remove gap */
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 100px - 115px); /* scrollable area = container height minus (50px header + 5px gap + 60px menu area if present) */
+  /* Scrollable area = container height minus header area (50px) and gap (65px total deducted) */
+  height: calc(100vh - 100px - 115px);
   overflow-y: auto;
 }
 
 /* =====================================================
    18. Character Detail Page Styles
-   (These styles apply only to the character detail pages)
+   (For character detail pages only)
 ===================================================== */
 .character-detail {
   max-width: 1120px;
