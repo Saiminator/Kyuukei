@@ -8,44 +8,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="no-select">
-  <!-- Header at the top -->
   <header>
     <a href="/index.html" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
       <span class="header-line2">Kyuu’s Breaktime Stories</span>
     </a>
   </header>
-
+  
   <!-- Page wrapper with side images on wide screens -->
   <div class="page-wrapper">
-    <!-- Left side image (visible on screens ≥1280px) -->
     <div class="side-box left-box">
       <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
     </div>
-    
-    <!-- Main content area with desktop navigation inside -->
-    <div class="main-content">
-      <!-- Desktop Navigation placed inside the main content area -->
-      <nav id="nav-desktop">
-        <ul>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/timeline.html">Story</a></li>
-          <li><a href="/characters.html">Characters</a></li>
-          <li><a href="/questions.html">Questions</a></li>
-          <li><a href="/news.html">News</a></li>
-        </ul>
-      </nav>
-      
-      <!-- Page-specific content -->
-      {{ content }}
+    <div class="main-content section-fixed-title">
+      <header class="section-header">
+        <h1>{{ page.title }}</h1>
+      </header>
+      <div class="section-scroll">
+        {{ content }}
+      </div>
     </div>
-    
-    <!-- Right side image (visible on screens ≥1280px) -->
     <div class="side-box right-box">
       <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
     </div>
   </div>
-
+  
   <!-- Mobile Navigation (stays at top for small screens) -->
   <nav id="nav-mobile">
     <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
@@ -57,7 +44,7 @@
       <li><a href="/news.html">News</a></li>
     </ul>
   </nav>
-
+  
   <script src="/js/main.js"></script>
 </body>
 </html>
