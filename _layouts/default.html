@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="no-select">
+  <!-- Header at the very top -->
   <header>
     <a href="/index.html" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
@@ -15,7 +16,28 @@
     </a>
   </header>
   
-  <!-- Page wrapper with side images on wide screens -->
+  <!-- Navigation immediately after header -->
+  <nav id="nav-desktop">
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/timeline.html">Story</a></li>
+      <li><a href="/characters.html">Characters</a></li>
+      <li><a href="/questions.html">Questions</a></li>
+      <li><a href="/news.html">News</a></li>
+    </ul>
+  </nav>
+  <nav id="nav-mobile">
+    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+    <ul id="nav-mobile-menu">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/timeline.html">Story</a></li>
+      <li><a href="/characters.html">Characters</a></li>
+      <li><a href="/questions.html">Questions</a></li>
+      <li><a href="/news.html">News</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Page Wrapper with Side Boxes and the fixed container -->
   <div class="page-wrapper">
     <div class="side-box left-box">
       <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
@@ -32,18 +54,6 @@
       <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
     </div>
   </div>
-  
-  <!-- Mobile Navigation (stays at top for small screens) -->
-  <nav id="nav-mobile">
-    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
-    <ul id="nav-mobile-menu">
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/timeline.html">Story</a></li>
-      <li><a href="/characters.html">Characters</a></li>
-      <li><a href="/questions.html">Questions</a></li>
-      <li><a href="/news.html">News</a></li>
-    </ul>
-  </nav>
   
   <script src="/js/main.js"></script>
 </body>
