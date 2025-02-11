@@ -49,8 +49,8 @@ body {
   width: 100%;
 }
 
-/* On desktop (min-width: 1024px), use a three-column layout */
-@media (min-width: 1024px) {
+/* On desktop: only show side boxes when viewport is at least 1280px wide */
+@media (min-width: 1280px) {
   .page-wrapper {
     display: flex;
   }
@@ -71,16 +71,8 @@ body {
   }
 }
 
-/* On tablets (min-width: 601px and max-width: 1023px), center main content */
-@media (min-width: 601px) and (max-width: 1023px) {
-  .main-content {
-    max-width: 1120px;
-    margin: 0 auto;
-  }
-}
-
-/* Hide side boxes on screens smaller than 1024px */
-@media (max-width: 1023px) {
+/* Hide side boxes on screens smaller than 1280px */
+@media (max-width: 1279px) {
   .side-box {
     display: none;
   }
@@ -89,8 +81,6 @@ body {
 /* =====================================================
    Header & Navigation
 ===================================================== */
-
-/* Header: full-width purple background */
 header {
   background: #362136;
   padding: 10px 0;
@@ -100,21 +90,21 @@ header {
   margin: 0;
 }
 
-/* Desktop-only: fix header height and vertically center content */
+/* Desktop (min-width: 1024px): fixed header height & vertical centering */
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0;           /* Remove extra padding on desktop */
+    padding: 0; /* Remove extra padding on desktop */
     display: flex;
-    align-items: center;  /* Vertically center header content */
+    align-items: center;
     justify-content: center;
   }
 }
 
-/* Site title: split into two spans */
+/* Site title styling */
 #site-title {
   display: flex;
-  flex-direction: row;  /* Inline on desktop */
+  flex-direction: row; /* Inline on desktop */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -128,7 +118,7 @@ header {
   margin: 0 5px;
 }
 
-/* Mobile: force two lines and adjust font size */
+/* Mobile (max-width: 600px): force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -151,7 +141,6 @@ header {
     display: none;
   }
 }
-
 /* Mobile Navigation: visible on screens 600px and below */
 @media (max-width: 600px) {
   #nav-desktop {
@@ -163,8 +152,7 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
-
-/* Desktop Navigation: sticky and recentered (applies on min-width: 1024px) */
+/* Desktop Navigation: on screens 1024px and above */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -176,8 +164,20 @@ header {
     align-items: center;
   }
 }
-
-/* Mobile Navigation: sticky and recentered (applies on max-width: 600px) */
+/* Tablet Navigation: for screens between 601px and 1279px, force centering */
+@media (min-width: 601px) and (max-width: 1279px) {
+  #nav-desktop {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+/* Mobile Navigation: on screens 600px and below */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -198,18 +198,15 @@ header {
   padding: 0;
   margin: 0;
 }
-
 #nav-desktop li {
   margin: 0 15px;
 }
-
 #nav-desktop a {
   font-weight: 500;
   color: #333;
   transition: color 0.3s ease;
-  text-decoration: none; /* Remove underline */
+  text-decoration: none;
 }
-
 #nav-desktop a:hover {
   color: #667eea;
 }
@@ -229,7 +226,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* Hidden by default; toggled via JS */
+    display: none; /* Toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -244,7 +241,7 @@ header {
     font-weight: 500;
     color: #333;
     transition: color 0.3s ease;
-    text-decoration: none; /* Remove underline */
+    text-decoration: none;
   }
   #nav-mobile-menu a:hover {
     color: #667eea;
@@ -259,6 +256,12 @@ header {
 .scroll-container {
   height: calc(100vh - 60px);
   overflow-y: auto;
+}
+/* For tablets (601px to 1023px) adjust scroll container height if header is smaller */
+@media (min-width: 601px) and (max-width: 1023px) {
+  .scroll-container {
+    height: calc(100vh - 50px);
+  }
 }
 
 /* =====================================================
@@ -275,23 +278,7 @@ header {
 }
 
 /* =====================================================
-   STORY SECTION – Pan & Zoom Container
-===================================================== */
-#panZoomWrapper {
-  width: 100%;
-  max-width: 1120px;
-  height: 70vh;
-  margin: 0 auto;
-  overflow: hidden;
-  border: 1px solid #eee;
-}
-#panZoomContainer {
-  width: 1600px;
-  transform-origin: top left;
-}
-
-/* =====================================================
-   Timeline Styles
+   STORY SECTION – Timeline (Horizontal Scroll)
 ===================================================== */
 .timeline {
   margin-bottom: 40px;
@@ -316,44 +303,39 @@ header {
   margin-bottom: 20px;
 }
 
-/* =====================================================
-   Chapter Container
-===================================================== */
-.chapter-container {
+/* New Timeline Styles: Simple Horizontal Scroll */
+.timeline-group {
+  margin-bottom: 30px;
+  text-align: left;
+}
+.timeline-group h2 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  color: #0077be;
+}
+.chapter-list {
   display: flex;
-  gap: 30px;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 10px;
   justify-content: flex-start;
 }
 .chapter-box {
-  border: 2px solid #ddd;
-  padding: 10px 15px;
-  cursor: pointer;
   background: #fff;
+  border: 2px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  white-space: nowrap;
+  padding: 15px 10px;
+  min-width: 220px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
   text-decoration: none;
   color: inherit;
 }
 .chapter-box:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  background: #f9f9f9;
+  border-color: #ccc;
 }
-.timeline-underline {
-  width: 100%;
-  height: 3px;
-  background: #ddd;
-  margin-top: 10px;
-}
-.timeline.orby-pink .timeline-underline { background: #f7cdd5; }
-.timeline.cerulean .timeline-underline { background: #0077be; }
-.timeline.shimi-green .timeline-underline { background: #216036; }
-.timeline.dreymi .timeline-underline { background: #2f191f; }
-.timeline.via .timeline-underline { background: #de363d; }
-.timeline.mika .timeline-underline { background: #823f25; }
-.timeline.memo .timeline-underline { background: #e073bd; }
-.timeline.shizu .timeline-underline { background: #4c6095; }
 
 /* =====================================================
    CHARACTERS SECTION – Vertical Scroll Container
@@ -410,7 +392,7 @@ header {
 }
 
 /* =====================================================
-   Navigation Buttons
+   Navigation Buttons (General)
 ===================================================== */
 .nav-buttons {
   display: flex;
@@ -437,9 +419,9 @@ header {
 }
 
 /* =====================================================
-   CHARACTER DETAIL PAGE STYLES
+   CHAPTER DETAIL PAGE STYLES
 ===================================================== */
-.character-detail {
+.chapter-detail {
   max-width: 1120px;
   margin: 20px auto;
   background: #fff;
@@ -448,73 +430,46 @@ header {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.detail-container {
-  display: flex;
-  gap: 20px;
-  flex-direction: row;
-}
-@media (max-width: 600px) {
-  .detail-container {
-    flex-direction: column;
-  }
-  .right-panel {
-    order: 1;
-  }
-  .left-panel {
-    order: 2;
-  }
-}
-.left-panel {
-  flex: 2;
+.chapter-content {
   text-align: left;
-  padding-right: 20px;
-  border-right: 1px solid #eee;
-}
-.back-select-btn {
-  display: inline-block;
   margin-bottom: 20px;
-  padding: 8px 12px;
-  font-size: 0.9em;
-  background: #667eea;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.back-select-btn:hover {
-  background: #556cd6;
-}
-.right-panel {
-  flex: 1;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.right-panel h1 {
-  text-align: center;
-  margin: 0 0 10px 0;
-  font-size: 2em;
-  color: #0077be;
-}
-.image-container {
-  text-align: center;
-  margin-bottom: 10px;
-}
-.image-container img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-}
-.basic-info {
-  text-align: left;
-}
-.basic-info p {
-  margin: 4px 0;
 }
 
+/* Fixed Chapter Navigation at Bottom of the Viewport */
+.chapter-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255,255,255,0.97);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+.chapter-nav-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+.chapter-nav .nav-button {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  background: #667eea;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin: 0 5px;
+}
+.chapter-nav .nav-button:hover {
+  background: #556cd6;
+}
+/* End Chapter Navigation */
+
 /* =====================================================
-   News Entry Styles
+   NEWS ENTRY STYLES
 ===================================================== */
 .news-entry {
   border: 1px solid #ddd;
