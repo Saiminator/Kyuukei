@@ -42,7 +42,7 @@ body {
 ===================================================== */
 .page-wrapper {
   width: 100%;
-  display: block;
+  display: block; /* Stacked on mobile/tablet */
 }
 
 .main-content {
@@ -136,9 +136,9 @@ header {
   }
 }
 
-/* ---------- Navigation Visibility & Sticky Rules ---------- */
-/* Desktop navigation is now placed inside the fixed container in your default layout,
-   so we remove external desktop nav here. */
+/* ---------- Navigation Rules ---------- */
+/* We are placing the desktop menu inside the fixed container;
+   therefore, external desktop nav is not used. */
 @media (min-width: 601px) {
   #nav-mobile {
     display: none;
@@ -179,10 +179,12 @@ header {
   }
 }
 
-/* ---------- Desktop Navigation Menu (inside fixed container) ---------- */
+/* ---------- Desktop Navigation Menu inside Fixed Container ---------- */
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
+  /* Ensure no gap above the menu */
+  display: block;
 }
 .nav-menu-desktop ul {
   list-style: none;
@@ -197,13 +199,16 @@ header {
 }
 .nav-menu-desktop a {
   font-weight: 500;
-  color: #f7cdd5; /* Orby pink for flair */
-  transition: color 0.3s ease;
+  background: #f7cdd5; /* Orby pink background */
+  color: #fff;        /* White text */
+  transition: background 0.3s ease, color 0.3s ease;
   text-decoration: none;
-  font-size: 1.5rem; /* Bigger font size */
+  font-size: 1.5rem;
+  padding: 10px 15px;
+  border-radius: 5px;
 }
 .nav-menu-desktop a:hover {
-  color: #667eea;
+  background: #e0a8b5; /* Slightly darker pink on hover */
 }
 
 /* =====================================================
@@ -288,7 +293,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 90vh; /* Increased height so that it fills the page */
+  height: 90vh;  /* Increased height for Character Wiki */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -309,7 +314,7 @@ header {
     grid-template-columns: repeat(2, 1fr);
   }
   #characterScrollWrapper {
-    height: 70vh; /* For mobile, a bit shorter */
+    height: 70vh;
   }
 }
 
@@ -460,13 +465,13 @@ header {
   height: calc(100vh - 210px); /* Overall container height */
   overflow: hidden;
   margin: 20px auto;
-  background: #f4f4f9;
+  background: #f4f4f9; /* Container background matches page background */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
   padding: 10px 20px;
-  background: #fff;
+  background: #fff; /* Title area remains white for contrast */
   border-bottom: 1px solid #eee;
   text-align: center;
   height: 50px;
@@ -474,6 +479,6 @@ header {
   margin-bottom: 5px; /* Reduced gap between title and menu */
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px - 55px); /* Scrollable area: container height minus header (50px) and 5px gap */
+  height: calc(100vh - 210px - 55px); /* Scrollable area height */
   overflow-y: auto;
 }
