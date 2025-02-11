@@ -1,22 +1,22 @@
 ---
 layout: default
 title: News
+no_scroll_container: true
 ---
 
-<section id="news" class="content-section">
-  <h1>News</h1>
-  {% assign news_entries = site.news | default: [] %}
-  {% if news_entries.size > 0 %}
-    {% for item in news_entries reversed %}
-      <div class="news-entry">
-        <h2>{{ item.title }}</h2>
-        <p class="news-date">{{ item.date | date: "%B %d, %Y" }}</p>
-        <div class="news-content">
-          {{ item.content }}
-        </div>
-      </div>
+<section id="news" class="content-section section-fixed-title">
+  <header class="section-header">
+    <h1>News</h1>
+  </header>
+  <div class="section-scroll">
+    {% for post in site.news %}
+      <article class="news-entry">
+         <h2>{{ post.title }}</h2>
+         <p class="news-date">{{ post.date | date: "%B %d, %Y" }}</p>
+         <div class="news-content">
+           {{ post.content }}
+         </div>
+      </article>
     {% endfor %}
-  {% else %}
-    <p>No news available at this time.</p>
-  {% endif %}
+  </div>
 </section>
