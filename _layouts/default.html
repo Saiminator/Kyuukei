@@ -15,27 +15,7 @@
     </a>
   </header>
   
-  <div class="page-wrapper">
-    <div class="side-box left-box">
-      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
-    </div>
-    
-    <!-- Always wrap page content in the fixed container -->
-    <div class="main-content section-fixed-title">
-      <header class="section-header">
-        <h1>{{ page.title }}</h1>
-      </header>
-      <div class="section-scroll">
-        {{ content }}
-      </div>
-    </div>
-    
-    <div class="side-box right-box">
-      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
-    </div>
-  </div>
-  
-  <!-- Navigation (both desktop and mobile) remains unchanged -->
+  <!-- Place navigation immediately after header -->
   <nav id="nav-desktop">
     <ul>
       <li><a href="/about.html">About</a></li>
@@ -45,7 +25,6 @@
       <li><a href="/news.html">News</a></li>
     </ul>
   </nav>
-  
   <nav id="nav-mobile">
     <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
     <ul id="nav-mobile-menu">
@@ -56,6 +35,18 @@
       <li><a href="/news.html">News</a></li>
     </ul>
   </nav>
+  
+  <div class="page-wrapper">
+    <div class="side-box left-box">
+      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
+    </div>
+    <div class="main-content">
+      {{ content }}
+    </div>
+    <div class="side-box right-box">
+      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+    </div>
+  </div>
   
   <script src="/js/main.js"></script>
 </body>
