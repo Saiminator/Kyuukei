@@ -507,16 +507,16 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 210px); /* Container height limited to viewport height minus 210px */
+  height: calc(100vh - 210px); /* Overall container height */
   overflow: hidden;
   margin: 20px auto;
-  background: #f4f4f9;  /* Background matches the overall darker grey */
+  background: #f4f4f9; /* Matches the darker grey background */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
   padding: 10px 20px;
-  background: #fff;  /* Title area remains white for contrast */
+  background: #fff; /* Title area remains white for contrast */
   border-bottom: 1px solid #eee;
   text-align: center;
   height: 50px;
@@ -524,7 +524,6 @@ header {
   margin-bottom: 15px; /* Gap between title and content */
 }
 .section-fixed-title .section-scroll {
-  /* Scrollable area: container height minus header and gap */
-  height: calc(100vh - 210px - 65px);
+  height: calc(100vh - 210px - 65px); /* Scrollable area height */
   overflow-y: auto;
 }
