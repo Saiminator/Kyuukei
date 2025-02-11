@@ -13,7 +13,7 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, Firefox */
+/* IE, Edge, and Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -134,7 +134,7 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* Mobile-only nav (ID #nav-mobile) shows only on viewports ≤600px */
+/* For desktop, we place the menu inside the fixed container so external desktop nav is not used */
 @media (min-width: 601px) {
   #nav-mobile { display: none !important; }
   .nav-menu-desktop { display: flex !important; }
@@ -179,8 +179,7 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  /* Fixed area for desktop menu, visible only on viewports ≥601px */
-  height: 60px;
+  height: 60px; /* Fixed area for desktop menu */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -197,7 +196,7 @@ header {
 .nav-menu-desktop a {
   font-weight: 500;
   background: #f7cdd5; /* Orby pink background */
-  color: #fff;        /* White text */
+  color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -208,21 +207,22 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
-   (For News, Questions, Character Wiki, etc.)
+   (Used by pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
-/* Using a flex layout so inner areas (menu, header, scrollable content) can adjust */
+/* Using flex layout so inner areas can expand to fill available space */
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Overall container: full viewport minus 100px */
+  /* Set container height to nearly full viewport minus 100px */
+  height: calc(100vh - 100px);
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0 auto; /* flush with header */
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Section header (page title) */
+/* Section Header (Page Title) */
 .section-header {
   flex: 0 0 50px;
   padding: 10px 20px;
@@ -230,7 +230,7 @@ header {
   border-bottom: 1px solid #eee;
   text-align: center;
   line-height: 50px;
-  margin: 0;  /* Remove extra gap */
+  margin: 0; /* Remove extra gap */
 }
 
 /* Scrollable Content Area inside Fixed Container */
@@ -319,11 +319,13 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;  /* Expanded height for Character Wiki to fill the page */
+  /* Adjusted height: instead of a fixed 100vh, use a calculation if needed */
+  height: calc(100vh - 75px);
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
   position: relative;
+  scroll-behavior: smooth;
 }
 #characterScrollContainer {
   display: grid;
@@ -484,7 +486,6 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  /* Container height nearly full viewport minus 100px */
   height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
@@ -499,17 +500,16 @@ header {
   text-align: center;
   height: 50px;
   line-height: 50px;
-  margin: 0; /* Remove gap */
+  margin: 0;
 }
 .section-fixed-title .section-scroll {
-  /* Scrollable area = container height minus header area (50px) and gap (65px total deducted) */
   height: calc(100vh - 100px - 115px);
   overflow-y: auto;
 }
 
 /* =====================================================
    18. Character Detail Page Styles
-   (For character detail pages only)
+   (For Character Detail Pages Only)
 ===================================================== */
 .character-detail {
   max-width: 1120px;
