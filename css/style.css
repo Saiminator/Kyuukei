@@ -104,7 +104,7 @@ header {
 /* Site title styling */
 #site-title {
   display: flex;
-  flex-direction: row; /* Inline on desktop */
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -142,7 +142,6 @@ header {
 }
 
 /* ---------- Navigation Visibility Rules ---------- */
-/* Desktop Navigation: visible on screens wider than 600px */
 @media (min-width: 601px) {
   #nav-desktop {
     display: flex;
@@ -151,7 +150,6 @@ header {
     display: none;
   }
 }
-/* Mobile Navigation: visible on screens 600px and below */
 @media (max-width: 600px) {
   #nav-desktop {
     display: none;
@@ -162,7 +160,6 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
-/* Desktop Navigation (min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -174,7 +171,6 @@ header {
     align-items: center;
   }
 }
-/* Tablet Navigation (min-width: 601px and max-width: 1279px) */
 @media (min-width: 601px) and (max-width: 1279px) {
   #nav-desktop {
     position: sticky;
@@ -187,7 +183,6 @@ header {
     align-items: center;
   }
 }
-/* Mobile Navigation (max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -216,7 +211,7 @@ header {
   color: #333;
   transition: color 0.3s ease;
   text-decoration: none;
-  font-size: 1.25rem;  /* Increased font size */
+  font-size: 1.25rem;
 }
 #nav-desktop a:hover {
   color: #667eea;
@@ -253,7 +248,7 @@ header {
     color: #333;
     transition: color 0.3s ease;
     text-decoration: none;
-    font-size: 1.25rem;  /* Increased font size for mobile nav too */
+    font-size: 1.25rem;
   }
   #nav-mobile-menu a:hover {
     color: #667eea;
@@ -512,16 +507,16 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 145px); /* Overall container height */
+  height: calc(100vh - 210px); /* Container height limited to viewport height minus 210px */
   overflow: hidden;
   margin: 20px auto;
-  background: #fff;
+  background: #f4f4f9;  /* Background matches the overall darker grey */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
   padding: 10px 20px;
-  background: #fff;
+  background: #fff;  /* Title area remains white for contrast */
   border-bottom: 1px solid #eee;
   text-align: center;
   height: 50px;
@@ -529,6 +524,7 @@ header {
   margin-bottom: 15px; /* Gap between title and content */
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 145px - 65px); /* Scrollable area height */
+  /* Scrollable area: container height minus header and gap */
+  height: calc(100vh - 210px - 65px);
   overflow-y: auto;
 }
