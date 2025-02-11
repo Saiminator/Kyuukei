@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem; /* Mobile-first base size */
+  font-size: 1rem; /* Consistent base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -94,7 +94,7 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0; /* Remove extra padding on desktop */
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,7 +118,6 @@ header {
   margin: 0 5px;
 }
 
-/* New Media Queries for Header Text Scaling */
 /* For screens between 601px and 700px, reduce header text size */
 @media (min-width: 601px) and (max-width: 700px) {
   #site-title {
@@ -132,7 +131,7 @@ header {
   }
 }
 
-/* Mobile (max-width: 600px): force two lines and adjust font size */
+/* Mobile (max-width: 600px): force two lines */
 @media (max-width: 600px) {
   #site-title {
     flex-direction: column;
@@ -166,7 +165,7 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
-/* Desktop Navigation: sticky and recentered (applies on min-width: 1024px) */
+/* Desktop Navigation: sticky and recentered (min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -178,7 +177,7 @@ header {
     align-items: center;
   }
 }
-/* Tablet Navigation: for screens between 601px and 1279px, force centering */
+/* Tablet Navigation: for screens between 601px and 1279px */
 @media (min-width: 601px) and (max-width: 1279px) {
   #nav-desktop {
     position: sticky;
@@ -191,7 +190,7 @@ header {
     align-items: center;
   }
 }
-/* Mobile Navigation: sticky and recentered (applies on max-width: 600px) */
+/* Mobile Navigation: sticky and recentered (max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -271,7 +270,7 @@ header {
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
-/* For tablets (601px to 1023px), adjust scroll container height if header is smaller */
+/* For tablets (601px to 1023px), adjust scroll container height */
 @media (min-width: 601px) and (max-width: 1023px) {
   .scroll-container {
     height: calc(100vh - 50px);
@@ -504,12 +503,8 @@ header {
 ===================================================== */
 @media (min-width: 600px) {
   body {
-    font-size: 1.125rem;
-  }
-}
-@media (min-width: 1024px) {
-  body {
-    font-size: 1.25rem;
+    /* Keeping consistent base font size */
+    font-size: 1rem;
   }
 }
 
@@ -518,7 +513,7 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 160px); /* Reduced container height */
+  height: calc(100vh - 145px); /* Overall container height */
   overflow: hidden;
   margin: 20px auto;
   background: #fff;
@@ -532,10 +527,9 @@ header {
   text-align: center;
   height: 50px;
   line-height: 50px;
-  margin-bottom: 15px;  /* Gap between header and scrollable area */
+  margin-bottom: 15px; /* Gap between title and content */
 }
 .section-fixed-title .section-scroll {
-  /* Scrollable area: container height minus header and gap (50px + 15px) */
-  height: calc(100vh - 160px - 65px);
+  height: calc(100vh - 145px - 65px); /* Scrollable area height */
   overflow-y: auto;
 }
