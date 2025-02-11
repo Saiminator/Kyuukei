@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem; /* Consistent base size */
+  font-size: 1rem;
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Below header (60px) */
+    height: calc(100vh - 60px);
     overflow: hidden;
   }
   .side-box img {
@@ -86,7 +86,7 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
   margin: 0;
-  margin-bottom: 0; /* No extra gap below header */
+  margin-bottom: 0;
 }
 
 @media (min-width: 1024px) {
@@ -109,6 +109,7 @@ header {
   text-decoration: none;
   margin: 0 auto;
 }
+
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
@@ -138,7 +139,7 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* For desktop, the menu is now inside the fixed container; external desktop nav is not used */
+/* Desktop: we place the menu inside the fixed container so no external desktop nav */
 @media (min-width: 601px) {
   #nav-mobile {
     display: none;
@@ -156,7 +157,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* Toggled via JS */
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -183,7 +184,8 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  height: 60px; /* Fixed area for the desktop menu */
+  /* Set fixed height and remove any gap */
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,7 +297,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;  /* Increased height for Character Wiki to fill the page */
+  height: 100vh;  /* Expanded height for Character Wiki to fill the page */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -464,7 +466,7 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 100px); /* Expanded container: now using almost full viewport */
+  height: calc(100vh - 50px); /* Expanded container: almost full viewport (subtracting only 50px) */
   overflow: hidden;
   margin: 0 auto; /* Flush with header */
   background: #f4f4f9; /* Matches page background */
@@ -473,7 +475,7 @@ header {
 }
 .section-fixed-title .section-header {
   padding: 10px 20px;
-  background: #fff; /* Title area remains white for contrast */
+  background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
   height: 50px;
@@ -481,6 +483,6 @@ header {
   margin-bottom: 5px;
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 100px - 55px); /* Scrollable area height = 100vh - (header deduction of 100px + header (50) + gap (5)) = calc(100vh - 155px) */
+  height: calc(100vh - 50px - 55px); /* Scrollable area height: header (50px) + gap (5px) */
   overflow-y: auto;
 }
