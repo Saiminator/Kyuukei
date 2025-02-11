@@ -1,472 +1,66 @@
-/* =====================================================
-   1. Remove Default Margins and Padding
-===================================================== */
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-/* =====================================================
-   2. Hide Scrollbars Globally (Invisible)
-===================================================== */
-/* Chrome, Safari, Opera */
-::-webkit-scrollbar {
-  display: none;
-}
-/* IE, Edge, Firefox */
-body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* =====================================================
-   3. Global Reset & Base Styles
-===================================================== */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  background: #f4f4f9;
-  color: #333;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* =====================================================
-   4. Page Wrapper & Side Boxes
-===================================================== */
-.page-wrapper {
-  width: 100%;
-  display: block;
-}
-
-.main-content {
-  width: 100%;
-}
-
-/* Desktop: show side boxes on viewports ≥1280px */
-@media (min-width: 1280px) {
-  .page-wrapper {
-    display: flex;
-  }
-  .side-box {
-    display: block;
-    width: 20%;
-    height: calc(100vh - 60px); /* below header (60px) */
-    overflow: hidden;
-  }
-  .side-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .main-content {
-    width: 60%;
-  }
-}
-@media (max-width: 1279px) {
-  .side-box {
-    display: none;
-  }
-}
-
-/* =====================================================
-   5. Header & Top Navigation
-===================================================== */
-header {
-  background: #362136;
-  padding: 10px 0;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  width: 100%;
-  margin: 0;
-  margin-bottom: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    height: 60px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-#site-title {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.8em;
-  color: #fff;
-  text-decoration: none;
-  margin: 0 auto;
-}
-#site-title .header-line1,
-#site-title .header-line2 {
-  white-space: nowrap;
-  margin: 0 5px;
-}
-
-@media (min-width: 601px) and (max-width: 700px) {
-  #site-title { font-size: 1.5em; }
-}
-@media (min-width: 701px) and (max-width: 800px) {
-  #site-title { font-size: 1.6em; }
-}
-@media (max-width: 600px) {
-  #site-title {
-    flex-direction: column;
-    font-size: clamp(1.2rem, 5vw, 1.5rem);
-  }
-  #site-title .header-line1,
-  #site-title .header-line2 {
-    display: block;
-    white-space: nowrap;
-  }
-}
-
-/* ---------- Mobile Navigation (for viewports ≤600px) ---------- */
-@media (max-width: 600px) {
-  #nav-mobile {
-    display: block;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #fff;
-    padding: 5px 0;
-    text-align: center;
-  }
-  #nav-mobile-menu {
-    list-style: none;
-    display: none; /* toggled via JS */
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background: #f4f4f9;
-    padding: 10px 0;
-    margin: 0;
-  }
-  #nav-mobile-menu li { margin: 10px 0; }
-  #nav-mobile-menu a {
-    font-weight: 500;
-    color: #333;
-    transition: color 0.3s ease;
-    text-decoration: none;
-    font-size: 1.25rem;
-  }
-  #nav-mobile-menu a:hover { color: #667eea; }
-}
-
-/* (For viewports ≥601px, the desktop menu is inside the fixed container below) */
-
-/* =====================================================
-   6. Fixed Container for Page Content
-   (Used by pages such as News, Questions, Character Wiki, etc.)
-===================================================== */
-.section-fixed-title {
-  /* Using a flex layout to let the inner areas fill available space */
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 65px); /* Container height: full viewport minus 65px */
-  overflow: hidden;
-  margin: 0 auto; /* flush with header */
-  background: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Desktop Navigation Menu inside Fixed Container */
-.nav-menu-desktop {
-  flex: 0 0 60px; /* Fixed height for the menu area */
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.nav-menu-desktop ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  justify-content: center;
-  align-items: center;
-}
-.nav-menu-desktop li {
-  margin: 0 15px;
-}
-.nav-menu-desktop a {
-  font-weight: 500;
-  background: #f7cdd5; /* Orby pink */
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.5rem;
-  padding: 8px 15px;
-  border-radius: 5px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-.nav-menu-desktop a:hover { background: #e0a8b5; }
-
-/* Section Header (shows page title) */
-.section-header {
-  flex: 0 0 50px;
-  padding: 10px 20px;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-  text-align: center;
-  line-height: 50px;
-  margin: 0;  /* Remove margin-bottom to avoid extra gap */
-}
-
-/* Scrollable Content Area inside Fixed Container */
-.section-scroll {
-  flex: 1;
-  overflow-y: auto;
-}
-
-/* =====================================================
-   7. Scrollable Container (Generic)
-===================================================== */
-.scroll-container {
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-}
-@media (min-width: 601px) and (max-width: 1023px) {
-  .scroll-container { height: calc(100vh - 50px); }
-}
-
-/* =====================================================
-   8. Content Sections (Global)
-===================================================== */
-.content-section {
-  padding: 10px 20px;
-  margin: 20px auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  text-align: center;
-  overflow: hidden;
-}
-
-/* =====================================================
-   9. STORY SECTION – Timeline (Horizontal Scroll)
-===================================================== */
-.timeline {
-  margin-bottom: 40px;
-}
-.timeline h2 {
-  text-align: left;
-  margin: 0 0 10px 10px;
-}
-.timeline-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-.timeline-group {
-  margin-bottom: 30px;
-  text-align: left;
-}
-.timeline-group h2 {
-  margin-bottom: 10px;
-  font-size: 1.5em;
-  color: #0077be;
-}
-.chapter-list {
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  padding-bottom: 10px;
-  justify-content: flex-start;
-}
-.chapter-box {
-  background: #fff;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  padding: 15px 10px;
-  min-width: 220px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  text-decoration: none;
-  color: inherit;
-}
-.chapter-box:hover {
-  background: #f9f9f9;
-  border-color: #ccc;
-}
-
-/* =====================================================
-   10. CHARACTERS SECTION – Vertical Scroll Container
-===================================================== */
-#characterScrollWrapper {
-  width: 100%;
-  max-width: 1120px;
-  height: 100vh;  /* Expanded height for Character Wiki */
-  margin: 0 auto;
-  overflow-y: auto;
-  border: 1px solid #eee;
-  position: relative;
-}
-#characterScrollContainer {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
-}
-@media (max-width: 1023px) {
-  #characterScrollContainer {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 600px) {
-  #characterScrollContainer {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  #characterScrollWrapper { height: 70vh; }
-}
-
-/* =====================================================
-   11. Character Item Styling
-===================================================== */
-.character-item {
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
-}
-.character-image {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background-size: cover;
-  background-position: center;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  margin: 0 auto;
-}
-.character-name {
-  margin-top: 10px;
-  font-weight: 600;
-}
-
-/* =====================================================
-   12. Navigation Buttons (General)
-===================================================== */
-.nav-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  margin-top: 20px;
-}
-.nav-buttons a.button, .nav-buttons button {
-  flex: 1;
-  max-width: 200px;
-  padding: 10px 15px;
-  cursor: pointer;
-  background: #667eea;
-  border: none;
-  font-size: 1em;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  text-align: center;
-  transition: background 0.3s ease;
-}
-.nav-buttons a.button:hover, .nav-buttons button:hover {
-  background: #556cd6;
-}
-
-/* =====================================================
-   13. CHAPTER DETAIL PAGE STYLES
-===================================================== */
-.chapter-detail {
-  max-width: 1120px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.chapter-content {
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-/* =====================================================
-   14. Fixed Chapter Navigation at Bottom
-===================================================== */
-.chapter-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255,255,255,0.97);
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-.chapter-nav-container {
-  max-width: 1120px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-}
-.chapter-nav .nav-button {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-  background: #667eea;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  margin: 0 5px;
-}
-.chapter-nav .nav-button:hover {
-  background: #556cd6;
-}
-
-/* =====================================================
-   15. NEWS ENTRY STYLES
-===================================================== */
-.news-entry {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  text-align: left;
-}
-.news-entry h2 {
-  margin: 0 0 5px;
-  font-size: 1.5em;
-}
-.news-date {
-  font-size: 0.9em;
-  color: #999;
-  margin-bottom: 10px;
-}
-.news-content {
-  font-size: 1.1em;
-  line-height: 1.5;
-}
-
-/* =====================================================
-   16. Responsive & Mobile Styles
-===================================================== */
-@media (min-width: 600px) {
-  body { font-size: 1rem; }
-}
-@media (min-width: 1024px) {
-  body { font-size: 1rem; }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="no-select">
+  <!-- Site Header -->
+  <header>
+    <a href="/index.html" id="site-title">
+      <span class="header-line1">Kyuukei wo Hanashi |</span>
+      <span class="header-line2">Kyuu’s Breaktime Stories</span>
+    </a>
+  </header>
+  
+  <!-- Mobile Navigation (stays at top for small screens) -->
+  <nav id="nav-mobile">
+    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+    <ul id="nav-mobile-menu">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/timeline.html">Story</a></li>
+      <li><a href="/characters.html">Characters</a></li>
+      <li><a href="/questions.html">Questions</a></li>
+      <li><a href="/news.html">News</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Page Wrapper with Side Boxes -->
+  <div class="page-wrapper">
+    <div class="side-box left-box">
+      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
+    </div>
+    
+    <!-- Fixed Container for Page Content -->
+    <div class="main-content section-fixed-title">
+      <!-- Desktop Navigation Menu placed flush at the top of the container -->
+      <nav class="nav-menu-desktop">
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/timeline.html">Story</a></li>
+          <li><a href="/characters.html">Characters</a></li>
+          <li><a href="/questions.html">Questions</a></li>
+          <li><a href="/news.html">News</a></li>
+        </ul>
+      </nav>
+      <!-- Section Header with Page Title -->
+      <header class="section-header">
+        <h1>{{ page.title }}</h1>
+      </header>
+      <!-- Scrollable Content Area -->
+      <div class="section-scroll">
+        {{ content }}
+      </div>
+    </div>
+    
+    <div class="side-box right-box">
+      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+    </div>
+  </div>
+  
+  <script src="/js/main.js"></script>
+</body>
+</html>
