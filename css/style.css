@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* below the header (60px) */
+    height: calc(100vh - 60px);
     overflow: hidden;
   }
   .side-box img {
@@ -138,8 +138,7 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* For desktop, the menu is placed inside the fixed container.
-   External desktop nav is not used. */
+/* For desktop, the menu is placed inside the fixed container */
 @media (min-width: 601px) {
   #nav-mobile {
     display: none;
@@ -157,7 +156,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* toggled via JS */
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -184,8 +183,7 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  /* Set a fixed height and remove extra gap so it sits flush at the top */
-  height: 60px;
+  height: 60px; /* Fixed menu area height */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -297,7 +295,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;  /* Expanded height for Character Wiki */
+  height: 100vh;  /* Expanded height for Character Wiki to fill the page */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -466,8 +464,8 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  /* Expanded container: nearly full viewport minus 25px */
-  height: calc(100vh - 25px);
+  /* Set the fixed container height to nearly full viewport minus 100px */
+  height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -484,7 +482,7 @@ header {
   margin-bottom: 5px;
 }
 .section-fixed-title .section-scroll {
-  /* Scrollable area height = container height minus the sum of the desktop menu (60px) and section header (50px + 5px gap) */
-  height: calc(100vh - 25px - 115px);
+  /* Scrollable area height = container height minus (menu area 60px + section header area 50px + gap 5px) */
+  height: calc(100vh - 100px - 115px); /* = calc(100vh - 215px) */
   overflow-y: auto;
 }
