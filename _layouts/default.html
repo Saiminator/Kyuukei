@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="no-select">
+  <!-- Header at the very top -->
   <header>
     <a href="/index.html" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
@@ -15,16 +16,15 @@
     </a>
   </header>
   
-  <!-- Page wrapper with side boxes -->
+  <!-- Page Wrapper with Side Boxes -->
   <div class="page-wrapper">
     <div class="side-box left-box">
       <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
     </div>
+    
+    <!-- Fixed Container for Page Content -->
     <div class="main-content section-fixed-title">
-      <header class="section-header">
-         <h1>{{ page.title }}</h1>
-      </header>
-      <!-- Desktop navigation inside the fixed container -->
+      <!-- Desktop Navigation Menu placed at the top of the fixed container -->
       <nav class="nav-menu-desktop">
         <ul>
           <li><a href="/about.html">About</a></li>
@@ -34,16 +34,24 @@
           <li><a href="/news.html">News</a></li>
         </ul>
       </nav>
+      
+      <!-- Section Header with Page Title -->
+      <header class="section-header">
+        <h1>{{ page.title }}</h1>
+      </header>
+      
+      <!-- Scrollable Content Area -->
       <div class="section-scroll">
         {{ content }}
       </div>
     </div>
+    
     <div class="side-box right-box">
       <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
     </div>
   </div>
   
-  <!-- Mobile Navigation -->
+  <!-- Mobile Navigation (stays at the top for small screens) -->
   <nav id="nav-mobile">
     <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
     <ul id="nav-mobile-menu">
