@@ -2,9 +2,7 @@
 layout: default
 title: Story Timeline
 ---
-
-<section id="story" class="content-section">
-  <h1>Story Timeline</h1>
+<div class="timeline-wrapper">
   {% assign timeline_names = "Kyuu|Cerulean Winds|Shimi|Dreymi|Via|Mika|Memo|Shizu" | split: "|" %}
   {% for timeline in timeline_names %}
     {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
@@ -25,4 +23,4 @@ title: Story Timeline
       </div>
     {% endif %}
   {% endfor %}
-</section>
+</div>
