@@ -94,7 +94,7 @@ header {
 @media (min-width: 1024px) {
   header {
     height: 60px;
-    padding: 0;
+    padding: 0; /* Remove extra padding on desktop */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,7 +104,7 @@ header {
 /* Site title styling */
 #site-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Inline on desktop */
   justify-content: center;
   align-items: center;
   font-size: 1.8em;
@@ -166,7 +166,7 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
-/* Desktop Navigation: sticky and recentered (min-width: 1024px) */
+/* Desktop Navigation: sticky and recentered (applies on min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -178,7 +178,7 @@ header {
     align-items: center;
   }
 }
-/* Tablet Navigation: for screens between 601px and 1279px */
+/* Tablet Navigation: for screens between 601px and 1279px, force centering */
 @media (min-width: 601px) and (max-width: 1279px) {
   #nav-desktop {
     position: sticky;
@@ -191,7 +191,7 @@ header {
     align-items: center;
   }
 }
-/* Mobile Navigation: sticky and recentered (max-width: 600px) */
+/* Mobile Navigation: sticky and recentered (applies on max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -294,7 +294,22 @@ header {
 /* =====================================================
    STORY SECTION – Timeline (Horizontal Scroll)
 ===================================================== */
-/* Old timeline color rules removed */
+.timeline {
+  margin-bottom: 40px;
+}
+.timeline h2 {
+  text-align: left;
+  margin: 0 0 10px 10px;
+}
+.timeline-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* New Timeline Styles: Simple Horizontal Scroll */
 .timeline-group {
   margin-bottom: 30px;
   text-align: left;
@@ -496,4 +511,28 @@ header {
   body {
     font-size: 1.25rem;
   }
+}
+
+/* =====================================================
+   Section with Fixed Title & Scrollable Content
+   (For pages like News and Questions)
+===================================================== */
+.section-fixed-title {
+  padding: 0;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.section-fixed-title .section-header {
+  padding: 10px 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+.section-fixed-title .section-scroll {
+  /* For desktops with side images (height = calc(100vh - 60px)), leave a 20px margin */
+  height: calc(100vh - 80px - 60px);
+  overflow-y: auto;
 }
