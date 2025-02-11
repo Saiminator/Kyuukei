@@ -11,11 +11,11 @@ no_scroll_container: true
   <div class="section-scroll">
     {% for post in site.news %}
       <article class="news-entry">
-         <h2>{{ post.title }}</h2>
-         <p class="news-date">{{ post.date | date: "%B %d, %Y" }}</p>
-         <div class="news-content">
-           {{ post.content }}
-         </div>
+        <h2>{{ post.title }}</h2>
+        <p class="news-date">{{ post.date | date: "%B %d, %Y" }}</p>
+        <div class="news-content">
+          {{ post.content }}
+        </div>
       </article>
     {% endfor %}
   </div>
