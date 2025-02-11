@@ -137,8 +137,8 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* For desktop, we now place the menu inside the fixed container.
-   (External desktop nav is not used.) */
+/* For desktop, we place the menu inside the fixed container,
+   so external desktop nav is not used. */
 @media (min-width: 601px) {
   #nav-mobile {
     display: none;
@@ -183,7 +183,7 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  /* Ensure no gap above the menu */
+  /* Remove any extra top padding or margin to eliminate the gap */
 }
 .nav-menu-desktop ul {
   list-style: none;
@@ -194,7 +194,7 @@ header {
   padding: 0;
 }
 .nav-menu-desktop li {
-  margin: 0 15px;
+  margin: 0 10px;
 }
 .nav-menu-desktop a {
   font-weight: 500;
@@ -202,12 +202,12 @@ header {
   color: #fff;        /* White text */
   transition: background 0.3s ease, color 0.3s ease;
   text-decoration: none;
-  font-size: 1.5rem;
-  padding: 10px 15px;
+  font-size: 1.25rem;  /* Slightly smaller font */
+  padding: 5px 10px;   /* Reduced padding */
   border-radius: 5px;
 }
 .nav-menu-desktop a:hover {
-  background: #e0a8b5; /* Slightly darker on hover */
+  background: #e0a8b5;
 }
 
 /* =====================================================
@@ -292,7 +292,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 90vh; /* Increased height for Character Wiki */
+  height: 90vh;  /* Increased height for Character Wiki */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -463,8 +463,8 @@ header {
 .section-fixed-title {
   height: calc(100vh - 210px); /* Overall container height */
   overflow: hidden;
-  margin: 0 auto; /* Removed external top margin so container is flush with header */
-  background: #f4f4f9; /* Container background matches page background */
+  margin: 0 auto; /* Removed external top margin */
+  background: #f4f4f9; /* Matches page background */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -478,6 +478,6 @@ header {
   margin-bottom: 5px; /* Reduced gap between title and menu */
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px - 55px); /* Scrollable area height (50px header + 5px gap) */
+  height: calc(100vh - 210px - 55px); /* Scrollable area height: header (50px) + 5px gap */
   overflow-y: auto;
 }
