@@ -518,7 +518,7 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  max-height: calc(100vh - 100px); /* Available height = viewport height minus header and extra margin */
+  max-height: calc(100vh - 100px); /* Reduced overall height to prevent extra scrolling */
   overflow: hidden;
   margin: 20px auto;
   background: #fff;
@@ -534,6 +534,7 @@ header {
   line-height: 50px;
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 100px - 50px); /* Subtract fixed header height */
+  /* New height: subtract header height (50px) from overall container height (100vh - 100px) */
+  height: calc(100vh - 150px);
   overflow-y: auto;
 }
