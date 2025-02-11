@@ -515,24 +515,25 @@ header {
 
 /* =====================================================
    Section with Fixed Title & Scrollable Content
-   (For pages like News and Questions)
+   (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  padding: 0;
+  max-height: calc(100vh - 80px); /* Available height = viewport height minus header (60px) and 20px margin */
+  overflow: hidden;
   margin: 20px auto;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  overflow: hidden;
 }
 .section-fixed-title .section-header {
   padding: 10px 20px;
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
+  height: 50px;
+  line-height: 50px;
 }
 .section-fixed-title .section-scroll {
-  /* For desktops with side images (height = calc(100vh - 60px)), leave a 20px margin */
-  height: calc(100vh - 80px - 60px);
+  height: calc(100vh - 80px - 50px); /* Subtract section header height from available height */
   overflow-y: auto;
 }
