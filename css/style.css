@@ -465,7 +465,7 @@ header {
 ===================================================== */
 .section-fixed-title {
   /* Set the fixed container height to nearly full viewport minus 100px */
-  height: calc(100vh - 100px);
+  height: calc(100vh - 80px);
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
