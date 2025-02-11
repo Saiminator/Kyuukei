@@ -1,5 +1,5 @@
 /* =====================================================
-   Remove Default Margins and Padding
+   1. Remove Default Margins and Padding
 ===================================================== */
 html, body {
   margin: 0;
@@ -7,20 +7,20 @@ html, body {
 }
 
 /* =====================================================
-   Hide Scrollbars Globally (Functional but Invisible)
+   2. Hide Scrollbars Globally (Invisible)
 ===================================================== */
 /* Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, and Firefox */
+/* IE, Edge, Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
 /* =====================================================
-   Global Reset & Base Styles
+   3. Global Reset & Base Styles
 ===================================================== */
 *,
 *::before,
@@ -38,7 +38,7 @@ body {
 }
 
 /* =====================================================
-   Page Wrapper & Side Boxes
+   4. Page Wrapper & Side Boxes
 ===================================================== */
 .page-wrapper {
   width: 100%;
@@ -49,7 +49,7 @@ body {
   width: 100%;
 }
 
-/* On desktop: show side boxes when viewport is at least 1280px wide */
+/* Desktop: show side boxes on viewports ≥1280px */
 @media (min-width: 1280px) {
   .page-wrapper {
     display: flex;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Below header (60px) */
+    height: calc(100vh - 60px); /* below header (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -69,7 +69,6 @@ body {
     width: 60%;
   }
 }
-
 @media (max-width: 1279px) {
   .side-box {
     display: none;
@@ -77,7 +76,7 @@ body {
 }
 
 /* =====================================================
-   Header & Top Navigation
+   5. Header & Top Navigation
 ===================================================== */
 header {
   background: #362136;
@@ -109,7 +108,6 @@ header {
   text-decoration: none;
   margin: 0 auto;
 }
-
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
@@ -117,14 +115,10 @@ header {
 }
 
 @media (min-width: 601px) and (max-width: 700px) {
-  #site-title {
-    font-size: 1.5em;
-  }
+  #site-title { font-size: 1.5em; }
 }
 @media (min-width: 701px) and (max-width: 800px) {
-  #site-title {
-    font-size: 1.6em;
-  }
+  #site-title { font-size: 1.6em; }
 }
 @media (max-width: 600px) {
   #site-title {
@@ -138,13 +132,7 @@ header {
   }
 }
 
-/* ---------- Navigation Rules ---------- */
-/* For desktop, the menu is placed inside the fixed container so no external desktop nav is used */
-@media (min-width: 601px) {
-  #nav-mobile {
-    display: none;
-  }
-}
+/* ---------- Mobile Navigation (for viewports ≤600px) ---------- */
 @media (max-width: 600px) {
   #nav-mobile {
     display: block;
@@ -165,9 +153,7 @@ header {
     padding: 10px 0;
     margin: 0;
   }
-  #nav-mobile-menu li {
-    margin: 10px 0;
-  }
+  #nav-mobile-menu li { margin: 10px 0; }
   #nav-mobile-menu a {
     font-weight: 500;
     color: #333;
@@ -175,17 +161,32 @@ header {
     text-decoration: none;
     font-size: 1.25rem;
   }
-  #nav-mobile-menu a:hover {
-    color: #667eea;
-  }
+  #nav-mobile-menu a:hover { color: #667eea; }
 }
 
-/* ---------- Desktop Navigation Menu inside Fixed Container ---------- */
+/* (For viewports ≥601px, the desktop menu is inside the fixed container below) */
+
+/* =====================================================
+   6. Fixed Container for Page Content
+   (Used by pages such as News, Questions, Character Wiki, etc.)
+===================================================== */
+.section-fixed-title {
+  /* Using a flex layout to let the inner areas fill available space */
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 65px); /* Container height: full viewport minus 65px */
+  overflow: hidden;
+  margin: 0 auto; /* flush with header */
+  background: #f4f4f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Desktop Navigation Menu inside Fixed Container */
 .nav-menu-desktop {
+  flex: 0 0 60px; /* Fixed height for the menu area */
   margin: 0;
   padding: 0;
-  /* Fixed area for the desktop menu; ensure no extra gap above it */
-  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,43 +194,56 @@ header {
 .nav-menu-desktop ul {
   list-style: none;
   display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 0;
   padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 .nav-menu-desktop li {
   margin: 0 15px;
 }
 .nav-menu-desktop a {
   font-weight: 500;
-  background: #f7cdd5; /* Orby pink background */
-  color: #fff;        /* White text */
-  transition: background 0.3s ease, color 0.3s ease;
+  background: #f7cdd5; /* Orby pink */
+  color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
   border-radius: 5px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
-.nav-menu-desktop a:hover {
-  background: #e0a8b5;
+.nav-menu-desktop a:hover { background: #e0a8b5; }
+
+/* Section Header (shows page title) */
+.section-header {
+  flex: 0 0 50px;
+  padding: 10px 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  line-height: 50px;
+  margin: 0;  /* Remove margin-bottom to avoid extra gap */
+}
+
+/* Scrollable Content Area inside Fixed Container */
+.section-scroll {
+  flex: 1;
+  overflow-y: auto;
 }
 
 /* =====================================================
-   Scrollable Container for Page Content
+   7. Scrollable Container (Generic)
 ===================================================== */
 .scroll-container {
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
 @media (min-width: 601px) and (max-width: 1023px) {
-  .scroll-container {
-    height: calc(100vh - 50px);
-  }
+  .scroll-container { height: calc(100vh - 50px); }
 }
 
 /* =====================================================
-   Content Sections
+   8. Content Sections (Global)
 ===================================================== */
 .content-section {
   padding: 10px 20px;
@@ -242,7 +256,7 @@ header {
 }
 
 /* =====================================================
-   STORY SECTION – Timeline (Horizontal Scroll)
+   9. STORY SECTION – Timeline (Horizontal Scroll)
 ===================================================== */
 .timeline {
   margin-bottom: 40px;
@@ -292,12 +306,12 @@ header {
 }
 
 /* =====================================================
-   CHARACTERS SECTION – Vertical Scroll Container
+   10. CHARACTERS SECTION – Vertical Scroll Container
 ===================================================== */
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;  /* Expanded height for Character Wiki to fill the page */
+  height: 100vh;  /* Expanded height for Character Wiki */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -317,13 +331,11 @@ header {
   #characterScrollContainer {
     grid-template-columns: repeat(2, 1fr);
   }
-  #characterScrollWrapper {
-    height: 70vh;
-  }
+  #characterScrollWrapper { height: 70vh; }
 }
 
 /* =====================================================
-   Character Item Styling
+   11. Character Item Styling
 ===================================================== */
 .character-item {
   cursor: pointer;
@@ -346,7 +358,7 @@ header {
 }
 
 /* =====================================================
-   Navigation Buttons (General)
+   12. Navigation Buttons (General)
 ===================================================== */
 .nav-buttons {
   display: flex;
@@ -373,7 +385,7 @@ header {
 }
 
 /* =====================================================
-   CHAPTER DETAIL PAGE STYLES
+   13. CHAPTER DETAIL PAGE STYLES
 ===================================================== */
 .chapter-detail {
   max-width: 1120px;
@@ -389,7 +401,9 @@ header {
   margin-bottom: 20px;
 }
 
-/* Fixed Chapter Navigation at Bottom */
+/* =====================================================
+   14. Fixed Chapter Navigation at Bottom
+===================================================== */
 .chapter-nav {
   position: fixed;
   bottom: 0;
@@ -422,7 +436,7 @@ header {
 }
 
 /* =====================================================
-   NEWS ENTRY STYLES
+   15. NEWS ENTRY STYLES
 ===================================================== */
 .news-entry {
   border: 1px solid #ddd;
@@ -448,145 +462,11 @@ header {
 }
 
 /* =====================================================
-   Responsive & Mobile Styles
+   16. Responsive & Mobile Styles
 ===================================================== */
 @media (min-width: 600px) {
-  body {
-    font-size: 1rem;
-  }
+  body { font-size: 1rem; }
 }
 @media (min-width: 1024px) {
-  body {
-    font-size: 1rem;
-  }
-}
-
-/* =====================================================
-   Section with Fixed Title & Scrollable Content
-   (For News, Questions, etc.)
-===================================================== */
-.section-fixed-title {
-  /* Expanded container height: nearly full viewport minus 100px */
-  height: calc(100vh - 100px);
-  overflow: hidden;
-  margin: 0 auto;
-  background: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.section-fixed-title .section-header {
-  padding: 10px 20px;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-  text-align: center;
-  height: 50px;
-  line-height: 50px;
-  margin-bottom: 5px;
-}
-.section-fixed-title .section-scroll {
-  /* Scrollable area height = container height minus header area (115px total: 50px header + 5px gap + 60px menu area if it were inside) */
-  height: calc(100vh - 100px - 115px);
-  overflow-y: auto;
-}
-
-/* =====================================================
-   Character Detail Page Styles
-   (These styles apply only to character detail pages)
-===================================================== */
-.character-detail {
-  max-width: 1120px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.detail-container {
-  display: flex;
-  gap: 20px;
-}
-
-.left-panel {
-  flex: 2;
-  text-align: left;
-  padding-right: 20px;
-  border-right: 1px solid #eee;
-}
-
-.left-panel .back-select-btn {
-  display: inline-block;
-  margin-bottom: 20px;
-  padding: 8px 12px;
-  font-size: 0.9em;
-  background: #667eea;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.left-panel .back-select-btn:hover {
-  background: #556cd6;
-}
-
-.section-title {
-  font-weight: 600;
-  margin-top: 20px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 5px;
-}
-
-.left-panel p {
-  margin: 10px 0;
-  line-height: 1.6;
-}
-
-.right-panel {
-  flex: 1;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.right-panel h1 {
-  text-align: center;
-  margin: 0 0 10px;
-  font-size: 2em;
-  color: #0077be;
-}
-
-.image-container {
-  text-align: left;
-  margin-bottom: 10px;
-}
-.image-container img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-}
-
-.basic-info {
-  text-align: left;
-}
-.basic-info p {
-  margin: 4px 0;
-}
-
-/* Responsive adjustments for Character Detail */
-@media (max-width: 800px) {
-  .detail-container {
-    flex-direction: column;
-  }
-  .left-panel {
-    border-right: none;
-    border-bottom: 1px solid #eee;
-    padding-right: 0;
-    margin-bottom: 20px;
-  }
-  .right-panel {
-    padding-left: 0;
-    padding-right: 0;
-  }
+  body { font-size: 1rem; }
 }
