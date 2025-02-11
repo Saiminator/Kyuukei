@@ -118,6 +118,13 @@ header {
   margin: 0 5px;
 }
 
+/* New Media Query: For screens between 601px and 800px, reduce header text size */
+@media (min-width: 601px) and (max-width: 800px) {
+  #site-title {
+    font-size: 1.6em;
+  }
+}
+
 /* Mobile (max-width: 600px): force two lines and adjust font size */
 @media (max-width: 600px) {
   #site-title {
@@ -152,7 +159,7 @@ header {
 }
 
 /* ---------- Sticky Navigation Rules ---------- */
-/* Desktop Navigation: on screens 1024px and above */
+/* Desktop Navigation: sticky and recentered (applies on min-width: 1024px) */
 @media (min-width: 1024px) {
   #nav-desktop {
     position: sticky;
@@ -177,7 +184,7 @@ header {
     align-items: center;
   }
 }
-/* Mobile Navigation: on screens 600px and below */
+/* Mobile Navigation: sticky and recentered (applies on max-width: 600px) */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
