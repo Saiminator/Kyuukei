@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 1rem; /* Consistent base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -49,7 +49,7 @@ body {
   width: 100%;
 }
 
-/* On desktop: show side boxes on screens ≥1280px */
+/* On desktop: show side boxes when viewport is at least 1280px wide */
 @media (min-width: 1280px) {
   .page-wrapper {
     display: flex;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Below header (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -137,7 +137,7 @@ header {
 }
 
 /* ---------- Navigation Visibility & Sticky Rules ---------- */
-/* Desktop navigation will be placed in the default layout fixed container,
+/* Desktop navigation is now placed inside the fixed container in your default layout,
    so we remove external desktop nav here. */
 @media (min-width: 601px) {
   #nav-mobile {
@@ -156,7 +156,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none;
+    display: none; /* Toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -179,10 +179,7 @@ header {
   }
 }
 
-/* =====================================================
-   Desktop Navigation Menu inside Fixed Container
-   (This menu is now placed in the fixed container in the default layout)
-===================================================== */
+/* ---------- Desktop Navigation Menu (inside fixed container) ---------- */
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
@@ -200,10 +197,10 @@ header {
 }
 .nav-menu-desktop a {
   font-weight: 500;
-  color: #333;
+  color: #f7cdd5; /* Orby pink for flair */
   transition: color 0.3s ease;
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.5rem; /* Bigger font size */
 }
 .nav-menu-desktop a:hover {
   color: #667eea;
@@ -291,7 +288,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 70vh;
+  height: 90vh; /* Increased height so that it fills the page */
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -312,7 +309,7 @@ header {
     grid-template-columns: repeat(2, 1fr);
   }
   #characterScrollWrapper {
-    height: 50vh;
+    height: 70vh; /* For mobile, a bit shorter */
   }
 }
 
@@ -474,9 +471,9 @@ header {
   text-align: center;
   height: 50px;
   line-height: 50px;
-  margin-bottom: 5px; /* Reduced gap */
+  margin-bottom: 5px; /* Reduced gap between title and menu */
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px - 55px); /* 55px = 50px header + 5px gap */
+  height: calc(100vh - 210px - 55px); /* Scrollable area: container height minus header (50px) and 5px gap */
   overflow-y: auto;
 }
