@@ -118,8 +118,15 @@ header {
   margin: 0 5px;
 }
 
-/* New Media Query: For screens between 601px and 800px, reduce header text size */
-@media (min-width: 601px) and (max-width: 800px) {
+/* New Media Queries for Header Text Scaling */
+/* For screens between 601px and 700px, reduce header text size */
+@media (min-width: 601px) and (max-width: 700px) {
+  #site-title {
+    font-size: 1.5em;
+  }
+}
+/* For screens between 701px and 800px, use 1.6em */
+@media (min-width: 701px) and (max-width: 800px) {
   #site-title {
     font-size: 1.6em;
   }
