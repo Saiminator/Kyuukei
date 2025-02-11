@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;  /* Increased base size */
+  font-size: 1.1rem; /* Increased base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -49,7 +49,7 @@ body {
   width: 100%;
 }
 
-/* On desktop: show side boxes when viewport is at least 1280px wide */
+/* Desktop: show side boxes when viewport is at least 1280px wide */
 @media (min-width: 1280px) {
   .page-wrapper {
     display: flex;
@@ -69,7 +69,6 @@ body {
     width: 60%;
   }
 }
-
 @media (max-width: 1279px) {
   .side-box {
     display: none;
@@ -109,6 +108,7 @@ header {
   text-decoration: none;
   margin: 0 auto;
 }
+
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
@@ -134,7 +134,8 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* For desktop, we place the menu inside the fixed container so external desktop nav is not used */
+/* For desktop, the menu is placed inside the fixed container.
+   Hide mobile nav on desktop and vice-versa. */
 @media (min-width: 601px) {
   #nav-mobile { display: none !important; }
   .nav-menu-desktop { display: flex !important; }
@@ -156,7 +157,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* Toggled via JS */
+    display: none; /* toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -196,7 +197,7 @@ header {
 .nav-menu-desktop a {
   font-weight: 500;
   background: #f7cdd5; /* Orby pink background */
-  color: #fff;
+  color: #fff;        /* White text */
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -207,16 +208,15 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
-   (Used by pages such as News, Questions, Character Wiki, etc.)
+   (For pages like News, Questions, Character Wiki, etc.)
 ===================================================== */
-/* Using flex layout so inner areas can expand to fill available space */
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  /* Set container height to nearly full viewport minus 100px */
+  /* Expanded container: nearly full viewport minus 100px */
   height: calc(100vh - 100px);
   overflow: hidden;
-  margin: 0 auto; /* flush with header */
+  margin: 0 auto;
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -230,7 +230,7 @@ header {
   border-bottom: 1px solid #eee;
   text-align: center;
   line-height: 50px;
-  margin: 0; /* Remove extra gap */
+  margin: 0;
 }
 
 /* Scrollable Content Area inside Fixed Container */
@@ -316,16 +316,15 @@ header {
 /* =====================================================
    10. CHARACTERS SECTION – Vertical Scroll Container
 ===================================================== */
+/* Revised block: fixed height of 100vh on desktop, 70vh on mobile; using overflow-y: scroll */
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  /* Adjusted height: instead of a fixed 100vh, use a calculation if needed */
-  height: calc(100vh - 75px);
+  height: 100vh;
   margin: 0 auto;
-  overflow-y: auto;
+  overflow-y: scroll;
   border: 1px solid #eee;
   position: relative;
-  scroll-behavior: smooth;
 }
 #characterScrollContainer {
   display: grid;
