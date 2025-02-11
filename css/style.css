@@ -13,7 +13,7 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, and Firefox */
+/* IE, Edge, Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem; /* Consistent base size */
+  font-size: 1rem;
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Below header (60px) */
+    height: calc(100vh - 60px);
     overflow: hidden;
   }
   .side-box img {
@@ -86,7 +86,7 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
   margin: 0;
-  /* Ensure no extra gap below the header */
+  /* Ensure no extra gap below header */
   margin-bottom: 0;
 }
 
@@ -139,7 +139,7 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* For desktop, the menu is placed inside the fixed container so external desktop nav is not used */
+/* For desktop, we place the menu inside the fixed container so external desktop nav is not used */
 @media (min-width: 601px) {
   #nav-mobile {
     display: none;
@@ -184,7 +184,7 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  /* Ensure the menu is flush at the very top of the container */
+  /* Ensure the desktop menu is flush at the very top of the fixed container */
   height: 60px;
   display: flex;
   align-items: center;
@@ -208,7 +208,7 @@ header {
   transition: background 0.3s ease, color 0.3s ease;
   text-decoration: none;
   font-size: 1.5rem;
-  padding: 8px 15px;  /* Reduced padding for a more compact button */
+  padding: 8px 15px;
   border-radius: 5px;
 }
 .nav-menu-desktop a:hover {
@@ -466,16 +466,16 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 210px); /* Overall container height */
+  height: calc(100vh - 210px);
   overflow: hidden;
   margin: 0 auto;
-  background: #f4f4f9; /* Matches page background */
+  background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
   padding: 10px 20px;
-  background: #fff; /* Title area remains white for contrast */
+  background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
   height: 50px;
