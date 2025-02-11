@@ -13,7 +13,7 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, Firefox */
+/* IE, Edge, and Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -86,6 +86,8 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
   margin: 0;
+  /* Ensure header has no bottom margin */
+  margin-bottom: 0;
 }
 
 @media (min-width: 1024px) {
@@ -137,7 +139,7 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* For desktop, we now place the menu inside the fixed container so external desktop nav is not used */
+/* For desktop, the menu is placed inside the fixed container; no external desktop nav is used */
 @media (min-width: 601px) {
   #nav-mobile {
     display: none;
@@ -182,8 +184,8 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  /* Ensure no extra gap above the menu */
-  height: 60px;  /* Fixed menu area height */
+  /* Ensure the menu is flush at the very top of the container */
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,7 +208,7 @@ header {
   transition: background 0.3s ease, color 0.3s ease;
   text-decoration: none;
   font-size: 1.5rem;
-  padding: 8px 15px;  /* Adjusted padding for a more compact button */
+  padding: 8px 15px;  /* Adjusted padding for a more compact button area */
   border-radius: 5px;
 }
 .nav-menu-desktop a:hover {
@@ -464,23 +466,23 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 210px); /* Overall container height remains */
+  height: calc(100vh - 210px);
   overflow: hidden;
-  margin: 0 auto; /* No extra external margin */
-  background: #f4f4f9; /* Matches page background */
+  margin: 0 auto; /* No external top margin */
+  background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
   padding: 10px 20px;
-  background: #fff; /* Title area remains white for contrast */
+  background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
   height: 50px;
   line-height: 50px;
-  margin-bottom: 5px; /* Reduced gap */
+  margin-bottom: 5px;
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px - 55px); /* Scrollable area height: header (50px) + gap (5px) */
+  height: calc(100vh - 210px - 55px);
   overflow-y: auto;
 }
