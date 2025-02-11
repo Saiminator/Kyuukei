@@ -143,46 +143,18 @@ header {
 
 /* ---------- Navigation Visibility Rules ---------- */
 @media (min-width: 601px) {
-  #nav-desktop {
-    display: flex;
-  }
+  /* We now remove the external desktop nav because we include it inside the container */
   #nav-mobile {
     display: none;
   }
 }
 @media (max-width: 600px) {
-  #nav-desktop {
-    display: none;
-  }
   #nav-mobile {
     display: block;
   }
 }
 
-/* ---------- Sticky Navigation Rules ---------- */
-@media (min-width: 1024px) {
-  #nav-desktop {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #fff;
-    padding: 5px 0;
-    justify-content: center;
-    align-items: center;
-  }
-}
-@media (min-width: 601px) and (max-width: 1279px) {
-  #nav-desktop {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #fff;
-    padding: 5px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
+/* ---------- Sticky Navigation Rules for Mobile Only ---------- */
 @media (max-width: 600px) {
   #nav-mobile {
     position: sticky;
@@ -191,44 +163,6 @@ header {
     background: #fff;
     padding: 5px 0;
     text-align: center;
-  }
-}
-
-/* ---------- Desktop Navigation Menu ---------- */
-#nav-desktop ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-}
-#nav-desktop li {
-  margin: 0 15px;
-}
-#nav-desktop a {
-  font-weight: 500;
-  color: #333;
-  transition: color 0.3s ease;
-  text-decoration: none;
-  font-size: 1.25rem;
-}
-#nav-desktop a:hover {
-  color: #667eea;
-}
-
-/* ---------- Mobile Navigation Menu ---------- */
-@media (max-width: 600px) {
-  #nav-mobile button {
-    background: #667eea;
-    border: none;
-    color: #fff;
-    padding: 8px 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 10px;
-    margin-bottom: 10px;
   }
   #nav-mobile-menu {
     list-style: none;
@@ -510,7 +444,7 @@ header {
   height: calc(100vh - 210px); /* Overall container height */
   overflow: hidden;
   margin: 20px auto;
-  background: #f4f4f9; /* Matches the darker grey background */
+  background: #f4f4f9; /* Container background matches page background */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -521,9 +455,35 @@ header {
   text-align: center;
   height: 50px;
   line-height: 50px;
-  margin-bottom: 15px; /* Gap between title and content */
+  margin-bottom: 5px; /* Reduced gap between title and content */
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px - 65px); /* Scrollable area height */
+  height: calc(100vh - 210px - 55px); /* 55px = header (50px) + 5px gap */
   overflow-y: auto;
+}
+
+/* New Desktop Navigation Menu inside fixed container */
+.nav-menu-desktop {
+  margin-bottom: 10px; /* Gap between menu and content */
+}
+.nav-menu-desktop ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+.nav-menu-desktop li {
+  margin: 0 15px;
+}
+.nav-menu-desktop a {
+  font-weight: 500;
+  color: #333;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+.nav-menu-desktop a:hover {
+  color: #667eea;
 }
