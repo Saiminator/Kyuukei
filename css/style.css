@@ -13,7 +13,7 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, Firefox */
+/* IE, Edge, and Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -134,7 +134,8 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* Show mobile nav only on viewports ≤600px; show desktop menu on ≥601px */
+/* For desktop, the menu is placed inside the fixed container;
+   hide mobile nav on desktop and vice-versa. */
 @media (min-width: 601px) {
   #nav-mobile { display: none !important; }
   .nav-menu-desktop { display: flex !important; }
@@ -174,7 +175,7 @@ header {
   }
   #nav-mobile-menu a:hover { color: #667eea; }
   
-  /* Style the mobile menu toggle button with orby pink design */
+  /* Style the mobile menu toggle button with orby‑pink design */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -186,7 +187,7 @@ header {
   }
 }
 
-/* Desktop Navigation Menu inside Fixed Container */
+/* ---------- Desktop Navigation Menu inside Fixed Container ---------- */
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
@@ -226,17 +227,25 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
-   (For pages such as News, Questions, Character Wiki, etc.)
+   (Used by pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);  /* Overall container height: full viewport minus 100px */
+  height: calc(100vh - 100px); /* Overall container height: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* For viewports 1023px wide and below, let the container auto-adjust */
+@media (max-width: 1023px) {
+  .section-fixed-title {
+    height: auto;
+    min-height: calc(100vh - 100px);
+  }
 }
 
 /* Section Header (Page Title) */
