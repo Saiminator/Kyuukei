@@ -109,7 +109,6 @@ header {
   text-decoration: none;
   margin: 0 auto;
 }
-
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
@@ -175,7 +174,7 @@ header {
   }
   #nav-mobile-menu a:hover { color: #667eea; }
   
-  /* Mobile menu toggle styled in orby pink */
+  /* Mobile menu toggle styled in Orby Pink */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -207,8 +206,8 @@ header {
 .nav-menu-desktop li { margin: 0 15px; }
 .nav-menu-desktop a {
   font-weight: 500;
-  background: #f7cdd5; /* Orby pink background */
-  color: #fff;        /* White text */
+  background: #f7cdd5; /* Orby Pink background */
+  color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -227,12 +226,12 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
-   (For pages such as News, Questions, Character Wiki, etc.)
+   (Used by pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Overall container: full viewport minus 100px */
+  height: calc(100vh - 100px); /* Fixed container height: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -241,9 +240,10 @@ header {
 }
 
 /* Section Header (Page Title) */
+/* Removed vertical padding to keep title flush */
 .section-header {
   flex: 0 0 50px;
-  padding: 10px 20px;
+  padding: 0 20px;  /* Only horizontal padding */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -510,7 +510,7 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
-  padding: 10px 20px;
+  padding: 0 20px;  /* Removed vertical padding */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
