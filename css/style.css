@@ -243,7 +243,7 @@ header {
 /* Section Header (Page Title) */
 .section-header {
   flex: 0 0 50px;
-  padding: 0 20px; /* Only horizontal padding to keep title flush */
+  padding: 0 20px; /* Only horizontal padding */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -638,10 +638,20 @@ header {
 }
 
 /* =====================================================
-   End of CSS: Hide Title on Character and Chapter Pages
+   19. Hide Title on Character and Chapter Pages
    (Assumes body has class "character" or "chapter")
 ===================================================== */
 body.character .section-header,
 body.chapter .section-header {
   display: none;
+}
+
+/* =====================================================
+   20. Adjust Title Font for Small Screens (420px and below)
+===================================================== */
+@media (max-width: 420px) {
+  .section-header h1 {
+    font-size: 1.2rem;  /* Adjust this value as needed */
+    line-height: 1.2rem;
+  }
 }
