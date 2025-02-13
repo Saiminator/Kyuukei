@@ -243,7 +243,7 @@ header {
 /* Section Header (Page Title) */
 .section-header {
   flex: 0 0 50px;
-  padding: 0 20px; /* Only horizontal padding */
+  padding: 0 20px; /* Only horizontal padding to keep title flush */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -255,7 +255,7 @@ header {
   padding: 0;
 }
 
-/* Responsive adjustment for very small screens (420px and below) to prevent wrapping */
+/* Responsive adjustment for very small screens (420px and below) */
 @media (max-width: 420px) {
   .section-header h1 {
     font-size: 1.2rem;
@@ -349,7 +349,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  /* Instead of a fixed 100vh, we set the height to 100% so it fills its parent container */
+  /* Change fixed height to fill the parent's height */
   height: 100%;
   margin: 0 auto;
   overflow-y: auto;
@@ -567,13 +567,13 @@ header {
   border-right: 1px solid #eee;
 }
 
-/* Back to Character Selection Button with Flair */
+/* Back to Character Selection Button now styled in blue */
 .left-panel .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
   padding: 8px 12px;
   font-size: 0.9em;
-  background: linear-gradient(135deg, #667eea, #556cd6);
+  background: #0077be;  /* Blue color */
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -581,7 +581,7 @@ header {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .left-panel .back-select-btn:hover {
-  background: linear-gradient(135deg, #556cd6, #445bb5);
+  background: #005a94;  /* Darker blue on hover */
 }
 
 .section-title {
