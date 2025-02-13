@@ -502,26 +502,37 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  height: calc(100vh - 100px);
+  position: relative; /* Ensure children can be absolutely positioned */
+  height: calc(100vh - 100px); /* Overall container: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+/* Absolutely position the section header at the top */
 .section-fixed-title .section-header {
-  padding: 0 20px;  /* Removed vertical padding */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;        /* Fixed height for title area */
+  line-height: 50px;   /* Vertically center text */
   background: #fff;
   border-bottom: 1px solid #eee;
-  text-align: center;
-  height: 50px;
-  line-height: 50px;
   margin: 0;
+  padding: 0 20px;     /* Only horizontal padding */
+  z-index: 2;
 }
+
+/* Push the scrollable area down so it starts below the header */
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 100px - 115px);
+  margin-top: 50px;  /* Equal to header height */
+  height: calc(100vh - 100px - 50px); /* Remaining height */
   overflow-y: auto;
 }
+
 
 /* =====================================================
    18. Character Detail Page Styles
