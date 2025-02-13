@@ -651,7 +651,7 @@ body.chapter .section-header {
 ===================================================== */
 @media (max-width: 420px) {
   .section-header h1 {
-    font-size: 1.2rem;  /* Adjust this value as needed */
+    font-size: 1.4rem;  /* Adjust this value as needed */
     line-height: 1.2rem;
   }
 }
