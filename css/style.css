@@ -175,7 +175,7 @@ header {
   }
   #nav-mobile-menu a:hover { color: #667eea; }
   
-  /* Style mobile menu toggle in Orby Pink */
+  /* Mobile menu toggle styled in Orby Pink */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -232,7 +232,7 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Overall container height: full viewport minus 100px */
+  height: calc(100vh - 100px); /* Fixed container height: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -243,7 +243,7 @@ header {
 /* Section Header (Page Title) */
 .section-header {
   flex: 0 0 50px;
-  padding: 0 20px; /* Only horizontal padding */
+  padding: 0 20px; /* Only horizontal padding to keep title flush */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -550,8 +550,7 @@ header {
   gap: 20px;
 }
 
-/* Ensure on larger screens the left panel (background/abilities) is on the left, 
-   and on mobile (max-width: 800px) the right panel (name, picture, info) comes first */
+/* Left Panel (Background & Abilities) */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -559,6 +558,7 @@ header {
   border-right: 1px solid #eee;
 }
 
+/* Back to Character Selection Button with Flair */
 .left-panel .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
@@ -587,6 +587,7 @@ header {
   line-height: 1.6;
 }
 
+/* Right Panel (Name, Picture, Basic Info) */
 .right-panel {
   flex: 1;
   padding-left: 20px;
@@ -619,12 +620,12 @@ header {
   margin: 4px 0;
 }
 
-/* Responsive adjustments for Character Detail */
+/* Responsive adjustments for Character Detail:
+   On screens 800px wide and below, show the right panel first */
 @media (max-width: 800px) {
   .detail-container {
     flex-direction: column;
   }
-  /* Reorder so that the right panel appears first */
   .right-panel {
     order: -1;
   }
@@ -634,4 +635,13 @@ header {
     padding-right: 0;
     margin-bottom: 20px;
   }
+}
+
+/* =====================================================
+   End of CSS: Hide Title on Character and Chapter Pages
+   (Assumes body has class "character" or "chapter")
+===================================================== */
+body.character .section-header,
+body.chapter .section-header {
+  display: none;
 }
