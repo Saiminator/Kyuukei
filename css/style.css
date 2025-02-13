@@ -13,7 +13,7 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
-/* IE, Edge, and Firefox */
+/* IE, Edge, Firefox */
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem; /* Increased base size */
+  font-size: 1.1rem;  /* Increased base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -134,8 +134,7 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* For desktop, the menu is placed inside the fixed container;
-   hide mobile nav on desktop and vice-versa. */
+/* Show mobile nav only on viewports ≤600px; show desktop menu on ≥601px */
 @media (min-width: 601px) {
   #nav-mobile { display: none !important; }
   .nav-menu-desktop { display: flex !important; }
@@ -174,9 +173,20 @@ header {
     font-size: 1.25rem;
   }
   #nav-mobile-menu a:hover { color: #667eea; }
+  
+  /* Style the mobile menu toggle button with orby pink design */
+  #nav-toggle {
+    background: #f7cdd5;
+    color: #fff;
+    border: none;
+    font-size: 1.25rem;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 }
 
-/* ---------- Desktop Navigation Menu inside Fixed Container ---------- */
+/* Desktop Navigation Menu inside Fixed Container */
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
@@ -206,15 +216,22 @@ header {
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
 
+/* Responsive adjustments for desktop menu when viewport is below 750px */
+@media (max-width: 750px) {
+  .nav-menu-desktop a {
+    font-size: 1.3rem;
+    padding: 6px 10px;
+  }
+}
+
 /* =====================================================
    6. Fixed Container for Page Content
-   (Used by pages such as News, Questions, Character Wiki, etc.)
+   (For pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
-/* Flex layout so inner areas can expand */
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Overall container: full viewport minus 100px */
+  height: calc(100vh - 100px);  /* Overall container height: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -321,7 +338,7 @@ header {
   max-width: 1120px;
   height: 100vh;  /* Fixed height for desktop */
   margin: 0 auto;
-  overflow-y: auto;  /* Use auto scrolling for natural behavior */
+  overflow-y: auto;
   border: 1px solid #eee;
   position: relative;
 }
