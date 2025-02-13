@@ -109,6 +109,7 @@ header {
   text-decoration: none;
   margin: 0 auto;
 }
+
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
@@ -207,7 +208,7 @@ header {
 .nav-menu-desktop a {
   font-weight: 500;
   background: #f7cdd5; /* Orby Pink background */
-  color: #fff;
+  color: #fff;        /* White text */
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -240,15 +241,18 @@ header {
 }
 
 /* Section Header (Page Title) */
-/* Removed vertical padding to keep title flush */
 .section-header {
   flex: 0 0 50px;
-  padding: 0 20px;  /* Only horizontal padding */
+  padding: 0 20px; /* Only horizontal padding to keep title flush */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
   line-height: 50px;
   margin: 0;
+}
+.section-header h1 {
+  margin: 0;
+  padding: 0;
 }
 
 /* Scrollable Content Area inside Fixed Container */
@@ -502,37 +506,30 @@ header {
    (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  position: relative; /* Ensure children can be absolutely positioned */
-  height: calc(100vh - 100px); /* Overall container: full viewport minus 100px */
+  height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-/* Absolutely position the section header at the top */
 .section-fixed-title .section-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;        /* Fixed height for title area */
-  line-height: 50px;   /* Vertically center text */
+  padding: 0 20px; /* Only horizontal padding */
   background: #fff;
   border-bottom: 1px solid #eee;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
   margin: 0;
-  padding: 0 20px;     /* Only horizontal padding */
-  z-index: 2;
 }
-
-/* Push the scrollable area down so it starts below the header */
+.section-fixed-title .section-header h1 {
+  margin: 0;
+  padding: 0;
+}
 .section-fixed-title .section-scroll {
-  margin-top: 50px;  /* Equal to header height */
-  height: calc(100vh - 100px - 50px); /* Remaining height */
+  height: calc(100vh - 100px - 115px);
   overflow-y: auto;
 }
-
 
 /* =====================================================
    18. Character Detail Page Styles
