@@ -175,7 +175,7 @@ header {
   }
   #nav-mobile-menu a:hover { color: #667eea; }
   
-  /* Mobile menu toggle styled in Orby Pink */
+  /* Style mobile menu toggle in Orby Pink */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -253,6 +253,14 @@ header {
 .section-header h1 {
   margin: 0;
   padding: 0;
+}
+
+/* Responsive adjustment for very small screens (420px and below) to prevent wrapping */
+@media (max-width: 420px) {
+  .section-header h1 {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
 }
 
 /* Scrollable Content Area inside Fixed Container */
@@ -341,7 +349,8 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;  /* Fixed height for desktop */
+  /* Instead of a fixed 100vh, we set the height to 100% so it fills its parent container */
+  height: 100%;
   margin: 0 auto;
   overflow-y: auto;
   border: 1px solid #eee;
@@ -651,7 +660,7 @@ body.chapter .section-header {
 ===================================================== */
 @media (max-width: 420px) {
   .section-header h1 {
-    font-size: 1.4rem;  /* Adjust this value as needed */
+    font-size: 1.2rem;  /* Adjust this value as needed */
     line-height: 1.2rem;
   }
 }
