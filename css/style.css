@@ -175,7 +175,7 @@ header {
   }
   #nav-mobile-menu a:hover { color: #667eea; }
   
-  /* Mobile menu toggle styled in Orby Pink */
+  /* Style mobile menu toggle in Orby Pink */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -232,7 +232,7 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Fixed container height: full viewport minus 100px */
+  height: calc(100vh - 100px); /* Overall container height: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -243,7 +243,7 @@ header {
 /* Section Header (Page Title) */
 .section-header {
   flex: 0 0 50px;
-  padding: 0 20px; /* Only horizontal padding to keep title flush */
+  padding: 0 20px; /* Only horizontal padding */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -550,6 +550,8 @@ header {
   gap: 20px;
 }
 
+/* Ensure on larger screens the left panel (background/abilities) is on the left, 
+   and on mobile (max-width: 800px) the right panel (name, picture, info) comes first */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -562,14 +564,15 @@ header {
   margin-bottom: 20px;
   padding: 8px 12px;
   font-size: 0.9em;
-  background: #667eea;
+  background: linear-gradient(135deg, #667eea, #556cd6);
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .left-panel .back-select-btn:hover {
-  background: #556cd6;
+  background: linear-gradient(135deg, #556cd6, #445bb5);
 }
 
 .section-title {
@@ -621,14 +624,14 @@ header {
   .detail-container {
     flex-direction: column;
   }
+  /* Reorder so that the right panel appears first */
+  .right-panel {
+    order: -1;
+  }
   .left-panel {
     border-right: none;
     border-bottom: 1px solid #eee;
     padding-right: 0;
     margin-bottom: 20px;
-  }
-  .right-panel {
-    padding-left: 0;
-    padding-right: 0;
   }
 }
