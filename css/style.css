@@ -349,7 +349,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  /* Change fixed height to fill the parent's height */
+  /* Set height to fill parent container */
   height: 100%;
   margin: 0 auto;
   overflow-y: auto;
@@ -567,8 +567,8 @@ header {
   border-right: 1px solid #eee;
 }
 
-/* Back to Character Selection Button now styled in blue */
-.left-panel .back-select-btn {
+/* Back to Character Selection Button styled in Blue */
+.character-detail .left-panel .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
   padding: 8px 12px;
@@ -580,7 +580,7 @@ header {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.left-panel .back-select-btn:hover {
+.character-detail .left-panel .back-select-btn:hover {
   background: #005a94;  /* Darker blue on hover */
 }
 
