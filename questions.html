@@ -3,20 +3,13 @@ layout: default
 title: Questions
 ---
 
-<style>
-  /* Override the default title color in the section header */
-  .section-header h1 {
-    color: #000; /* Black text */
-  }
-</style>
-
 <button id="spoiler-toggle" class="spoiler-toggle">Potential spoilers ahead</button>
 
 <div id="spoiler-content" style="display: none;">
   {% for post in site.questions reversed %}
     <article class="question-entry">
       <header class="question-header">
-        <h2>
+        <h2 style="color: #000;">
           Q{{ post.question_number }} – {{ post.date | date: "%B %d, %Y" }} – {{ post.question_type }}
         </h2>
       </header>
