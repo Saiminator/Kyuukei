@@ -8,8 +8,8 @@ title: Questions
 <div id="spoiler-content" style="display: none;">
   {% for post in site.questions reversed %}
     <article class="question-entry">
-      <header class="question-header">
-        <h2 style="color: #000; background: transparent;">
+      <header class="question-header" style="background: transparent !important;">
+        <h2 style="color: #000 !important; background: transparent !important;">
           Q{{ post.question_number }} – {{ post.date | date: "%B %d, %Y" }} – {{ post.question_type }}
         </h2>
       </header>
