@@ -682,3 +682,25 @@ body.chapter .section-header {
     line-height: 1.2rem;
   }
 }
+
+/* =====================================================
+   21. SPOILER BUTTON & QUESTIONS TITLE STYLING
+===================================================== */
+/* Style the global spoiler button on the questions page */
+#spoiler-toggle {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #0077be; /* Blue background */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* Change the title color for question entries to dark gray */
+.question-entry h2,
+.question-header h2 {
+  color: #333;
+}
