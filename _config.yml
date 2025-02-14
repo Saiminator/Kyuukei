@@ -3,7 +3,7 @@ title: "Kyuukei"
 email: "saiminator@kyuukei.com"
 description: "Kyuu’s Breaktime Stories"
 baseurl: ""  # the subpath of your site, e.g. /blog, or empty for root
-url: "https://yourdomain.com"  # the base hostname & protocol for your site
+url: "https://Kyuukei.com"  # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
