@@ -1,6 +1,6 @@
 ---
 title: "First News Might be Shocking!"
-date: 2023-02-06
+date: 2025-02-06
 ---
 
 This may come as a surprise but there is huge news! The Kyuukei wo Hanashi official website has been launched in early access (surprised pikachu face)!
