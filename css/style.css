@@ -294,53 +294,63 @@ header {
 }
 
 /* =====================================================
-   9. STORY SECTION – Timeline (Horizontal Scroll)
+   9. TIMELINE BRANCHES (Horizontal Scroll for Timeline Page)
 ===================================================== */
-.timeline {
-  margin-bottom: 40px;
-}
-.timeline h2 {
-  text-align: left;
-  margin: 0 0 10px 10px;
-}
-.timeline-wrapper {
+.timeline-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  gap: 30px;
+  padding: 20px;
 }
-.timeline-group {
-  margin-bottom: 30px;
-  text-align: left;
+
+.timeline-branch {
+  display: flex;
+  flex-direction: column;
 }
-.timeline-group h2 {
+
+.branch-title {
+  font-size: 1.5rem;
   margin-bottom: 10px;
-  font-size: 1.5em;
-  color: #0077be;
+  color: #000;
 }
-.chapter-list {
+
+.branch-chapters {
   display: flex;
   overflow-x: auto;
   gap: 10px;
   padding-bottom: 10px;
-  justify-content: flex-start;
 }
-.chapter-box {
+.branch-chapters::-webkit-scrollbar {
+  display: none;
+}
+
+.chapter-card {
+  flex: 0 0 auto;
   background: #fff;
   border: 2px solid #ddd;
   border-radius: 5px;
-  padding: 15px 10px;
-  min-width: 220px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
+  padding: 10px;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-decoration: none;
-  color: inherit;
+  color: #000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.chapter-box:hover {
-  background: #f9f9f9;
-  border-color: #ccc;
+.chapter-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.chapter-number {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.chapter-title {
+  display: block;
+  font-size: 1rem;
 }
 
 /* =====================================================
