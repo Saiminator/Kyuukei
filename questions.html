@@ -3,19 +3,19 @@ layout: default
 title: Questions
 ---
 
-{% for post in site.questions reversed %}
-<article class="question-entry">
-  <header class="question-header">
-    <h2>
-      Q{{ post.question_number }} – 
-      {{ post.date | date: "%B %d, %Y" }} – 
-      {{ post.question_type }}
-    </h2>
-  </header>
-  <div class="question-body">
-    <div class="spoiler">
-      <button class="spoiler-toggle">Show Answer</button>
-      <div class="spoiler-content" style="display: none;">
+<!-- Global spoiler toggle button -->
+<button id="spoiler-toggle" class="spoiler-toggle">Potential spoilers ahead</button>
+
+<!-- Container for all questions; hidden by default -->
+<div id="spoiler-content" style="display: none;">
+  {% for post in site.questions reversed %}
+    <article class="question-entry">
+      <header class="question-header">
+        <h2>
+          Q{{ post.question_number }} – {{ post.date | date: "%B %d, %Y" }} – {{ post.question_type }}
+        </h2>
+      </header>
+      <div class="question-body">
         <div class="question-text">
           <h3>Question:</h3>
           <p>{{ post.question }}</p>
@@ -25,25 +25,22 @@ title: Questions
           <p>{{ post.answer }}</p>
         </div>
       </div>
-    </div>
-  </div>
-</article>
-{% endfor %}
+    </article>
+  {% endfor %}
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const spoilerToggles = document.querySelectorAll('.spoiler-toggle');
-    spoilerToggles.forEach(function(button) {
-      button.addEventListener('click', function() {
-        const content = this.nextElementSibling;
-        if (content.style.display === 'none' || content.style.display === '') {
-          content.style.display = 'block';
-          this.textContent = 'Hide Answer';
-        } else {
-          content.style.display = 'none';
-          this.textContent = 'Show Answer';
-        }
-      });
+    const toggleButton = document.getElementById('spoiler-toggle');
+    const spoilerContent = document.getElementById('spoiler-content');
+    toggleButton.addEventListener('click', function() {
+      if (spoilerContent.style.display === 'none' || spoilerContent.style.display === '') {
+        spoilerContent.style.display = 'block';
+        toggleButton.textContent = 'Hide potential spoilers';
+      } else {
+        spoilerContent.style.display = 'none';
+        toggleButton.textContent = 'Potential spoilers ahead';
+      }
     });
   });
 </script>
