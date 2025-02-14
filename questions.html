@@ -3,10 +3,15 @@ layout: default
 title: Questions
 ---
 
-<!-- Global spoiler toggle button -->
+<style>
+  /* Override the default title color in the section header */
+  .section-header h1 {
+    color: #000; /* Black text */
+  }
+</style>
+
 <button id="spoiler-toggle" class="spoiler-toggle">Potential spoilers ahead</button>
 
-<!-- Container for all questions; hidden by default -->
 <div id="spoiler-content" style="display: none;">
   {% for post in site.questions reversed %}
     <article class="question-entry">
