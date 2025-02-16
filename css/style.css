@@ -730,3 +730,9 @@ body.chapter .section-header {
   background-color: #005a94 !important;
 }
 
+@media (max-width: 800px) {
+  .section-header h1 {
+    font-size: 1.6rem;  /* Adjust this value as needed */
+    line-height: 1.6rem;
+  }
+}
