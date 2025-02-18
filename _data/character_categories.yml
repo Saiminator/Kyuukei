@@ -1,9 +1,19 @@
 - slug: main-characters
-  name: Main Characters
+  name: "Main Characters"
   image: "https://via.placeholder.com/420?text=Main+Characters"
+  characters:
+    - kaji
+    - kyuu
+    - shimi
 - slug: ebonvale
-  name: Ebonvale Students
+  name: "Ebonvale Students"
   image: "https://via.placeholder.com/420?text=Ebonvale+Students"
+  characters:
+    - character1
+    - character2
 - slug: vallaris
-  name: Vallaris
+  name: "Vallaris"
   image: "https://via.placeholder.com/420?text=Vallaris"
+  characters:
+    - character3
+    - character4
