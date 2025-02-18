@@ -4,9 +4,14 @@ title: Character Wiki
 ---
 <div id="characterScrollWrapper">
   <div id="characterScrollContainer">
-    {%- comment -%}
-      First, loop through the ranking file and display matching characters.
-    {%- endcomment -%}
+    {% comment %}
+      Create an array of slugs from the ranking file.
+    {% endcomment %}
+    {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
+    
+    {% comment %}
+      First, display the ranked characters.
+    {% endcomment %}
     {% assign sortedRanking = site.data.character_ranking | sort: "rank" %}
     {% for entry in sortedRanking %}
       {% assign found_character = nil %}
@@ -24,18 +29,18 @@ title: Character Wiki
       {% endif %}
     {% endfor %}
     
-    {%- comment -%}
-      Next, find and display characters not listed in the ranking.
-      We first create an array of ranked slugs.
-    {%- endcomment -%}
-    {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
-    {% assign unranked = site.characters | where_exp:"char", "not rankedSlugs contains (char.title | slugify)" %}
-    {% assign unranked_sorted = unranked | sort: "title" %}
-    {% for char in unranked_sorted %}
-      <a href="{{ char.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ char.image | default: "https://via.placeholder.com/420" }}');"></div>
-        <div class="character-name">{{ char.title }}</div>
-      </a>
+    {% comment %}
+      Next, display any unranked characters (sorted by title) that are not in the ranked list.
+    {% endcomment %}
+    {% assign unranked = site.characters | sort: "title" %}
+    {% for char in unranked %}
+      {% assign slug = char.title | slugify %}
+      {% unless rankedSlugs contains slug %}
+        <a href="{{ char.url }}" class="character-item">
+          <div class="character-image" style="background-image: url('{{ char.image | default: "https://via.placeholder.com/420" }}');"></div>
+          <div class="character-name">{{ char.title }}</div>
+        </a>
+      {% endunless %}
     {% endfor %}
   </div>
 </div>
