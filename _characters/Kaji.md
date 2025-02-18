@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "Kaji"
-order: 6
+slug: kaji
 image: "https://i.imgur.com/GVeTVGF.png"
 age: "327"
 birthday: "September (Forgot Day)"
