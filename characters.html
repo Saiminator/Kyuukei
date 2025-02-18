@@ -5,26 +5,14 @@ title: Character Wiki
 
 <!-- Sorting Tabs -->
 <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
-  <button id="alphabetical-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
-  <button id="popularity-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
+  <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
+  <button id="alphabetical-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
   <button id="sorted-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Sorted</button>
 </div>
 
-<!-- Alphabetical View (default) -->
-<div id="alphabetical-container" class="character-view-container">
-  {% assign alpha_chars = site.characters | sort: "title" %}
-  {% for character in alpha_chars %}
-    <a href="{{ character.url }}" class="character-item">
-      <div class="character-image" style="background-image: url('{{ character.image | default: "https://via.placeholder.com/420" }}');"></div>
-      <div class="character-name">{{ character.title }}</div>
-    </a>
-  {% endfor %}
-</div>
-
-<!-- Popularity View (based on ranking data) -->
-<div id="popularity-container" class="character-view-container" style="display: none;">
+<!-- Popularity View (Default) -->
+<div id="popularity-container" class="character-view-container">
   {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
-  {% comment %} Loop through ranking file in its order {% endcomment %}
   {% for entry in site.data.character_ranking %}
     {% assign found_character = nil %}
     {% for char in site.characters %}
@@ -35,29 +23,36 @@ title: Character Wiki
     {% endfor %}
     {% if found_character %}
       <a href="{{ found_character.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ found_character.image | default: "https://via.placeholder.com/420" }}');"></div>
+        <div class="character-image" style="background-image: url('{{ found_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
         <div class="character-name">{{ found_character.title }}</div>
       </a>
     {% endif %}
   {% endfor %}
-  {% comment %} Then append any unranked characters (alphabetically) {% endcomment %}
   {% assign unranked = site.characters | sort: "title" %}
   {% for char in unranked %}
     {% assign slug = char.title | slugify %}
     {% unless rankedSlugs contains slug %}
       <a href="{{ char.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ char.image | default: "https://via.placeholder.com/420" }}');"></div>
+        <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
         <div class="character-name">{{ char.title }}</div>
       </a>
     {% endunless %}
   {% endfor %}
 </div>
 
+<!-- Alphabetical View -->
+<div id="alphabetical-container" class="character-view-container" style="display: none;">
+  {% assign alpha_chars = site.characters | sort: "title" %}
+  {% for character in alpha_chars %}
+    <a href="{{ character.url }}" class="character-item">
+      <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+      <div class="character-name">{{ character.title }}</div>
+    </a>
+  {% endfor %}
+</div>
+
 <!-- Sorted (Grouped) View -->
 <div id="sorted-container" class="character-view-container" style="display: none;">
-  {% comment %}
-    Loop through category data. Each category card links to a dedicated category page.
-  {% endcomment %}
   {% for category in site.data.character_categories %}
     <div class="character-category-card" style="display: inline-block; margin: 10px;">
       <a href="/categories/{{ category.slug }}/" style="text-decoration: none; color: inherit;">
@@ -67,46 +62,3 @@ title: Character Wiki
     </div>
   {% endfor %}
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  var alphabeticalTab = document.getElementById('alphabetical-tab');
-  var popularityTab = document.getElementById('popularity-tab');
-  var sortedTab = document.getElementById('sorted-tab');
-
-  var alphabeticalContainer = document.getElementById('alphabetical-container');
-  var popularityContainer = document.getElementById('popularity-container');
-  var sortedContainer = document.getElementById('sorted-container');
-
-  function clearActive() {
-    var tabs = document.querySelectorAll('.sort-tab');
-    tabs.forEach(function(tab){
-      tab.classList.remove('active');
-    });
-  }
-
-  alphabeticalTab.addEventListener('click', function(){
-    clearActive();
-    alphabeticalTab.classList.add('active');
-    alphabeticalContainer.style.display = 'block';
-    popularityContainer.style.display = 'none';
-    sortedContainer.style.display = 'none';
-  });
-
-  popularityTab.addEventListener('click', function(){
-    clearActive();
-    popularityTab.classList.add('active');
-    alphabeticalContainer.style.display = 'none';
-    popularityContainer.style.display = 'block';
-    sortedContainer.style.display = 'none';
-  });
-
-  sortedTab.addEventListener('click', function(){
-    clearActive();
-    sortedTab.classList.add('active');
-    alphabeticalContainer.style.display = 'none';
-    popularityContainer.style.display = 'none';
-    sortedContainer.style.display = 'block';
-  });
-});
-</script>
