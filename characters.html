@@ -6,11 +6,16 @@ title: Character Wiki
   <div id="characterScrollContainer">
     {% assign sortedRanking = site.data.character_ranking | sort: "rank" %}
     {% for entry in sortedRanking %}
-      {% assign character = site.characters | where_exp:"item", "item.title | slugify == entry.slug" | first %}
-      {% if character %}
-        <a href="{{ character.url }}" class="character-item">
-          <div class="character-image" style="background-image: url('{{ character.image | default: "https://via.placeholder.com/420" }}');"></div>
-          <div class="character-name">{{ character.title }}</div>
+      {% assign found_character = "" %}
+      {% for char in site.characters %}
+        {% if char.title | slugify == entry.slug %}
+          {% assign found_character = char %}
+        {% endif %}
+      {% endfor %}
+      {% if found_character != "" %}
+        <a href="{{ found_character.url }}" class="character-item">
+          <div class="character-image" style="background-image: url('{{ found_character.image | default: "https://via.placeholder.com/420" }}');"></div>
+          <div class="character-name">{{ found_character.title }}</div>
         </a>
       {% endif %}
     {% endfor %}
