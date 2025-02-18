@@ -6,7 +6,7 @@ title: Character Wiki
   <div id="characterScrollContainer">
     {% assign sortedRanking = site.data.character_ranking | sort: "rank" %}
     {% for entry in sortedRanking %}
-      {% assign character = site.characters | where: "slug", entry.slug | first %}
+      {% assign character = site.characters | where_exp:"item", "item.title | slugify == entry.slug" | first %}
       {% if character %}
         <a href="{{ character.url }}" class="character-item">
           <div class="character-image" style="background-image: url('{{ character.image | default: "https://via.placeholder.com/420" }}');"></div>
