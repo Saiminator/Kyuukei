@@ -4,16 +4,10 @@ title: Character Wiki
 ---
 <div id="characterScrollWrapper">
   <div id="characterScrollContainer">
-    {% comment %}
-      Create an array of slugs from the ranking file.
-    {% endcomment %}
     {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
     
-    {% comment %}
-      First, display the ranked characters.
-    {% endcomment %}
-    {% assign sortedRanking = site.data.character_ranking | sort: "rank" %}
-    {% for entry in sortedRanking %}
+    {# First, display the ranked characters in the order listed #}
+    {% for entry in site.data.character_ranking %}
       {% assign found_character = nil %}
       {% for char in site.characters %}
         {% assign thisSlug = char.title | slugify %}
@@ -29,9 +23,7 @@ title: Character Wiki
       {% endif %}
     {% endfor %}
     
-    {% comment %}
-      Next, display any unranked characters (sorted by title) that are not in the ranked list.
-    {% endcomment %}
+    {# Then, display any unranked characters sorted by title #}
     {% assign unranked = site.characters | sort: "title" %}
     {% for char in unranked %}
       {% assign slug = char.title | slugify %}
