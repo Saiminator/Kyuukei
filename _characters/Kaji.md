@@ -1,7 +1,6 @@
 ---
 layout: character
 title: "Kaji"
-slug: kaji
 image: "https://i.imgur.com/GVeTVGF.png"
 age: "327"
 birthday: "September (Forgot Day)"
@@ -14,6 +13,7 @@ blood_type: "AB+"
 hair_color: "Grey"
 eye_color: "Orange"
 ---
+
 
 ## Background
 
