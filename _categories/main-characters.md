@@ -1,7 +1,7 @@
 ---
 layout: category
 title: "Main Characters"
-image: "https://i.imgur.com/yourCategoryImage.png"
+image: "https://i.imgur.com/QRd4drw.png"
 characters:
   - kaji
   - kyuu
