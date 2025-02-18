@@ -1,14 +1,28 @@
-- slug: kyuu
-  rank: 1
-- slug: shimi
-  rank: 2
-- slug: dreymi
-  rank: 3
-- slug: memo
-  rank: 4
 - slug: pon
+  rank: 1
+- slug: via
+  rank: 2
+- slug: shizu
+  rank: 3
+- slug: sera
+  rank: 4
+- slug: kyuu
   rank: 5
 - slug: kaji
   rank: 6
-- slug: lyn
+- slug: mika
   rank: 7
+- slug: dreymi
+  rank: 8
+- slug: memo
+  rank: 9
+- slug: shimi
+  rank: 10
+- slug: lyn
+  rank: 11
+- slug: ryn
+  rank: 12
+- slug: duran
+  rank: 13
+- slug: ars
+  rank: 14
