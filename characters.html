@@ -6,17 +6,21 @@ title: Character Wiki
   <div id="characterScrollContainer">
     {% assign sortedRanking = site.data.character_ranking | sort: "rank" %}
     {% for entry in sortedRanking %}
-      {% assign found_character = "" %}
+      {% assign found_character = nil %}
       {% for char in site.characters %}
-        {% if char.title | slugify == entry.slug %}
+        {% assign thisSlug = char.title | slugify %}
+        {% if thisSlug == entry.slug %}
           {% assign found_character = char %}
         {% endif %}
       {% endfor %}
-      {% if found_character != "" %}
+      {% if found_character %}
         <a href="{{ found_character.url }}" class="character-item">
           <div class="character-image" style="background-image: url('{{ found_character.image | default: "https://via.placeholder.com/420" }}');"></div>
           <div class="character-name">{{ found_character.title }}</div>
         </a>
+      {% else %}
+        {# Optional debug output: Uncomment the next line if you need to see which entry didn't match #}
+        {# <p>No match found for ranking entry: {{ entry.slug }}</p> #}
       {% endif %}
     {% endfor %}
   </div>
