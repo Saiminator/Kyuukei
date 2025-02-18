@@ -674,6 +674,54 @@ header {
   }
 }
 
+/* Character View Container Grid Layout */
+.character-view-container {
+  display: grid;
+  gap: 20px;
+}
+
+/* Desktop: 4 columns */
+@media (min-width: 1024px) {
+  .character-view-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet: 3 columns */
+@media (max-width: 1023px) and (min-width: 601px) {
+  .character-view-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile: 2 columns */
+@media (max-width: 600px) {
+  .character-view-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* (Optional) Ensure character items have a consistent size */
+.character-item {
+  text-decoration: none;
+  color: inherit;
+}
+.character-image {
+  width: 100%;
+  padding-top: 100%; /* Square aspect ratio */
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.character-name {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
 /* =====================================================
    19. Hide Title on Character and Chapter Pages
    (Assumes body has class "character" or "chapter")
