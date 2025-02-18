@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="no-select">
+  <!-- Site Header -->
+  <header>
+    <a href="/index.html" id="site-title">
+      <span class="header-line1">Kyuukei wo Hanashi |</span>
+      <span class="header-line2">Kyuu’s Breaktime Stories</span>
+    </a>
+  </header>
+
+  <!-- Main Category Content -->
+  <div class="category-page" style="max-width: 1120px; margin: 0 auto; padding: 20px;">
+    <!-- Category Header -->
+    <header class="section-header">
+      <h1>{{ page.title }}</h1>
+    </header>
+    <!-- Category Representative Image -->
+    <div class="category-header-image" style="text-align: center; margin: 20px 0;">
+      <img src="{{ page.image | default: 'https://via.placeholder.com/420' }}" alt="{{ page.title }}" style="max-width: 100%; height: auto;">
+    </div>
+    <!-- Category Characters List -->
+    <div class="category-characters" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+      {% for char_slug in page.characters %}
+        {% assign character = site.characters | where_exp:"char", "char.title | slugify == char_slug" | first %}
+        {% if character %}
+          <a href="{{ character.url }}" class="character-item" style="text-decoration: none; color: inherit; width: 200px;">
+            <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; background-position: center; border: 2px solid #ddd; border-radius: 5px;"></div>
+            <div class="character-name" style="text-align: center; margin-top: 10px;">{{ character.title }}</div>
+          </a>
+        {% else %}
+          <!-- Optionally output a debug message if no match is found -->
+          <p style="color: red;">No character found for slug: {{ char_slug }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
