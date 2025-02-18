@@ -4,12 +4,15 @@ title: Character Wiki
 ---
 <div id="characterScrollWrapper">
   <div id="characterScrollContainer">
-    {% assign sorted_characters = site.characters | sort: "order" %}
-    {% for character in sorted_characters %}
-    <a href="{{ character.url }}" class="character-item">
-      <div class="character-image" style="background-image: url('{{ character.image | default: "https://via.placeholder.com/420" }}');"></div>
-      <div class="character-name">{{ character.title }}</div>
-    </a>
+    {% assign sortedRanking = site.data.character_ranking | sort: "rank" %}
+    {% for entry in sortedRanking %}
+      {% assign character = site.characters | where: "slug", entry.slug | first %}
+      {% if character %}
+        <a href="{{ character.url }}" class="character-item">
+          <div class="character-image" style="background-image: url('{{ character.image | default: "https://via.placeholder.com/420" }}');"></div>
+          <div class="character-name">{{ character.title }}</div>
+        </a>
+      {% endif %}
     {% endfor %}
   </div>
 </div>
