@@ -4,6 +4,9 @@ title: Character Wiki
 ---
 <div id="characterScrollWrapper">
   <div id="characterScrollContainer">
+    {%- comment -%}
+      First, loop through the ranking file and display matching characters.
+    {%- endcomment -%}
     {% assign sortedRanking = site.data.character_ranking | sort: "rank" %}
     {% for entry in sortedRanking %}
       {% assign found_character = nil %}
@@ -18,10 +21,21 @@ title: Character Wiki
           <div class="character-image" style="background-image: url('{{ found_character.image | default: "https://via.placeholder.com/420" }}');"></div>
           <div class="character-name">{{ found_character.title }}</div>
         </a>
-      {% else %}
-        {# Optional debug output: Uncomment the next line if you need to see which entry didn't match #}
-        {# <p>No match found for ranking entry: {{ entry.slug }}</p> #}
       {% endif %}
+    {% endfor %}
+    
+    {%- comment -%}
+      Next, find and display characters not listed in the ranking.
+      We first create an array of ranked slugs.
+    {%- endcomment -%}
+    {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
+    {% assign unranked = site.characters | where_exp:"char", "not rankedSlugs contains (char.title | slugify)" %}
+    {% assign unranked_sorted = unranked | sort: "title" %}
+    {% for char in unranked_sorted %}
+      <a href="{{ char.url }}" class="character-item">
+        <div class="character-image" style="background-image: url('{{ char.image | default: "https://via.placeholder.com/420" }}');"></div>
+        <div class="character-name">{{ char.title }}</div>
+      </a>
     {% endfor %}
   </div>
 </div>
