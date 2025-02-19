@@ -4,7 +4,6 @@ title: Character Wiki
 ---
 <div id="character-page-wrapper">
   <!-- Sorting Tabs -->
-  {% comment %} Only the tabs are output here; no extra text is included {% endcomment %}
   <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
     <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
     <button id="alphabetical-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
@@ -55,10 +54,10 @@ title: Character Wiki
   <!-- Sorted (Grouped) View -->
   <div id="sorted-container" class="character-view-container" style="display: none;">
     {% for category in site.data.character_categories %}
-      <div class="character-category-card" data-slug="{{ category.slug }}" style="cursor: pointer; display: inline-block; margin: 10px;" onclick="loadCategory('{{ category.slug }}')">
+      <a href="#" class="character-category-card" data-slug="{{ category.slug }}" style="display: inline-block; margin: 10px; text-decoration: none; color: inherit;">
         <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
         <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
-      </div>
+      </a>
     {% endfor %}
   </div>
 </div>
@@ -73,9 +72,6 @@ document.addEventListener("DOMContentLoaded", function(){
   var alphaContainer = document.getElementById("alphabetical-container");
   var sortedContainer = document.getElementById("sorted-container");
 
-  // Backup original sorted HTML (category cards)
-  window.originalSortedHTML = sortedContainer.innerHTML;
-
   function clearActive() {
     document.querySelectorAll(".sort-tab").forEach(function(tab) {
       tab.classList.remove("active");
@@ -88,7 +84,8 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "grid";
     alphaContainer.style.display = "none";
     sortedContainer.style.display = "none";
-    sortedContainer.innerHTML = window.originalSortedHTML;
+    // Reset sorted view to category cards
+    resetSortedView();
   });
 
   alphaTab.addEventListener("click", function(){
@@ -97,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "none";
     alphaContainer.style.display = "grid";
     sortedContainer.style.display = "none";
-    sortedContainer.innerHTML = window.originalSortedHTML;
+    resetSortedView();
   });
 
   sortedTab.addEventListener("click", function(){
@@ -106,17 +103,38 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "none";
     alphaContainer.style.display = "none";
     sortedContainer.style.display = "grid";
-    sortedContainer.innerHTML = window.originalSortedHTML;
+    resetSortedView();
   });
+  
+  function resetSortedView(){
+    // Reset the Sorted container to display the category cards.
+    sortedContainer.innerHTML = "";
+    {% for category in site.data.character_categories %}
+      sortedContainer.innerHTML += '<a href="#" class="character-category-card" data-slug="{{ category.slug }}" style="display: inline-block; margin: 10px; text-decoration: none; color: inherit;">' +
+        '<div class="category-image" style="background-image: url(\'{{ category.image | default: "https://via.placeholder.com/420" }}\'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>' +
+        '<div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>' +
+      '</a>';
+    {% endfor %}
+    
+    // Attach click event listeners to the new category cards.
+    var cards = sortedContainer.querySelectorAll(".character-category-card");
+    cards.forEach(function(card){
+      card.addEventListener("click", function(e){
+        e.preventDefault();
+        var catSlug = card.getAttribute("data-slug");
+        loadCategory(catSlug);
+      });
+    });
+  }
   
   // Data injection from Jekyll as JSON
   var categoryData = {{ site.data.character_categories | jsonify }};
   var allCharacters = {{ site.characters | jsonify }};
-
+  
   function slugify(text) {
     return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
   }
-
+  
   function findCharacterBySlug(slug) {
     for (var i = 0; i < allCharacters.length; i++) {
       var char = allCharacters[i];
@@ -126,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     return null;
   }
-
+  
   function loadCategory(categorySlug) {
     var cat = null;
     for (var i = 0; i < categoryData.length; i++) {
