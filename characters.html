@@ -43,10 +43,10 @@ title: Character Wiki
 <!-- Alphabetical View -->
 <div id="alphabetical-container" class="character-view-container" style="display: none;">
   {% assign alpha_chars = site.characters | sort: "title" %}
-  {% for character in alpha_chars %}
-    <a href="{{ character.url }}" class="character-item">
-      <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
-      <div class="character-name">{{ character.title }}</div>
+  {% for char in alpha_chars %}
+    <a href="{{ char.url }}" class="character-item">
+      <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
+      <div class="character-name">{{ char.title }}</div>
     </a>
   {% endfor %}
 </div>
@@ -62,65 +62,63 @@ title: Character Wiki
 </div>
 
 <script>
-  // Save backup of the original Sorted view (category cards)
-  var sortedBackup = null;
-  
+  // Tab toggling
   document.addEventListener('DOMContentLoaded', function(){
-    var popularityTab = document.getElementById('popularity-tab');
-    var alphabeticalTab = document.getElementById('alphabetical-tab');
+    var popTab = document.getElementById('popularity-tab');
+    var alphaTab = document.getElementById('alphabetical-tab');
     var sortedTab = document.getElementById('sorted-tab');
-
-    var popularityContainer = document.getElementById('popularity-container');
-    var alphabeticalContainer = document.getElementById('alphabetical-container');
+    
+    var popContainer = document.getElementById('popularity-container');
+    var alphaContainer = document.getElementById('alphabetical-container');
     var sortedContainer = document.getElementById('sorted-container');
-
+    
     function clearActive() {
-      var tabs = document.querySelectorAll('.sort-tab');
-      tabs.forEach(function(tab){
+      document.querySelectorAll('.sort-tab').forEach(function(tab) {
         tab.classList.remove('active');
       });
     }
-
-    popularityTab.addEventListener('click', function(){
+    
+    popTab.addEventListener('click', function(){
       clearActive();
-      popularityTab.classList.add('active');
-      popularityContainer.style.display = 'grid';
-      alphabeticalContainer.style.display = 'none';
+      popTab.classList.add('active');
+      popContainer.style.display = 'grid';
+      alphaContainer.style.display = 'none';
       sortedContainer.style.display = 'grid';
-      if(sortedBackup) {
-        sortedContainer.innerHTML = sortedBackup;
+      if(window.sortedBackup) {
+        sortedContainer.innerHTML = window.sortedBackup;
       }
     });
-
-    alphabeticalTab.addEventListener('click', function(){
+    
+    alphaTab.addEventListener('click', function(){
       clearActive();
-      alphabeticalTab.classList.add('active');
-      popularityContainer.style.display = 'none';
-      alphabeticalContainer.style.display = 'grid';
+      alphaTab.classList.add('active');
+      popContainer.style.display = 'none';
+      alphaContainer.style.display = 'grid';
       sortedContainer.style.display = 'none';
     });
-
+    
     sortedTab.addEventListener('click', function(){
       clearActive();
       sortedTab.classList.add('active');
-      popularityContainer.style.display = 'none';
-      alphabeticalContainer.style.display = 'none';
+      popContainer.style.display = 'none';
+      alphaContainer.style.display = 'none';
       sortedContainer.style.display = 'grid';
-      if(!sortedBackup) {
-        sortedBackup = sortedContainer.innerHTML;
+      if(!window.sortedBackup) {
+        window.sortedBackup = sortedContainer.innerHTML;
       }
     });
   });
-
-  // Inject category and character data as JSON from Jekyll
+  
+  // Data injection from Jekyll as JSON
   var categoryData = {{ site.data.character_categories | jsonify }};
   var allCharacters = {{ site.characters | jsonify }};
-
+  
+  // Simple slugify function
   function slugify(text) {
     return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
   }
-
-  // Utility: find a character by slug (using slugified title)
+  
+  // Find a character by slug (using the slugified title)
   function findCharacterBySlug(slug) {
     for (var i = 0; i < allCharacters.length; i++) {
       var char = allCharacters[i];
@@ -130,8 +128,8 @@ title: Character Wiki
     }
     return null;
   }
-
-  // When a category card is clicked, replace the Sorted container with that category's characters plus a Back card.
+  
+  // When a category card is clicked, show its characters
   function showCategory(categorySlug) {
     var cat = null;
     for (var i = 0; i < categoryData.length; i++) {
@@ -143,7 +141,7 @@ title: Character Wiki
     if (!cat) return;
     
     var html = '';
-    // Add Back card (first character card) with an arrow
+    // Add Back card
     html += '<div class="character-item" style="cursor: pointer;" onclick="backToCategories()">';
     html += '<div class="character-image" style="background-image: url(\'https://via.placeholder.com/420?text=←+Back\');"></div>';
     html += '<div class="character-name" style="text-align: center;">Back</div>';
@@ -163,11 +161,11 @@ title: Character Wiki
     }
     document.getElementById('sorted-container').innerHTML = html;
   }
-
-  // Restore the original Sorted view (category cards)
+  
+  // Back button restores original Sorted view (the category cards)
   function backToCategories() {
-    if (sortedBackup) {
-      document.getElementById('sorted-container').innerHTML = sortedBackup;
+    if (window.sortedBackup) {
+      document.getElementById('sorted-container').innerHTML = window.sortedBackup;
     }
   }
 </script>
