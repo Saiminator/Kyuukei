@@ -2,6 +2,7 @@
 layout: default
 title: Character Wiki
 ---
+
 <!-- Sorting Tabs -->
 <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
   <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
@@ -53,52 +54,120 @@ title: Character Wiki
 <!-- Sorted (Grouped) View -->
 <div id="sorted-container" class="character-view-container" style="display: none;">
   {% for category in site.data.character_categories %}
-    <a href="/categories/{{ category.slug }}/" class="character-category-card" style="display: inline-block; margin: 10px; text-decoration: none; color: inherit;">
+    <div class="character-category-card" style="display: inline-block; margin: 10px; cursor: pointer;" onclick="showCategory('{{ category.slug }}')">
       <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
       <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
-    </a>
+    </div>
   {% endfor %}
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-  var popularityTab = document.getElementById('popularity-tab');
-  var alphabeticalTab = document.getElementById('alphabetical-tab');
-  var sortedTab = document.getElementById('sorted-tab');
+  // Save backup of the original Sorted view (category cards)
+  var sortedBackup = null;
+  
+  document.addEventListener('DOMContentLoaded', function(){
+    var popularityTab = document.getElementById('popularity-tab');
+    var alphabeticalTab = document.getElementById('alphabetical-tab');
+    var sortedTab = document.getElementById('sorted-tab');
 
-  var popularityContainer = document.getElementById('popularity-container');
-  var alphabeticalContainer = document.getElementById('alphabetical-container');
-  var sortedContainer = document.getElementById('sorted-container');
+    var popularityContainer = document.getElementById('popularity-container');
+    var alphabeticalContainer = document.getElementById('alphabetical-container');
+    var sortedContainer = document.getElementById('sorted-container');
 
-  function clearActive() {
-    var tabs = document.querySelectorAll('.sort-tab');
-    tabs.forEach(function(tab){
-      tab.classList.remove('active');
+    function clearActive() {
+      var tabs = document.querySelectorAll('.sort-tab');
+      tabs.forEach(function(tab){
+        tab.classList.remove('active');
+      });
+    }
+
+    popularityTab.addEventListener('click', function(){
+      clearActive();
+      popularityTab.classList.add('active');
+      popularityContainer.style.display = 'grid';
+      alphabeticalContainer.style.display = 'none';
+      sortedContainer.style.display = 'grid';
+      if(sortedBackup) {
+        sortedContainer.innerHTML = sortedBackup;
+      }
     });
+
+    alphabeticalTab.addEventListener('click', function(){
+      clearActive();
+      alphabeticalTab.classList.add('active');
+      popularityContainer.style.display = 'none';
+      alphabeticalContainer.style.display = 'grid';
+      sortedContainer.style.display = 'none';
+    });
+
+    sortedTab.addEventListener('click', function(){
+      clearActive();
+      sortedTab.classList.add('active');
+      popularityContainer.style.display = 'none';
+      alphabeticalContainer.style.display = 'none';
+      sortedContainer.style.display = 'grid';
+      if(!sortedBackup) {
+        sortedBackup = sortedContainer.innerHTML;
+      }
+    });
+  });
+
+  // Inject category and character data as JSON from Jekyll
+  var categoryData = {{ site.data.character_categories | jsonify }};
+  var allCharacters = {{ site.characters | jsonify }};
+
+  function slugify(text) {
+    return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
   }
 
-  popularityTab.addEventListener('click', function(){
-    clearActive();
-    popularityTab.classList.add('active');
-    popularityContainer.style.display = 'grid';
-    alphabeticalContainer.style.display = 'none';
-    sortedContainer.style.display = 'grid';
-  });
+  // Utility: find a character by slug (using slugified title)
+  function findCharacterBySlug(slug) {
+    for (var i = 0; i < allCharacters.length; i++) {
+      var char = allCharacters[i];
+      if (slugify(char.title) === slug) {
+        return char;
+      }
+    }
+    return null;
+  }
 
-  alphabeticalTab.addEventListener('click', function(){
-    clearActive();
-    alphabeticalTab.classList.add('active');
-    popularityContainer.style.display = 'none';
-    alphabeticalContainer.style.display = 'grid';
-    sortedContainer.style.display = 'none';
-  });
+  // When a category card is clicked, replace the Sorted container with that category's characters plus a Back card.
+  function showCategory(categorySlug) {
+    var cat = null;
+    for (var i = 0; i < categoryData.length; i++) {
+      if (categoryData[i].slug === categorySlug) {
+        cat = categoryData[i];
+        break;
+      }
+    }
+    if (!cat) return;
+    
+    var html = '';
+    // Add Back card (first character card) with an arrow
+    html += '<div class="character-item" style="cursor: pointer;" onclick="backToCategories()">';
+    html += '<div class="character-image" style="background-image: url(\'https://via.placeholder.com/420?text=←+Back\');"></div>';
+    html += '<div class="character-name" style="text-align: center;">Back</div>';
+    html += '</div>';
+    
+    if (cat.characters && cat.characters.length > 0) {
+      for (var j = 0; j < cat.characters.length; j++) {
+        var slug = cat.characters[j];
+        var character = findCharacterBySlug(slug);
+        if (character) {
+          html += '<a href="' + character.url + '" class="character-item">';
+          html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
+          html += '<div class="character-name">' + character.title + '</div>';
+          html += '</a>';
+        }
+      }
+    }
+    document.getElementById('sorted-container').innerHTML = html;
+  }
 
-  sortedTab.addEventListener('click', function(){
-    clearActive();
-    sortedTab.classList.add('active');
-    popularityContainer.style.display = 'none';
-    alphabeticalContainer.style.display = 'none';
-    sortedContainer.style.display = 'grid';
-  });
-});
+  // Restore the original Sorted view (category cards)
+  function backToCategories() {
+    if (sortedBackup) {
+      document.getElementById('sorted-container').innerHTML = sortedBackup;
+    }
+  }
 </script>
