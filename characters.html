@@ -2,7 +2,6 @@
 layout: default
 title: Character Wiki
 ---
-
 <!-- Sorting Tabs -->
 <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
   <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
@@ -53,19 +52,15 @@ title: Character Wiki
 
 <!-- Sorted (Grouped) View -->
 <div id="sorted-container" class="character-view-container" style="display: none;">
-  {% comment %} Initially show category cards {% endcomment %}
   {% for category in site.data.character_categories %}
-    <div class="character-category-card" style="display: inline-block; margin: 10px; cursor: pointer;" onclick="showCategory('{{ category.slug }}')">
+    <a href="/categories/{{ category.slug }}/" class="character-category-card" style="display: inline-block; margin: 10px; text-decoration: none; color: inherit;">
       <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
       <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
-    </div>
+    </a>
   {% endfor %}
 </div>
 
 <script>
-// Store a backup of the original Sorted view HTML (the category cards)
-var sortedBackup;
-
 document.addEventListener('DOMContentLoaded', function(){
   var popularityTab = document.getElementById('popularity-tab');
   var alphabeticalTab = document.getElementById('alphabetical-tab');
@@ -88,9 +83,6 @@ document.addEventListener('DOMContentLoaded', function(){
     popularityContainer.style.display = 'grid';
     alphabeticalContainer.style.display = 'none';
     sortedContainer.style.display = 'grid';
-    if(sortedBackup) {
-      sortedContainer.innerHTML = sortedBackup;
-    }
   });
 
   alphabeticalTab.addEventListener('click', function(){
@@ -107,70 +99,6 @@ document.addEventListener('DOMContentLoaded', function(){
     popularityContainer.style.display = 'none';
     alphabeticalContainer.style.display = 'none';
     sortedContainer.style.display = 'grid';
-    if(!sortedBackup) {
-      sortedBackup = sortedContainer.innerHTML;
-    }
   });
 });
-
-// For the Sorted (Grouped) view:
-// Inject category data and character data as JSON.
-var categoryData = {{ site.data.character_categories | jsonify }};
-var allCharacters = {{ site.characters | jsonify }};
-
-// A simple slugify function (lowercase, trim, replace spaces with hyphens)
-function slugify(text) {
-  return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
-}
-
-// Utility function to find a character by slug (using title slugify)
-function findCharacterBySlug(slug) {
-  for (var i = 0; i < allCharacters.length; i++) {
-    var char = allCharacters[i];
-    if (slugify(char.title) === slug) {
-      return char;
-    }
-  }
-  return null;
-}
-
-// When a category is clicked, show its characters in the sorted container.
-function showCategory(categorySlug) {
-  var category;
-  for (var i = 0; i < categoryData.length; i++) {
-    if (categoryData[i].slug === categorySlug) {
-      category = categoryData[i];
-      break;
-    }
-  }
-  if (!category) return;
-  
-  var html = '';
-  // Add a back button as the first card (using a placeholder arrow image)
-  html += '<div class="character-item" style="cursor: pointer;" onclick="backToCategories()">';
-  html += '<div class="character-image" style="background-image: url(\'https://via.placeholder.com/420?text=←+Back\'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>';
-  html += '<div class="character-name" style="text-align: center; margin-top: 5px;">Back</div>';
-  html += '</div>';
-  
-  if (category.characters && category.characters.length > 0) {
-    for (var j = 0; j < category.characters.length; j++) {
-      var slug = category.characters[j];
-      var character = findCharacterBySlug(slug);
-      if (character) {
-        html += '<a href="' + character.url + '" class="character-item">';
-        html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
-        html += '<div class="character-name">' + character.title + '</div>';
-        html += '</a>';
-      }
-    }
-  }
-  document.getElementById('sorted-container').innerHTML = html;
-}
-
-// Restore the original category list view.
-function backToCategories() {
-  if (sortedBackup) {
-    document.getElementById('sorted-container').innerHTML = sortedBackup;
-  }
-}
 </script>
