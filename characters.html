@@ -2,9 +2,9 @@
 layout: default
 title: Character Wiki
 ---
-
 <div id="character-page-wrapper">
   <!-- Sorting Tabs -->
+  {% comment %} Only the tabs are output here; no extra text is included {% endcomment %}
   <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
     <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
     <button id="alphabetical-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function(){
   var alphaContainer = document.getElementById("alphabetical-container");
   var sortedContainer = document.getElementById("sorted-container");
 
-  // Store the original Sorted view HTML (category cards)
+  // Backup original sorted HTML (category cards)
   window.originalSortedHTML = sortedContainer.innerHTML;
 
   function clearActive() {
@@ -109,51 +109,47 @@ document.addEventListener("DOMContentLoaded", function(){
     sortedContainer.innerHTML = window.originalSortedHTML;
   });
   
-});
+  // Data injection from Jekyll as JSON
+  var categoryData = {{ site.data.character_categories | jsonify }};
+  var allCharacters = {{ site.characters | jsonify }};
 
-// Data injection from Jekyll as JSON
-var categoryData = {{ site.data.character_categories | jsonify }};
-var allCharacters = {{ site.characters | jsonify }};
-
-// Simple slugify function
-function slugify(text) {
-  return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
-}
-
-// Find a character by slug (using slugified title)
-function findCharacterBySlug(slug) {
-  for (var i = 0; i < allCharacters.length; i++) {
-    var char = allCharacters[i];
-    if (slugify(char.title) === slug) {
-      return char;
-    }
+  function slugify(text) {
+    return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
   }
-  return null;
-}
 
-// When a category card is clicked, load its characters into the sorted container.
-function loadCategory(categorySlug) {
-  var cat = null;
-  for (var i = 0; i < categoryData.length; i++) {
-    if (categoryData[i].slug === categorySlug) {
-      cat = categoryData[i];
-      break;
-    }
-  }
-  if (!cat) return;
-  var html = "";
-  if (cat.characters && cat.characters.length > 0) {
-    for (var j = 0; j < cat.characters.length; j++) {
-      var slug = cat.characters[j];
-      var character = findCharacterBySlug(slug);
-      if (character) {
-        html += '<a href="' + character.url + '" class="character-item">';
-        html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
-        html += '<div class="character-name">' + character.title + '</div>';
-        html += '</a>';
+  function findCharacterBySlug(slug) {
+    for (var i = 0; i < allCharacters.length; i++) {
+      var char = allCharacters[i];
+      if (slugify(char.title) === slug) {
+        return char;
       }
     }
+    return null;
   }
-  document.getElementById("sorted-container").innerHTML = html;
-}
+
+  function loadCategory(categorySlug) {
+    var cat = null;
+    for (var i = 0; i < categoryData.length; i++) {
+      if (categoryData[i].slug === categorySlug) {
+        cat = categoryData[i];
+        break;
+      }
+    }
+    if (!cat) return;
+    var html = "";
+    if (cat.characters && cat.characters.length > 0) {
+      for (var j = 0; j < cat.characters.length; j++) {
+        var slug = cat.characters[j];
+        var character = findCharacterBySlug(slug);
+        if (character) {
+          html += '<a href="' + character.url + '" class="character-item">';
+          html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
+          html += '<div class="character-name">' + character.title + '</div>';
+          html += '</a>';
+        }
+      }
+    }
+    sortedContainer.innerHTML = html;
+  }
+});
 </script>
