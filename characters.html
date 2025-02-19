@@ -4,27 +4,27 @@ title: Character Wiki
 ---
 <div id="character-page-wrapper">
   <!-- Sorting Tabs -->
-  <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
-    <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
-    <button id="alphabetical-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
-    <button id="sorted-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Sorted</button>
+  <div id="tabs" style="text-align: center; margin-bottom: 20px;">
+    <button class="tab-button active" data-view="popularity" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
+    <button class="tab-button" data-view="alphabetical" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
+    <button class="tab-button" data-view="sorted" style="padding: 10px 20px; margin: 0 5px;">Sorted</button>
   </div>
 
-  <!-- Popularity View (Default) -->
-  <div id="popularity-container" class="character-view-container">
+  <!-- View Containers -->
+  <div id="view-popularity" class="view-container">
     {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
     {% for entry in site.data.character_ranking %}
-      {% assign found_character = nil %}
+      {% assign characterFound = nil %}
       {% for char in site.characters %}
-        {% assign thisSlug = char.title | slugify %}
-        {% if thisSlug == entry.slug %}
-          {% assign found_character = char %}
+        {% assign charSlug = char.title | slugify %}
+        {% if charSlug == entry.slug %}
+          {% assign characterFound = char %}
         {% endif %}
       {% endfor %}
-      {% if found_character %}
-        <a href="{{ found_character.url }}" class="character-item">
-          <div class="character-image" style="background-image: url('{{ found_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
-          <div class="character-name">{{ found_character.title }}</div>
+      {% if characterFound %}
+        <a href="{{ characterFound.url }}" class="character-item">
+          <div class="character-image" style="background-image: url('{{ characterFound.image | default: 'https://via.placeholder.com/420' }}');"></div>
+          <div class="character-name">{{ characterFound.title }}</div>
         </a>
       {% endif %}
     {% endfor %}
@@ -40,10 +40,9 @@ title: Character Wiki
     {% endfor %}
   </div>
 
-  <!-- Alphabetical View -->
-  <div id="alphabetical-container" class="character-view-container" style="display: none;">
-    {% assign alpha_chars = site.characters | sort: "title" %}
-    {% for char in alpha_chars %}
+  <div id="view-alphabetical" class="view-container" style="display: none;">
+    {% assign alphaChars = site.characters | sort: "title" %}
+    {% for char in alphaChars %}
       <a href="{{ char.url }}" class="character-item">
         <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
         <div class="character-name">{{ char.title }}</div>
@@ -51,121 +50,97 @@ title: Character Wiki
     {% endfor %}
   </div>
 
-  <!-- Sorted (Grouped) View -->
-  <div id="sorted-container" class="character-view-container" style="display: none;">
-    <!-- Default: Show category cards -->
+  <div id="view-sorted" class="view-container" style="display: none;">
+    <!-- Default Sorted view: Category cards -->
     <div id="sorted-categories">
       {% for category in site.data.character_categories %}
-        <div class="character-category-card" data-slug="{{ category.slug }}" style="cursor: pointer; margin: 10px; text-decoration: none; color: inherit;">
+        <div class="category-card" data-slug="{{ category.slug }}" style="cursor: pointer; margin: 10px;">
           <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
           <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
         </div>
       {% endfor %}
     </div>
-    <!-- Container for loaded category characters -->
+    <!-- Sorted characters will be loaded here -->
     <div id="sorted-characters" style="display: none;"></div>
   </div>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-  // Tab elements
-  var popTab = document.getElementById("popularity-tab");
-  var alphaTab = document.getElementById("alphabetical-tab");
-  var sortedTab = document.getElementById("sorted-tab");
+  // Tab functionality
+  const tabButtons = document.querySelectorAll(".tab-button");
+  const views = {
+    popularity: document.getElementById("view-popularity"),
+    alphabetical: document.getElementById("view-alphabetical"),
+    sorted: document.getElementById("view-sorted")
+  };
 
-  // Container elements
-  var popContainer = document.getElementById("popularity-container");
-  var alphaContainer = document.getElementById("alphabetical-container");
-  var sortedContainer = document.getElementById("sorted-container");
-  var sortedCategories = document.getElementById("sorted-categories");
-  var sortedCharacters = document.getElementById("sorted-characters");
-
-  function clearActive() {
-    document.querySelectorAll(".sort-tab").forEach(function(tab) {
-      tab.classList.remove("active");
+  tabButtons.forEach(button => {
+    button.addEventListener("click", function(){
+      // Remove active class from all tabs
+      tabButtons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+      // Hide all views
+      for (let key in views) {
+        views[key].style.display = "none";
+      }
+      // Show selected view
+      const viewName = button.getAttribute("data-view");
+      views[viewName].style.display = "grid";
+      // If Sorted view is selected, ensure we show the category cards
+      if(viewName === "sorted"){
+        document.getElementById("sorted-categories").style.display = "grid";
+        document.getElementById("sorted-characters").style.display = "none";
+      }
     });
-  }
-
-  popTab.addEventListener("click", function(){
-    clearActive();
-    popTab.classList.add("active");
-    popContainer.style.display = "grid";
-    alphaContainer.style.display = "none";
-    sortedContainer.style.display = "none";
   });
 
-  alphaTab.addEventListener("click", function(){
-    clearActive();
-    alphaTab.classList.add("active");
-    popContainer.style.display = "none";
-    alphaContainer.style.display = "grid";
-    sortedContainer.style.display = "none";
+  // Attach click listener for Sorted view category cards (delegated)
+  document.getElementById("sorted-categories").addEventListener("click", function(e){
+    const card = e.target.closest(".category-card");
+    if (!card) return;
+    const catSlug = card.getAttribute("data-slug");
+    loadCategory(catSlug);
   });
 
-  sortedTab.addEventListener("click", function(){
-    clearActive();
-    sortedTab.classList.add("active");
-    popContainer.style.display = "none";
-    alphaContainer.style.display = "none";
-    sortedContainer.style.display = "grid";
-    // Show the default sorted view (category cards)
-    sortedCategories.style.display = "grid";
-    sortedCharacters.style.display = "none";
-    attachCategoryListeners();
-  });
-
-  // Attach event listeners to category cards (delegated)
-  function attachCategoryListeners(){
-    var cards = sortedCategories.querySelectorAll(".character-category-card");
-    cards.forEach(function(card){
-      card.addEventListener("click", function(e){
-        e.preventDefault();
-        var catSlug = card.getAttribute("data-slug");
-        loadCategory(catSlug);
-      });
-    });
-  }
-
-  // Data from Jekyll
-  var categoryData = {{ site.data.character_categories | jsonify }};
-  var allCharacters = {{ site.characters | jsonify }};
+  // Data injection from Jekyll as JSON
+  const categoryData = {{ site.data.character_categories | jsonify }};
+  const allCharacters = {{ site.characters | jsonify }};
 
   function slugify(text) {
     return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
   }
 
   function findCharacterBySlug(slug) {
-    for (var i = 0; i < allCharacters.length; i++) {
-      if (slugify(allCharacters[i].title) === slug) {
+    for (let i = 0; i < allCharacters.length; i++){
+      if(slugify(allCharacters[i].title) === slug){
         return allCharacters[i];
       }
     }
     return null;
   }
 
-  // When a category card is clicked, load that category's characters into the sorted view.
+  // When a category card is clicked, load that category's characters into Sorted view
   function loadCategory(categorySlug) {
-    var cat = categoryData.find(function(item){
-      return item.slug === categorySlug;
-    });
+    const cat = categoryData.find(c => c.slug === categorySlug);
     if (!cat) return;
-    var html = "";
+    let html = "";
     if (cat.characters && cat.characters.length > 0) {
-      cat.characters.forEach(function(charSlug) {
-        var character = findCharacterBySlug(charSlug);
+      cat.characters.forEach(slug => {
+        const character = findCharacterBySlug(slug);
         if (character) {
-          html += '<a href="' + character.url + '" class="character-item">';
-          html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
-          html += '<div class="character-name">' + character.title + '</div>';
-          html += '</a>';
+          html += `<a href="${character.url}" class="character-item">
+                      <div class="character-image" style="background-image: url('${character.image || "https://via.placeholder.com/420"}');"></div>
+                      <div class="character-name">${character.title}</div>
+                   </a>`;
         }
       });
     }
-    // Update Sorted view: hide categories and show characters
-    sortedCategories.style.display = "none";
-    sortedCharacters.innerHTML = html;
-    sortedCharacters.style.display = "grid";
+    // Replace Sorted view with characters for the selected category
+    document.getElementById("sorted-categories").style.display = "none";
+    const sortedChars = document.getElementById("sorted-characters");
+    sortedChars.innerHTML = html;
+    sortedChars.style.display = "grid";
   }
 });
 </script>
