@@ -3,65 +3,73 @@ layout: default
 title: Character Wiki
 ---
 
-<!-- Sorting Tabs -->
-<div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
-  <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
-  <button id="alphabetical-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
-  <button id="sorted-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Sorted</button>
-</div>
+<div id="character-page-wrapper">
+  <!-- Sorting Tabs -->
+  <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
+    <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
+    <button id="alphabetical-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
+    <button id="sorted-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Sorted</button>
+  </div>
 
-<!-- Popularity View (Default) -->
-<div id="popularity-container" class="character-view-container">
-  {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
-  {% for entry in site.data.character_ranking %}
-    {% assign found_character = nil %}
-    {% for char in site.characters %}
-      {% assign thisSlug = char.title | slugify %}
-      {% if thisSlug == entry.slug %}
-        {% assign found_character = char %}
+  <!-- Popularity View (Default) -->
+  <div id="popularity-container" class="character-view-container">
+    {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
+    {% for entry in site.data.character_ranking %}
+      {% assign found_character = nil %}
+      {% for char in site.characters %}
+        {% assign thisSlug = char.title | slugify %}
+        {% if thisSlug == entry.slug %}
+          {% assign found_character = char %}
+        {% endif %}
+      {% endfor %}
+      {% if found_character %}
+        <a href="{{ found_character.url }}" class="character-item">
+          <div class="character-image" style="background-image: url('{{ found_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+          <div class="character-name">{{ found_character.title }}</div>
+        </a>
       {% endif %}
     {% endfor %}
-    {% if found_character %}
-      <a href="{{ found_character.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ found_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
-        <div class="character-name">{{ found_character.title }}</div>
-      </a>
-    {% endif %}
-  {% endfor %}
-  {% assign unranked = site.characters | sort: "title" %}
-  {% for char in unranked %}
-    {% assign slug = char.title | slugify %}
-    {% unless rankedSlugs contains slug %}
+    {% assign unranked = site.characters | sort: "title" %}
+    {% for char in unranked %}
+      {% assign slug = char.title | slugify %}
+      {% unless rankedSlugs contains slug %}
+        <a href="{{ char.url }}" class="character-item">
+          <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
+          <div class="character-name">{{ char.title }}</div>
+        </a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+
+  <!-- Alphabetical View -->
+  <div id="alphabetical-container" class="character-view-container" style="display: none;">
+    {% assign alpha_chars = site.characters | sort: "title" %}
+    {% for char in alpha_chars %}
       <a href="{{ char.url }}" class="character-item">
         <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
         <div class="character-name">{{ char.title }}</div>
       </a>
-    {% endunless %}
-  {% endfor %}
-</div>
+    {% endfor %}
+  </div>
 
-<!-- Alphabetical View -->
-<div id="alphabetical-container" class="character-view-container" style="display: none;">
-  {% assign alpha_chars = site.characters | sort: "title" %}
-  {% for char in alpha_chars %}
-    <a href="{{ char.url }}" class="character-item">
-      <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
-      <div class="character-name">{{ char.title }}</div>
-    </a>
-  {% endfor %}
-</div>
-
-<!-- Sorted (Grouped) View -->
-<div id="sorted-container" class="character-view-container" style="display: none;">
-  {% for category in site.data.character_categories %}
-    <div class="character-category-card" style="display: inline-block; margin: 10px; cursor: pointer;" onclick="showCategory('{{ category.slug }}')">
-      <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
-      <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
-    </div>
-  {% endfor %}
+  <!-- Sorted (Grouped) View -->
+  <div id="sorted-container" class="character-view-container" style="display: none;">
+    {% for category in site.data.character_categories %}
+      <div class="character-category-card" style="display: inline-block; margin: 10px; cursor: pointer;" onclick="showCategory('{{ category.slug }}')">
+        <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
+        <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 
 <script>
+  // Remove extraneous whitespace from the container (if any)
+  (function() {
+    var wrapper = document.getElementById('character-page-wrapper');
+    wrapper.innerHTML = wrapper.innerHTML.trim();
+  })();
+
   // Tab toggling
   document.addEventListener('DOMContentLoaded', function(){
     var popTab = document.getElementById('popularity-tab');
@@ -129,7 +137,7 @@ title: Character Wiki
     return null;
   }
   
-  // When a category card is clicked, show its characters
+  // When a category card is clicked, update the sorted container with that category's characters plus a Back card.
   function showCategory(categorySlug) {
     var cat = null;
     for (var i = 0; i < categoryData.length; i++) {
@@ -141,7 +149,7 @@ title: Character Wiki
     if (!cat) return;
     
     var html = '';
-    // Add Back card
+    // Add a Back card (first card) with an arrow icon
     html += '<div class="character-item" style="cursor: pointer;" onclick="backToCategories()">';
     html += '<div class="character-image" style="background-image: url(\'https://via.placeholder.com/420?text=←+Back\');"></div>';
     html += '<div class="character-name" style="text-align: center;">Back</div>';
@@ -162,7 +170,7 @@ title: Character Wiki
     document.getElementById('sorted-container').innerHTML = html;
   }
   
-  // Back button restores original Sorted view (the category cards)
+  // Restore the original Sorted view (category cards)
   function backToCategories() {
     if (window.sortedBackup) {
       document.getElementById('sorted-container').innerHTML = window.sortedBackup;
