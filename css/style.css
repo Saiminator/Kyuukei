@@ -564,7 +564,7 @@ header {
   padding: 0;
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 100px - 115px);
+  height: calc(100vh - 100px - 150px);
   overflow-y: auto;
 }
 
