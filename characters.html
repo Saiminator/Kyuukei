@@ -2,7 +2,6 @@
 layout: default
 title: Character Wiki
 ---
-
 <div id="character-page-wrapper">
   <!-- Sorting Tabs -->
   <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
@@ -54,25 +53,33 @@ title: Character Wiki
 
   <!-- Sorted (Grouped) View -->
   <div id="sorted-container" class="character-view-container" style="display: none;">
-    {% for category in site.data.character_categories %}
-      <a href="#" class="character-category-card" data-slug="{{ category.slug }}" style="display: inline-block; margin: 10px; text-decoration: none; color: inherit;">
-        <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
-        <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
-      </a>
-    {% endfor %}
+    <!-- Default: Show category cards -->
+    <div id="sorted-categories">
+      {% for category in site.data.character_categories %}
+        <div class="character-category-card" data-slug="{{ category.slug }}" style="cursor: pointer; margin: 10px; text-decoration: none; color: inherit;">
+          <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
+          <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- Container for loaded category characters -->
+    <div id="sorted-characters" style="display: none;"></div>
   </div>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-  // Tab toggling
+  // Tab elements
   var popTab = document.getElementById("popularity-tab");
   var alphaTab = document.getElementById("alphabetical-tab");
   var sortedTab = document.getElementById("sorted-tab");
 
+  // Container elements
   var popContainer = document.getElementById("popularity-container");
   var alphaContainer = document.getElementById("alphabetical-container");
   var sortedContainer = document.getElementById("sorted-container");
+  var sortedCategories = document.getElementById("sorted-categories");
+  var sortedCharacters = document.getElementById("sorted-characters");
 
   function clearActive() {
     document.querySelectorAll(".sort-tab").forEach(function(tab) {
@@ -102,19 +109,25 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "none";
     alphaContainer.style.display = "none";
     sortedContainer.style.display = "grid";
+    // Show the default sorted view (category cards)
+    sortedCategories.style.display = "grid";
+    sortedCharacters.style.display = "none";
+    attachCategoryListeners();
   });
 
-  // Attach click events to Sorted view category cards so that clicking one loads that category’s characters
-  var categoryCards = document.querySelectorAll(".character-category-card");
-  categoryCards.forEach(function(card) {
-    card.addEventListener("click", function(e) {
-      e.preventDefault();
-      var catSlug = card.getAttribute("data-slug");
-      loadCategory(catSlug);
+  // Attach event listeners to category cards (delegated)
+  function attachCategoryListeners(){
+    var cards = sortedCategories.querySelectorAll(".character-category-card");
+    cards.forEach(function(card){
+      card.addEventListener("click", function(e){
+        e.preventDefault();
+        var catSlug = card.getAttribute("data-slug");
+        loadCategory(catSlug);
+      });
     });
-  });
+  }
 
-  // Data injection from Jekyll as JSON
+  // Data from Jekyll
   var categoryData = {{ site.data.character_categories | jsonify }};
   var allCharacters = {{ site.characters | jsonify }};
 
@@ -124,37 +137,35 @@ document.addEventListener("DOMContentLoaded", function(){
 
   function findCharacterBySlug(slug) {
     for (var i = 0; i < allCharacters.length; i++) {
-      var char = allCharacters[i];
-      if (slugify(char.title) === slug) {
-        return char;
+      if (slugify(allCharacters[i].title) === slug) {
+        return allCharacters[i];
       }
     }
     return null;
   }
 
+  // When a category card is clicked, load that category's characters into the sorted view.
   function loadCategory(categorySlug) {
-    var cat = null;
-    for (var i = 0; i < categoryData.length; i++) {
-      if (categoryData[i].slug === categorySlug) {
-        cat = categoryData[i];
-        break;
-      }
-    }
+    var cat = categoryData.find(function(item){
+      return item.slug === categorySlug;
+    });
     if (!cat) return;
     var html = "";
     if (cat.characters && cat.characters.length > 0) {
-      for (var j = 0; j < cat.characters.length; j++) {
-        var slug = cat.characters[j];
-        var character = findCharacterBySlug(slug);
+      cat.characters.forEach(function(charSlug) {
+        var character = findCharacterBySlug(charSlug);
         if (character) {
           html += '<a href="' + character.url + '" class="character-item">';
           html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
           html += '<div class="character-name">' + character.title + '</div>';
           html += '</a>';
         }
-      }
+      });
     }
-    sortedContainer.innerHTML = html;
+    // Update Sorted view: hide categories and show characters
+    sortedCategories.style.display = "none";
+    sortedCharacters.innerHTML = html;
+    sortedCharacters.style.display = "grid";
   }
 });
 </script>
