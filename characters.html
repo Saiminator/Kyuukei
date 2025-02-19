@@ -55,7 +55,7 @@ title: Character Wiki
   <!-- Sorted (Grouped) View -->
   <div id="sorted-container" class="character-view-container" style="display: none;">
     {% for category in site.data.character_categories %}
-      <div class="character-category-card" data-slug="{{ category.slug }}" style="cursor: pointer; display: inline-block; margin: 10px;">
+      <div class="character-category-card" data-slug="{{ category.slug }}" style="cursor: pointer; display: inline-block; margin: 10px;" onclick="loadCategory('{{ category.slug }}')">
         <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
         <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
       </div>
@@ -73,6 +73,9 @@ document.addEventListener("DOMContentLoaded", function(){
   var alphaContainer = document.getElementById("alphabetical-container");
   var sortedContainer = document.getElementById("sorted-container");
 
+  // Store the original Sorted view HTML (category cards)
+  window.originalSortedHTML = sortedContainer.innerHTML;
+
   function clearActive() {
     document.querySelectorAll(".sort-tab").forEach(function(tab) {
       tab.classList.remove("active");
@@ -85,8 +88,7 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "grid";
     alphaContainer.style.display = "none";
     sortedContainer.style.display = "none";
-    // Reset sorted container to original category cards view
-    resetSortedView();
+    sortedContainer.innerHTML = window.originalSortedHTML;
   });
 
   alphaTab.addEventListener("click", function(){
@@ -95,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "none";
     alphaContainer.style.display = "grid";
     sortedContainer.style.display = "none";
-    resetSortedView();
+    sortedContainer.innerHTML = window.originalSortedHTML;
   });
 
   sortedTab.addEventListener("click", function(){
@@ -104,68 +106,54 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "none";
     alphaContainer.style.display = "none";
     sortedContainer.style.display = "grid";
-    // Reset sorted container to category cards view
-    resetSortedView();
-  });
-
-  // Backup the original Sorted container HTML (category cards view)
-  window.originalSortedHTML = sortedContainer.innerHTML;
-
-  // Attach click listeners to category cards
-  function resetSortedView(){
     sortedContainer.innerHTML = window.originalSortedHTML;
-    var cards = sortedContainer.querySelectorAll(".character-category-card");
-    cards.forEach(function(card){
-      card.addEventListener("click", function(){
-        var catSlug = card.getAttribute("data-slug");
-        loadCategory(catSlug);
-      });
-    });
-  }
-
-  // Data injection from Jekyll as JSON
-  var categoryData = {{ site.data.character_categories | jsonify }};
-  var allCharacters = {{ site.characters | jsonify }};
-
-  function slugify(text) {
-    return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
-  }
-
-  // Find a character by slug (using slugified title)
-  function findCharacterBySlug(slug) {
-    for (var i = 0; i < allCharacters.length; i++) {
-      var char = allCharacters[i];
-      if (slugify(char.title) === slug) {
-        return char;
-      }
-    }
-    return null;
-  }
-
-  // When a category card is clicked, load its characters into the sorted container.
-  function loadCategory(categorySlug) {
-    var cat = null;
-    for (var i = 0; i < categoryData.length; i++) {
-      if (categoryData[i].slug === categorySlug) {
-        cat = categoryData[i];
-        break;
-      }
-    }
-    if (!cat) return;
-    var html = "";
-    if (cat.characters && cat.characters.length > 0) {
-      for (var j = 0; j < cat.characters.length; j++) {
-        var slug = cat.characters[j];
-        var character = findCharacterBySlug(slug);
-        if (character) {
-          html += '<a href="' + character.url + '" class="character-item">';
-          html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
-          html += '<div class="character-name">' + character.title + '</div>';
-          html += '</a>';
-        }
-      }
-    }
-    sortedContainer.innerHTML = html;
-  }
+  });
+  
 });
+
+// Data injection from Jekyll as JSON
+var categoryData = {{ site.data.character_categories | jsonify }};
+var allCharacters = {{ site.characters | jsonify }};
+
+// Simple slugify function
+function slugify(text) {
+  return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
+}
+
+// Find a character by slug (using slugified title)
+function findCharacterBySlug(slug) {
+  for (var i = 0; i < allCharacters.length; i++) {
+    var char = allCharacters[i];
+    if (slugify(char.title) === slug) {
+      return char;
+    }
+  }
+  return null;
+}
+
+// When a category card is clicked, load its characters into the sorted container.
+function loadCategory(categorySlug) {
+  var cat = null;
+  for (var i = 0; i < categoryData.length; i++) {
+    if (categoryData[i].slug === categorySlug) {
+      cat = categoryData[i];
+      break;
+    }
+  }
+  if (!cat) return;
+  var html = "";
+  if (cat.characters && cat.characters.length > 0) {
+    for (var j = 0; j < cat.characters.length; j++) {
+      var slug = cat.characters[j];
+      var character = findCharacterBySlug(slug);
+      if (character) {
+        html += '<a href="' + character.url + '" class="character-item">';
+        html += '<div class="character-image" style="background-image: url(\'' + (character.image || "https://via.placeholder.com/420") + '\');"></div>';
+        html += '<div class="character-name">' + character.title + '</div>';
+        html += '</a>';
+      }
+    }
+  }
+  document.getElementById("sorted-container").innerHTML = html;
+}
 </script>
