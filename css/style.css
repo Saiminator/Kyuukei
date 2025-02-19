@@ -701,6 +701,27 @@ header {
   }
 }
 
+/* Character Item Styling */
+.character-item, .character-category-card {
+  text-decoration: none;
+  color: inherit;
+}
+.character-image {
+  width: 100%;
+  padding-top: 100%; /* Square aspect ratio */
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.character-name, .category-name {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
 /* (Optional) Ensure character items have a consistent size */
 .character-item {
   text-decoration: none;
