@@ -2,6 +2,7 @@
 layout: default
 title: Character Wiki
 ---
+
 <div id="character-page-wrapper">
   <!-- Sorting Tabs -->
   <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
@@ -53,16 +54,12 @@ title: Character Wiki
 
   <!-- Sorted (Grouped) View -->
   <div id="sorted-container" class="character-view-container" style="display: none;">
-    <!-- Two inner containers: one for category cards, one for category characters -->
-    <div id="sorted-categories" class="character-view-container">
-      {% for category in site.data.character_categories %}
-        <div class="character-category-card" data-slug="{{ category.slug }}" style="cursor: pointer; margin: 10px; text-decoration: none; color: inherit;">
-          <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
-          <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
-        </div>
-      {% endfor %}
-    </div>
-    <div id="sorted-characters" class="character-view-container" style="display: none;"></div>
+    {% for category in site.data.character_categories %}
+      <a href="#" class="character-category-card" data-slug="{{ category.slug }}" style="display: inline-block; margin: 10px; text-decoration: none; color: inherit;">
+        <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
+        <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
+      </a>
+    {% endfor %}
   </div>
 </div>
 
@@ -76,9 +73,6 @@ document.addEventListener("DOMContentLoaded", function(){
   var popContainer = document.getElementById("popularity-container");
   var alphaContainer = document.getElementById("alphabetical-container");
   var sortedContainer = document.getElementById("sorted-container");
-
-  var sortedCategories = document.getElementById("sorted-categories");
-  var sortedCharacters = document.getElementById("sorted-characters");
 
   function clearActive() {
     document.querySelectorAll(".sort-tab").forEach(function(tab) {
@@ -108,22 +102,17 @@ document.addEventListener("DOMContentLoaded", function(){
     popContainer.style.display = "none";
     alphaContainer.style.display = "none";
     sortedContainer.style.display = "grid";
-    // Always show the categories view in Sorted tab
-    sortedCategories.style.display = "grid";
-    sortedCharacters.style.display = "none";
-    attachCategoryListeners();
   });
 
-  // Attach click event listeners to category cards in Sorted view
-  function attachCategoryListeners(){
-    var cards = sortedCategories.querySelectorAll(".character-category-card");
-    cards.forEach(function(card){
-      card.addEventListener("click", function(){
-        var catSlug = card.getAttribute("data-slug");
-        loadCategory(catSlug);
-      });
+  // Attach click events to Sorted view category cards so that clicking one loads that category’s characters
+  var categoryCards = document.querySelectorAll(".character-category-card");
+  categoryCards.forEach(function(card) {
+    card.addEventListener("click", function(e) {
+      e.preventDefault();
+      var catSlug = card.getAttribute("data-slug");
+      loadCategory(catSlug);
     });
-  }
+  });
 
   // Data injection from Jekyll as JSON
   var categoryData = {{ site.data.character_categories | jsonify }};
@@ -143,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function(){
     return null;
   }
 
-  // Load a category: hide category cards and show characters for that category
   function loadCategory(categorySlug) {
     var cat = null;
     for (var i = 0; i < categoryData.length; i++) {
@@ -166,10 +154,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
       }
     }
-    // Update container: hide categories, show characters
-    sortedCategories.style.display = "none";
-    sortedCharacters.innerHTML = html;
-    sortedCharacters.style.display = "grid";
+    sortedContainer.innerHTML = html;
   }
 });
 </script>
