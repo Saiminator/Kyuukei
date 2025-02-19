@@ -13,6 +13,7 @@ cup_size: "B"
 blood_type: "B-"
 hair_color: "Blue"
 eye_color: "L Blue, R Black"
+credit: "@rokosanAlt"
 ---
 
 ## Background
