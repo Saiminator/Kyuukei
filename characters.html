@@ -1,146 +1,84 @@
----
-layout: default
-title: Character Wiki
----
-<div id="character-page-wrapper">
-  <!-- Sorting Tabs -->
-  <div id="tabs" style="text-align: center; margin-bottom: 20px;">
-    <button class="tab-button active" data-view="popularity" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
-    <button class="tab-button" data-view="alphabetical" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
-    <button class="tab-button" data-view="sorted" style="padding: 10px 20px; margin: 0 5px;">Sorted</button>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- View Containers -->
-  <!-- Popularity View -->
-  <div id="view-popularity" class="view-container">
-    {% assign rankedSlugs = site.data.character_ranking | map: "slug" %}
-    {% for entry in site.data.character_ranking %}
-      {% assign found_character = nil %}
-      {% for char in site.characters %}
-        {% assign charSlug = char.title | slugify %}
-        {% if charSlug == entry.slug %}
-          {% assign found_character = char %}
-        {% endif %}
-      {% endfor %}
-      {% if found_character %}
-        <a href="{{ found_character.url }}" class="character-item">
-          <div class="character-image" style="background-image: url('{{ found_character.image | default:'https://via.placeholder.com/420' }}');"></div>
-          <div class="character-name">{{ found_character.title }}</div>
-        </a>
-      {% endif %}
-    {% endfor %}
-    {% assign unranked = site.characters | sort: "title" %}
-    {% for char in unranked %}
-      {% assign slug = char.title | slugify %}
-      {% unless rankedSlugs contains slug %}
-        <a href="{{ char.url }}" class="character-item">
-          <div class="character-image" style="background-image: url('{{ char.image | default:'https://via.placeholder.com/420' }}');"></div>
-          <div class="character-name">{{ char.title }}</div>
-        </a>
-      {% endunless %}
-    {% endfor %}
-  </div>
+  <!-- Favicon & Apple Touch Icon -->
+  <link rel="icon" href="https://i.imgur.com/QRd4drw.png" type="image/png">
+  <link rel="shortcut icon" href="https://i.imgur.com/QRd4drw.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/QRd4drw.png">
 
-  <!-- Alphabetical View -->
-  <div id="view-alphabetical" class="view-container" style="display:none;">
-    {% assign alphaChars = site.characters | sort: "title" %}
-    {% for char in alphaChars %}
-      <a href="{{ char.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ char.image | default:'https://via.placeholder.com/420' }}');"></div>
-        <div class="character-name">{{ char.title }}</div>
-      </a>
-    {% endfor %}
-  </div>
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:title" content="{{ page.title | default: 'Kyuukei wo Hanashi' }}">
+  <meta property="og:description" content="Kyuu’s Breaktime Stories - A collection of interactive narratives and breaktime stories.">
+  <meta property="og:image" content="https://i.imgur.com/QRd4drw.png">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:type" content="website">
 
-  <!-- Sorted (Grouped) View -->
-  <div id="view-sorted" class="view-container" style="display:none;">
-    <!-- Default: Show Category Cards -->
-    <div id="sorted-categories">
-      {% for category in site.data.character_categories %}
-        <div class="category-card" data-slug="{{ category.slug }}" style="cursor:pointer; margin:10px; text-decoration:none; color:inherit;">
-          <div class="category-image" style="background-image: url('{{ category.image | default:'https://via.placeholder.com/420' }}'); width:200px; height:200px; background-size:cover; border:2px solid #ddd; border-radius:5px;"></div>
-          <div class="category-name" style="text-align:center; margin-top:5px; font-size:1.2rem;">{{ category.name }}</div>
-        </div>
-      {% endfor %}
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title | default: 'Kyuukei wo Hanashi' }}">
+  <meta name="twitter:description" content="Kyuu’s Breaktime Stories - A collection of interactive narratives and breaktime stories.">
+  <meta name="twitter:image" content="https://i.imgur.com/QRd4drw.png">
+</head>
+<body class="no-select">
+  <!-- Site Header -->
+  <header>
+    <a href="/index.html" id="site-title">
+      <span class="header-line1">Kyuukei wo Hanashi |</span>
+      <span class="header-line2">Kyuu’s Breaktime Stories</span>
+    </a>
+  </header>
+  
+  <!-- Mobile Navigation (stays at top for small screens) -->
+  <nav id="nav-mobile">
+    <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+    <ul id="nav-mobile-menu">
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/timeline.html">Story</a></li>
+      <li><a href="/characters.html">Characters</a></li>
+      <li><a href="/questions.html">Questions</a></li>
+      <li><a href="/news.html">News</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Page Wrapper with Side Boxes -->
+  <div class="page-wrapper">
+    <div class="side-box left-box">
+      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
     </div>
-    <!-- Container for loaded category characters -->
-    <div id="sorted-characters" style="display:none;"></div>
+    
+    <!-- Fixed Container for Page Content -->
+    <div class="main-content section-fixed-title">
+      <!-- Desktop Navigation Menu placed flush at the top of the container -->
+      <nav class="nav-menu-desktop">
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/timeline.html">Story</a></li>
+          <li><a href="/characters.html">Characters</a></li>
+          <li><a href="/questions.html">Questions</a></li>
+          <li><a href="/news.html">News</a></li>
+        </ul>
+      </nav>
+      <!-- Section Header with Page Title -->
+      <header class="section-header">
+        <h1>{{ page.title }}</h1>
+      </header>
+      <!-- Scrollable Content Area -->
+      <div class="section-scroll">
+        {{ content }}
+      </div>
+    </div>
+    
+    <div class="side-box right-box">
+      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+    </div>
   </div>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  // Tab toggling functionality
-  const tabButtons = document.querySelectorAll(".tab-button");
-  const views = {
-    popularity: document.getElementById("view-popularity"),
-    alphabetical: document.getElementById("view-alphabetical"),
-    sorted: document.getElementById("view-sorted")
-  };
-
-  tabButtons.forEach(button => {
-    button.addEventListener("click", function(){
-      // Remove active class from all tabs
-      tabButtons.forEach(btn => btn.classList.remove("active"));
-      button.classList.add("active");
-      // Hide all views
-      for (let key in views) {
-        views[key].style.display = "none";
-      }
-      // Show selected view
-      const viewName = button.getAttribute("data-view");
-      views[viewName].style.display = "grid";
-      // If Sorted view, show the default category cards
-      if(viewName === "sorted"){
-        document.getElementById("sorted-categories").style.display = "grid";
-        document.getElementById("sorted-characters").style.display = "none";
-      }
-    });
-  });
-
-  // Data injection from Jekyll
-  const categoryData = {{ site.data.character_categories | jsonify }};
-  const allCharacters = {{ site.characters | jsonify }};
-
-  function slugify(text){
-    return text.toString().toLowerCase().trim().replace(/\s+/g, '-');
-  }
-  function findCharacterBySlug(slug){
-    for(let i=0; i<allCharacters.length; i++){
-      if(slugify(allCharacters[i].title) === slug){
-        return allCharacters[i];
-      }
-    }
-    return null;
-  }
-  // When a category card is clicked in the Sorted view
-  document.getElementById("sorted-categories").addEventListener("click", function(e){
-    const card = e.target.closest(".category-card");
-    if(!card) return;
-    const catSlug = card.getAttribute("data-slug");
-    loadCategory(catSlug);
-  });
-
-  function loadCategory(categorySlug){
-    const cat = categoryData.find(c => c.slug === categorySlug);
-    if(!cat) return;
-    let html = "";
-    if(cat.characters && cat.characters.length > 0){
-      cat.characters.forEach(slug => {
-        const character = findCharacterBySlug(slug);
-        if(character){
-          html += `<a href="${character.url}" class="character-item">
-                    <div class="character-image" style="background-image:url('${character.image || "https://via.placeholder.com/420"}');"></div>
-                    <div class="character-name">${character.title}</div>
-                  </a>`;
-        }
-      });
-    }
-    // Replace Sorted view content: hide category cards, show characters
-    document.getElementById("sorted-categories").style.display = "none";
-    const sortedChars = document.getElementById("sorted-characters");
-    sortedChars.innerHTML = html;
-    sortedChars.style.display = "grid";
-  }
-});
-</script>
+  
+  <script src="/js/main.js"></script>
+</body>
+</html>
