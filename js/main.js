@@ -38,3 +38,15 @@ document.addEventListener('DOMContentLoaded', function(){
     sortedContainer.style.display = 'grid';
   });
 });
+
+<!-- Mobile Navigation (stays at top for small screens) -->
+<nav id="nav-mobile">
+  <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
+  <ul id="nav-mobile-menu" style="display: none;">
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/timeline.html">Story</a></li>
+    <li><a href="/characters.html">Characters</a></li>
+    <li><a href="/questions.html">Questions</a></li>
+    <li><a href="/news.html">News</a></li>
+  </ul>
+</nav>
