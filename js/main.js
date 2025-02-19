@@ -39,14 +39,12 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-<!-- Mobile Navigation (stays at top for small screens) -->
-<nav id="nav-mobile">
-  <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
-  <ul id="nav-mobile-menu" style="display: none;">
-    <li><a href="/about.html">About</a></li>
-    <li><a href="/timeline.html">Story</a></li>
-    <li><a href="/characters.html">Characters</a></li>
-    <li><a href="/questions.html">Questions</a></li>
-    <li><a href="/news.html">News</a></li>
-  </ul>
-</nav>
+document.addEventListener('DOMContentLoaded', function() {
+  const navToggle = document.getElementById('nav-toggle');
+  const navMobileMenu = document.getElementById('nav-mobile-menu');
+  if (navToggle && navMobileMenu) {
+    navToggle.addEventListener('click', function() {
+      navMobileMenu.style.display = (navMobileMenu.style.display === 'block') ? 'none' : 'block';
+    });
+  }
+});
