@@ -53,10 +53,9 @@ title: Character Wiki
 <!-- Sorted (Categories) View -->
 <div id="sorted-container" class="character-view-container" style="display: none;">
   <!-- Category List -->
-  <div id="sorted-category-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+  <div id="sorted-category-list" style="width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
     {% for category in site.data.character_categories %}
     <div class="category-card" onclick="loadCategory('{{ category.slug }}')" style="cursor: pointer; text-decoration: none; color: inherit;">
-      <!-- Use the same .character-image class to match sizes -->
       <div class="character-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}');"></div>
       <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
     </div>
@@ -64,8 +63,7 @@ title: Character Wiki
   </div>
   <!-- Category Characters Containers -->
   {% for category in site.data.character_categories %}
-  <div id="category-{{ category.slug }}-container" class="category-characters" style="display: none; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
-    <button onclick="backToCategories()" class="back-button" style="margin-bottom: 20px; padding: 10px 15px; background: #667eea; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Back to Categories</button>
+  <div id="category-{{ category.slug }}-container" class="category-characters" style="width: 100%; display: none; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
     {% assign filtered_chars = site.characters | where: "category", category.slug %}
     {% for character in filtered_chars %}
     <a href="{{ character.url }}" class="character-item">
