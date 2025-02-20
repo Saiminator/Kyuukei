@@ -50,55 +50,28 @@ title: Character Wiki
   {% endfor %}
 </div>
 
-<!-- Sorted (Grouped) View -->
+<!-- Sorted (Categories) View -->
 <div id="sorted-container" class="character-view-container" style="display: none;">
-  {% for category in site.data.character_categories %}
-    <a href="/categories/{{ category.slug }}/" class="character-category-card" style="display: inline-block; margin: 10px; text-decoration: none; color: inherit;">
+  <!-- Category List -->
+  <div id="sorted-category-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+    {% for category in site.data.character_categories %}
+    <div class="category-card" onclick="loadCategory('{{ category.slug }}')" style="cursor: pointer; text-decoration: none; color: inherit;">
       <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
       <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Category Characters Containers -->
+  {% for category in site.data.character_categories %}
+  <div id="category-{{ category.slug }}-container" class="category-characters" style="display: none; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+    <button onclick="backToCategories()" class="back-button" style="margin-bottom: 20px; padding: 10px 15px; background: #667eea; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Back to Categories</button>
+    {% assign filtered_chars = site.characters | where: "category", category.slug %}
+    {% for character in filtered_chars %}
+    <a href="{{ character.url }}" class="character-item">
+      <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+      <div class="character-name">{{ character.title }}</div>
     </a>
+    {% endfor %}
+  </div>
   {% endfor %}
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  var popularityTab = document.getElementById('popularity-tab');
-  var alphabeticalTab = document.getElementById('alphabetical-tab');
-  var sortedTab = document.getElementById('sorted-tab');
-
-  var popularityContainer = document.getElementById('popularity-container');
-  var alphabeticalContainer = document.getElementById('alphabetical-container');
-  var sortedContainer = document.getElementById('sorted-container');
-
-  function clearActive() {
-    var tabs = document.querySelectorAll('.sort-tab');
-    tabs.forEach(function(tab){
-      tab.classList.remove('active');
-    });
-  }
-
-  popularityTab.addEventListener('click', function(){
-    clearActive();
-    popularityTab.classList.add('active');
-    popularityContainer.style.display = 'grid';
-    alphabeticalContainer.style.display = 'none';
-    sortedContainer.style.display = 'grid';
-  });
-
-  alphabeticalTab.addEventListener('click', function(){
-    clearActive();
-    alphabeticalTab.classList.add('active');
-    popularityContainer.style.display = 'none';
-    alphabeticalContainer.style.display = 'grid';
-    sortedContainer.style.display = 'none';
-  });
-
-  sortedTab.addEventListener('click', function(){
-    clearActive();
-    sortedTab.classList.add('active');
-    popularityContainer.style.display = 'none';
-    alphabeticalContainer.style.display = 'none';
-    sortedContainer.style.display = 'grid';
-  });
-});
-</script>
