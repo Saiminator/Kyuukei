@@ -405,7 +405,6 @@ header {
   font-weight: 600;
 }
 
-
 /* (Optional) Ensure character items have a consistent size */
 .character-item {
   text-decoration: none;
@@ -413,7 +412,7 @@ header {
 }
 .character-image {
   width: 100%;
-  padding-top: 100%; /* Square aspect ratio */
+  padding-top: 100%;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -425,7 +424,6 @@ header {
   font-size: 1rem;
   font-weight: 600;
 }
-
 
 /* =====================================================
    12. Navigation Buttons (General)
@@ -729,7 +727,7 @@ header {
 }
 .character-image {
   width: 100%;
-  padding-top: 100%; /* Square aspect ratio */
+  padding-top: 100%;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -830,8 +828,7 @@ body.chapter .section-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1.5rem auto;  /* Space above/below the row of tabs */
-  gap: 15px;           /* Spacing between the 3 buttons */
+  margin: 1rem auto;  /* Less vertical space than before */
 }
 
 /* Style for each tab button */
@@ -840,7 +837,8 @@ body.chapter .section-header {
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 8px 15px;  /* matching main nav's button style */
+  margin: 0 15px;    /* left/right spacing to mimic .nav-menu-desktop li */
   cursor: pointer;
   font-size: 1rem;
   transition: background 0.3s ease;
