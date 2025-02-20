@@ -13,6 +13,7 @@ cup_size: "C-"
 blood_type: "O-"
 hair_color: "Brown"
 eye_color: "Brownish Yellow"
+credit: "@Ytkano"
 ---
 
 ## Background
