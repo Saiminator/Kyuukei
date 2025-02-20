@@ -48,3 +48,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+<script>
+function adjustSectionScroll() {
+  var container = document.querySelector('.section-fixed-title');
+  if (!container) return;
+  var header = container.querySelector('.section-header');
+  var scrollArea = container.querySelector('.section-scroll');
+  if (header && scrollArea) {
+    var containerHeight = container.clientHeight;
+    var headerHeight = header.offsetHeight;
+    // Set scroll area height to the remaining space.
+    scrollArea.style.height = (containerHeight - headerHeight) + "px";
+  }
+}
+window.addEventListener('load', adjustSectionScroll);
+window.addEventListener('resize', adjustSectionScroll);
+</script>
