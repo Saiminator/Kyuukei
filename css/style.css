@@ -834,3 +834,18 @@ body.chapter .section-header {
 .character-sort-tabs .sort-tab.active {
   background-color: #e0a8b5;
 }
+
+<style>
+/* Force multi-column grid for all relevant containers */
+.character-view-container,
+#sorted-category-list,
+.category-characters {
+  display: grid !important;
+  width: 100% !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 20px !important;
+  /* Optionally center items */
+  justify-items: center;
+  align-items: start;
+}
+</style>
