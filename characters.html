@@ -56,7 +56,8 @@ title: Character Wiki
   <div id="sorted-category-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
     {% for category in site.data.character_categories %}
     <div class="category-card" onclick="loadCategory('{{ category.slug }}')" style="cursor: pointer; text-decoration: none; color: inherit;">
-      <div class="category-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; border: 2px solid #ddd; border-radius: 5px;"></div>
+      <!-- Use the same .character-image class to match sizes -->
+      <div class="character-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}');"></div>
       <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
     </div>
     {% endfor %}
