@@ -32,7 +32,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;  /* Increased base size */
+  font-size: 1.1rem;
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -123,18 +123,14 @@ header {
 @media (min-width: 701px) and (max-width: 800px) {
   #site-title { font-size: 1.6em; }
 }
-/* Modified for small screens: force header to one line */
 @media (max-width: 600px) {
   #site-title {
-    flex-direction: row;  /* Keep one line */
-    font-size: 1.2rem;     /* Adjust as needed */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    flex-direction: column;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
   }
   #site-title .header-line1,
   #site-title .header-line2 {
-    display: inline;
+    display: block;
     white-space: nowrap;
   }
 }
@@ -232,7 +228,7 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
+  height: 100vh;
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -244,6 +240,7 @@ header {
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
+  height: 50px;
   line-height: 50px;
   margin: 0;
   min-height: 50px;
@@ -252,20 +249,9 @@ header {
   margin: 0;
   padding: 0;
 }
-/* Fixed height for scrollable content area */
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px);
+  height: calc(100vh - 110px);
   overflow-y: auto;
-}
-@media (min-width: 1024px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 190px);
-  }
-}
-@media (max-width: 600px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 290px);
-  }
 }
 
 /* =====================================================
