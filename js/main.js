@@ -40,14 +40,16 @@ document.addEventListener('DOMContentLoaded', function(){
       sortedTab.classList.add('active');
       if(popularityContainer) popularityContainer.style.display = 'none';
       if(alphabeticalContainer) alphabeticalContainer.style.display = 'none';
-      if(sortedContainer) sortedContainer.style.display = 'grid';
-      // Ensure the category list is shown and any category-specific view is hidden
-      var categoryList = document.getElementById('sorted-category-list');
-      if(categoryList) categoryList.style.display = 'grid';
-      var categoryContainers = document.querySelectorAll('.category-characters');
-      categoryContainers.forEach(function(container) {
-        container.style.display = 'none';
-      });
+      if(sortedContainer) {
+          sortedContainer.style.display = 'grid';
+          // Reset: show the category list and hide any category-specific container
+          var categoryList = document.getElementById('sorted-category-list');
+          if(categoryList) categoryList.style.display = 'grid';
+          var categoryContainers = document.querySelectorAll('.category-characters');
+          categoryContainers.forEach(function(container) {
+            container.style.display = 'none';
+          });
+      }
     });
   }
 });
@@ -71,15 +73,4 @@ function loadCategory(slug) {
   if (container) {
     container.style.display = 'grid';
   }
-}
-
-function backToCategories() {
-  // Hide all category-specific containers
-  var categoryContainers = document.querySelectorAll('.category-characters');
-  categoryContainers.forEach(function(container) {
-    container.style.display = 'none';
-  });
-  // Show the category list again
-  var categoryList = document.getElementById('sorted-category-list');
-  if(categoryList) categoryList.style.display = 'grid';
 }
