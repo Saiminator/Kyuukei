@@ -4,6 +4,8 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
 /* =====================================================
@@ -34,7 +36,6 @@ body {
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 /* =====================================================
@@ -42,11 +43,13 @@ body {
 ===================================================== */
 .page-wrapper {
   width: 100%;
+  height: 100vh;
   display: block;
 }
 
 .main-content {
   width: 100%;
+  height: 100%;
 }
 
 /* On desktop: show side boxes when viewport is at least 1280px wide */
@@ -86,7 +89,6 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
   margin: 0;
-  margin-bottom: 0;
 }
 
 @media (min-width: 1024px) {
@@ -227,13 +229,14 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
+  height: 100%; /* Fill parent (which is set to 100vh) */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
 .section-fixed-title .section-header {
   padding: 0 20px;
   background: #fff;
@@ -243,11 +246,13 @@ header {
   margin: 0;
   min-height: 50px;
 }
+
 .section-fixed-title .section-header h1 {
   margin: 0;
   padding: 0;
 }
-/* Remove fixed height calc() and use flex for scrollable area */
+
+/* Scrollable Content Area using flex-grow */
 .section-fixed-title .section-scroll {
   flex: 1;
   overflow-y: auto;
@@ -522,7 +527,7 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
+  height: 100vh; /* Full viewport height */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -542,7 +547,7 @@ header {
   margin: 0;
   padding: 0;
 }
-/* Use flex-grow for the scrollable area so it fills remaining space */
+/* Use flex to fill remaining space with scrollable content */
 .section-fixed-title .section-scroll {
   flex: 1;
   overflow-y: auto;
