@@ -52,8 +52,9 @@ title: "Character Wiki"
 </div>
 
 <!-- Sorted (Categories) View -->
-<div id="sorted-container" class="character-view-container" style="display: none;">
-  <!-- Category List -->
+<!-- Note: We wrap the sorted content in a container (.sorted-content) that is not forced into a grid -->
+<div id="sorted-container" class="sorted-content" style="display: none; width: 100%;">
+  <!-- Category List: This grid displays all categories -->
   <div id="sorted-category-list" class="character-view-container">
     {% for category in site.data.character_categories %}
       <a href="javascript:void(0)" class="character-item" onclick="loadCategory('{{ category.slug }}')">
@@ -62,8 +63,7 @@ title: "Character Wiki"
       </a>
     {% endfor %}
   </div>
-
-  <!-- Category Detail Containers -->
+  <!-- Category Detail Containers: Each is a grid showing characters in that category -->
   {% for category in site.data.character_categories %}
     <div id="category-{{ category.slug }}-container" class="character-view-container" style="display: none;">
       {% for charSlug in category.characters %}
@@ -130,8 +130,8 @@ document.addEventListener('DOMContentLoaded', function(){
       sortedTab.classList.add('active');
       popularityContainer.style.display = 'none';
       alphabeticalContainer.style.display = 'none';
-      sortedContainer.style.display = 'grid';
-      // Reset: Show the category list and hide all category detail containers.
+      sortedContainer.style.display = 'block';
+      // Reset: show the category list and hide all category detail containers.
       document.getElementById('sorted-category-list').style.display = 'grid';
       var detailContainers = document.querySelectorAll('#sorted-container > .character-view-container[id^="category-"]');
       detailContainers.forEach(function(container){
