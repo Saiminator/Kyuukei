@@ -386,25 +386,46 @@ header {
 /* =====================================================
    11. Character Item Styling
 ===================================================== */
-.character-item {
-  cursor: pointer;
-  text-align: center;
+.character-item, .character-category-card {
   text-decoration: none;
   color: inherit;
 }
 .character-image {
   width: 100%;
-  aspect-ratio: 1/1;
+  padding-top: 100%; /* Square aspect ratio */
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
   border-radius: 5px;
-  margin: 0 auto;
+  margin-bottom: 5px;
 }
-.character-name {
-  margin-top: 10px;
+.character-name, .category-name {
+  text-align: center;
+  font-size: 1rem;
   font-weight: 600;
 }
+
+
+/* (Optional) Ensure character items have a consistent size */
+.character-item {
+  text-decoration: none;
+  color: inherit;
+}
+.character-image {
+  width: 100%;
+  padding-top: 100%; /* Square aspect ratio */
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.character-name {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 
 /* =====================================================
    12. Navigation Buttons (General)
@@ -792,7 +813,7 @@ body.chapter .section-header {
   padding: 8px 12px !important;
   font-size: 0.9rem !important;
   cursor: pointer !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
 }
 
 .character-detail .back-select-btn:hover {
@@ -834,3 +855,18 @@ body.chapter .section-header {
 .character-sort-tabs .sort-tab.active {
   background-color: #e0a8b5;
 }
+
+<style>
+/* Force multi-column grid for all relevant containers */
+.character-view-container,
+#sorted-category-list,
+.category-characters {
+  display: grid !important;
+  width: 100% !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 20px !important;
+  /* Optionally center items */
+  justify-items: center;
+  align-items: start;
+}
+</style>
