@@ -13,6 +13,7 @@ cup_size: "C+"
 blood_type: "Mana"
 hair_color: "Pink"
 eye_color: "Pink"
+credit: "@takomado2130"
 ---
 
 ## Background
