@@ -13,6 +13,7 @@ cup_size: "D-"
 blood_type: "A+"
 hair_color: "Red"
 eye_color: "Red"
+credit: "@if959u"
 ---
 
 ## Background
