@@ -56,6 +56,7 @@ title: Character Wiki
   <div id="sorted-category-list" style="width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
     {% for category in site.data.character_categories %}
     <div class="category-card" onclick="loadCategory('{{ category.slug }}')" style="cursor: pointer; text-decoration: none; color: inherit;">
+      <!-- Use the same .character-image styling to ensure identical sizing -->
       <div class="character-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}');"></div>
       <div class="category-name" style="text-align: center; margin-top: 5px; font-size: 1.2rem;">{{ category.name }}</div>
     </div>
@@ -64,13 +65,19 @@ title: Character Wiki
   <!-- Category Characters Containers -->
   {% for category in site.data.character_categories %}
   <div id="category-{{ category.slug }}-container" class="category-characters" style="width: 100%; display: none; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
-    {% assign filtered_chars = site.characters | where: "category", category.slug %}
-    {% for character in filtered_chars %}
-    <a href="{{ character.url }}" class="character-item">
-      <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
-      <div class="character-name">{{ character.title }}</div>
-    </a>
-    {% endfor %}
+    {% if category.characters %}
+      {% for charSlug in category.characters %}
+        {% assign character = site.characters | where: "slug", charSlug | first %}
+        {% if character %}
+          <a href="{{ character.url }}" class="character-item">
+            <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+            <div class="character-name">{{ character.title }}</div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>No characters in this category.</p>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
