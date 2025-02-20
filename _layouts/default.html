@@ -26,11 +26,13 @@
   <meta name="twitter:image" content="https://i.imgur.com/QRd4drw.png">
 </head>
 <body class="no-select">
-  <!-- Site Header with Click-and-Hold Toggle -->
+  <!-- Site Header -->
   <header>
     <a href="/index.html" id="site-title">
-      <span class="header-line1">Kyuukei wo Hanashi</span>
-      <span class="header-line2">Kyuu’s Breaktime Stories</span>
+      <!-- Full text for desktop/tablet -->
+      <span class="header-full">Kyuukei wo Hanashi | Kyuu’s Breaktime Stories</span>
+      <!-- Shortened text for mobile (initially hidden) -->
+      <span class="header-toggle" style="display: none;">Kyuukei wo Hanashi</span>
     </a>
   </header>
   
@@ -79,49 +81,50 @@
     </div>
   </div>
   
-  <!-- Include existing main.js for other functionality -->
   <script src="/js/main.js"></script>
   
-  <!-- JavaScript for Click-and-Hold Toggle on Header -->
+  <!-- JavaScript for Mobile Click-and-Hold Toggle on Header -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var siteTitle = document.getElementById('site-title');
-      var headerLine1 = siteTitle.querySelector('.header-line1');
-      var headerLine2 = siteTitle.querySelector('.header-line2');
-      var holdTimer;
-      var holdThreshold = 800; // milliseconds
-      var wasHeld = false;
-      
-      // Initially show only headerLine1
-      headerLine1.style.display = 'inline';
-      headerLine2.style.display = 'none';
-      
-      siteTitle.addEventListener('mousedown', function(e) {
-        wasHeld = false;
-        holdTimer = setTimeout(function() {
-          wasHeld = true;
-          // Toggle the header text
-          if (headerLine1.style.display === 'none') {
-            headerLine1.style.display = 'inline';
-            headerLine2.style.display = 'none';
-          } else {
-            headerLine1.style.display = 'none';
-            headerLine2.style.display = 'inline';
-          }
-        }, holdThreshold);
-      });
-      
-      siteTitle.addEventListener('mouseup', function(e) {
-        clearTimeout(holdTimer);
-        if (wasHeld) {
-          e.preventDefault(); // Prevent navigation if held long enough
+      // Only attach the toggle behavior on mobile screens (600px or less)
+      if (window.innerWidth <= 600) {
+        var siteTitle = document.getElementById('site-title');
+        var headerFull = siteTitle.querySelector('.header-full');
+        var headerToggle = siteTitle.querySelector('.header-toggle');
+        var holdTimer;
+        var holdThreshold = 800; // milliseconds
+        var wasHeld = false;
+        
+        // Initially, show full text (or you could default to toggle text if desired)
+        headerFull.style.display = 'inline';
+        headerToggle.style.display = 'none';
+        
+        siteTitle.addEventListener('mousedown', function(e) {
           wasHeld = false;
-        }
-      });
-      
-      siteTitle.addEventListener('mouseleave', function(e) {
-        clearTimeout(holdTimer);
-      });
+          holdTimer = setTimeout(function() {
+            wasHeld = true;
+            // Toggle: if full text is visible, show toggled text; otherwise revert.
+            if (headerFull.style.display !== 'none') {
+              headerFull.style.display = 'none';
+              headerToggle.style.display = 'inline';
+            } else {
+              headerFull.style.display = 'inline';
+              headerToggle.style.display = 'none';
+            }
+          }, holdThreshold);
+        });
+        
+        siteTitle.addEventListener('mouseup', function(e) {
+          clearTimeout(holdTimer);
+          if (wasHeld) {
+            e.preventDefault(); // Prevent navigation if held long enough
+          }
+        });
+        
+        siteTitle.addEventListener('mouseleave', function(e) {
+          clearTimeout(holdTimer);
+        });
+      }
     });
   </script>
 </body>
