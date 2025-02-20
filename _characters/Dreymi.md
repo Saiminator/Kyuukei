@@ -13,6 +13,7 @@ cup_size: "C"
 blood_type: "O-"
 hair_color: "Black, Red trim"
 eye_color: "Dull Blue"
+credit: "@takomado2130"
 ---
 
 ## Background
