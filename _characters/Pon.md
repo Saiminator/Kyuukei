@@ -13,6 +13,7 @@ cup_size: "AA"
 blood_type: "A-"
 hair_color: "Blonde"
 eye_color: "Yellow"
+credit: "@bis_maki"
 ---
 
 ## Background
