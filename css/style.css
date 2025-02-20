@@ -267,17 +267,17 @@ header {
 /* Default: 100vh - 100px - 110px = calc(100vh - 210px) */
 .section-fixed-title .section-scroll {
   height: calc(100vh - 210px);
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
-/* Desktop: Increase container height by 20px */
+/* Desktop: Increase container height by 20px (calc(100vh - 190px)) */
 @media (min-width: 1024px) {
   .section-fixed-title .section-scroll {
     height: calc(100vh - 190px);
   }
 }
 
-/* Mobile: Shorten container height by 80px */
+/* Mobile: Shorten container height by 80px (calc(100vh - 290px)) */
 @media (max-width: 600px) {
   .section-fixed-title .section-scroll {
     height: calc(100vh - 290px);
@@ -582,7 +582,7 @@ header {
 /* Default: 100vh - 100px - 110px = calc(100vh - 210px) */
 .section-fixed-title .section-scroll {
   height: calc(100vh - 210px);
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 /* Desktop: Increase container height by 20px (calc(100vh - 190px)) */
