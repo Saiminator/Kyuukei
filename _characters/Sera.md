@@ -13,6 +13,7 @@ cup_size: "C"
 blood_type: "TBD"
 hair_color: "White"
 eye_color: "Cyan"
+credit: "https://charat.me/en/genesis/"
 ---
 
 ## Background
