@@ -48,3 +48,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var siteTitle = document.getElementById('site-title');
+  var headerLine1 = siteTitle.querySelector('.header-line1');
+  var headerLine2 = siteTitle.querySelector('.header-line2');
+  var holdTimer;
+  var holdThreshold = 800; // milliseconds
+  var wasHeld = false;
+  
+  // Start timer on mousedown
+  siteTitle.addEventListener('mousedown', function(e) {
+    wasHeld = false;
+    holdTimer = setTimeout(function() {
+      // After 800ms, toggle header text and mark as held
+      wasHeld = true;
+      if (headerLine1.style.display === 'none') {
+        headerLine1.style.display = 'inline';
+        headerLine2.style.display = 'none';
+      } else {
+        headerLine1.style.display = 'none';
+        headerLine2.style.display = 'inline';
+      }
+    }, holdThreshold);
+  });
+  
+  // On mouseup, clear the timer. If the timer fired, prevent navigation.
+  siteTitle.addEventListener('mouseup', function(e) {
+    clearTimeout(holdTimer);
+    if (wasHeld) {
+      e.preventDefault(); // Prevent navigation if it was a long press
+    }
+  });
+  
+  // If mouse leaves the element, cancel the hold timer
+  siteTitle.addEventListener('mouseleave', function() {
+    clearTimeout(holdTimer);
+  });
+});
