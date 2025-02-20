@@ -4,10 +4,10 @@ title: "Character Wiki"
 ---
 
 <!-- Sorting Tabs -->
-<div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
-  <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
-  <button id="alphabetical-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Alphabetical</button>
-  <button id="sorted-tab" class="sort-tab" style="padding: 10px 20px; margin: 0 5px;">Sorted</button>
+<div class="character-sort-tabs">
+  <button id="popularity-tab" class="sort-tab active">Popularity</button>
+  <button id="alphabetical-tab" class="sort-tab">Alphabetical</button>
+  <button id="sorted-tab" class="sort-tab">Sorted</button>
 </div>
 
 <!-- Popularity View (Default) -->
@@ -52,9 +52,8 @@ title: "Character Wiki"
 </div>
 
 <!-- Sorted (Categories) View -->
-<!-- Note: We wrap the sorted content in a container (.sorted-content) that is not forced into a grid -->
 <div id="sorted-container" class="sorted-content" style="display: none; width: 100%;">
-  <!-- Category List: This grid displays all categories -->
+  <!-- Category List -->
   <div id="sorted-category-list" class="character-view-container">
     {% for category in site.data.character_categories %}
       <a href="javascript:void(0)" class="character-item" onclick="loadCategory('{{ category.slug }}')">
@@ -63,7 +62,7 @@ title: "Character Wiki"
       </a>
     {% endfor %}
   </div>
-  <!-- Category Detail Containers: Each is a grid showing characters in that category -->
+  <!-- Category Detail Containers -->
   {% for category in site.data.character_categories %}
     <div id="category-{{ category.slug }}-container" class="character-view-container" style="display: none;">
       {% for charSlug in category.characters %}
@@ -86,7 +85,6 @@ title: "Character Wiki"
   {% endfor %}
 </div>
 
-<!-- JavaScript for Tab Switching and Category Loading -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   var popularityTab = document.getElementById('popularity-tab');
