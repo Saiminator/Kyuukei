@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;  /* Increased base size */
+  font-size: 1.1rem;
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px); /* Below header (60px) */
+    height: calc(100vh - 60px);
     overflow: hidden;
   }
   .side-box img {
@@ -135,7 +135,6 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* Show mobile nav only on viewports ≤600px; desktop menu on ≥601px */
 @media (min-width: 601px) {
   #nav-mobile { display: none !important; }
   .nav-menu-desktop { display: flex !important; }
@@ -157,7 +156,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none; /* toggled via JS */
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -174,8 +173,6 @@ header {
     font-size: 1.25rem;
   }
   #nav-mobile-menu a:hover { color: #667eea; }
-  
-  /* Style mobile menu toggle in Orby Pink */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -187,11 +184,11 @@ header {
   }
 }
 
-/* Desktop Navigation Menu inside Fixed Container */
+/* Desktop Navigation Menu */
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  height: 60px; /* Fixed area for desktop menu */
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,8 +204,8 @@ header {
 .nav-menu-desktop li { margin: 0 15px; }
 .nav-menu-desktop a {
   font-weight: 500;
-  background: #f7cdd5; /* Orby Pink background */
-  color: #fff;        /* White text */
+  background: #f7cdd5;
+  color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -216,8 +213,6 @@ header {
   transition: background 0.3s ease, color 0.3s ease;
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
-
-/* Responsive adjustments for desktop menu when viewport is below 750px */
 @media (max-width: 750px) {
   .nav-menu-desktop a {
     font-size: 1.3rem;
@@ -227,7 +222,6 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
-   (Used by pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
 .section-fixed-title {
   display: flex;
@@ -239,49 +233,25 @@ header {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-/* Section Header (Page Title) */
-.section-header {
-  flex: 0 0 50px;
-  padding: 0 20px; /* Only horizontal padding */
+.section-fixed-title .section-header {
+  padding: 0 20px;
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
   line-height: 50px;
   margin: 0;
+  /* Use min-height to allow wrapping */
+  min-height: 50px;
 }
-.section-header h1 {
+.section-fixed-title .section-header h1 {
   margin: 0;
   padding: 0;
 }
 
-/* Responsive adjustment for very small screens (420px and below) */
-@media (max-width: 420px) {
-  .section-header h1 {
-    font-size: 1.2rem;
-    line-height: 1.2rem;
-  }
-}
-
-/* Scrollable Content Area inside Fixed Container */
-/* Default: 100vh - 100px - 110px = calc(100vh - 210px) */
+/* Instead of a fixed calc() for .section-scroll, use flex-grow */
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px);
+  flex: 1;
   overflow-y: auto;
-}
-
-/* Desktop: Increase container height by 20px (calc(100vh - 190px)) */
-@media (min-width: 1024px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 190px);
-  }
-}
-
-/* Mobile: Shorten container height by 80px (calc(100vh - 290px)) */
-@media (max-width: 600px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 290px);
-  }
 }
 
 /* =====================================================
@@ -309,7 +279,7 @@ header {
 }
 
 /* =====================================================
-   9. TIMELINE BRANCHES (Horizontal Scroll for Timeline Page)
+   9. TIMELINE BRANCHES (Horizontal Scroll)
 ===================================================== */
 .timeline-container {
   display: flex;
@@ -317,18 +287,15 @@ header {
   gap: 30px;
   padding: 20px;
 }
-
 .timeline-branch {
   display: flex;
   flex-direction: column;
 }
-
 .branch-title {
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: #000;
 }
-
 .branch-chapters {
   display: flex;
   overflow-x: auto;
@@ -338,7 +305,6 @@ header {
 .branch-chapters::-webkit-scrollbar {
   display: none;
 }
-
 .chapter-card {
   flex: 0 0 auto;
   background: #fff;
@@ -347,7 +313,7 @@ header {
   padding: 10px;
   min-width: 200px;
   text-align: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   text-decoration: none;
   color: #000;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -356,13 +322,11 @@ header {
   transform: translateY(-3px);
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
-
 .chapter-number {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
-
 .chapter-title {
   display: block;
   font-size: 1rem;
@@ -398,7 +362,7 @@ header {
 }
 
 /* =====================================================
-   11. Character Item Styling
+   11. Character Item Styling (for listing pages)
 ===================================================== */
 .character-item {
   cursor: pointer;
@@ -408,7 +372,7 @@ header {
 }
 .character-image {
   width: 100%;
-  padding-top: 100%; /* Square aspect ratio */
+  padding-top: 100%;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -557,6 +521,8 @@ header {
    (For News, Questions, Character Wiki, etc.)
 ===================================================== */
 .section-fixed-title {
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
@@ -569,34 +535,18 @@ header {
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
-  height: 50px;
   line-height: 50px;
   margin: 0;
+  min-height: 50px;
 }
 .section-fixed-title .section-header h1 {
   margin: 0;
   padding: 0;
 }
-
-/* Scrollable content area */
-/* Default: 100vh - 100px - 110px = calc(100vh - 210px) */
+/* Use flex layout for scrollable content so it fills remaining space */
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px);
+  flex: 1;
   overflow-y: auto;
-}
-
-/* Desktop: Increase container height by 20px (calc(100vh - 190px)) */
-@media (min-width: 1024px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 190px);
-  }
-}
-
-/* Mobile: Shorten container height by 80px (calc(100vh - 290px)) */
-@media (max-width: 600px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 290px);
-  }
 }
 
 /* =====================================================
@@ -618,7 +568,6 @@ header {
   gap: 20px;
 }
 
-/* Left Panel (Background & Abilities) */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -653,7 +602,6 @@ header {
   line-height: 1.6;
 }
 
-/* Right Panel (Name, Picture, Basic Info) */
 .right-panel {
   flex: 1;
   padding-left: 20px;
@@ -686,7 +634,6 @@ header {
   margin: 4px 0;
 }
 
-/* Responsive adjustments for Character Detail */
 @media (max-width: 800px) {
   .detail-container {
     flex-direction: column;
@@ -710,21 +657,18 @@ header {
   gap: 20px;
 }
 
-/* Desktop: 4 columns */
 @media (min-width: 1024px) {
   .character-view-container {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Tablet: 3 columns */
 @media (max-width: 1023px) and (min-width: 601px) {
   .character-view-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Mobile: 2 columns */
 @media (max-width: 600px) {
   .character-view-container {
     grid-template-columns: repeat(2, 1fr);
@@ -738,15 +682,17 @@ header {
   text-decoration: none;
   color: inherit;
 }
+
 .character-image, .category-image {
   width: 100%;
-  padding-top: 100%; /* Square aspect ratio */
+  padding-top: 100%;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
   border-radius: 5px;
   margin-bottom: 5px;
 }
+
 .character-name, .category-name {
   text-align: center;
   font-size: 1rem;
@@ -760,7 +706,7 @@ header {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #0077be; /* Blue background */
+  background-color: #0077be;
   color: #fff;
   border: none;
   border-radius: 5px;
