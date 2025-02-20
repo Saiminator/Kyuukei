@@ -264,23 +264,23 @@ header {
 }
 
 /* Scrollable Content Area inside Fixed Container */
-/* Default: 100vh - 100px (container) - 110px (header & gap) = calc(100vh - 210px) */
+/* Default: 100vh - 100px - 110px = calc(100vh - 210px) */
 .section-fixed-title .section-scroll {
   height: calc(100vh - 210px);
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 /* Desktop: Increase container height by 20px */
 @media (min-width: 1024px) {
   .section-fixed-title .section-scroll {
-    height: calc(100vh - 210px + 20px); /* calc(100vh - 190px) */
+    height: calc(100vh - 190px);
   }
 }
 
 /* Mobile: Shorten container height by 80px */
 @media (max-width: 600px) {
   .section-fixed-title .section-scroll {
-    height: calc(100vh - 210px - 80px); /* calc(100vh - 290px) */
+    height: calc(100vh - 290px);
   }
 }
 
@@ -579,10 +579,10 @@ header {
 }
 
 /* Scrollable content area */
-/* Default: 100vh - 100px (container) - 110px (header & gap) = calc(100vh - 210px) */
+/* Default: 100vh - 100px - 110px = calc(100vh - 210px) */
 .section-fixed-title .section-scroll {
   height: calc(100vh - 210px);
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 /* Desktop: Increase container height by 20px (calc(100vh - 190px)) */
@@ -760,7 +760,7 @@ header {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #0077be;
+  background-color: #0077be; /* Blue background */
   color: #fff;
   border: none;
   border-radius: 5px;
