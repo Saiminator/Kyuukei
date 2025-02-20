@@ -12,6 +12,7 @@ cup_size: "A"
 blood_type: "AB+"
 hair_color: "Grey"
 eye_color: "Orange"
+credit: "@tsubasa9940"
 ---
 
 
