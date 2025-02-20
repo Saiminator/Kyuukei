@@ -26,10 +26,10 @@
   <meta name="twitter:image" content="https://i.imgur.com/QRd4drw.png">
 </head>
 <body class="no-select">
-  <!-- Site Header -->
+  <!-- Site Header with Click-and-Hold Toggle -->
   <header>
     <a href="/index.html" id="site-title">
-      <span class="header-line1">Kyuukei wo Hanashi |</span>
+      <span class="header-line1">Kyuukei wo Hanashi</span>
       <span class="header-line2">Kyuu’s Breaktime Stories</span>
     </a>
   </header>
@@ -54,7 +54,7 @@
     
     <!-- Fixed Container for Page Content -->
     <div class="main-content section-fixed-title">
-      <!-- Desktop Navigation Menu placed flush at the top of the container -->
+      <!-- Desktop Navigation Menu placed at the top -->
       <nav class="nav-menu-desktop">
         <ul>
           <li><a href="/about.html">About</a></li>
@@ -79,21 +79,50 @@
     </div>
   </div>
   
+  <!-- Include existing main.js for other functionality -->
   <script src="/js/main.js"></script>
+  
+  <!-- JavaScript for Click-and-Hold Toggle on Header -->
   <script>
-  function adjustSectionScroll() {
-    var container = document.querySelector('.section-fixed-title');
-    if (!container) return;
-    var header = container.querySelector('.section-header');
-    var scrollArea = container.querySelector('.section-scroll');
-    if (header && scrollArea) {
-      var containerHeight = container.clientHeight;
-      var headerHeight = header.offsetHeight;
-      scrollArea.style.height = (containerHeight - headerHeight) + "px";
-    }
-  }
-  window.addEventListener('load', adjustSectionScroll);
-  window.addEventListener('resize', adjustSectionScroll);
+    document.addEventListener('DOMContentLoaded', function() {
+      var siteTitle = document.getElementById('site-title');
+      var headerLine1 = siteTitle.querySelector('.header-line1');
+      var headerLine2 = siteTitle.querySelector('.header-line2');
+      var holdTimer;
+      var holdThreshold = 800; // milliseconds
+      var wasHeld = false;
+      
+      // Initially show only headerLine1
+      headerLine1.style.display = 'inline';
+      headerLine2.style.display = 'none';
+      
+      siteTitle.addEventListener('mousedown', function(e) {
+        wasHeld = false;
+        holdTimer = setTimeout(function() {
+          wasHeld = true;
+          // Toggle the header text
+          if (headerLine1.style.display === 'none') {
+            headerLine1.style.display = 'inline';
+            headerLine2.style.display = 'none';
+          } else {
+            headerLine1.style.display = 'none';
+            headerLine2.style.display = 'inline';
+          }
+        }, holdThreshold);
+      });
+      
+      siteTitle.addEventListener('mouseup', function(e) {
+        clearTimeout(holdTimer);
+        if (wasHeld) {
+          e.preventDefault(); // Prevent navigation if held long enough
+          wasHeld = false;
+        }
+      });
+      
+      siteTitle.addEventListener('mouseleave', function(e) {
+        clearTimeout(holdTimer);
+      });
+    });
   </script>
 </body>
 </html>
