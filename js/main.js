@@ -14,29 +14,42 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  popularityTab.addEventListener('click', function(){
-    clearActive();
-    popularityTab.classList.add('active');
-    popularityContainer.style.display = 'grid';
-    alphabeticalContainer.style.display = 'none';
-    sortedContainer.style.display = 'none';
-  });
+  if(popularityTab) {
+    popularityTab.addEventListener('click', function(){
+      clearActive();
+      popularityTab.classList.add('active');
+      if(popularityContainer) popularityContainer.style.display = 'grid';
+      if(alphabeticalContainer) alphabeticalContainer.style.display = 'none';
+      if(sortedContainer) sortedContainer.style.display = 'none';
+    });
+  }
 
-  alphabeticalTab.addEventListener('click', function(){
-    clearActive();
-    alphabeticalTab.classList.add('active');
-    popularityContainer.style.display = 'none';
-    alphabeticalContainer.style.display = 'grid';
-    sortedContainer.style.display = 'none';
-  });
+  if(alphabeticalTab) {
+    alphabeticalTab.addEventListener('click', function(){
+      clearActive();
+      alphabeticalTab.classList.add('active');
+      if(popularityContainer) popularityContainer.style.display = 'none';
+      if(alphabeticalContainer) alphabeticalContainer.style.display = 'grid';
+      if(sortedContainer) sortedContainer.style.display = 'none';
+    });
+  }
 
-  sortedTab.addEventListener('click', function(){
-    clearActive();
-    sortedTab.classList.add('active');
-    popularityContainer.style.display = 'none';
-    alphabeticalContainer.style.display = 'none';
-    sortedContainer.style.display = 'grid';
-  });
+  if(sortedTab) {
+    sortedTab.addEventListener('click', function(){
+      clearActive();
+      sortedTab.classList.add('active');
+      if(popularityContainer) popularityContainer.style.display = 'none';
+      if(alphabeticalContainer) alphabeticalContainer.style.display = 'none';
+      if(sortedContainer) sortedContainer.style.display = 'grid';
+      // Ensure the category list is shown and any category-specific view is hidden
+      var categoryList = document.getElementById('sorted-category-list');
+      if(categoryList) categoryList.style.display = 'grid';
+      var categoryContainers = document.querySelectorAll('.category-characters');
+      categoryContainers.forEach(function(container) {
+        container.style.display = 'none';
+      });
+    });
+  }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -48,3 +61,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+function loadCategory(slug) {
+  // Hide the category list
+  var categoryList = document.getElementById('sorted-category-list');
+  if(categoryList) categoryList.style.display = 'none';
+  // Show the container for the chosen category
+  var container = document.getElementById('category-' + slug + '-container');
+  if (container) {
+    container.style.display = 'grid';
+  }
+}
+
+function backToCategories() {
+  // Hide all category-specific containers
+  var categoryContainers = document.querySelectorAll('.category-characters');
+  categoryContainers.forEach(function(container) {
+    container.style.display = 'none';
+  });
+  // Show the category list again
+  var categoryList = document.getElementById('sorted-category-list');
+  if(categoryList) categoryList.style.display = 'grid';
+}
