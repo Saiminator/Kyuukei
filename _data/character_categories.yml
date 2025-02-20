@@ -1,13 +1,19 @@
-- slug: main-characters
-  name: "Main Characters"
-  image: "https://i.imgur.com/QRd4drw.png"
-  characters:
-    - kaji
-    - kyuu
-    - shimi
-- slug: ebonvale
-  name: "Ebonvale Students"
-  image: "https://i.imgur.com/QRd4drw.png"
-  characters:
-    - ars
-    - duran
+- name: Main Characters
+  slug: main-characters
+  image: /images/categories/main-characters.jpg
+
+- name: Ebonvale Students
+  slug: ebonvale-students
+  image: /images/categories/ebonvale-students.jpg
+
+- name: Lumin Academy Students
+  slug: lumin-academy-students
+  image: /images/categories/lumin-academy-students.jpg
+
+- name: Villains
+  slug: villains
+  image: /images/categories/villains.jpg
+
+- name: Supporting Characters
+  slug: supporting-characters
+  image: /images/categories/supporting-characters.jpg
