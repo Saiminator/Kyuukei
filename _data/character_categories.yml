@@ -2,32 +2,33 @@
   slug: main-characters
   image: /images/categories/main-characters.jpg
   characters:
-    - shimi
-    - kyuu
+    - memo
+    - via
 
 - name: Ebonvale Students
   slug: ebonvale-students
   image: /images/categories/ebonvale-students.jpg
   characters:
-    - character-slug-3
-    - character-slug-4
+    - memo
+    - via
 
 - name: Lumin Academy Students
   slug: lumin-academy-students
   image: /images/categories/lumin-academy-students.jpg
   characters:
-    - character-slug-2
-    - character-slug-5
+    - memo
+    - via
 
 - name: Villains
   slug: villains
   image: /images/categories/villains.jpg
   characters:
-    - character-slug-6
+    - memo
+    - via
 
 - name: Supporting Characters
   slug: supporting-characters
   image: /images/categories/supporting-characters.jpg
   characters:
-    - character-slug-7
-    - character-slug-8
+    - memo
+    - via
