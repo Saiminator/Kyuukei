@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Character Wiki
+title: "Character Wiki"
 ---
+
 <!-- Sorting Tabs -->
 <div class="character-sort-tabs" style="text-align: center; margin-bottom: 20px;">
   <button id="popularity-tab" class="sort-tab active" style="padding: 10px 20px; margin: 0 5px;">Popularity</button>
@@ -40,7 +41,7 @@ title: Character Wiki
 </div>
 
 <!-- Alphabetical View -->
-<div id="alphabetical-container" class="character-view-container" style="display: none;">
+<div id="alphabetical-container" class="character-view-container" style="display:none;">
   {% assign alpha_chars = site.characters | sort: "title" %}
   {% for character in alpha_chars %}
     <a href="{{ character.url }}" class="character-item">
@@ -51,8 +52,8 @@ title: Character Wiki
 </div>
 
 <!-- Sorted (Categories) View -->
-<div id="sorted-container" class="character-view-container" style="display: none;">
-  <!-- CATEGORY LIST (appears by default when Sorted tab is clicked) -->
+<div id="sorted-container" class="character-view-container" style="display:none;">
+  <!-- Category List: Clicking a category will load its characters -->
   <div id="sorted-category-list" class="character-view-container">
     {% for category in site.data.character_categories %}
       <a href="javascript:void(0)" class="character-item" onclick="loadCategory('{{ category.slug }}')">
@@ -62,22 +63,30 @@ title: Character Wiki
     {% endfor %}
   </div>
 
-  <!-- ONE CONTAINER PER CATEGORY (hidden until you click that category) -->
+  <!-- Category Detail Containers -->
   {% for category in site.data.character_categories %}
-  <div id="category-{{ category.slug }}-container" class="character-view-container" style="display: none;">
-    {% for charSlug in category.characters %}
-      {% assign matched_character = site.characters | where_exp: "c", "c.title | slugify == charSlug" | first %}
-      {% if matched_character %}
-        <a href="{{ matched_character.url }}" class="character-item">
-          <div class="character-image" style="background-image: url('{{ matched_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
-          <div class="character-name">{{ matched_character.title }}</div>
-        </a>
-      {% endif %}
-    {% endfor %}
-  </div>
+    <div id="category-{{ category.slug }}-container" class="character-view-container" style="display:none;">
+      {% for charSlug in category.characters %}
+        {% assign matched_character = null %}
+        {% for char in site.characters %}
+          {% assign thisSlug = char.title | slugify %}
+          {% if thisSlug == charSlug %}
+            {% assign matched_character = char %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        {% if matched_character %}
+          <a href="{{ matched_character.url }}" class="character-item">
+            <div class="character-image" style="background-image: url('{{ matched_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+            <div class="character-name">{{ matched_character.title }}</div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
   {% endfor %}
 </div>
 
+<!-- JavaScript for Tab Switching and Category Loading -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   var popularityTab = document.getElementById('popularity-tab');
@@ -122,13 +131,10 @@ document.addEventListener('DOMContentLoaded', function(){
       popularityContainer.style.display = 'none';
       alphabeticalContainer.style.display = 'none';
       sortedContainer.style.display = 'grid';
-
-      // Show category list, hide all category containers
-      var categoryList = document.getElementById('sorted-category-list');
-      if(categoryList) categoryList.style.display = 'grid';
-
-      var categoryContainers = document.querySelectorAll('#sorted-container .character-view-container[id^="category-"]');
-      categoryContainers.forEach(function(container) {
+      // Reset: Show the category list and hide all category detail containers.
+      document.getElementById('sorted-category-list').style.display = 'grid';
+      var detailContainers = document.querySelectorAll('#sorted-container > .character-view-container[id^="category-"]');
+      detailContainers.forEach(function(container){
         container.style.display = 'none';
       });
     });
@@ -136,11 +142,9 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function loadCategory(slug) {
-  // Hide the category list
-  var categoryList = document.getElementById('sorted-category-list');
-  if(categoryList) categoryList.style.display = 'none';
-
-  // Show the chosen category's container
+  // Hide the category list.
+  document.getElementById('sorted-category-list').style.display = 'none';
+  // Show the container for the chosen category.
   var container = document.getElementById('category-' + slug + '-container');
   if (container) {
     container.style.display = 'grid';
