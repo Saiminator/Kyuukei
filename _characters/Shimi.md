@@ -13,6 +13,7 @@ cup_size: "D"
 blood_type: "Varies by clones"
 hair_color: "Pink"
 eye_color: "Green"
+credit: "@Ytkano"
 ---
 
 ## Background
