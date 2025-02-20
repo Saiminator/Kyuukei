@@ -30,7 +30,7 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.1rem;  /* Increased base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
@@ -57,7 +57,7 @@ body {
   .side-box {
     display: block;
     width: 20%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Below header (60px) */
     overflow: hidden;
   }
   .side-box img {
@@ -156,7 +156,7 @@ header {
   }
   #nav-mobile-menu {
     list-style: none;
-    display: none;
+    display: none; /* toggled via JS */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -222,11 +222,12 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
+   (Used by pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Full viewport minus 100px */
+  height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
@@ -240,15 +241,13 @@ header {
   text-align: center;
   line-height: 50px;
   margin: 0;
-  /* Use min-height to allow wrapping */
   min-height: 50px;
 }
 .section-fixed-title .section-header h1 {
   margin: 0;
   padding: 0;
 }
-
-/* Instead of a fixed calc() for .section-scroll, use flex-grow */
+/* Remove fixed height calc() and use flex for scrollable area */
 .section-fixed-title .section-scroll {
   flex: 1;
   overflow-y: auto;
@@ -543,7 +542,7 @@ header {
   margin: 0;
   padding: 0;
 }
-/* Use flex layout for scrollable content so it fills remaining space */
+/* Use flex-grow for the scrollable area so it fills remaining space */
 .section-fixed-title .section-scroll {
   flex: 1;
   overflow-y: auto;
