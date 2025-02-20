@@ -123,14 +123,18 @@ header {
 @media (min-width: 701px) and (max-width: 800px) {
   #site-title { font-size: 1.6em; }
 }
+/* Modified for small screens: force header to one line */
 @media (max-width: 600px) {
   #site-title {
-    flex-direction: column;
-    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    flex-direction: row;  /* Keep one line */
+    font-size: 1.2rem;     /* Adjust as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   #site-title .header-line1,
   #site-title .header-line2 {
-    display: block;
+    display: inline;
     white-space: nowrap;
   }
 }
