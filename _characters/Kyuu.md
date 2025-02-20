@@ -13,6 +13,7 @@ cup_size: "B+"
 blood_type: "Orby"
 hair_color: "Blonde"
 eye_color: "Pink"
+credit: "@nonmikan777"
 ---
 
 ## Background
