@@ -4,8 +4,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  overflow-x: hidden;
 }
 
 /* =====================================================
@@ -32,10 +30,11 @@ body {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.1rem;  /* Increased base size */
   background: #f4f4f9;
   color: #333;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* =====================================================
@@ -136,6 +135,7 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
+/* Show mobile nav only on viewports ≤600px; desktop menu on ≥601px */
 @media (min-width: 601px) {
   #nav-mobile { display: none !important; }
   .nav-menu-desktop { display: flex !important; }
@@ -174,6 +174,8 @@ header {
     font-size: 1.25rem;
   }
   #nav-mobile-menu a:hover { color: #667eea; }
+  
+  /* Style mobile menu toggle in Orby Pink */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -185,11 +187,11 @@ header {
   }
 }
 
-/* Desktop Navigation Menu */
+/* Desktop Navigation Menu inside Fixed Container */
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  height: 60px;
+  height: 60px; /* Fixed area for desktop menu */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,8 +207,8 @@ header {
 .nav-menu-desktop li { margin: 0 15px; }
 .nav-menu-desktop a {
   font-weight: 500;
-  background: #f7cdd5;
-  color: #fff;
+  background: #f7cdd5; /* Orby Pink background */
+  color: #fff;        /* White text */
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -214,6 +216,8 @@ header {
   transition: background 0.3s ease, color 0.3s ease;
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
+
+/* Responsive adjustments for desktop menu when viewport is below 750px */
 @media (max-width: 750px) {
   .nav-menu-desktop a {
     font-size: 1.3rem;
@@ -228,29 +232,40 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 100px); /* Fixed container height: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.section-fixed-title .section-header {
-  padding: 0 20px;
+
+/* Section Header (Page Title) */
+.section-header {
+  flex: 0 0 50px;
+  padding: 0 20px; /* Only horizontal padding to keep title flush */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
-  height: 50px;
   line-height: 50px;
   margin: 0;
-  min-height: 50px;
 }
-.section-fixed-title .section-header h1 {
+.section-header h1 {
   margin: 0;
   padding: 0;
 }
-.section-fixed-title .section-scroll {
-  height: calc(100vh - 110px);
+
+/* Responsive adjustment for very small screens (420px and below) */
+@media (max-width: 420px) {
+  .section-header h1 {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+}
+
+/* Scrollable Content Area inside Fixed Container */
+.section-scroll {
+  flex: 1;
   overflow-y: auto;
 }
 
@@ -258,7 +273,7 @@ header {
    7. Scrollable Container (Generic)
 ===================================================== */
 .scroll-container {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 60px);
   overflow-y: auto;
 }
 @media (min-width: 601px) and (max-width: 1023px) {
@@ -279,7 +294,7 @@ header {
 }
 
 /* =====================================================
-   9. TIMELINE BRANCHES (Horizontal Scroll)
+   9. TIMELINE BRANCHES (Horizontal Scroll for Timeline Page)
 ===================================================== */
 .timeline-container {
   display: flex;
@@ -287,15 +302,18 @@ header {
   gap: 30px;
   padding: 20px;
 }
+
 .timeline-branch {
   display: flex;
   flex-direction: column;
 }
+
 .branch-title {
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: #000;
 }
+
 .branch-chapters {
   display: flex;
   overflow-x: auto;
@@ -305,6 +323,7 @@ header {
 .branch-chapters::-webkit-scrollbar {
   display: none;
 }
+
 .chapter-card {
   flex: 0 0 auto;
   background: #fff;
@@ -313,7 +332,7 @@ header {
   padding: 10px;
   min-width: 200px;
   text-align: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: #000;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -322,11 +341,13 @@ header {
   transform: translateY(-3px);
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
+
 .chapter-number {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 .chapter-title {
   display: block;
   font-size: 1rem;
@@ -338,6 +359,7 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
+  /* Set height to fill parent container */
   height: 100%;
   margin: 0 auto;
   overflow-y: auto;
@@ -362,7 +384,7 @@ header {
 }
 
 /* =====================================================
-   11. Character Item Styling (for listing pages)
+   11. Character Item Styling
 ===================================================== */
 .character-item {
   cursor: pointer;
@@ -372,12 +394,12 @@ header {
 }
 .character-image {
   width: 100%;
-  padding-top: 100%;
+  aspect-ratio: 1/1;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
   border-radius: 5px;
-  margin-bottom: 5px;
+  margin: 0 auto;
 }
 .character-name {
   margin-top: 10px;
@@ -518,11 +540,9 @@ header {
 
 /* =====================================================
    17. Section with Fixed Title & Scrollable Content
-   (For News, Questions, Character Wiki, etc.)
+   (For News, Questions, etc.)
 ===================================================== */
 .section-fixed-title {
-  display: flex;
-  flex-direction: column;
   height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
@@ -531,31 +551,21 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
-  padding: 0 20px;
+  padding: 0 20px; /* Only horizontal padding */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
+  height: 50px;
   line-height: 50px;
   margin: 0;
-  min-height: 50px;
 }
 .section-fixed-title .section-header h1 {
   margin: 0;
   padding: 0;
 }
 .section-fixed-title .section-scroll {
-  height: calc(100vh - 210px);
+  height: calc(100vh - 100px - 115px);
   overflow-y: auto;
-}
-@media (min-width: 1024px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 190px);
-  }
-}
-@media (max-width: 600px) {
-  .section-fixed-title .section-scroll {
-    height: calc(100vh - 290px);
-  }
 }
 
 /* =====================================================
@@ -577,6 +587,7 @@ header {
   gap: 20px;
 }
 
+/* Left Panel (Background & Abilities) */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -584,19 +595,21 @@ header {
   border-right: 1px solid #eee;
 }
 
-.character-detail .back-select-btn {
-  background-color: #0077be !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 4px !important;
-  padding: 8px 12px !important;
-  font-size: 0.9rem !important;
-  cursor: pointer !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+/* Back to Character Selection Button styled in Blue */
+.character-detail .left-panel .back-select-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  font-size: 0.9em;
+  background: #0077be;  /* Blue color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-
-.character-detail .back-select-btn:hover {
-  background-color: #005a94 !important;
+.character-detail .left-panel .back-select-btn:hover {
+  background: #005a94;  /* Darker blue on hover */
 }
 
 .section-title {
@@ -611,6 +624,7 @@ header {
   line-height: 1.6;
 }
 
+/* Right Panel (Name, Picture, Basic Info) */
 .right-panel {
   flex: 1;
   padding-left: 20px;
@@ -643,6 +657,8 @@ header {
   margin: 4px 0;
 }
 
+/* Responsive adjustments for Character Detail:
+   On screens 800px wide and below, show the right panel first */
 @media (max-width: 800px) {
   .detail-container {
     flex-direction: column;
@@ -658,64 +674,103 @@ header {
   }
 }
 
-/* =====================================================
-   19. Character View Container Grid Layout (for listing pages)
-===================================================== */
+/* Character View Container Grid Layout */
 .character-view-container {
   display: grid;
   gap: 20px;
 }
 
+/* Desktop: 4 columns */
 @media (min-width: 1024px) {
   .character-view-container {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
+/* Tablet: 3 columns */
 @media (max-width: 1023px) and (min-width: 601px) {
   .character-view-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
+/* Mobile: 2 columns */
 @media (max-width: 600px) {
   .character-view-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* =====================================================
-   20. Character & Category Item Styling (for listing pages)
-===================================================== */
+/* Character Item Styling */
 .character-item, .character-category-card {
   text-decoration: none;
   color: inherit;
 }
-
-.character-image, .category-image {
+.character-image {
   width: 100%;
-  padding-top: 100%;
+  padding-top: 100%; /* Square aspect ratio */
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
   border-radius: 5px;
   margin-bottom: 5px;
 }
-
 .character-name, .category-name {
   text-align: center;
   font-size: 1rem;
   font-weight: 600;
 }
 
+
+/* (Optional) Ensure character items have a consistent size */
+.character-item {
+  text-decoration: none;
+  color: inherit;
+}
+.character-image {
+  width: 100%;
+  padding-top: 100%; /* Square aspect ratio */
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.character-name {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
 /* =====================================================
-   21. Spoiler Button & Questions Title Styling
+   19. Hide Title on Character and Chapter Pages
+   (Assumes body has class "character" or "chapter")
 ===================================================== */
+body.character .section-header,
+body.chapter .section-header {
+  display: none;
+}
+
+/* =====================================================
+   20. Adjust Title Font for Small Screens (420px and below)
+===================================================== */
+@media (max-width: 420px) {
+  .section-header h1 {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+}
+
+/* =====================================================
+   21. SPOILER BUTTON & QUESTIONS TITLE STYLING
+===================================================== */
+/* Style the global spoiler button on the questions page */
 #spoiler-toggle {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #0077be;
+  background-color: #0077be; /* Blue background */
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -723,21 +778,43 @@ header {
   cursor: pointer;
 }
 
+/* Change the title color for question entries to dark gray */
 .question-entry h2,
 .question-header h2 {
   color: #333;
 }
 
-/* =====================================================
-   22. Section (Tab) Button Styling (Orby Pink)
-===================================================== */
+.character-detail .back-select-btn {
+  background-color: #0077be !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 8px 12px !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.character-detail .back-select-btn:hover {
+  background-color: #005a94 !important;
+}
+
+@media (max-width: 800px) {
+  .section-header h1 {
+    font-size: 1.6rem;  /* Adjust this value as needed */
+    line-height: 1.6rem;
+  }
+}
+
+/* Container for the section (tab) buttons */
 .character-sort-tabs {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/* Style for each tab button */
 .character-sort-tabs .sort-tab {
-  background-color: #f7cdd5;
+  background-color: #f7cdd5;  /* Orby pink */
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -748,10 +825,12 @@ header {
   transition: background 0.3s ease;
 }
 
+/* Hover state */
 .character-sort-tabs .sort-tab:hover {
-  background-color: #e0a8b5;
+  background-color: #e0a8b5; /* Darker shade on hover */
 }
 
+/* Active tab */
 .character-sort-tabs .sort-tab.active {
   background-color: #e0a8b5;
 }
