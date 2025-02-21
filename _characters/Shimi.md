@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "Shimi Selbst"
-slug: "shimi
+slug: "shimi"
 order: 2
 image: "https://i.imgur.com/pklrIMA.jpeg"
 age: "20"
