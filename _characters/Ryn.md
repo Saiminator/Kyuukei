@@ -2,7 +2,7 @@
 layout: character
 title: "Ryn"
 order: 10
-image: "https://i.imgur.com/iS6M5yv.png"
+image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "23"
 birthday: "May 18th"
 species: "Human"
