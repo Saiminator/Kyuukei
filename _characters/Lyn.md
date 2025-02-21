@@ -2,7 +2,7 @@
 layout: character
 title: "Lyn"
 order: 9
-image: "https://i.imgur.com/9DevWVX.png"
+image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "23"
 birthday: "May 17th"
 species: "Human"
