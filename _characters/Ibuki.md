@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "Ibuki Weitschall"
-slug: "ibuki"
+slug: "Ibuki"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "??"
 birthday: "??"
