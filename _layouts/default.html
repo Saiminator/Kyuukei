@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- Favicon & Apple Touch Icon -->
@@ -28,7 +28,7 @@
 <body class="no-select">
   <!-- Site Header -->
   <header>
-    <a href="/index.html" id="site-title">
+    <a href="{{ '/index/' | relative_url }}" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
       <span class="header-line2">Kyuu’s Breaktime Stories</span>
     </a>
@@ -38,18 +38,18 @@
   <nav id="nav-mobile">
     <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
     <ul id="nav-mobile-menu">
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/timeline.html">Story</a></li>
-      <li><a href="/characters.html">Characters</a></li>
-      <li><a href="/questions.html">Questions</a></li>
-      <li><a href="/news.html">News</a></li>
+      <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+      <li><a href="{{ '/timeline/' | relative_url }}">Story</a></li>
+      <li><a href="{{ '/characters/' | relative_url }}">Characters</a></li>
+      <li><a href="{{ '/questions/' | relative_url }}">Questions</a></li>
+      <li><a href="{{ '/news/' | relative_url }}">News</a></li>
     </ul>
   </nav>
   
   <!-- Page Wrapper with Side Boxes -->
   <div class="page-wrapper">
     <div class="side-box left-box">
-      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
+      <img src="https://i.imgur.com/zBYXG91.png" alt="Left Side Image">
     </div>
     
     <!-- Fixed Container for Page Content -->
@@ -57,11 +57,11 @@
       <!-- Desktop Navigation Menu placed flush at the top of the container -->
       <nav class="nav-menu-desktop">
         <ul>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/timeline.html">Story</a></li>
-          <li><a href="/characters.html">Characters</a></li>
-          <li><a href="/questions.html">Questions</a></li>
-          <li><a href="/news.html">News</a></li>
+          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/timeline/' | relative_url }}">Story</a></li>
+          <li><a href="{{ '/characters/' | relative_url }}">Characters</a></li>
+          <li><a href="{{ '/questions/' | relative_url }}">Questions</a></li>
+          <li><a href="{{ '/news/' | relative_url }}">News</a></li>
         </ul>
       </nav>
       <!-- Section Header with Page Title -->
@@ -75,10 +75,10 @@
     </div>
     
     <div class="side-box right-box">
-      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+      <img src="https://i.imgur.com/yFpGbNd.png" alt="Right Side Image">
     </div>
   </div>
   
-  <script src="/js/main.js"></script>
+  <script src="{{ '/js/main.js' | relative_url }}"></script>
 </body>
 </html>
