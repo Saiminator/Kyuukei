@@ -17,7 +17,6 @@
     - shimi
 
 - name: Lumin Academy
-  slug: lumin-academy-students
   image: /images/categories/lumin-academy-students.jpg
   characters:
     - ars
