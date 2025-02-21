@@ -19,9 +19,9 @@
 - name: Lumin Academy
   image: "https://i.imgur.com/zOOHPmU.png"
   characters:
-    - ars
-    - ryn
     - via
+    - ryn
+    - ars
 
 - name: Supporting Characters
   slug: supporting-characters
