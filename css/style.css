@@ -80,7 +80,7 @@ body {
    5. Header & Top Navigation
 ===================================================== */
 header {
-  background: #e0a8b5; /* Changed from #362136 to darker Orby Pink */
+  background: #e0a8b5; /* Darker Orby Pink */
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -237,12 +237,19 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px); /* Fixed container height: full viewport minus 100px */
+  height: calc(100vh - 100px);
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Adjust container height on mobile to account for increased header & URL bar space */
+@media (max-width: 600px) {
+  .section-fixed-title {
+    height: calc(100vh - 140px);
+  }
 }
 
 /* Section Header (Page Title) */
