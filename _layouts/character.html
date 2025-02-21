@@ -1,17 +1,14 @@
 ---
 layout: default
 ---
+
 <div class="character-detail">
-  <!-- Back to Character Selection: Always on top -->
-  <button class="back-select-btn" onclick="location.href='/characters.html'">
-    Character Selection
-  </button>
   <div class="detail-container">
-    <!-- Left Panel: Character Background/Abilities (mobile: will appear below) -->
+    <!-- Left Panel: Character Background / Abilities -->
     <div class="left-panel">
       {{ content }}
     </div>
-    <!-- Right Panel: Character Image and Basic Info (mobile: will appear above) -->
+    <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <div class="image-container">
         <img src="{{ page.image }}" alt="{{ page.title }}">
@@ -32,7 +29,3 @@ layout: default
     </div>
   </div>
 </div>
-
-<script>
-  // Optional: Add any page-specific JavaScript here.
-</script>
