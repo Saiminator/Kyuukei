@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "example"
-slug: "exampleslug"
+slug: "example"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "??"
 birthday: "??"
