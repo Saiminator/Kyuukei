@@ -2,7 +2,7 @@
 layout: character
 title: "Ars"
 order: 12
-image: "https://i.imgur.com/NQqA9Ru.png"
+image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "24"
 birthday: "TBD"
 species: "Human"
