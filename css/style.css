@@ -80,7 +80,7 @@ body {
    5. Header & Top Navigation
 ===================================================== */
 header {
-  background: #362136;
+  background: #e0a8b5; /* Changed from #362136 to darker Orby Pink */
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -216,6 +216,11 @@ header {
   transition: background 0.3s ease, color 0.3s ease;
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
+
+/* Active Desktop Menu Link */
+.nav-menu-desktop a.active {
+  background: #e0a8b5; /* Darker Orby Pink */
+}
 
 /* Responsive adjustments for desktop menu when viewport is below 750px */
 @media (max-width: 750px) {
@@ -570,7 +575,7 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
-  padding: 0 20px; /* Only horizontal padding */
+  padding: 0 20px; /* Only horizontal padding to keep title flush */
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -727,7 +732,7 @@ header {
 }
 .character-image {
   width: 100%;
-  padding-top: 100%;
+  padding-top: 100%; /* Square aspect ratio */
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -809,7 +814,7 @@ body.chapter .section-header {
   padding: 8px 12px !important;
   font-size: 0.9rem !important;
   cursor: pointer !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
 }
 
 .character-detail .back-select-btn:hover {
@@ -828,7 +833,7 @@ body.chapter .section-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem auto;  /* Less vertical space than before */
+  margin: 1rem auto;  /* Adjusted vertical spacing */
 }
 
 /* Style for each tab button */
@@ -838,7 +843,7 @@ body.chapter .section-header {
   border: none;
   border-radius: 5px;
   padding: 8px 15px;  /* matching main nav's button style */
-  margin: 0 15px;    /* left/right spacing to mimic .nav-menu-desktop li */
+  margin: 0 15px;    /* left/right spacing similar to desktop nav */
   cursor: pointer;
   font-size: 1rem;
   transition: background 0.3s ease;
