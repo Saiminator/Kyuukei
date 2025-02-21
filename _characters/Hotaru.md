@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "Hotaru Stürzen"
-slug: "hotaru"
+slug: "Hotaru"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "??"
 birthday: "??"
