@@ -10,18 +10,18 @@
     - lyn
     - memo
 
-- name: 
+- name: Ebonvale Academy
   slug: ebonvale-students
   image: /images/categories/ebonvale-students.jpg
   characters:
-    - memo
-    - via
+    - shimi
 
-- name: Lumin Academy Students
+- name: Lumin Academy
   slug: lumin-academy-students
   image: /images/categories/lumin-academy-students.jpg
   characters:
-    - memo
+    - ars
+    - ryn
     - via
 
 - name: Villains
@@ -43,7 +43,7 @@
   image: /images/categories/supporting-characters.jpg
   characters:
     - memo
-    - via
+    - dreymi
 
 - name: Vallaris Kingdom
   slug: supporting-characters
