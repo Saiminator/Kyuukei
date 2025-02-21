@@ -1,6 +1,7 @@
 ---
 layout: character
 title: "example"
+slug: "exampleslug"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "??"
 birthday: "??"
@@ -13,6 +14,7 @@ blood_type: "?"
 hair_color: "?"
 eye_color: "????"
 ---
+
 
 ## Background
 
