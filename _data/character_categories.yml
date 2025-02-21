@@ -2,10 +2,15 @@
   slug: main-characters
   image: /images/categories/main-characters.jpg
   characters:
-    - memo
+    - kyuu
+    - shimi
+    - dreymi
+    - pon
     - via
+    - lyn
+    - kaji
 
-- name: Ebonvale Students
+- name: 
   slug: ebonvale-students
   image: /images/categories/ebonvale-students.jpg
   characters:
