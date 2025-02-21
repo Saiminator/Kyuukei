@@ -1,6 +1,6 @@
 ---
 layout: character
-title: "Example"
+title: "example"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "??"
 birthday: "??"
