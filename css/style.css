@@ -248,7 +248,7 @@ header {
 /* Mobile override: reduce container height to account for extra header/URL space */
 @media (max-width: 600px) {
   .section-fixed-title {
-    height: calc(100vh - 140px) !important;
+    height: calc(100vh - 190px) !important;
   }
 }
 
