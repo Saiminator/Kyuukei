@@ -25,7 +25,7 @@
 
 - name: Supporting Characters
   slug: supporting-characters
-  image: /images/categories/supporting-characters.jpg
+  image: "https://i.imgur.com/6tYyKTf.png"
   characters:
     - ryn
     - ars
