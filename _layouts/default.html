@@ -46,17 +46,6 @@
     </ul>
   </nav>
   
-  <!-- Desktop Navigation -->
-  <nav class="nav-menu-desktop">
-    <ul>
-      <li><a href="/about.html" {% if page.url contains 'about' %}class="active"{% endif %}>About</a></li>
-      <li><a href="/timeline.html" {% if page.url contains 'timeline' or page.url contains 'story' %}class="active"{% endif %}>Story</a></li>
-      <li><a href="/characters.html" {% if page.url contains 'characters' %}class="active"{% endif %}>Characters</a></li>
-      <li><a href="/questions.html" {% if page.url contains 'questions' %}class="active"{% endif %}>Questions</a></li>
-      <li><a href="/news.html" {% if page.url contains 'news' %}class="active"{% endif %}>News</a></li>
-    </ul>
-  </nav>
-  
   <!-- Page Wrapper with Side Boxes -->
   <div class="page-wrapper">
     <div class="side-box left-box">
@@ -65,6 +54,16 @@
     
     <!-- Fixed Container for Page Content -->
     <div class="main-content section-fixed-title">
+      <!-- Desktop Navigation Menu placed flush at the top of the container -->
+      <nav class="nav-menu-desktop">
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/timeline.html">Story</a></li>
+          <li><a href="/characters.html">Characters</a></li>
+          <li><a href="/questions.html">Questions</a></li>
+          <li><a href="/news.html">News</a></li>
+        </ul>
+      </nav>
       <!-- Section Header with Page Title -->
       <header class="section-header">
         <h1>{{ page.title }}</h1>
