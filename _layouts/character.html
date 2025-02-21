@@ -3,13 +3,20 @@ layout: default
 ---
 
 <div class="character-detail">
+  <!-- Back to Character Selection Button -->
+  <button class="back-select-btn" onclick="window.history.back();">
+    Back to Character Selection
+  </button>
+  
   <div class="detail-container">
-    <!-- Left Panel: Character Background / Abilities -->
+    <!-- Left Panel: Character Background/Abilities -->
     <div class="left-panel">
       {{ content }}
     </div>
+    
     <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
+      <h1>{{ page.title }}</h1>
       <div class="image-container">
         <img src="{{ page.image }}" alt="{{ page.title }}">
       </div>
