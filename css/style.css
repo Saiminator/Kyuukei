@@ -217,6 +217,11 @@ header {
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
 
+/* Active Desktop Menu Link */
+.nav-menu-desktop a.active {
+  background: #e0a8b5; /* Darker Orby Pink */
+}
+
 /* Responsive adjustments for desktop menu when viewport is below 750px */
 @media (max-width: 750px) {
   .nav-menu-desktop a {
@@ -727,7 +732,7 @@ header {
 }
 .character-image {
   width: 100%;
-  padding-top: 100%;
+  padding-top: 100%; /* Square aspect ratio */
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -809,7 +814,7 @@ body.chapter .section-header {
   padding: 8px 12px !important;
   font-size: 0.9rem !important;
   cursor: pointer !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
 }
 
 .character-detail .back-select-btn:hover {
@@ -828,7 +833,7 @@ body.chapter .section-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem auto;  /* Less vertical space than before */
+  margin: 1rem auto;  /* Adjusted vertical spacing */
 }
 
 /* Style for each tab button */
@@ -837,8 +842,8 @@ body.chapter .section-header {
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 8px 15px;  /* matching main nav's button style */
-  margin: 0 15px;    /* left/right spacing to mimic .nav-menu-desktop li */
+  padding: 8px 15px;  /* Matching main nav's button style */
+  margin: 0 15px;    /* Horizontal spacing similar to desktop nav */
   cursor: pointer;
   font-size: 1rem;
   transition: background 0.3s ease;
