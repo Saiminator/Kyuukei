@@ -16,7 +16,7 @@ title: "Character Wiki"
   {% for entry in site.data.character_ranking %}
     {% assign found_character = nil %}
     {% for char in site.characters %}
-      {% assign thisSlug = char.title | slugify %}
+      {% assign thisSlug = char.slug | default: char.title | slugify %}
       {% if thisSlug == entry.slug %}
         {% assign found_character = char %}
       {% endif %}
@@ -30,8 +30,8 @@ title: "Character Wiki"
   {% endfor %}
   {% assign unranked = site.characters | sort: "title" %}
   {% for char in unranked %}
-    {% assign slug = char.title | slugify %}
-    {% unless rankedSlugs contains slug %}
+    {% assign thisSlug = char.slug | default: char.title | slugify %}
+    {% unless rankedSlugs contains thisSlug %}
       <a href="{{ char.url }}" class="character-item">
         <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
         <div class="character-name">{{ char.title }}</div>
@@ -56,7 +56,7 @@ title: "Character Wiki"
   <!-- Category List -->
   <div id="sorted-category-list" class="character-view-container">
     {% for category in site.data.character_categories %}
-      <a href="javascript:void(0)" class="character-item" onclick="loadCategory('{{ category.slug }}')">
+      <a href="javascript:void(0)" class="character-item" onclick="loadCategory('{{ category.slug | default: category.name | slugify }}')">
         <div class="character-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}');"></div>
         <div class="character-name">{{ category.name }}</div>
       </a>
@@ -64,11 +64,11 @@ title: "Character Wiki"
   </div>
   <!-- Category Detail Containers -->
   {% for category in site.data.character_categories %}
-    <div id="category-{{ category.slug }}-container" class="character-view-container" style="display: none;">
+    <div id="category-{{ category.slug | default: category.name | slugify }}-container" class="character-view-container" style="display: none;">
       {% for charSlug in category.characters %}
         {% assign matched_character = null %}
         {% for char in site.characters %}
-          {% assign thisSlug = char.title | slugify %}
+          {% assign thisSlug = char.slug | default: char.title | slugify %}
           {% if thisSlug == charSlug %}
             {% assign matched_character = char %}
             {% break %}
