@@ -12,7 +12,7 @@
 
 - name: Ebonvale Academy
   slug: ebonvale-students
-  image: /images/categories/ebonvale-students.jpg
+  image: "https://i.imgur.com/pklrIMA.jpeg"
   characters:
     - shimi
 
