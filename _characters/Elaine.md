@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "Elaine Sternbruch"
-slug: "elaine"
+slug: "Elaine"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "??"
 birthday: "??"
