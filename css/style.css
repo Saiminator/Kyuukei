@@ -237,7 +237,7 @@ header {
 .section-fixed-title {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Fixed container height: full viewport minus 100px */
+  height: calc(100vh - 60px); /* Fixed container height: full viewport minus 100px */
   overflow: hidden;
   margin: 0 auto;
   background: #f4f4f9;
