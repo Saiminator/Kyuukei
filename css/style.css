@@ -248,30 +248,46 @@ header {
 /* Mobile override: reduce container height to account for extra header/URL space */
 @media (max-width: 600px) {
   .section-fixed-title {
-    height: calc(100vh - 160px) !important;
+    height: calc(100vh - 140px) !important;
   }
 }
 
 /* Section Header (Page Title) */
-.section-header {
+.section-fixed-title .section-header {
+  /* Desktop defaults: fixed height, padding, line-height */
   flex: 0 0 50px;
-  padding: 0 20px; /* Only horizontal padding to keep title flush */
+  padding: 0 20px;
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
   line-height: 50px;
   margin: 0;
 }
-.section-header h1 {
+.section-fixed-title .section-header h1 {
   margin: 0;
   padding: 0;
 }
 
-/* Responsive adjustment for very small screens (420px and below) */
-@media (max-width: 420px) {
-  .section-header h1 {
-    font-size: 1.2rem;
-    line-height: 1.2rem;
+/* Mobile adjustments: let header height wrap content so box size matches text */
+@media (max-width: 800px) {
+  .section-fixed-title .section-header {
+    flex: none;
+    padding: 10px 20px;
+    line-height: normal;
+    height: auto;
+  }
+  .section-fixed-title .section-header h1 {
+    font-size: 1.6rem;
+  }
+}
+
+/* Further adjustments for very narrow screens */
+@media (max-width: 555px) {
+  .section-fixed-title .section-header {
+    padding: 8px 15px;
+  }
+  .section-fixed-title .section-header h1 {
+    font-size: 1.4rem;
   }
 }
 
@@ -344,7 +360,7 @@ header {
   padding: 10px;
   min-width: 200px;
   text-align: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   text-decoration: none;
   color: #000;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -586,7 +602,6 @@ header {
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
-  height: 50px;
   line-height: 50px;
   margin: 0;
 }
