@@ -37,3 +37,17 @@
   characters:
     - memo
     - via
+
+- name: Supporting Characters
+  slug: supporting-characters
+  image: /images/categories/supporting-characters.jpg
+  characters:
+    - memo
+    - via
+
+- name: Vallaris Kingdom
+  slug: supporting-characters
+  image: /images/categories/supporting-characters.jpg
+  characters:
+    - memo
+    - via
