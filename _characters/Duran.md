@@ -2,7 +2,7 @@
 layout: character
 title: "Duran"
 order: 11
-image: "https://i.imgur.com/IN5urCC.png"
+image: "https://i.imgur.com/2ScZPoX.jpeg"
 age: "29"
 birthday: "TBD"
 species: "Human"
