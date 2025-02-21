@@ -17,7 +17,7 @@
     - shimi
 
 - name: Lumin Academy
-  image: /images/categories/lumin-academy-students.jpg
+  image: "https://i.imgur.com/zOOHPmU.png"
   characters:
     - ars
     - ryn
