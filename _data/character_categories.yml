@@ -27,8 +27,8 @@
   slug: supporting-characters
   image: "https://i.imgur.com/6tYyKTf.png"
   characters:
-    - ryn
-    - ars
-    - duran
     - mika
     - sera
+    - ryn
+    - duran
+    - ars
