@@ -1,6 +1,6 @@
 - name: Main Characters
   slug: main-characters
-  image: /images/categories/main-characters.jpg
+  image: "https://i.imgur.com/QRd4drw.png"
   characters:
     - kyuu
     - shimi
