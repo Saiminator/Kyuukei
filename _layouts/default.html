@@ -58,9 +58,9 @@
       <nav class="nav-menu-desktop">
         <ul>
           <li><a href="{{ '/about/' | relative_url }}" {% if page.url contains 'about' %}class="active"{% endif %}>About</a></li>
+          <li><a href="{{ '/questions/' | relative_url }}" {% if page.url contains 'questions' %}class="active"{% endif %}>Questions</a></li>
           <li><a href="{{ '/timeline/' | relative_url }}" {% if page.url contains 'timeline' or page.url contains 'story' %}class="active"{% endif %}>Story</a></li>
           <li><a href="{{ '/characters/' | relative_url }}" {% if page.url contains 'characters' %}class="active"{% endif %}>Characters</a></li>
-          <li><a href="{{ '/questions/' | relative_url }}" {% if page.url contains 'questions' %}class="active"{% endif %}>Questions</a></li>
           <li><a href="{{ '/news/' | relative_url }}" {% if page.url contains 'news' %}class="active"{% endif %}>News</a></li>
         </ul>
       </nav>
