@@ -13,6 +13,7 @@ cup_size: "B-"
 blood_type: "AB"
 hair_color: "Brown"
 eye_color: "Bright Cerulean"
+credit: "@1sukaa"
 ---
 
 ## Background
