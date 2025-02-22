@@ -80,7 +80,7 @@ body {
    5. Header & Top Navigation
 ===================================================== */
 header {
-  background: #e0a8b5; /* Orby Pink (darker shade) for header */
+  background: #f7cdd5; /* Default Orby Pink (lighter) for entire header */
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -88,18 +88,10 @@ header {
   margin: 0;
   margin-bottom: 0;
 }
-
-@media (min-width: 1024px) {
-  header {
-    height: 60px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+header.active {
+  background: #e0a8b5; /* Darker Orby Pink when active (e.g. on homepage) */
 }
 
-/* Site Title (Header Link) */
 #site-title {
   display: flex;
   flex-direction: row;
@@ -109,15 +101,10 @@ header {
   color: #fff;
   text-decoration: none;
   margin: 0 auto;
-  background: #f7cdd5; /* Default Orby Pink (lighter) */
+  background: transparent; /* Transparent so header's bg shows through */
   padding: 10px;
   transition: background 0.3s ease;
 }
-#site-title.active,
-#site-title:hover {
-  background: #e0a8b5; /* Darker shade when active or hovered */
-}
-
 #site-title .header-line1,
 #site-title .header-line2 {
   white-space: nowrap;
@@ -263,7 +250,7 @@ header {
 /* Section Header (Page Title) */
 .section-fixed-title .section-header {
   flex: 0 0 50px;
-  padding: 0 20px; /* Only horizontal padding to keep title flush */
+  padding: 0 20px;
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -653,7 +640,7 @@ header {
   margin-bottom: 20px;
   padding: 8px 12px;
   font-size: 0.9em;
-  background: #0077be;  /* Blue color */
+  background: #0077be;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -661,7 +648,7 @@ header {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .character-detail .left-panel .back-select-btn:hover {
-  background: #005a94;  /* Darker blue on hover */
+  background: #005a94;
 }
 
 .section-title {
@@ -760,7 +747,7 @@ header {
 }
 .character-image {
   width: 100%;
-  padding-top: 100%; /* Square aspect ratio */
+  padding-top: 100%;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -819,7 +806,7 @@ body.chapter .section-header {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #0077be; /* Blue background */
+  background-color: #0077be;
   color: #fff;
   border: none;
   border-radius: 5px;
