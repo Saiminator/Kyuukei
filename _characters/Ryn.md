@@ -13,6 +13,7 @@ cup_size: "C-"
 blood_type: "AB"
 hair_color: "Brown"
 eye_color: "Bright Blue with a Golden Hue in the Center"
+credit: "@1sukaa"
 ---
 
 ## Background
