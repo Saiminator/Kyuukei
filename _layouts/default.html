@@ -49,7 +49,7 @@
   <!-- Page Wrapper with Side Boxes -->
   <div class="page-wrapper">
     <div class="side-box left-box">
-      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
+      <img src="https://i.imgur.com/zBYXG91.png" alt="Left Side Image">
     </div>
     
     <!-- Fixed Container for Page Content -->
@@ -57,11 +57,11 @@
       <!-- Desktop Navigation Menu placed flush at the top of the container -->
       <nav class="nav-menu-desktop">
         <ul>
-          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
-          <li><a href="{{ '/timeline/' | relative_url }}">Story</a></li>
-          <li><a href="{{ '/characters/' | relative_url }}">Characters</a></li>
-          <li><a href="{{ '/questions/' | relative_url }}">Questions</a></li>
-          <li><a href="{{ '/news/' | relative_url }}">News</a></li>
+          <li><a href="{{ '/about/' | relative_url }}" {% if page.url contains 'about' %}class="active"{% endif %}>About</a></li>
+          <li><a href="{{ '/timeline/' | relative_url }}" {% if page.url contains 'timeline' or page.url contains 'story' %}class="active"{% endif %}>Story</a></li>
+          <li><a href="{{ '/characters/' | relative_url }}" {% if page.url contains 'characters' %}class="active"{% endif %}>Characters</a></li>
+          <li><a href="{{ '/questions/' | relative_url }}" {% if page.url contains 'questions' %}class="active"{% endif %}>Questions</a></li>
+          <li><a href="{{ '/news/' | relative_url }}" {% if page.url contains 'news' %}class="active"{% endif %}>News</a></li>
         </ul>
       </nav>
       <!-- Section Header with Page Title -->
@@ -75,7 +75,7 @@
     </div>
     
     <div class="side-box right-box">
-      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+      <img src="https://i.imgur.com/yFpGbNd.png" alt="Right Side Image">
     </div>
   </div>
   
