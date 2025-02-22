@@ -79,29 +79,43 @@ body {
 /* =====================================================
    5. Header & Top Navigation
 ===================================================== */
-/* New Header Styling */
-#site-header {
-  background: #f7cdd5; /* Default Orby Pink (lighter) */
+header {
+  background: #e0a8b5; /* Orby Pink (darker shade) for header */
   padding: 10px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 100%;
   margin: 0;
   margin-bottom: 0;
-  transition: background 0.3s ease;
-}
-#site-header.active,
-#site-header:hover {
-  background: #e0a8b5; /* Darker Orby Pink */
 }
 
-/* Site Title (Anchor) - Remove extra background/padding so it fills the header */
+@media (min-width: 1024px) {
+  header {
+    height: 60px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Site Title (Header Link) */
 #site-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   font-size: 1.8em;
   color: #fff;
   text-decoration: none;
-  background: none;
-  padding: 0;
+  margin: 0 auto;
+  background: #f7cdd5; /* Default Orby Pink (lighter) */
+  padding: 10px;
+  transition: background 0.3s ease;
+}
+#site-title.active,
+#site-title:hover {
+  background: #e0a8b5; /* Darker shade when active or hovered */
 }
 
 #site-title .header-line1,
