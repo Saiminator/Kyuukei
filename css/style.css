@@ -880,3 +880,46 @@ body.chapter .section-header {
 .character-sort-tabs .sort-tab.active {
   background-color: #e0a8b5;
 }
+
+/* =====================================================
+   22. BLINKING TEXT HIDING
+===================================================== */
+
+/* Container for the section (tab) buttons */
+.character-sort-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;  /* Adjusted vertical spacing */
+}
+
+/* Style for each tab button */
+.character-sort-tabs .sort-tab {
+  background-color: #f7cdd5;  /* Orby pink */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;  /* matching main nav's button style */
+  margin: 0 15px;    /* left/right spacing similar to desktop nav */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+/* Hover state */
+.character-sort-tabs .sort-tab:hover {
+  background-color: #e0a8b5; /* Darker shade on hover */
+}
+
+/* Active tab */
+.character-sort-tabs .sort-tab.active {
+  background-color: #e0a8b5;
+}
+
+/* -----------------------------------------------------------
+   Hide the blinking text insertion caret on non-input elements
+----------------------------------------------------------- */
+*:not(input):not(textarea) {
+  caret-color: transparent;
+}
+
