@@ -26,7 +26,7 @@
   <meta name="twitter:image" content="{{ page.image | default: 'https://i.imgur.com/QRd4drw.png' }}">
 </head>
 <body class="no-select">
-  <!-- Site Header (entire header box changes color) -->
+  <!-- Site Header -->
   <header id="site-header" {% if page.url == "/" %}class="active"{% endif %}>
     <a href="{{ '/' | relative_url }}" id="site-title">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
@@ -57,11 +57,11 @@
       <!-- Desktop Navigation Menu placed flush at the top of the container -->
       <nav class="nav-menu-desktop">
         <ul>
-          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
-          <li><a href="{{ '/timeline/' | relative_url }}">Story</a></li>
-          <li><a href="{{ '/characters/' | relative_url }}">Characters</a></li>
-          <li><a href="{{ '/questions/' | relative_url }}">Questions</a></li>
-          <li><a href="{{ '/news/' | relative_url }}">News</a></li>
+          <li><a href="{{ '/about/' | relative_url }}" {% if page.url | downcase contains 'about' %}class="active"{% endif %}>About</a></li>
+          <li><a href="{{ '/timeline/' | relative_url }}" {% if page.url | downcase contains 'timeline' or page.url | downcase contains 'story' %}class="active"{% endif %}>Story</a></li>
+          <li><a href="{{ '/characters/' | relative_url }}" {% if page.url | downcase contains 'characters' %}class="active"{% endif %}>Characters</a></li>
+          <li><a href="{{ '/questions/' | relative_url }}" {% if page.url | downcase contains 'questions' %}class="active"{% endif %}>Questions</a></li>
+          <li><a href="{{ '/news/' | relative_url }}" {% if page.url | downcase contains 'news' %}class="active"{% endif %}>News</a></li>
         </ul>
       </nav>
       <!-- Section Header with Page Title -->
