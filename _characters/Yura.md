@@ -25,6 +25,6 @@ As a child, Yura developed her Thread Magic, playing with dolls and controlling 
 
 ## Abilities
 
-Thread Magic: Yura has an affinity for manipulation magic, manifested as threads of mana that she can attach to anything, allowing her to control them freely. However, she is uncomfortable using this ability on living creatures and strictly limits it to inanimate objects.
+**Thread Magic:** Yura has an affinity for manipulation magic, manifested as threads of mana that she can attach to anything, allowing her to control them freely. However, she is uncomfortable using this ability on living creatures and strictly limits it to inanimate objects.
 
-Null magic: Yura is adept at Null Magic, enabling her to create constructs of elementless mana, which she primarily uses for barriers or weaponry.
+**Null magic:** Yura is adept at Null Magic, enabling her to create constructs of elementless mana, which she primarily uses for barriers or weaponry.
