@@ -17,7 +17,7 @@ eye_color: "????"
 
 ## Background
 
-Elaine was born without privilege, growing up in a world where status dictated success. With no noble blood or connections to rely on, she had to push herself harder than anyone else. While learning magic, her creativity allowed her to shape it in ways that reflected her own ambitions, eventually manifesting her Space Affinity through the formation of stars—dense, radiant constructs that altered gravity around them. With this ability and sheer determination, she forced her way into Ebonvale Academy, proving that talent alone could surpass lineage.
+Elaine was born without privilege, growing up in a world where status dictated success. With no noble blood or connections to rely on, she had to push herself harder than anyone else. While learning magic, her creativity allowed her to shape it in ways that reflected her own ambitions, eventually manifesting her exceptional rare Space Affinity through the formation of stars—dense, radiant constructs that altered gravity around them. With this ability and sheer determination, she forced her way into Ebonvale Academy, proving that talent alone could surpass lineage.
 
 Despite her rise, Elaine has never forgotten what it was like to struggle. She doesn’t seek strength for herself alone—she believes power should protect those without it. She carries others in her gravity, pulling them up alongside her, whether they want it or not.
 
