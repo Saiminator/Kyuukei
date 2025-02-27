@@ -3,16 +3,16 @@ layout: character
 title: "Yura Saite"
 slug: "Yura"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
-age: "??"
-birthday: "??"
+age: "20"
+birthday: "September 20th"
 species: "Human"
 gender: "Female"
 height: "?'?\" | ???cm"
 weight: "???lbs | ??kg"
 cup_size: "?"
 blood_type: "?"
-hair_color: "?"
-eye_color: "????"
+hair_color: "Black"
+eye_color: " Dull Blue"
 ---
 
 ## Background
