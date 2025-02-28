@@ -7,8 +7,8 @@ age: "21"
 birthday: "January 4th"
 species: "Human"
 gender: "Female"
-height: "?'?\" | ???cm"
-weight: "???lbs | ??kg"
+height: "5'6" | 167cm"
+weight: "99lbs? | 45kg?"
 cup_size: "?"
 blood_type: "?"
 hair_color: "Silver"
@@ -25,14 +25,8 @@ Her presence at Ebonvale is not without resistance—many nobles see her as an o
 
 ## Abilities
 
-**Star Creation:** Elaine’s Space Affinity has manifested in the form of stellar constructs, allowing her to create dense, glowing orbs of mana that resemble miniature stars. These stars act as anchors, distorting the area around them and serving as focal points for her gravity manipulation.
+**Star Creation:** Elaine’s Space Affinity has manifested in the form of stellar constructs, allowing her to create dense, glowing orbs of mana that resemble miniature stars. These stars act as anchors, distorting the area around them and serving as focal points for her gravity manipulation. Elaine can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
 
-Elaine can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
-
-**Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity.
-
-Elaine can choose to have her stars absorb mana from the environment, increasing their gravitational pull and making them semi-self-sustaining as they continuously draw in energy. Alternatively, she can actively feed mana into a star to make it radiate outward force, creating an anti-gravity effect that pushes objects away.
-
-This manipulation also applies to her own body, letting her lighten herself for greater speed and agility or increase her weight to add force behind her strikes.
+**Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity. Elaine can choose to have her stars absorb mana from the environment, increasing their gravitational pull and making them semi-self-sustaining as they continuously draw in energy. Alternatively, she can actively feed mana into a star to make it radiate outward force, creating an anti-gravity effect that pushes objects away. This manipulation also applies to her own body, letting her lighten herself for greater speed and agility or increase her weight to add force behind her strikes.
 
 **Null Magic:** As a talented mage, Elaine is adept at Null Magic, enabling her to create constructs of elementless mana, which she primarily uses for barriers or weaponry.
