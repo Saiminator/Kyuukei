@@ -29,6 +29,8 @@ Her presence at Ebonvale is not without resistance—many nobles see her as an o
 
 Elaine can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
 
-**Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity. By absorbing mana from the environment, a star can increase its gravitational pull, making it semi-self-sustaining as it continuously draws in energy. Conversely, by actively feeding mana into a star, it can radiate outward force, creating an anti-gravity effect that pushes objects away.
+**Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity.
+
+Elaine can choose to have her stars absorb mana from the environment, increasing their gravitational pull and making them semi-self-sustaining as they continuously draw in energy. Alternatively, she can actively feed mana into a star to make it radiate outward force, creating an anti-gravity effect that pushes objects away.
 
 This manipulation also applies to her own body, letting her lighten herself for greater speed and agility or increase her weight to add force behind her strikes.
