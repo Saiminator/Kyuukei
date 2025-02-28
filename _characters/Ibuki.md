@@ -3,7 +3,7 @@ layout: character
 title: "Ibuki Weitschall"
 slug: "Ibuki"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
-age: "26"
+age: "26 (actually 6)"
 birthday: "February 29th"
 species: "Human"
 gender: "Female"
