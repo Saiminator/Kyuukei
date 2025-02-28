@@ -34,3 +34,5 @@ Elaine can also launch these stars as projectiles, causing them to bend gravity 
 Elaine can choose to have her stars absorb mana from the environment, increasing their gravitational pull and making them semi-self-sustaining as they continuously draw in energy. Alternatively, she can actively feed mana into a star to make it radiate outward force, creating an anti-gravity effect that pushes objects away.
 
 This manipulation also applies to her own body, letting her lighten herself for greater speed and agility or increase her weight to add force behind her strikes.
+
+**Null Magic:** As a talented mage, Elaine is adept at Null Magic, enabling her to create constructs of elementless mana, which she primarily uses for barriers or weaponry.
