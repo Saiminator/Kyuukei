@@ -25,6 +25,10 @@ Her presence at Ebonvale is not without resistance—many nobles see her as an o
 
 ## Abilities
 
-**Star Creation:** Elaine’s Space Affinity has manifested in the form of stellar constructs, allowing her to create dense, glowing orbs of mana that resemble miniature stars. These stars act as anchors, radiating intense energy while distorting the area around them, creating a gravitational pull. Elaine uses them both a tool for gravity manipulation and as powerful projectiles. Elaine can launch these stars at enemies, bending gravity while near and dealing damage comparable to being hit by a speeding truck.
+**Star Creation:** Elaine’s Space Affinity has manifested in the form of stellar constructs, allowing her to create dense, glowing orbs of mana that resemble miniature stars. These stars act as anchors, distorting the area around them and serving as focal points for her gravity manipulation.
 
-**Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity. This manipulation also applies to her own body, allowing her to adjust her weight for greater speed and agility or increase the force behind her strikes.
+Elaine can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
+
+She can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
+
+**Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity. By absorbing mana from the environment, a star can increase its gravitational pull, making it semi-self-sustaining as it continuously draws in energy. Conversely, by actively feeding mana into a star, it can radiate outward force, creating an anti-gravity effect that pushes objects away. This manipulation also applies to her own body, letting her lighten herself for greater speed and agility or increase her weight to add force behind her strikes.
