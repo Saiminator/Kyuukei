@@ -25,10 +25,6 @@ Her presence at Ebonvale is not without resistance—many nobles see her as an o
 
 ## Abilities
 
-**Star Creation:** Elaine’s Space Affinity has manifested in the form of stellar constructs, allowing her to create dense, glowing orbs of mana that resemble miniature stars. These stars act as anchors, distorting the area around them and serving as focal points for her gravity manipulation.
-
-Elaine can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
-
-She can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
+**Star Creation:** Elaine’s Space Affinity has manifested in the form of stellar constructs, allowing her to create dense, glowing orbs of mana that resemble miniature stars. These stars act as anchors, distorting the area around them and serving as focal points for her gravity manipulation. Elaine can also launch these stars as projectiles, causing them to bend gravity in their vicinity while dealing damage comparable to being hit by a speeding truck upon impact.
 
 **Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity. By absorbing mana from the environment, a star can increase its gravitational pull, making it semi-self-sustaining as it continuously draws in energy. Conversely, by actively feeding mana into a star, it can radiate outward force, creating an anti-gravity effect that pushes objects away. This manipulation also applies to her own body, letting her lighten herself for greater speed and agility or increase her weight to add force behind her strikes.
