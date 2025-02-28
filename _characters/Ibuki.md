@@ -17,7 +17,13 @@ eye_color: "????"
 
 ## Background
 
-??
+Ibuki Weitschall is Ebonvale Academy’s official announcer, a title she wears with unwavering pride and unnecessary theatrics. While she was never a particularly strong mage or an exceptional scholar, she found her calling early—her voice would be the loudest in the academy, whether people liked it or not.
+
+As a student, she served on the student council as the academy’s announcer, a job she took far more seriously than her actual studies. While other students trained in offensive magic or refined elemental spells, Ibuki spent her time developing a communication network, placing mana marks on students to deliver announcements directly into their minds. She barely met academic requirements, but her ability was too useful to ignore, and her over-the-top delivery made sure no one could ever claim they "missed an announcement."
+
+Upon graduating, Ibuki was offered a permanent role at Ebonvale, an unprecedented position that removed the burden of announcements from the student council. Now, every student’s emblem is inscribed with her mana mark, ensuring that no one escapes her voice—whether it’s an important message, a dramatic retelling of cafeteria menu changes, or an impromptu declaration of her “eternal rule over Ebonvale.”
+
+Most of the staff sigh at her antics, exhausted by her constant embellishments, yet they can’t deny that her work is efficient and invaluable. The headmaster, however, encourages her nonsense, playing along with her self-proclaimed titles and feeding into the absurdity. Meanwhile, the students love her, finding entertainment in her dramatic proclamations and signature chuunibyo flair. Whether she calls herself “Ebonvale’s Announcer from the Abyss,” “The One Who Speaks Too Much,” or “Ebonvale’s True Overlord,” one thing remains certain—Ibuki’s voice will always be heard.
 
 ## Abilities
 
