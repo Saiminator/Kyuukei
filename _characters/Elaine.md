@@ -11,8 +11,8 @@ height: "?'?\" | ???cm"
 weight: "???lbs | ??kg"
 cup_size: "?"
 blood_type: "?"
-hair_color: "?"
-eye_color: "????"
+hair_color: "Silver"
+eye_color: "Gold"
 ---
 
 ## Background
