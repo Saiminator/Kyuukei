@@ -3,7 +3,7 @@ layout: character
 title: "Emiko Stürzen"
 slug: "Emiko"
 image: "https://i.imgur.com/2ScZPoX.jpeg"
-age: "**29**"
+age: "**26 (deceased)**"
 birthday: "March 20th"
 species: "Human"
 gender: "Female"
