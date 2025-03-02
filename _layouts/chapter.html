@@ -10,13 +10,17 @@ layout: default
 
 {% comment %}
   Filter all chapters in the _chapters collection that belong to the same segment.
-  We assume each chapter file has a front matter key "segment".
+  Then sort them by chapter_number.
 {% endcomment %}
 {% assign sorted = site.chapters | where:"segment", page.segment | sort:"chapter_number" %}
 
+{% comment %}
+  Loop through the sorted chapters and find the current chapter based on chapter_number.
+  We convert the chapter numbers to integers for a reliable comparison.
+{% endcomment %}
 {% assign current_index = 0 %}
 {% for chap in sorted %}
-  {% if chap.url == page.url %}
+  {% if chap.chapter_number | plus: 0 == page.chapter_number | plus: 0 %}
     {% assign current_index = forloop.index0 %}
   {% endif %}
 {% endfor %}
