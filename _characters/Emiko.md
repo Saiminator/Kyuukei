@@ -10,7 +10,7 @@ gender: "Female"
 height: "5'7\" | 170cm"
 weight: "135lbs | 61kg"
 cup_size: "C+"
-blood_type: "?"
+mana_color: "?"
 hair_color: "?"
 eye_color: "????"
 ---
