@@ -10,7 +10,7 @@ gender: "Female"
 height: "?'?\" | ???cm"
 weight: "???lbs | ??kg"
 cup_size: "?"
-blood_type: "?"
+mana_color: "Smokey Lavender"
 hair_color: "Black"
 eye_color: " Dull Blue"
 ---
