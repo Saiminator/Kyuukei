@@ -12,7 +12,7 @@ layout: default
         </div>
         <div class="chapter-details">
           <h2>Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h2>
-          <p>{{ chapter.excerpt | strip_html | truncate: 150 }}</p>
+          <p>{{ chapter.preview_description | default: 'No description available.' }}</p>
         </div>
       </a>
     {% endfor %}
