@@ -1030,3 +1030,45 @@ body.chapter .section-header {
 .back-to-stories-button:hover {
   background: #556cd6;
 }
+
+/* Fixed Chapter Navigation at Bottom */
+.chapter-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.chapter-nav-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.nav-button {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  background: #667eea;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin: 0 5px;
+}
+
+/* Hover effect for active nav buttons */
+.nav-button:hover {
+  background: #556cd6;
+}
+
+/* Optional: Style for disabled buttons (if no previous/next chapter available) */
+.nav-button.disabled {
+  background: #ccc;
+  pointer-events: none;
+}
