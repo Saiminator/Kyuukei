@@ -1,7 +1,7 @@
 ---
 layout: chapter
 title: "Chapter 2: The Awakening"
-story_segment: "Spreading Shimi"
+timeline: "spreading-shimi"
 chapter_number: 2
 ---
-Your chapter content goes here...
+Your chapter content...
