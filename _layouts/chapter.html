@@ -1,18 +1,22 @@
----
-layout: default
----
 <article class="chapter-detail content-section">
   <h1>{{ page.title }}</h1>
   <div class="chapter-content">
     {{ content }}
   </div>
-  <nav class="nav-buttons">
-    {% if page.previous_chapter %}
-      <a href="{{ page.previous_chapter.url }}" class="button">Previous Chapter</a>
-    {% endif %}
-    <a href="{{ '/stories/' | append: page.segment | append: '/' | relative_url }}" class="button">Back to Timeline</a>
-    {% if page.next_chapter %}
-      <a href="{{ page.next_chapter.url }}" class="button">Next Chapter</a>
-    {% endif %}
-  </nav>
 </article>
+
+<nav class="chapter-nav">
+  <div class="chapter-nav-container">
+    {% if page.previous_chapter %}
+      <a href="{{ page.previous_chapter.url | relative_url }}" class="nav-button">Previous Chapter</a>
+    {% else %}
+      <span class="nav-button disabled"></span>
+    {% endif %}
+    <a href="{{ '/stories/' | append: page.segment | append: '/' | relative_url }}" class="nav-button">Back to Chapters</a>
+    {% if page.next_chapter %}
+      <a href="{{ page.next_chapter.url | relative_url }}" class="nav-button">Next Chapter</a>
+    {% else %}
+      <span class="nav-button disabled"></span>
+    {% endif %}
+  </div>
+</nav>
