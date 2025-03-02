@@ -6,7 +6,7 @@ title: Story Segments
 <div class="story-segments-container">
   {% for segment in site.story_sections %}
     <a href="{{ segment.url | relative_url }}" class="story-segment">
-      <img src="{{ segment.image | default: 'https://via.placeholder.com/1000x200' }}" alt="{{ segment.title }}">
+      <img src="{{ segment.image | default: 'https://i.imgur.com/QRd4drw.png' }}" alt="{{ segment.title }}">
       <div class="segment-info">
         <h2>{{ segment.title }}</h2>
         <p>{{ segment.excerpt }}</p>
