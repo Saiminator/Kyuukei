@@ -24,6 +24,9 @@ collections:
   questions:
     output: true
     permalink: /questions/:title/
+  stories:
+    output: true
+    permalink: /stories/:slug/
 
 # Plugins (if you use any)
 plugins:
