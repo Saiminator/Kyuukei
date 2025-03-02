@@ -14,7 +14,7 @@ permalink: pretty
 collections:
   chapters:
     output: true
-    permalink: "/stories/:story_segment/chapter-:chapter_number/"
+    permalink: "/stories/:timeline/chapter-:chapter_number/"
   characters:
     output: true
     permalink: "/characters/:title/"
@@ -27,7 +27,6 @@ collections:
   stories:
     output: true
     permalink: "/stories/:slug/"
-
 
 # Plugins (if you use any)
 plugins:
