@@ -1,8 +1,9 @@
 ---
 layout: default
 ---
+
 <div class="chapter-list">
-  {% assign chapters = site.chapters | where:"timeline", page.title | sort:"chapter_number" %}
+  {% assign chapters = site.chapters | where:"timeline", page.slug | sort:"chapter_number" %}
   {% if chapters != empty %}
     {% for chapter in chapters %}
       <div class="chapter">
