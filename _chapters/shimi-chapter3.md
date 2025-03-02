@@ -1,11 +1,7 @@
 ---
 layout: chapter
-title: "Shimi chapter 3 testing"
-timeline: "Shimi"
+title: "Chapter 3: The Awakening"
+story_segment: "Spreading Shimi"
 chapter_number: 3
-chapter_title: "Chapter 3: test"
-offset: 120
 ---
-
-This is the content of Shimi Chapter 2.  
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
+Your chapter content goes here...
