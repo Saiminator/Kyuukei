@@ -1,11 +1,7 @@
 ---
 layout: chapter
-title: "Shimi chapter 1 Noble"
-timeline: "Shimi"
+title: "Chapter 1: The Awakening"
+story_segment: "Spreading Shimi"
 chapter_number: 1
-chapter_title: "Chapter 1: Noble"
-offset: 40
 ---
-
-This is the content of Shimi Chapter 1.  
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
+Your chapter content goes here...
