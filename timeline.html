@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Stories
+title: Story Segments
 ---
 
-<div class="stories-container">
+<div class="story-segments-container">
   {% for segment in site.stories %}
     <a href="{{ segment.url | relative_url }}" class="story-segment">
       <img src="{{ segment.image | default: 'https://via.placeholder.com/1000x200' }}" alt="{{ segment.title }}">
