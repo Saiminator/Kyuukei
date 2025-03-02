@@ -9,7 +9,7 @@ species: "Human"
 gender: "Male"
 height: "5'11\" | 175cm"
 weight: "170lbs | 77kg"
-blood_type: "TBD"
+mana_color: "Deep Green"
 hair_color: "Dirty Blonde"
 eye_color: "Brown/Orange"
 ---
