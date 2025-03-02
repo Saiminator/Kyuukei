@@ -6,13 +6,15 @@ layout: default
   {% assign chapters = site.chapters | where:"segment", page.slug | sort:"chapter_number" %}
   {% if chapters != empty %}
     {% for chapter in chapters %}
-      <div class="chapter">
-        <img src="{{ chapter.image | default: 'https://via.placeholder.com/100x100' }}" alt="Chapter Image">
+      <a href="{{ chapter.url | relative_url }}" class="chapter-preview">
+        <div class="chapter-image">
+          <img src="{{ chapter.preview_image | default: 'https://via.placeholder.com/150x150?text=Chapter+Image' }}" alt="Chapter {{ chapter.chapter_number }} image">
+        </div>
         <div class="chapter-details">
           <h2>Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h2>
           <p>{{ chapter.excerpt | strip_html | truncate: 150 }}</p>
         </div>
-      </div>
+      </a>
     {% endfor %}
   {% else %}
     <p>No chapters available for this segment.</p>
