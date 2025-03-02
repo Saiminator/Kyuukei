@@ -14,7 +14,7 @@ permalink: pretty
 collections:
   chapters:
     output: true
-    permalink: /chapters/:title/
+    permalink: /stories/:story_segment/chapter-:chapter_number/
   characters:
     output: true
     permalink: /characters/:title/
