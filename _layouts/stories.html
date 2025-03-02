@@ -2,6 +2,9 @@
 layout: default
 ---
 
+<!-- Back to Story List Button -->
+<a href="{{ '/stories/' | relative_url }}" class="back-to-stories-button">← Back to Story List</a>
+
 <div class="chapter-list">
   {% assign chapters = site.chapters | where:"segment", page.slug | sort:"chapter_number" %}
   {% if chapters != empty %}
