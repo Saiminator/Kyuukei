@@ -190,7 +190,7 @@ header {
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  height: 60px; /* Fixed area */
+  height: 60px; /* Fixed area for desktop menu */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,8 +206,8 @@ header {
 .nav-menu-desktop li { margin: 0 15px; }
 .nav-menu-desktop a {
   font-weight: 500;
-  background: #f7cdd5;
-  color: #fff;
+  background: #f7cdd5; /* Orby Pink background */
+  color: #fff;        /* White text */
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -216,7 +216,7 @@ header {
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
 .nav-menu-desktop a.active {
-  background: #e0a8b5;
+  background: #e0a8b5; /* Darker Orby Pink */
 }
 
 @media (max-width: 750px) {
@@ -228,6 +228,7 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
+   (Used by pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
 .section-fixed-title {
   display: flex;
@@ -282,7 +283,7 @@ header {
   }
 }
 
-/* Scrollable Content Area */
+/* Scrollable Content Area inside Fixed Container */
 .section-scroll {
   flex: 1;
   overflow-y: auto;
@@ -423,7 +424,6 @@ header {
   font-weight: 600;
 }
 
-/* (Optional) Ensure consistent sizing */
 .character-item {
   text-decoration: none;
   color: inherit;
@@ -888,7 +888,7 @@ header {
 
 /* =====================================================
    26. Story Segments Styles
-   (New for the Story Segments Page)
+   (For the Story Segments Page)
 ===================================================== */
 .story-segments-container {
   display: block;
