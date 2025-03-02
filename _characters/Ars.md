@@ -9,7 +9,7 @@ species: "Human"
 gender: "Male"
 height: "5'6\" | 168cm"
 weight: "140lbs | 63kg"
-blood_type: "TBD"
+mana_color: "Red"
 hair_color: "Black"
 eye_color: "Abyss Blue"
 ---
