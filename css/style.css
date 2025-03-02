@@ -1079,7 +1079,7 @@ body.chapter .section-header {
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;  /* Adjust to match your main content container width */
+  width: 60%;  /* For desktop */
   background: rgba(255, 255, 255, 0.97);
   box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
@@ -1114,4 +1114,17 @@ body.chapter .section-header {
 .nav-button.disabled {
   background: #ccc;
   pointer-events: none;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .chapter-nav {
+    width: 90%;  /* Increase width on mobile */
+    bottom: 5px; /* Slightly adjust bottom margin if needed */
+  }
+  .nav-button {
+    font-size: 0.8rem;
+    padding: 6px;
+    margin: 0 3px;
+  }
 }
