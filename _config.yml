@@ -14,19 +14,20 @@ permalink: pretty
 collections:
   chapters:
     output: true
-    permalink: /stories/:story_segment/chapter-:chapter_number/
+    permalink: "/stories/:story_segment/chapter-:chapter_number/"
   characters:
     output: true
-    permalink: /characters/:title/
+    permalink: "/characters/:title/"
   news:
     output: true
-    permalink: /news/:title/
+    permalink: "/news/:title/"
   questions:
     output: true
-    permalink: /questions/:title/
+    permalink: "/questions/:title/"
   stories:
     output: true
-    permalink: /stories/:slug/
+    permalink: "/stories/:slug/"
+
 
 # Plugins (if you use any)
 plugins:
