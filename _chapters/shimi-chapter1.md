@@ -1,6 +1,6 @@
 ---
 layout: chapter
-title: "Chapter 1: The Awakening"
+title: "The Awakening"
 segment: "spreading-shimi"
 chapter_number: 1
 permalink: /stories/spreading-shimi/chapter-1/
