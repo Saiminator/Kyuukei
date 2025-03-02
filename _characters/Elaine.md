@@ -10,7 +10,7 @@ gender: "Female"
 height: "5'6\" | 167cm"
 weight: "99lbs? | 45kg?"
 cup_size: "?"
-blood_type: "?"
+mana_color: "Light Purple"
 hair_color: "Silver"
 eye_color: "Gold"
 ---
