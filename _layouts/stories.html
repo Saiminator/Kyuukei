@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<div class="chapter-list">
+  {% assign chapters = site.chapters | where:"timeline", page.title | sort:"chapter_number" %}
+  {% if chapters != empty %}
+    {% for chapter in chapters %}
+      <div class="chapter">
+        <img src="{{ chapter.image | default: 'https://via.placeholder.com/100x100' }}" alt="Chapter Image">
+        <div class="chapter-details">
+          <h2>Chapter {{ chapter.chapter_number }}: {{ chapter.chapter_title }}</h2>
+          <p>{{ chapter.excerpt | strip_html | truncate: 150 }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No chapters available for this story.</p>
+  {% endif %}
+</div>
