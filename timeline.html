@@ -1,24 +1,17 @@
 ---
 layout: default
-title: Story Timeline
+title: Story Segments
 ---
 
-<div class="timeline-container">
-  {% assign timeline_names = "Kyuu|Cerulean Winds|Shimi|Dreymi|Via|Mika|Memo|Shizu" | split: "|" %}
-  {% for timeline in timeline_names %}
-    {% assign timeline_chapters = site.chapters | where:"timeline", timeline | sort:"chapter_number" %}
-    {% if timeline_chapters != empty %}
-      <div class="timeline-branch">
-        <h2 class="branch-title">{{ timeline }}</h2>
-        <div class="branch-chapters">
-          {% for chapter in timeline_chapters %}
-            <a href="{{ chapter.url }}" class="chapter-card">
-              <span class="chapter-number">Chapter {{ chapter.chapter_number }}</span>
-              <span class="chapter-title">{{ chapter.chapter_title }}</span>
-            </a>
-          {% endfor %}
-        </div>
+<div class="story-segments-container">
+  {% assign segments = "Kyuu's Breaktime Stories|Dreymi's Diary|Shimi's Spreading Stain|The Cerulean Winds" | split: "|" %}
+  {% for segment in segments %}
+    {% assign slug = segment | slugify %}
+    <a href="{{ '/' | append: slug | append: '/' | relative_url }}" class="story-segment">
+      <img src="https://via.placeholder.com/1000x200?text={{ segment | url_encode }}" alt="{{ segment }}">
+      <div class="segment-info">
+        <h2>{{ segment }}</h2>
       </div>
-    {% endif %}
+    </a>
   {% endfor %}
 </div>
