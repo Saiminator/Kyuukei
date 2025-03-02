@@ -135,7 +135,6 @@ header {
 }
 
 /* ---------- Navigation Rules ---------- */
-/* Show mobile nav only on viewports ≤600px; desktop menu on ≥601px */
 @media (min-width: 601px) {
   #nav-mobile { display: none !important; }
   .nav-menu-desktop { display: flex !important; }
@@ -175,7 +174,7 @@ header {
   }
   #nav-mobile-menu a:hover { color: #667eea; }
   
-  /* Style mobile menu toggle in Orby Pink */
+  /* Mobile menu toggle in Orby Pink */
   #nav-toggle {
     background: #f7cdd5;
     color: #fff;
@@ -187,11 +186,11 @@ header {
   }
 }
 
-/* Desktop Navigation Menu inside Fixed Container */
+/* Desktop Navigation Menu */
 .nav-menu-desktop {
   margin: 0;
   padding: 0;
-  height: 60px; /* Fixed area for desktop menu */
+  height: 60px; /* Fixed area */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,8 +206,8 @@ header {
 .nav-menu-desktop li { margin: 0 15px; }
 .nav-menu-desktop a {
   font-weight: 500;
-  background: #f7cdd5; /* Orby Pink background */
-  color: #fff;        /* White text */
+  background: #f7cdd5;
+  color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
   padding: 8px 15px;
@@ -216,13 +215,10 @@ header {
   transition: background 0.3s ease, color 0.3s ease;
 }
 .nav-menu-desktop a:hover { background: #e0a8b5; }
-
-/* Active Desktop Menu Link */
 .nav-menu-desktop a.active {
-  background: #e0a8b5; /* Darker Orby Pink */
+  background: #e0a8b5;
 }
 
-/* Responsive adjustments for desktop menu when viewport is below 750px */
 @media (max-width: 750px) {
   .nav-menu-desktop a {
     font-size: 1.3rem;
@@ -232,7 +228,6 @@ header {
 
 /* =====================================================
    6. Fixed Container for Page Content
-   (Used by pages such as News, Questions, Character Wiki, etc.)
 ===================================================== */
 .section-fixed-title {
   display: flex;
@@ -245,7 +240,6 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Mobile override: reduce container height to account for extra header/URL space */
 @media (max-width: 600px) {
   .section-fixed-title {
     height: calc(100vh - 190px) !important;
@@ -254,7 +248,6 @@ header {
 
 /* Section Header (Page Title) */
 .section-fixed-title .section-header {
-  /* Desktop defaults: fixed height, padding, line-height */
   flex: 0 0 50px;
   padding: 0 20px;
   background: #fff;
@@ -268,7 +261,6 @@ header {
   padding: 0;
 }
 
-/* Mobile adjustments: let header height wrap content so box size matches text */
 @media (max-width: 800px) {
   .section-fixed-title .section-header {
     flex: none;
@@ -281,7 +273,6 @@ header {
   }
 }
 
-/* Further adjustments for very narrow screens */
 @media (max-width: 555px) {
   .section-fixed-title .section-header {
     padding: 8px 15px;
@@ -291,7 +282,7 @@ header {
   }
 }
 
-/* Scrollable Content Area inside Fixed Container */
+/* Scrollable Content Area */
 .section-scroll {
   flex: 1;
   overflow-y: auto;
@@ -387,7 +378,6 @@ header {
 #characterScrollWrapper {
   width: 100%;
   max-width: 1120px;
-  /* Set height to fill parent container */
   height: 100%;
   margin: 0 auto;
   overflow-y: auto;
@@ -433,7 +423,7 @@ header {
   font-weight: 600;
 }
 
-/* (Optional) Ensure character items have a consistent size */
+/* (Optional) Ensure consistent sizing */
 .character-item {
   text-decoration: none;
   color: inherit;
@@ -598,7 +588,7 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .section-fixed-title .section-header {
-  padding: 0 20px; /* Only horizontal padding to keep title flush */
+  padding: 0 20px;
   background: #fff;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -633,7 +623,6 @@ header {
   gap: 20px;
 }
 
-/* Left Panel (Background & Abilities) */
 .left-panel {
   flex: 2;
   text-align: left;
@@ -641,21 +630,20 @@ header {
   border-right: 1px solid #eee;
 }
 
-/* Back to Character Selection Button styled in Blue */
-.character-detail .left-panel .back-select-btn {
+.character-detail .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
   padding: 8px 12px;
   font-size: 0.9em;
-  background: #0077be;  /* Blue color */
+  background: #0077be;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.character-detail .left-panel .back-select-btn:hover {
-  background: #005a94;  /* Darker blue on hover */
+.character-detail .back-select-btn:hover {
+  background: #005a94;
 }
 
 .section-title {
@@ -670,7 +658,6 @@ header {
   line-height: 1.6;
 }
 
-/* Right Panel (Name, Picture, Basic Info) */
 .right-panel {
   flex: 1;
   padding-left: 20px;
@@ -703,8 +690,6 @@ header {
   margin: 4px 0;
 }
 
-/* Responsive adjustments for Character Detail:
-   On screens 800px wide and below, show the right panel first */
 @media (max-width: 800px) {
   .detail-container {
     flex-direction: column;
@@ -720,41 +705,42 @@ header {
   }
 }
 
-/* Character View Container Grid Layout */
+/* =====================================================
+   19. Character View Container Grid Layout
+===================================================== */
 .character-view-container {
   display: grid;
   gap: 20px;
 }
 
-/* Desktop: 4 columns */
 @media (min-width: 1024px) {
   .character-view-container {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Tablet: 3 columns */
 @media (max-width: 1023px) and (min-width: 601px) {
   .character-view-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Mobile: 2 columns */
 @media (max-width: 600px) {
   .character-view-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Character Item Styling */
+/* =====================================================
+   20. Character Item Styling
+===================================================== */
 .character-item, .character-category-card {
   text-decoration: none;
   color: inherit;
 }
 .character-image {
   width: 100%;
-  padding-top: 100%; /* Square aspect ratio */
+  padding-top: 100%;
   background-size: cover;
   background-position: center;
   border: 2px solid #ddd;
@@ -767,7 +753,6 @@ header {
   font-weight: 600;
 }
 
-/* (Optional) Ensure character items have a consistent size */
 .character-item {
   text-decoration: none;
   color: inherit;
@@ -788,137 +773,172 @@ header {
 }
 
 /* =====================================================
-   19. Hide Title on Character and Chapter Pages
-   (Assumes body has class "character" or "chapter")
+   21. Navigation Buttons (General)
 ===================================================== */
-body.character .section-header,
-body.chapter .section-header {
-  display: none;
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+.nav-buttons a.button, .nav-buttons button {
+  flex: 1;
+  max-width: 200px;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: #667eea;
+  border: none;
+  font-size: 1em;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+.nav-buttons a.button:hover, .nav-buttons button:hover {
+  background: #556cd6;
 }
 
 /* =====================================================
-   20. Adjust Title Font for Small Screens (420px and below)
+   22. Chapter Detail Page Styles
 ===================================================== */
-@media (max-width: 420px) {
-  .section-header h1 {
-    font-size: 1.2rem;
-    line-height: 1.2rem;
-  }
-}
-
-/* =====================================================
-   21. SPOILER BUTTON & QUESTIONS TITLE STYLING
-===================================================== */
-/* Style the global spoiler button on the questions page */
-#spoiler-toggle {
-  display: block;
+.chapter-detail {
+  max-width: 1120px;
   margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #0077be; /* Blue background */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  cursor: pointer;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-/* Change the title color for question entries to dark gray */
-.question-entry h2,
-.question-header h2 {
-  color: #333;
-}
-
-.character-detail .back-select-btn {
-  background-color: #0077be !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 4px !important;
-  padding: 8px 12px !important;
-  font-size: 0.9rem !important;
-  cursor: pointer !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
-}
-
-.character-detail .back-select-btn:hover {
-  background-color: #005a94 !important;
-}
-
-@media (max-width: 800px) {
-  .section-header h1 {
-    font-size: 1.6rem;  /* Adjust this value as needed */
-    line-height: 1.6rem;
-  }
-}
-
-/* Container for the section (tab) buttons */
-.character-sort-tabs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;  /* Adjusted vertical spacing */
-}
-
-/* Style for each tab button */
-.character-sort-tabs .sort-tab {
-  background-color: #f7cdd5;  /* Orby pink */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 15px;  /* matching main nav's button style */
-  margin: 0 15px;    /* left/right spacing similar to desktop nav */
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease;
-}
-
-/* Hover state */
-.character-sort-tabs .sort-tab:hover {
-  background-color: #e0a8b5; /* Darker shade on hover */
-}
-
-/* Active tab */
-.character-sort-tabs .sort-tab.active {
-  background-color: #e0a8b5;
+.chapter-content {
+  text-align: left;
+  margin-bottom: 20px;
 }
 
 /* =====================================================
-   22. BLINKING TEXT HIDING
+   23. Fixed Chapter Navigation at Bottom
 ===================================================== */
-
-/* Container for the section (tab) buttons */
-.character-sort-tabs {
+.chapter-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255,255,255,0.97);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+.chapter-nav-container {
+  max-width: 1120px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;  /* Adjusted vertical spacing */
+  justify-content: space-around;
+  padding: 10px;
 }
-
-/* Style for each tab button */
-.character-sort-tabs .sort-tab {
-  background-color: #f7cdd5;  /* Orby pink */
+.chapter-nav .nav-button {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  background: #667eea;
   color: #fff;
-  border: none;
   border-radius: 5px;
-  padding: 8px 15px;  /* matching main nav's button style */
-  margin: 0 15px;    /* left/right spacing similar to desktop nav */
-  cursor: pointer;
-  font-size: 1rem;
+  text-decoration: none;
   transition: background 0.3s ease;
+  margin: 0 5px;
+}
+.chapter-nav .nav-button:hover {
+  background: #556cd6;
 }
 
-/* Hover state */
-.character-sort-tabs .sort-tab:hover {
-  background-color: #e0a8b5; /* Darker shade on hover */
+/* =====================================================
+   24. News and Questions Entry Styles
+===================================================== */
+.news-entry, .question-entry {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: left;
+}
+.news-entry h2, .question-entry h2 {
+  margin: 0 0 5px;
+  font-size: 1.5em;
+}
+.news-date {
+  font-size: 0.9em;
+  color: #999;
+  margin-bottom: 10px;
+}
+.news-content, .question-entry p {
+  font-size: 1.1em;
+  line-height: 1.5;
 }
 
-/* Active tab */
-.character-sort-tabs .sort-tab.active {
-  background-color: #e0a8b5;
+/* =====================================================
+   25. Responsive & Mobile Specific Adjustments
+===================================================== */
+@media (min-width: 600px) {
+  body { font-size: 1.1rem; }
+}
+@media (min-width: 1024px) {
+  body { font-size: 1.1rem; }
 }
 
-/* -----------------------------------------------------------
-   Hide the blinking text insertion caret on non-input elements
------------------------------------------------------------ */
+/* =====================================================
+   26. Story Segments Styles
+   (New for the Story Segments Page)
+===================================================== */
+.story-segments-container {
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+}
+.story-segment {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: 200px;
+  margin: 20px auto;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+.story-segment:hover {
+  transform: translateY(-5px);
+}
+.story-segment img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.segment-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.segment-info h2 {
+  margin: 0;
+  font-size: 2em;
+}
+.segment-info p {
+  margin: 5px 0 0;
+  font-size: 1em;
+}
+
+/* =====================================================
+   27. Blinking Text Insertion Caret (Hidden)
+===================================================== */
 *:not(input):not(textarea) {
   caret-color: transparent;
 }
