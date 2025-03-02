@@ -1016,3 +1016,17 @@ body.chapter .section-header {
   color: #555;
   font-size: 0.9em;
 }
+
+.back-to-stories-button {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 10px 15px;
+  background: #667eea;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+.back-to-stories-button:hover {
+  background: #556cd6;
+}
