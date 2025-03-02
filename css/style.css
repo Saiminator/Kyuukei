@@ -1072,3 +1072,46 @@ body.chapter .section-header {
   background: #ccc;
   pointer-events: none;
 }
+
+/* Fixed Chapter Navigation that stays within the main content container */
+.chapter-nav {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;  /* Adjust to match your main content container width */
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-radius: 5px;
+  padding: 5px 0;
+}
+
+.chapter-nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+}
+
+.nav-button {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  background: #667eea;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin: 0 5px;
+  font-size: 0.9rem;
+}
+
+.nav-button:hover {
+  background: #556cd6;
+}
+
+.nav-button.disabled {
+  background: #ccc;
+  pointer-events: none;
+}
