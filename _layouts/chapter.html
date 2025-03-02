@@ -9,18 +9,20 @@ layout: default
 </article>
 
 {% comment %}
-  Build a sorted list of chapters for the current segment.
-  Then loop to find the index of the current chapter.
+  Filter all chapters in the _chapters collection that belong to the same segment.
+  We assume each chapter file has a front matter key "segment".
 {% endcomment %}
 {% assign sorted = site.chapters | where:"segment", page.segment | sort:"chapter_number" %}
-{% assign index = 0 %}
-{% for c in sorted %}
-  {% if c.url == page.url %}
-    {% assign index = forloop.index0 %}
+
+{% assign current_index = 0 %}
+{% for chap in sorted %}
+  {% if chap.url == page.url %}
+    {% assign current_index = forloop.index0 %}
   {% endif %}
 {% endfor %}
-{% assign previous = sorted[index | minus:1] %}
-{% assign next = sorted[index | plus:1] %}
+
+{% assign previous = sorted[current_index | minus: 1] %}
+{% assign next = sorted[current_index | plus: 1] %}
 
 <nav class="chapter-nav">
   <div class="chapter-nav-container">
