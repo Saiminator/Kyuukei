@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <article class="chapter-detail content-section">
   <h1>{{ page.title }}</h1>
   <div class="chapter-content">
@@ -9,36 +10,36 @@ layout: default
 </article>
 
 {% comment %}
-  Filter chapters by the current segment and sort by chapter_number.
+  Filter and sort all chapters in the current segment (based on the "segment" key).
 {% endcomment %}
-{% assign sorted = site.chapters | where:"segment", page.segment | sort:"chapter_number" %}
-{% assign total = sorted | size %}
+{% assign chapters_in_segment = site.chapters | where:"segment", page.segment | sort:"chapter_number" %}
 {% assign current_num = page.chapter_number | plus: 0 %}
-{% assign current_index = 0 %}
+{% assign prev_chapter = "" %}
+{% assign next_chapter = "" %}
 
-{% for chap in sorted %}
-  {% assign chap_num = chap.chapter_number | plus: 0 %}
-  {% if chap_num == current_num %}
-    {% assign current_index = forloop.index0 %}
+{% comment %}
+  Loop through each chapter. For previous, we take the chapter with the highest number less than current.
+  For next, we take the first chapter with a number greater than current.
+{% endcomment %}
+{% for chapter in chapters_in_segment %}
+  {% assign chap_num = chapter.chapter_number | plus: 0 %}
+  {% if chap_num < current_num %}
+    {% assign prev_chapter = chapter %}
+  {% endif %}
+  {% if chap_num > current_num and next_chapter == "" %}
+    {% assign next_chapter = chapter %}
   {% endif %}
 {% endfor %}
 
-{% if current_index > 0 %}
-  {% assign previous_chapter = sorted[current_index | minus: 1] %}
-{% endif %}
-{% if current_index < total | minus: 1 %}
-  {% assign next_chapter = sorted[current_index | plus: 1] %}
-{% endif %}
-
 <nav class="chapter-nav">
   <div class="chapter-nav-container">
-    {% if previous_chapter %}
-      <a href="{{ previous_chapter.url | relative_url }}" class="nav-button">Previous Chapter</a>
+    {% if prev_chapter != "" %}
+      <a href="{{ prev_chapter.url | relative_url }}" class="nav-button">Previous Chapter</a>
     {% else %}
       <span class="nav-button disabled">Previous Chapter</span>
     {% endif %}
     <a href="{{ '/stories/' | append: page.segment | append: '/' | relative_url }}" class="nav-button">Back to Chapters</a>
-    {% if next_chapter %}
+    {% if next_chapter != "" %}
       <a href="{{ next_chapter.url | relative_url }}" class="nav-button">Next Chapter</a>
     {% else %}
       <span class="nav-button disabled">Next Chapter</span>
