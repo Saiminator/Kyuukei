@@ -9,33 +9,24 @@ layout: default
 </article>
 
 {% comment %}
-  Filter and sort all chapters in the current segment.
+  Filter chapters by the current segment and sort by chapter_number.
 {% endcomment %}
 {% assign sorted = site.chapters | where:"segment", page.segment | sort:"chapter_number" %}
 {% assign total = sorted | size %}
-
-{% comment %}
-  Loop through sorted chapters to find the current chapter's index
-{% endcomment %}
+{% assign current_num = page.chapter_number | plus: 0 %}
 {% assign current_index = 0 %}
+
 {% for chap in sorted %}
-  {% if chap.chapter_number | plus: 0 == page.chapter_number | plus: 0 %}
+  {% assign chap_num = chap.chapter_number | plus: 0 %}
+  {% if chap_num == current_num %}
     {% assign current_index = forloop.index0 %}
   {% endif %}
 {% endfor %}
 
-{% comment %}
-  Determine previous and next chapters only if they exist.
-{% endcomment %}
-{% if current_index == 0 %}
-  {% assign previous_chapter = nil %}
-{% else %}
+{% if current_index > 0 %}
   {% assign previous_chapter = sorted[current_index | minus: 1] %}
 {% endif %}
-
-{% if current_index == total | minus: 1 %}
-  {% assign next_chapter = nil %}
-{% else %}
+{% if current_index < total | minus: 1 %}
   {% assign next_chapter = sorted[current_index | plus: 1] %}
 {% endif %}
 
