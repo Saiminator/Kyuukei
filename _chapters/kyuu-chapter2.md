@@ -5,7 +5,7 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 2
 permalink: /stories/kyuus-breaktime-stories/chapter-2/
 preview_image: "https://i.imgur.com/QRd4drw.png"
-preview_description: "A brief introduction to Kyuu's journey begins here."
+preview_description: "While wandering, Kyuu encounters her first threat"
 
 ---
 The stillness of the forest was shattered by the soft crunch of footsteps pressing into the earth. The sound was measured, cautious. Kyuu remained motionless, head slightly tilted, watching the space ahead with passive curiosity. She did not know what she was waiting for, only that the orb beside her trembled ever so slightly.
