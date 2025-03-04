@@ -80,5 +80,76 @@
   </div>
   
   <script src="{{ '/js/main.js' | relative_url }}"></script>
+
+
+
+
+
+
+
+  <script>
+  // Define an object mapping key sequences to their image URLs.
+  // Add as many as you need in this format.
+  const easterEggs = {
+    "brick": "https://i.imgur.com/ydADN2M.png",  // Replace with your actual image URL
+    "nick": "https://i.imgur.com/vqa65df.jpeg"     // Replace with your actual image URL
+  };
+
+  // We'll accumulate pressed keys in a string.
+  let keysPressed = "";
+
+  document.addEventListener('keydown', function(event) {
+    // Append the key in lowercase
+    keysPressed += event.key.toLowerCase();
+
+    // Check if the ending of keysPressed matches any secret sequence.
+    for (const sequence in easterEggs) {
+      if (keysPressed.endsWith(sequence)) {
+        showEasterEgg(easterEggs[sequence]);
+        // Reset keysPressed to avoid multiple triggers
+        keysPressed = "";
+        break;
+      }
+    }
+    
+    // Optionally, trim the keysPressed string to a reasonable length.
+    if (keysPressed.length > 20) {
+      keysPressed = keysPressed.slice(-20);
+    }
+  });
+
+  function showEasterEgg(imageUrl) {
+    // Create an overlay if it doesn't already exist
+    let overlay = document.getElementById('easter-egg-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'easter-egg-overlay';
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100%';
+      overlay.style.height = '100%';
+      overlay.style.background = 'rgba(0, 0, 0, 0.8)';
+      overlay.style.display = 'flex';
+      overlay.style.justifyContent = 'center';
+      overlay.style.alignItems = 'center';
+      overlay.style.zIndex = '10000';
+      // Clicking the overlay will remove it.
+      overlay.addEventListener('click', function () {
+        overlay.remove();
+      });
+      document.body.appendChild(overlay);
+    }
+    // Clear any previous content and add the image
+    overlay.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = 'Easter Egg';
+    img.style.maxWidth = '80%';
+    img.style.maxHeight = '80%';
+    overlay.appendChild(img);
+  }
+</script>
+
 </body>
 </html>
