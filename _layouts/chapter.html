@@ -33,13 +33,13 @@ layout: default
 <nav class="chapter-nav">
   <div class="chapter-nav-container">
     {% if prev_chapter != "" %}
-      <a href="{{ prev_chapter.url | relative_url }}" class="nav-button">Previous Chapter</a>
+      <a href="{{ prev_chapter.url | relative_url }}" class="nav-button">Previous</a>
     {% else %}
       <span class="nav-button disabled">Previous Chapter</span>
     {% endif %}
-    <a href="{{ '/stories/' | append: page.segment | append: '/' | relative_url }}" class="nav-button">Back to Chapters</a>
+    <a href="{{ '/stories/' | append: page.segment | append: '/' | relative_url }}" class="nav-button">Chapters</a>
     {% if next_chapter != "" %}
-      <a href="{{ next_chapter.url | relative_url }}" class="nav-button">Next Chapter</a>
+      <a href="{{ next_chapter.url | relative_url }}" class="nav-button">Next</a>
     {% else %}
       <span class="nav-button disabled">Next Chapter</span>
     {% endif %}
