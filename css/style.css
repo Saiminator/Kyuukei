@@ -1128,3 +1128,19 @@ body.chapter .section-header {
     margin: 0 3px;
   }
 }
+
+.chapter-preview {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+.chapter-preview:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
