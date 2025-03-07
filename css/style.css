@@ -519,16 +519,94 @@ header {
 .chapter-nav .nav-button {
   flex: 1;
   text-align: center;
-  padding: 10px;
-  background: #667eea;
+  padding: 8px;
+  background: #f7cdd5;
   color: #fff;
   border-radius: 5px;
   text-decoration: none;
   transition: background 0.3s ease;
   margin: 0 5px;
+  font-size: 0.9rem;
 }
 .chapter-nav .nav-button:hover {
-  background: #556cd6;
+  background: #e0a8b5;
+}
+/* Optional: Style for disabled buttons (if no previous/next chapter available) */
+.chapter-nav .nav-button.disabled {
+  background: #ccc;
+  pointer-events: none;
+}
+
+/* Fixed Chapter Navigation that stays within the main content container */
+.chapter-nav {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;  /* For desktop */
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-radius: 5px;
+  padding: 5px 0;
+}
+
+.chapter-nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+}
+
+.nav-button {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  background: #f7cdd5;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin: 0 5px;
+  font-size: 0.9rem;
+}
+
+.nav-button:hover {
+  background: #e0a8b5;
+}
+
+.nav-button.disabled {
+  background: #ccc;
+  pointer-events: none;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .chapter-nav {
+    width: 90%;  /* Increase width on mobile */
+    bottom: 5px; /* Slightly adjust bottom margin if needed */
+  }
+  .nav-button {
+    font-size: 0.8rem;
+    padding: 6px;
+    margin: 0 3px;
+  }
+}
+
+.chapter-preview {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+.chapter-preview:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
 /* =====================================================
@@ -641,21 +719,21 @@ header {
   border-right: 1px solid #eee;
 }
 
-/* Back to Character Selection Button styled in Blue */
+/* Back to Character Selection Button styled in Orby Pink */
 .character-detail .left-panel .back-select-btn {
   display: inline-block;
   margin-bottom: 20px;
   padding: 8px 12px;
   font-size: 0.9em;
-  background: #0077be;  /* Blue color */
+  background: #f7cdd5;  /* Orby Pink */
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .character-detail .left-panel .back-select-btn:hover {
-  background: #005a94;  /* Darker blue on hover */
+  background: #e0a8b5;  /* Darker shade on hover */
 }
 
 .section-title {
@@ -809,17 +887,21 @@ body.chapter .section-header {
 /* =====================================================
    21. SPOILER BUTTON & QUESTIONS TITLE STYLING
 ===================================================== */
-/* Style the global spoiler button on the questions page */
+/* Updated global spoiler button styling to match Orby Pink theme */
 #spoiler-toggle {
   display: block;
   margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #0077be; /* Blue background */
+  padding: 8px 12px;
+  background-color: #f7cdd5; /* Orby Pink */
   color: #fff;
   border: none;
   border-radius: 5px;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+#spoiler-toggle:hover {
+  background-color: #e0a8b5; /* Darker shade on hover */
 }
 
 /* Change the title color for question entries to dark gray */
@@ -828,57 +910,23 @@ body.chapter .section-header {
   color: #333;
 }
 
-.character-detail .back-select-btn {
-  background-color: #0077be !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 4px !important;
-  padding: 8px 12px !important;
-  font-size: 0.9rem !important;
-  cursor: pointer !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
-}
-
-.character-detail .back-select-btn:hover {
-  background-color: #005a94 !important;
-}
-
-@media (max-width: 800px) {
-  .section-header h1 {
-    font-size: 1.6rem;  /* Adjust this value as needed */
-    line-height: 1.6rem;
-  }
-}
-
-/* Container for the section (tab) buttons */
-.character-sort-tabs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;  /* Adjusted vertical spacing */
-}
-
-/* Style for each tab button */
-.character-sort-tabs .sort-tab {
-  background-color: #f7cdd5;  /* Orby pink */
+/* -----------------------------------------------------------
+   Back to Stories Button (Back to Chapters List)
+   Updated to match the size and color of back-select-btn
+----------------------------------------------------------- */
+.back-to-stories-button {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 8px 12px;
+  background: #f7cdd5;
   color: #fff;
-  border: none;
   border-radius: 5px;
-  padding: 8px 15px;  /* matching main nav's button style */
-  margin: 0 15px;    /* left/right spacing similar to desktop nav */
-  cursor: pointer;
-  font-size: 1rem;
+  text-decoration: none;
   transition: background 0.3s ease;
+  font-size: 0.9rem;
 }
-
-/* Hover state */
-.character-sort-tabs .sort-tab:hover {
-  background-color: #e0a8b5; /* Darker shade on hover */
-}
-
-/* Active tab */
-.character-sort-tabs .sort-tab.active {
-  background-color: #e0a8b5;
+.back-to-stories-button:hover {
+  background: #e0a8b5;
 }
 
 /* =====================================================
@@ -975,158 +1023,6 @@ body.chapter .section-header {
   margin: 5px 0 0;
   font-size: 1rem;
   color: #555;
-}
-
-.chapter-preview {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  padding: 10px;
-  transition: background 0.3s ease;
-}
-.chapter-preview:hover {
-  background: #f7f7f7;
-}
-.chapter-image {
-  flex: 0 0 150px;
-  height: 150px;
-  margin-right: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-}
-.chapter-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.chapter-details {
-  flex: 1;
-}
-.chapter-details h2 {
-  margin: 0 0 5px;
-  font-size: 1.2em;
-}
-.chapter-details p {
-  margin: 0;
-  color: #555;
-  font-size: 0.9em;
-}
-
-.back-to-stories-button {
-  display: inline-block;
-  margin: 20px 0;
-  padding: 10px 15px;
-  background: #667eea;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-.back-to-stories-button:hover {
-  background: #556cd6;
-}
-
-/* Fixed Chapter Navigation at Bottom */
-.chapter-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-
-.chapter-nav-container {
-  max-width: 1120px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-}
-
-.nav-button {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-  background: #667eea;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  margin: 0 5px;
-}
-
-/* Hover effect for active nav buttons */
-.nav-button:hover {
-  background: #556cd6;
-}
-
-/* Optional: Style for disabled buttons (if no previous/next chapter available) */
-.nav-button.disabled {
-  background: #ccc;
-  pointer-events: none;
-}
-
-/* Fixed Chapter Navigation that stays within the main content container */
-.chapter-nav {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;  /* For desktop */
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  z-index: 1000;
-  border-radius: 5px;
-  padding: 5px 0;
-}
-
-.chapter-nav-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 5px;
-}
-
-.nav-button {
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  background: #667eea;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  margin: 0 5px;
-  font-size: 0.9rem;
-}
-
-.nav-button:hover {
-  background: #556cd6;
-}
-
-.nav-button.disabled {
-  background: #ccc;
-  pointer-events: none;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-  .chapter-nav {
-    width: 90%;  /* Increase width on mobile */
-    bottom: 5px; /* Slightly adjust bottom margin if needed */
-  }
-  .nav-button {
-    font-size: 0.8rem;
-    padding: 6px;
-    margin: 0 3px;
-  }
 }
 
 .chapter-preview {
