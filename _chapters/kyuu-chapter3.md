@@ -5,7 +5,7 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 3
 permalink: /stories/kyuus-breaktime-stories/chapter-3/
 preview_image: "https://i.imgur.com/QOPQY7F.png"
-preview_description: "A brief introduction to Kyuu's journey begins here."
+preview_description: "Kyuu experiments with her new ability"
 
 ---
 Kyuu moved forward, each step steady but without direction. Orby floated at her side, wobbling slightly, its surface rippling in subtle waves. The forest around them was dense, the trees stretching endlessly above, their shadows casting strange patterns on the ground.
