@@ -5,7 +5,7 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 4
 permalink: /stories/kyuus-breaktime-stories/chapter-4/
 preview_image: "https://i.imgur.com/6skidIX.png"
-preview_description: "Kyuu gets dropped off at daycare and eats her first lunchable"
+preview_description: "Kyuu gets dropped off at daycare and eats her first lunchable while orby gets sent to detention"
 
 ---
 The soft creak of wooden wheels against dirt filled the air, accompanied by the rhythmic clatter of hooves pulling the wagon along the well-worn path. Sunlight filtered through the trees, casting dappled shadows over the travelers seated inside.
