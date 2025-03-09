@@ -4,7 +4,7 @@ title: "An Introduction to Dreymi"
 segment: "dreymis-diary"
 chapter_number: 1
 permalink: /stories/dreymis-diary/chapter-1/
-preview_image: "https://i.imgur.com/xMnAa09.png"
+preview_image: "https://i.imgur.com/ETdM0EQ.png"
 preview_description: "Introduction to Dreymi's Diary, summarized and proof-read for grammar."
 
 ---
