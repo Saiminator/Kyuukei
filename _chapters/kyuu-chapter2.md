@@ -2,7 +2,7 @@
 layout: chapter
 title: "Encounter"
 segment: "kyuus-breaktime-stories"
-chapter_number: 2
+global_chapter: 2
 permalink: /stories/kyuus-breaktime-stories/chapter-2/
 preview_image: "https://i.imgur.com/fmHFqfR.png"
 preview_description: "While wandering, Kyuu encounters her first threat"
