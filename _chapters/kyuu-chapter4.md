@@ -3,6 +3,7 @@ layout: chapter
 title: "Travels"
 segment: "kyuus-breaktime-stories"
 chapter_number: 4
+global_chapter: 4
 permalink: /stories/kyuus-breaktime-stories/chapter-4/
 preview_image: "https://i.imgur.com/6skidIX.png"
 preview_description: "Kyuu gets dropped off at daycare and eats her first lunchable while orby gets sent to detention"
