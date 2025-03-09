@@ -14,6 +14,7 @@ mana_color: "Blackish Red"
 hair_color: "Black, Red trim"
 eye_color: "Dull Blue"
 credit: "@takomado2130"
+last_modified_at: "2025-03-09"
 ---
 
 ## Background
