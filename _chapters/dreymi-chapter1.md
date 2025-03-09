@@ -17,12 +17,14 @@ For readability, we’ve cleaned it up while preserving her original voice and i
 
 Before reading, here are a few details that may help in understanding her world.
 
+
 **Vampires:**<br>
 Vampires are not undead creatures or monsters of legend. They are a distinct species born from the failed attempt at coexistence between humans and demons. As a result, they retain traits from both sides—a long lifespan, heightened physical abilities, and a connection to mana stronger than that of ordinary humans.
 
 A typical vampire can live 200 to 400 years, their bodies aging slowly. Unlike humans, they do not suffer from most diseases, and they possess natural regeneration, making them difficult to kill by conventional means. However, they are not immortal. They can be wounded, weakened, and ultimately die, just at a much slower rate.
 
 While these traits make them formidable, a vampire’s true strength lies in something else:
+
 
 **Red Eyes:**<br>
 A vampire’s red eyes do not appear naturally. Every vampire must unlock them, and once active, they grant:
@@ -41,6 +43,7 @@ To lack red eyes is to remain incomplete. It is viewed as a failure to fully bec
 
 Dreymi is one of them.
 
+
 **Blood and Compatibility:**<br>
 Unlike popular myths, vampires do not drink blood for sustenance. They do not require it to live. Instead, blood holds a deeper, more personal significance.
 
@@ -51,6 +54,7 @@ The effects are as follows:
 If a vampire drinks blood that is incompatible, they will experience nothing more than an unpleasant taste. The connection fades immediately.
 If a vampire drinks blood that is compatible, their body will recognize it, triggering a powerful neurological response. Feelings toward the individual may intensify drastically, often leading to an irreversible bond.
 Because of this, most vampires do not drink blood from those they do not wish to form attachments to. The risk of becoming emotionally bound to someone unintentionally is too high.
+
 
 **Dreymi:**<br>
 Vampire society is built on strength, awakening, and connection. Dreymi has none of these things.
@@ -65,9 +69,12 @@ Some entries are repetitive. Some are unfiltered. Some are painfully honest.
 
 But all of them belong to her.
 
+
 **Final Notes:**<br>
 This text has been lightly edited for readability, with occasional clarifications where necessary. Otherwise, it remains as Dreymi originally wrote it—a record of loneliness, longing, and something she never expected to find.
 
 And now, for whatever reason, you’re reading it.
 
 So go on.
+
+
