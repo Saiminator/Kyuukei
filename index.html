@@ -43,7 +43,7 @@ title: Welcome to Kyuukei
 <section class="content-section">
   <h2>Recently Updated Characters</h2>
   <div class="character-list">
-    {% assign recentCharacters = site.characters | sort: "date" | reverse | slice: 0,4 %}
+    {% assign recentCharacters = site.characters | sort: "last_modified_at" | reverse | slice: 0,4 %}
     {% if recentCharacters != empty %}
       {% for character in recentCharacters %}
         <a href="{{ character.url | relative_url }}" class="character-item">
