@@ -3,6 +3,7 @@ layout: chapter
 title: "Introduction"
 segment: "dreymis-diary"
 chapter_number: 1
+global_chapter: 5
 permalink: /stories/dreymis-diary/chapter-1/
 preview_image: "https://i.imgur.com/ETdM0EQ.png"
 preview_description: "Introduction to Dreymi's Diary, summarized and proof-read for grammar."
