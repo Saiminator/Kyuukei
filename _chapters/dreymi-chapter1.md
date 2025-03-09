@@ -19,7 +19,7 @@ Before reading, here are a few details that may help in understanding her world.
 
 <br>
 **Vampires**<br>
-Vampires are not undead creatures or monsters of legend. They are a distinct species born from the failed attempt at coexistence between humans and demons. As a result, they retain traits from both sides—a long lifespan, heightened physical abilities, and a connection to mana stronger than that of ordinary humans.
+Vampires are not undead creatures or monsters of legend. They are a distinct species born from an attempt at coexistence between humans and demons. As a result, they retain traits from both sides—a long lifespan, heightened physical abilities, and a connection to mana stronger than that of ordinary humans.
 
 A typical vampire can live 200 to 400 years, their bodies aging slowly. Unlike humans, they do not suffer from most diseases, and they possess natural regeneration, making them difficult to kill by conventional means. However, they are not immortal. They can be wounded, weakened, and ultimately die, just at a much slower rate.
 
@@ -27,7 +27,7 @@ While these traits make them formidable, a vampire’s true strength lies in som
 
 <br>
 **Red Eyes**<br>
-A vampire’s red eyes do not appear naturally. Every vampire must unlock them, and once active, they grant:
+A vampire’s red eyes do not normally appear naturally. Most vampire need to unlock them, and while active, they grant:
 
 Increased strength, speed, and reflexes
 Heightened vision and reaction time
@@ -39,7 +39,7 @@ The most common of these include:
 Spiked Rings – Worn on the fingers, these rings press sharp points into the skin when the hands clench, using pain as a trigger.
 Corsets – Tightly laced, these apply physical restriction to the body, forcing deeper breaths and controlled movement, stimulating a sense of restraint.
 Family Heirlooms – Emotional triggers can be just as effective as physical ones. Some vampires wear jewelry or keepsakes from lost loved ones, calling upon deep-seated memories to force their red eyes to awaken.
-To lack red eyes is to remain incomplete. It is viewed as a failure to fully become a vampire, a defect that makes one an outcast. Vampires who do not awaken their red eyes are rare, and those who do not eventually trigger them are often quietly shunned or pitied.
+To lack red eyes is to remain incomplete. It is viewed as a failure to fully become a vampire, a defect that makes one an outcast.
 
 Dreymi is one of them.
 
@@ -59,7 +59,7 @@ Because of this, most vampires do not drink blood from those they do not wish to
 **Dreymi**<br>
 Vampire society is built on strength, awakening, and connection. Dreymi has none of these things.
 
-By the time she began writing this diary, she had already surpassed the typical age for red eye awakening. The whispers had already begun. The quiet avoidance. The unspoken knowledge that she was falling further and further behind her peers.
+By the time she began writing this diary, she had already surpassed the typical age for red eye awakening, around 6-10 years old. The whispers had already begun. The quiet avoidance. The unspoken knowledge that she was falling further and further behind her peers.
 
 Her mother tried to help her. The village tried to be patient. But there are only so many years one can remain defective before they are seen as something lesser.
 
