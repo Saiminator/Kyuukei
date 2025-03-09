@@ -13,6 +13,7 @@ cup_size: "?"
 mana_color: "Purple and Silver"
 hair_color: "Purple"
 eye_color: "????"
+last_modified_at: "2025-03-09"
 ---
 
 ## Background
