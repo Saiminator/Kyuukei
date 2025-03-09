@@ -23,12 +23,21 @@ title: Welcome to Kyuukei
     {% assign recentChapters = site.chapters | sort: "global_chapter" | reverse | slice: 0,5 %}
     {% if recentChapters != empty %}
       {% for chapter in recentChapters %}
+        {% if chapter.segment == "kyuus-breaktime-stories" %}
+          {% assign story_title = "Kyuu's Breaktime Stories" %}
+        {% elsif chapter.segment == "spreading-shimi" %}
+          {% assign story_title = "Spreading Shimi" %}
+        {% elsif chapter.segment == "dreymis-diary" %}
+          {% assign story_title = "Dreymi's Diary" %}
+        {% else %}
+          {% assign story_title = chapter.segment %}
+        {% endif %}
         <a href="{{ chapter.url | relative_url }}" class="chapter-preview">
           <div class="chapter-image">
             <img src="{{ chapter.preview_image | default: 'https://via.placeholder.com/150x150?text=Chapter+Image' }}" alt="Chapter {{ chapter.chapter_number }} image">
           </div>
           <div class="chapter-details" style="text-align: left;">
-            <h2>Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h2>
+            <h2>{{ story_title }} - Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h2>
             <p>{{ chapter.preview_description | default: 'No description available.' }}</p>
           </div>
         </a>
@@ -38,6 +47,7 @@ title: Welcome to Kyuukei
     {% endif %}
   </div>
 </section>
+
 
 <!-- Recently Updated Characters Section -->
 <section class="content-section">
