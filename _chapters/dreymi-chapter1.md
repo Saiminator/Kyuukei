@@ -1,6 +1,6 @@
 ---
 layout: chapter
-title: "An Introduction to Dreymi"
+title: "Introduction"
 segment: "dreymis-diary"
 chapter_number: 1
 permalink: /stories/dreymis-diary/chapter-1/
