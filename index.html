@@ -7,16 +7,52 @@ title: Welcome to Kyuukei
   <p><strong>Author:</strong> Saiminator (催眠えた)</p>
   <p>
     Welcome to my website for my universe of characters and story Kyuukei wo Hanashi/Kyuu's Breaktime Stories!
-
-    Currently the story page is under construction. I am currently mapping out the main timeline and plot but you are free to explore the characters and ask questions / follow the news page for more information! 
-
-    My end goal is to have a timeline of characters, events, and stories with a variety of characters interacting in different ways. <br> <br>
-
-
-    So, where do you want to begin? <br> <br>
-
-    All character artwork displayed here has been commissioned for personal use. Artists are credited accordingly on the characters page. 
-    
+    Currently the story page is under construction. I am currently mapping out the main timeline and plot but you are free to explore the characters and ask questions / follow the news page for more information!
+    My end goal is to have a timeline of characters, events, and stories with a variety of characters interacting in different ways.
+    <br><br>
+    So, where do you want to begin?
+    <br><br>
+    All character artwork displayed here has been commissioned for personal use. Artists are credited accordingly on the characters page.
   </p>
 </section>
 
+<!-- Recent Chapters Section -->
+<section class="content-section">
+  <h2>Recent Chapters</h2>
+  <div class="chapter-list">
+    {% assign recentChapters = site.chapters | sort: "global_chapter" | reverse | slice: 0,5 %}
+    {% if recentChapters != empty %}
+      {% for chapter in recentChapters %}
+        <a href="{{ chapter.url | relative_url }}" class="chapter-preview">
+          <div class="chapter-image">
+            <img src="{{ chapter.preview_image | default: 'https://via.placeholder.com/150x150?text=Chapter+Image' }}" alt="Chapter image">
+          </div>
+          <div class="chapter-details">
+            <h2>{{ chapter.title }}</h2>
+            <p>{{ chapter.preview_description | default: 'No description available.' }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <p>No chapters available.</p>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Recently Updated Characters Section -->
+<section class="content-section">
+  <h2>Recently Updated Characters</h2>
+  <div class="character-list">
+    {% assign recentCharacters = site.characters | sort: "date" | reverse | slice: 0,4 %}
+    {% if recentCharacters != empty %}
+      {% for character in recentCharacters %}
+        <a href="{{ character.url | relative_url }}" class="character-item">
+          <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+          <div class="character-name">{{ character.title }}</div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <p>No characters available.</p>
+    {% endif %}
+  </div>
+</section>
