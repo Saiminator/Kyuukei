@@ -12,6 +12,7 @@ weight: "170lbs | 77kg"
 mana_color: "Deep Green"
 hair_color: "Dirty Blonde"
 eye_color: "Brown/Orange"
+last_modified_at: "2025-03-09"
 ---
 
 ## Background
