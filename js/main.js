@@ -75,14 +75,11 @@ function loadCategory(slug) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.side-box').forEach(function(sideBox) {
-    sideBox.addEventListener('wheel', function(event) {
-      event.preventDefault(); // ensure default behavior is prevented
-      window.scrollBy({
-        top: event.deltaY,
-        behavior: 'smooth'
-      });
-    }, { passive: false }); // explicitly set passive to false
+// Global scroll override: capture all wheel events and scroll the window smoothly
+document.addEventListener('wheel', function(event) {
+  event.preventDefault();
+  window.scrollBy({
+    top: event.deltaY,
+    behavior: 'smooth'
   });
-});
+}, { passive: false });
