@@ -74,15 +74,3 @@ function loadCategory(slug) {
     container.style.display = 'grid';
   }
 }
-
-// Global scroll override: if the wheel event target is not inside .main-content, scroll the window
-document.addEventListener('wheel', function(event) {
-  // If event.target is not inside the main-content, override the default scroll.
-  if(!event.target.closest('.main-content')) {
-    event.preventDefault();
-    window.scrollBy({
-      top: event.deltaY,
-      behavior: 'smooth'
-    });
-  }
-}, { passive: false });
