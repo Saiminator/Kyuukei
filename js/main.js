@@ -74,3 +74,13 @@ function loadCategory(slug) {
     container.style.display = 'grid';
   }
 }
+
+document.querySelectorAll('.side-box').forEach(function(sideBox) {
+  sideBox.addEventListener('wheel', function(event) {
+    event.preventDefault(); // prevent side-box default scrolling behavior
+    window.scrollBy({
+      top: event.deltaY,
+      behavior: 'smooth'
+    });
+  });
+});
