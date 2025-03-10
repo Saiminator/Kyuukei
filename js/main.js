@@ -76,15 +76,13 @@ function loadCategory(slug) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // For each side-box element (both left and right)
   document.querySelectorAll('.side-box').forEach(function(sideBox) {
     sideBox.addEventListener('wheel', function(event) {
-      event.preventDefault(); // Prevent default side-box scroll behavior
-      // Scroll the entire window (main content) smoothly
+      event.preventDefault(); // ensure default behavior is prevented
       window.scrollBy({
         top: event.deltaY,
         behavior: 'smooth'
       });
-    });
+    }, { passive: false }); // explicitly set passive to false
   });
 });
