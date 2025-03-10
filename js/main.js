@@ -75,12 +75,16 @@ function loadCategory(slug) {
   }
 }
 
-document.querySelectorAll('.side-box').forEach(function(sideBox) {
-  sideBox.addEventListener('wheel', function(event) {
-    event.preventDefault(); // prevent side-box default scrolling behavior
-    window.scrollBy({
-      top: event.deltaY,
-      behavior: 'smooth'
+document.addEventListener('DOMContentLoaded', function() {
+  // For each side-box element (both left and right)
+  document.querySelectorAll('.side-box').forEach(function(sideBox) {
+    sideBox.addEventListener('wheel', function(event) {
+      event.preventDefault(); // Prevent default side-box scroll behavior
+      // Scroll the entire window (main content) smoothly
+      window.scrollBy({
+        top: event.deltaY,
+        behavior: 'smooth'
+      });
     });
   });
 });
