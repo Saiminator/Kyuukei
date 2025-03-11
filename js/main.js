@@ -78,34 +78,36 @@ function loadCategory(slug) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Fetch character data from characters.json
-  fetch('/data/characters.json')
+  // Fetch the generated characters JSON file
+  fetch('/characters.json')
     .then(response => response.json())
     .then(characters => {
-      if (characters.length === 0) return;
-
-      // Get the current day of the year (1-366)
+      if (!Array.isArray(characters) || characters.length === 0) return;
+      
+      // Get current day of year
       const now = new Date();
       const startOfYear = new Date(now.getFullYear(), 0, 0);
       const diff = now - startOfYear;
       const oneDay = 1000 * 60 * 60 * 24;
       const dayOfYear = Math.floor(diff / oneDay);
-
-      // Use modulo to select a character
+      
+      // Pick a character based on the day of year
       const index = dayOfYear % characters.length;
       const cod = characters[index];
-
-      // Display character info
+      
+      // Build HTML to display the Character of the Day
       const container = document.getElementById('cod-container');
       if (container && cod) {
         container.innerHTML = `
           <a href="${cod.url}">
             <div class="cod-image" style="background-image: url('${cod.image}');"></div>
             <h3>${cod.title}</h3>
-            <p>${cod.bio}</p>
+            <p>${cod.last_modified_at ? "Last updated: " + new Date(cod.last_modified_at).toLocaleString() : ""}</p>
           </a>
         `;
       }
     })
-    .catch(error => console.error("Error loading character data:", error));
+    .catch(error => {
+      console.error('Error fetching characters:', error);
+    });
 });
