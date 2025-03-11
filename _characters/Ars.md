@@ -12,6 +12,7 @@ weight: "140lbs | 63kg"
 mana_color: "Red"
 hair_color: "Black"
 eye_color: "Abyss Blue"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
