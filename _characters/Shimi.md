@@ -15,6 +15,7 @@ mana_color: "Lime Green"
 hair_color: "Pink"
 eye_color: "Green"
 credit: "@Ytkano"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
