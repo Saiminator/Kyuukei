@@ -14,6 +14,7 @@ mana_color: "Pink"
 hair_color: "Pink"
 eye_color: "Pink"
 credit: "@takomado2130"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
