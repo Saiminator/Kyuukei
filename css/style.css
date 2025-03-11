@@ -1156,3 +1156,41 @@ body.chapter .section-header {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
+
+
+#character-of-day {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+#character-of-day h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+#cod-container a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cod-image {
+  width: 100%;
+  height: 300px; /* Adjust height as desired */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+#cod-container h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+#cod-container p {
+  font-size: 1rem;
+  color: #555;
+}
