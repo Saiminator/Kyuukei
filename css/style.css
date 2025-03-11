@@ -1195,37 +1195,40 @@ body.chapter .section-header {
   color: #555;
 }
 
-/* Character of the Day Section Adjustments */
+/* Updated Character of the Day Vertical Spacing */
 #character-of-day {
-  max-width: 400px;  /* Set a maximum width */
+  max-width: 400px;
   margin: 0 auto;
   text-align: center;
-  padding: 10px;
+  padding: 5px;  /* Reduced padding */
 }
 
 #cod-container a {
   display: block;
   text-decoration: none;
   color: inherit;
+  margin: 0;
+  padding: 0;
 }
 
 .cod-image {
   width: 100%;
   height: 0;
-  padding-bottom: 100%; /* Forces a square aspect ratio */
+  padding-bottom: 100%;  /* Ensures square aspect ratio */
   background-size: cover;
   background-position: center;
   border-radius: 8px;
-  margin-bottom: 5px;  /* Reduced margin */
+  margin-bottom: 2px;  /* Minimal margin */
 }
 
 #cod-container h3 {
   font-size: 1.5rem;
-  margin: 5px 0;  /* Reduced vertical spacing */
+  margin: 2px 0;  /* Reduced margin */
+  line-height: 1.1;
 }
 
 #cod-container p {
   font-size: 0.9rem;
-  margin: 0;
-  line-height: 1.2;
+  margin: 2px 0;  /* Reduced margin */
+  line-height: 1.1;
 }
