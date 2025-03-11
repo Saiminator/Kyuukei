@@ -1159,50 +1159,21 @@ body.chapter .section-header {
 
 
 
-#character-of-day {
-  text-align: center;
-  margin: 30px auto;
-  max-width: 800px;
-}
-
-#character-of-day h2 {
-  margin-bottom: 20px;
-  font-size: 2rem;
-}
-
-#cod-container a {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-.cod-image {
-  width: 100%;
-  height: 300px; /* Adjust as needed */
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-  margin-bottom: 15px;
-}
-
-#cod-container h3 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-
-#cod-container p {
-  font-size: 1rem;
-  color: #555;
-}
-
-/* Updated Character of the Day Vertical Spacing */
+/* Character of the Day Section Container */
 #character-of-day {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
-  padding: 5px;  /* Reduced padding */
+  padding: 5px;
 }
 
+/* Heading inside the Character of the Day Section */
+#character-of-day h2 {
+  margin: 5px 0;
+  font-size: 2rem;
+}
+
+/* Link styling within the container */
 #cod-container a {
   display: block;
   text-decoration: none;
@@ -1211,24 +1182,27 @@ body.chapter .section-header {
   padding: 0;
 }
 
+/* Force a square aspect ratio for the image */
 .cod-image {
   width: 100%;
   height: 0;
-  padding-bottom: 100%;  /* Ensures square aspect ratio */
+  padding-bottom: 100%;  /* Square aspect ratio */
   background-size: cover;
   background-position: center;
   border-radius: 8px;
-  margin-bottom: 2px;  /* Minimal margin */
+  margin-bottom: 2px;
 }
 
+/* Title styling within the container */
 #cod-container h3 {
   font-size: 1.5rem;
-  margin: 2px 0;  /* Reduced margin */
+  margin: 2px 0;
   line-height: 1.1;
 }
 
+/* Paragraph (text) styling within the container */
 #cod-container p {
   font-size: 0.9rem;
-  margin: 2px 0;  /* Reduced margin */
+  margin: 2px 0;
   line-height: 1.1;
 }
