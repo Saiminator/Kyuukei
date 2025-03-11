@@ -79,7 +79,12 @@ function loadCategory(slug) {
 
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(characters => {
       console.log('Fetched characters:', characters);
       if (!Array.isArray(characters) || characters.length === 0) {
@@ -87,13 +92,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Example: Pick character of the day based on day-of-year.
+      // Get current day of the year (1-366)
       const now = new Date();
       const startOfYear = new Date(now.getFullYear(), 0, 0);
       const diff = now - startOfYear;
       const oneDay = 1000 * 60 * 60 * 24;
       const dayOfYear = Math.floor(diff / oneDay);
-      const index = dayOfYear % characters.length;
+      console.log('Day of year:', dayOfYear);
+      
+      // Add an offset to force a different character (change the offset value as needed)
+      const offset = 1; // For example, offset of 1 will pick a character one position later than the default
+      const index = (dayOfYear + offset) % characters.length;
+      console.log('Selected index:', index);
       const cod = characters[index];
       console.log('Character of the Day:', cod);
       
