@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Day of year:', dayOfYear);
       
       // Add an offset to force a different character (change the offset value as needed)
-      const offset = 1; // For example, offset of 1 will pick a character one position later than the default
+      const offset = 0; // For example, offset of 1 will pick a character one position later than the default
       const index = (dayOfYear + offset) % characters.length;
       console.log('Selected index:', index);
       const cod = characters[index];
