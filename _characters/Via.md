@@ -14,6 +14,7 @@ mana_color: "Bright Red"
 hair_color: "Red"
 eye_color: "Red"
 credit: "@if959u"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
