@@ -14,6 +14,7 @@ mana_color: "Bright Cyan"
 hair_color: "White"
 eye_color: "Cyan"
 credit: "https://charat.me/en/genesis/"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
