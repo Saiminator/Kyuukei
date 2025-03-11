@@ -14,6 +14,7 @@ mana_color: "Baby Blue"
 hair_color: "Blue"
 eye_color: "L Blue, R Black"
 credit: "@rokosanAlt"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
