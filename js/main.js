@@ -78,13 +78,22 @@ function loadCategory(slug) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Fetch the generated characters JSON file
+  // Fetch the generated characters JSON file from the root.
   fetch('/characters.json')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(characters => {
-      if (!Array.isArray(characters) || characters.length === 0) return;
+      console.log('Fetched characters:', characters); // Debug: log fetched data
+      if (!Array.isArray(characters) || characters.length === 0) {
+        console.warn('No characters found in JSON.');
+        return;
+      }
       
-      // Get current day of year
+      // Get current day of the year (1 to 366)
       const now = new Date();
       const startOfYear = new Date(now.getFullYear(), 0, 0);
       const diff = now - startOfYear;
@@ -94,15 +103,16 @@ document.addEventListener('DOMContentLoaded', function() {
       // Pick a character based on the day of year
       const index = dayOfYear % characters.length;
       const cod = characters[index];
-      
-      // Build HTML to display the Character of the Day
+      console.log('Character of the Day:', cod); // Debug: log chosen character
+
+      // Build HTML for the Character of the Day section
       const container = document.getElementById('cod-container');
       if (container && cod) {
         container.innerHTML = `
           <a href="${cod.url}">
             <div class="cod-image" style="background-image: url('${cod.image}');"></div>
             <h3>${cod.title}</h3>
-            <p>${cod.last_modified_at ? "Last updated: " + new Date(cod.last_modified_at).toLocaleString() : ""}</p>
+            ${cod.last_modified_at ? `<p>Last updated: ${new Date(cod.last_modified_at).toLocaleString()}</p>` : ''}
           </a>
         `;
       }
