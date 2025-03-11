@@ -13,6 +13,7 @@ cup_size: "B"
 mana_color: "White"
 hair_color: "?"
 eye_color: "????"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
