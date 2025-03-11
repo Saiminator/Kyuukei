@@ -14,6 +14,7 @@ mana_color: "Murky Yellow"
 hair_color: "Blonde"
 eye_color: "Yellow"
 credit: "@bis_maki"
+last_modified_at: "2025-03-08"
 ---
 
 ## Background
