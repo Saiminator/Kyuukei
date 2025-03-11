@@ -74,3 +74,59 @@ function loadCategory(slug) {
     container.style.display = 'grid';
   }
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Array of characters (update with your actual data)
+  const characters = [
+    {
+      title: "Kyuu",
+      image: "https://example.com/kyuu.jpg",  // Replace with Kyuu's image URL
+      bio: "Kyuu's brief bio goes here.",
+      url: "/characters/kyuu/"
+    },
+    {
+      title: "Dreymi",
+      image: "https://example.com/dreymi.jpg",  // Replace with Dreymi's image URL
+      bio: "Dreymi's brief bio goes here.",
+      url: "/characters/dreymi/"
+    },
+    {
+      title: "Spreading Shimi",
+      image: "https://example.com/shimi.jpg",  // Replace with Shimi's image URL
+      bio: "Spreading Shimi's brief bio goes here.",
+      url: "/characters/shimi/"
+    },
+    {
+      title: "Dreymi's Diary",
+      image: "https://example.com/dreymidiary.jpg",  // Replace with appropriate URL
+      bio: "Dreymi's Diary bio goes here.",
+      url: "/characters/dreymis-diary/"
+    }
+    // Add more characters as needed.
+  ];
+
+  // Get the current day of the year (1-366)
+  const now = new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 0);
+  const diff = now - startOfYear;
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+
+  // Use modulo so the index fits within the available characters array
+  const index = dayOfYear % characters.length;
+  const cod = characters[index];
+
+  // Build the HTML for the Character of the Day
+  const container = document.getElementById('cod-container');
+  if (container && cod) {
+    container.innerHTML = `
+      <a href="${cod.url}">
+        <div class="cod-image" style="background-image: url('${cod.image}');"></div>
+        <h3>${cod.title}</h3>
+        <p>${cod.bio}</p>
+      </a>
+    `;
+  }
+});
