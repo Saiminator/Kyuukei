@@ -1,20 +1,10 @@
 [
+{% for character in site.characters %}
   {
-    "title": "Memo",
-    "order": "13",
-    "image": "https://i.imgur.com/msrtKJd.png",
-    "age": "256",
-    "birthday": "TBD",
-    "species": "Fairy",
-    "gender": "Female",
-    "height": "0'7\" | 18cm",
-    "weight": "21g",
-    "cup_size": "C+",
-    "mana_color": "Pink",
-    "hair_color": "Pink",
-    "eye_color": "Pink",
-    "credit": "@takomado2130",
-    "last_modified_at": "2025-03-08",
-    "url": "/characters/memo/"
-  }
+    "title": "{{ character.title | escape }}",
+    "image": "{{ character.image | relative_url }}",
+    "url": "{{ character.url | relative_url }}",
+    "last_modified_at": "{{ character.last_modified_at }}"
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
 ]
