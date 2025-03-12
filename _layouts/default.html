@@ -26,16 +26,16 @@
   <meta name="twitter:image" content="{{ page.image | default: 'https://i.imgur.com/QRd4drw.png' }}">
 </head>
 <body class="no-select">
-  <!-- Site Header -->
-  <header>
-    <a href="{{ '/' | relative_url }}" id="site-title">
+  <!-- Fixed Site Header (reduced height) -->
+  <header id="site-header" style="position: fixed; top: 0; width: 100%; height: 60px; background: #e0a8b5; z-index: 1000; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+    <a href="{{ '/' | relative_url }}" id="site-title" style="color: #fff; text-decoration: none;">
       <span class="header-line1">Kyuukei wo Hanashi |</span>
       <span class="header-line2">Kyuu’s Breaktime Stories</span>
     </a>
   </header>
   
   <!-- Mobile Navigation (stays at top for small screens) -->
-  <nav id="nav-mobile">
+  <nav id="nav-mobile" style="margin-top: 60px;">
     <button id="nav-toggle" aria-label="Toggle Navigation">Menu</button>
     <ul id="nav-mobile-menu">
       <li><a href="{{ '/about/' | relative_url }}">About</a></li>
@@ -46,111 +46,90 @@
     </ul>
   </nav>
   
-  <!-- Page Wrapper with Side Boxes -->
-  <div class="page-wrapper">
-    <div class="side-box left-box">
-      <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
-    </div>
-    
-    <!-- Fixed Container for Page Content -->
-    <div class="main-content section-fixed-title">
-      <!-- Desktop Navigation Menu placed flush at the top of the container -->
-      <nav class="nav-menu-desktop">
-        <ul>
-          <li><a href="{{ '/about/' | relative_url }}" {% if page.url contains 'about' %}class="active"{% endif %}>About</a></li>
-          <li><a href="{{ '/questions/' | relative_url }}" {% if page.url contains 'questions' %}class="active"{% endif %}>Questions</a></li>
-          <li><a href="{{ '/stories/' | relative_url }}" {% if page.url contains 'stories' or page.url contains 'story' %}class="active"{% endif %}>Story</a></li>
-          <li><a href="{{ '/characters/' | relative_url }}" {% if page.url contains 'characters' %}class="active"{% endif %}>Characters</a></li>
-          <li><a href="{{ '/news/' | relative_url }}" {% if page.url contains 'news' %}class="active"{% endif %}>News</a></li>
-        </ul>
-      </nav>
-      <!-- Section Header with Page Title -->
-      <header class="section-header">
-        <h1>{{ page.title }}</h1>
-      </header>
-      <!-- Scrollable Content Area -->
-      <div class="section-scroll">
-        {{ content | strip }}
-      </div>
-    </div>
-    
-    <div class="side-box right-box">
-      <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+  <!-- Fixed Side Boxes (full height, 20% width) -->
+  <div class="side-box left-box" style="position: fixed; top: 0; left: 0; width: 20%; height: 100vh; overflow: hidden;">
+    <img src="https://i.imgur.com/c1LFa9W.png" alt="Left Side Image">
+  </div>
+  
+  <div class="side-box right-box" style="position: fixed; top: 0; right: 0; width: 20%; height: 100vh; overflow: hidden;">
+    <img src="https://i.imgur.com/FqobgRz.png" alt="Right Side Image">
+  </div>
+  
+  <!-- Main Content Container: margin-top to clear header, margin-left/right to accommodate side boxes -->
+  <div class="main-content section-fixed-title" style="margin: 60px 20%; padding-bottom: 20px;">
+    <!-- Desktop Navigation Menu placed flush at the top of the container -->
+    <nav class="nav-menu-desktop">
+      <ul>
+        <li><a href="{{ '/about/' | relative_url }}" {% if page.url contains 'about' %}class="active"{% endif %}>About</a></li>
+        <li><a href="{{ '/questions/' | relative_url }}" {% if page.url contains 'questions' %}class="active"{% endif %}>Questions</a></li>
+        <li><a href="{{ '/stories/' | relative_url }}" {% if page.url contains 'stories' or page.url contains 'story' %}class="active"{% endif %}>Story</a></li>
+        <li><a href="{{ '/characters/' | relative_url }}" {% if page.url contains 'characters' %}class="active"{% endif %}>Characters</a></li>
+        <li><a href="{{ '/news/' | relative_url }}" {% if page.url contains 'news' %}class="active"{% endif %}>News</a></li>
+      </ul>
+    </nav>
+    <!-- Section Header with Page Title (now inside main content) -->
+    <header class="section-header">
+      <h1>{{ page.title }}</h1>
+    </header>
+    <!-- Scrollable Content Area -->
+    <div class="section-scroll">
+      {{ content | strip }}
     </div>
   </div>
   
   <script src="{{ '/js/main.js' | relative_url }}"></script>
-
-
-
-
-
-
-
   <script>
-  // Define an object mapping key sequences to their image URLs.
-  // Add as many as you need in this format.
-  const easterEggs = {
-    "brick": "https://i.imgur.com/ydADN2M.png",  // Replace with your actual image URL
-    "nick": "https://i.imgur.com/vqa65df.jpeg",     // Replace with your actual image URL
-    "darkvenom": "https://i.imgur.com/1JMAm6E.png"
-  };
+    // Easter Egg Code
+    const easterEggs = {
+      "brick": "https://i.imgur.com/ydADN2M.png",
+      "nick": "https://i.imgur.com/vqa65df.jpeg",
+      "darkvenom": "https://i.imgur.com/1JMAm6E.png"
+    };
 
-  // We'll accumulate pressed keys in a string.
-  let keysPressed = "";
+    let keysPressed = "";
 
-  document.addEventListener('keydown', function(event) {
-    // Append the key in lowercase
-    keysPressed += event.key.toLowerCase();
-
-    // Check if the ending of keysPressed matches any secret sequence.
-    for (const sequence in easterEggs) {
-      if (keysPressed.endsWith(sequence)) {
-        showEasterEgg(easterEggs[sequence]);
-        // Reset keysPressed to avoid multiple triggers
-        keysPressed = "";
-        break;
+    document.addEventListener('keydown', function(event) {
+      keysPressed += event.key.toLowerCase();
+      for (const sequence in easterEggs) {
+        if (keysPressed.endsWith(sequence)) {
+          showEasterEgg(easterEggs[sequence]);
+          keysPressed = "";
+          break;
+        }
       }
-    }
-    
-    // Optionally, trim the keysPressed string to a reasonable length.
-    if (keysPressed.length > 20) {
-      keysPressed = keysPressed.slice(-20);
-    }
-  });
+      if (keysPressed.length > 20) {
+        keysPressed = keysPressed.slice(-20);
+      }
+    });
 
-  function showEasterEgg(imageUrl) {
-    // Create an overlay if it doesn't already exist
-    let overlay = document.getElementById('easter-egg-overlay');
-    if (!overlay) {
-      overlay = document.createElement('div');
-      overlay.id = 'easter-egg-overlay';
-      overlay.style.position = 'fixed';
-      overlay.style.top = '0';
-      overlay.style.left = '0';
-      overlay.style.width = '100%';
-      overlay.style.height = '100%';
-      overlay.style.background = 'rgba(0, 0, 0, 0.8)';
-      overlay.style.display = 'flex';
-      overlay.style.justifyContent = 'center';
-      overlay.style.alignItems = 'center';
-      overlay.style.zIndex = '10000';
-      // Clicking the overlay will remove it.
-      overlay.addEventListener('click', function () {
-        overlay.remove();
-      });
-      document.body.appendChild(overlay);
+    function showEasterEgg(imageUrl) {
+      let overlay = document.getElementById('easter-egg-overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'easter-egg-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.background = 'rgba(0, 0, 0, 0.8)';
+        overlay.style.display = 'flex';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+        overlay.style.zIndex = '10000';
+        overlay.addEventListener('click', function () {
+          overlay.remove();
+        });
+        document.body.appendChild(overlay);
+      }
+      overlay.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.alt = 'Easter Egg';
+      img.style.maxWidth = '80%';
+      img.style.maxHeight = '80%';
+      overlay.appendChild(img);
     }
-    // Clear any previous content and add the image
-    overlay.innerHTML = '';
-    const img = document.createElement('img');
-    img.src = imageUrl;
-    img.alt = 'Easter Egg';
-    img.style.maxWidth = '80%';
-    img.style.maxHeight = '80%';
-    overlay.appendChild(img);
-  }
-</script>
-
+  </script>
 </body>
 </html>
