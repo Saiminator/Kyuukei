@@ -72,9 +72,8 @@ function loadCategory(slug) {
   }
 }
 
-/* --- Character of the Day Section using Seeded Random with Enhanced Mixing and Debug Logging --- */
+/* --- Character of the Day Section using Seeded Random with Enhanced Mixing and Fixed Modulo --- */
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("Fetching /characters.json ...");
   fetch('/characters.json')
     .then(response => {
       if (!response.ok) {
@@ -89,19 +88,19 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Build a seed string from today's date (YYYYMMDD)
+      // Build a seed string from today's date in YYYYMMDD format.
       const now = new Date();
       const year = now.getFullYear();
       const month = (now.getMonth() + 1).toString().padStart(2, '0');
       const day = now.getDate().toString().padStart(2, '0');
-      const seedString = `${year}${month}${day}`;
+      const seedString = `${year}${month}${day}`; // e.g., "20250314"
       console.log("Seed string:", seedString);
       
-      // djb2 hash algorithm
+      // djb2 hash algorithm to generate a base hash.
       function hashString(str) {
         let hash = 5381;
         for (let i = 0; i < str.length; i++) {
-          hash = ((hash << 5) + hash) + str.charCodeAt(i);
+          hash = ((hash << 5) + hash) + str.charCodeAt(i); // hash * 33 + c
         }
         return Math.abs(hash);
       }
@@ -109,22 +108,20 @@ document.addEventListener('DOMContentLoaded', function() {
       const baseHash = hashString(seedString);
       console.log("Base hash:", baseHash);
       
-      // Mix in the day of the week: get dayOfWeek (0-6)
-      const dayOfWeek = now.getDay();
+      // Mix in the day of the week using XOR with a prime multiplier.
+      const dayOfWeek = now.getDay(); // 0 (Sun) to 6 (Sat)
       console.log("Day of week:", dayOfWeek);
-      
-      // Enhance mixing: multiply dayOfWeek by a prime and XOR with the base hash
       const mixedSeed = baseHash ^ (dayOfWeek * 10007);
-      console.log("Mixed seed:", mixedSeed);
+      console.log("Mixed seed (may be negative):", mixedSeed);
       
-      // Calculate the index using the mixed seed
-      const index = mixedSeed % characters.length;
+      // Ensure a positive index using a proper modulo operation.
+      const index = ((mixedSeed % characters.length) + characters.length) % characters.length;
       console.log("Selected index:", index);
       
       const cod = characters[index];
       console.log("Character of the Day:", cod);
       
-      // Inject the character info into the element with id "cod-container"
+      // Inject the character info into the container with ID 'cod-container'
       const container = document.getElementById('cod-container');
       if (container && cod) {
         container.innerHTML = `
