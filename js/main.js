@@ -75,7 +75,7 @@ function loadCategory(slug) {
   }
 }
 
-/* --- Character of the Day Section using a Seeded Random Generator with Hash --- */
+/* --- Character of the Day Section using a Seeded Random Generator with Enhanced Mixing --- */
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
     .then(response => {
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const seedString = `${year}${month}${day}`; // e.g., "20250309"
       console.log("Seed string:", seedString);
       
-      // djb2 hash algorithm
+      // Use a djb2 hash algorithm to generate a base seed.
       function hashString(str) {
         let hash = 5381;
         for (let i = 0; i < str.length; i++) {
@@ -108,11 +108,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return Math.abs(hash);
       }
       
-      const seed = hashString(seedString);
-      console.log("Seed value:", seed);
+      const baseHash = hashString(seedString);
+      console.log("Base hash:", baseHash);
       
-      // Calculate a random index based on the seed.
-      const index = seed % characters.length;
+      // Multiply by a prime number to further mix the bits.
+      const mixedHash = baseHash * 7919;
+      console.log("Mixed hash:", mixedHash);
+      
+      // Calculate a pseudo-random index using the mixed hash.
+      const index = mixedHash % characters.length;
       console.log("Selected index:", index);
       const cod = characters[index];
       console.log("Character of the Day:", cod);
