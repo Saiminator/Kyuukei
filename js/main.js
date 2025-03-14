@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const seedString = `${year}${month}${day}`; // e.g., "20250309"
       console.log("Seed string:", seedString);
       
-      // Use a djb2 hash algorithm to generate a base seed.
+      // Use a djb2 hash algorithm to generate a base hash.
       function hashString(str) {
         let hash = 5381;
         for (let i = 0; i < str.length; i++) {
@@ -111,12 +111,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const baseHash = hashString(seedString);
       console.log("Base hash:", baseHash);
       
-      // Multiply by a prime number to further mix the bits.
-      const mixedHash = baseHash * 7919;
-      console.log("Mixed hash:", mixedHash);
+      // Mix in the day of the week for extra unpredictability.
+      const dayOfWeek = now.getDay(); // 0 (Sunday) to 6 (Saturday)
+      // Multiply dayOfWeek by a prime and XOR with the base hash
+      const mixedSeed = baseHash ^ (dayOfWeek * 10007);
+      console.log("Mixed seed:", mixedSeed);
       
-      // Calculate a pseudo-random index using the mixed hash.
-      const index = mixedHash % characters.length;
+      // Calculate a pseudo-random index using the mixed seed.
+      const index = mixedSeed % characters.length;
       console.log("Selected index:", index);
       const cod = characters[index];
       console.log("Character of the Day:", cod);
