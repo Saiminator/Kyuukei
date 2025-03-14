@@ -75,7 +75,7 @@ function loadCategory(slug) {
   }
 }
 
-/* --- Character of the Day Section using a Seeded Random Generator with Enhanced Mixing --- */
+/* --- Character of the Day Section using Seeded Random with Enhanced Mixing --- */
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
     .then(response => {
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Create a seed string based on today's date in YYYYMMDD format.
+      // Build a seed string based on today's date in YYYYMMDD format.
       const now = new Date();
       const year = now.getFullYear();
       const month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const seedString = `${year}${month}${day}`; // e.g., "20250309"
       console.log("Seed string:", seedString);
       
-      // Use a djb2 hash algorithm to generate a base hash.
+      // djb2 hash algorithm to generate a base hash.
       function hashString(str) {
         let hash = 5381;
         for (let i = 0; i < str.length; i++) {
@@ -111,19 +111,18 @@ document.addEventListener('DOMContentLoaded', function() {
       const baseHash = hashString(seedString);
       console.log("Base hash:", baseHash);
       
-      // Mix in the day of the week for extra unpredictability.
-      const dayOfWeek = now.getDay(); // 0 (Sunday) to 6 (Saturday)
-      // Multiply dayOfWeek by a prime and XOR with the base hash
+      // Mix in the day of the week using XOR with a prime multiplier.
+      const dayOfWeek = now.getDay(); // 0 (Sun) to 6 (Sat)
       const mixedSeed = baseHash ^ (dayOfWeek * 10007);
       console.log("Mixed seed:", mixedSeed);
       
-      // Calculate a pseudo-random index using the mixed seed.
+      // Compute an index using the mixed seed.
       const index = mixedSeed % characters.length;
       console.log("Selected index:", index);
       const cod = characters[index];
       console.log("Character of the Day:", cod);
       
-      // Inject the character info into the container with ID 'cod-container'
+      // Inject the selected character info into the container with ID 'cod-container'
       const container = document.getElementById('cod-container');
       if (container && cod) {
         container.innerHTML = `
@@ -134,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </a>
         `;
       } else {
-        console.warn('Container not found or no character selected.');
+        console.warn('cod-container not found or no character selected.');
       }
     })
     .catch(error => {
