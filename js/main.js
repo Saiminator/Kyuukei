@@ -75,8 +75,7 @@ function loadCategory(slug) {
   }
 }
 
-
-
+/* --- Character of the Day Section using Seeded Random --- */
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
     .then(response => {
@@ -92,22 +91,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Get current day of the year (1-366)
+      // Create a seed based on today's date in YYYYMMDD format.
       const now = new Date();
-      const startOfYear = new Date(now.getFullYear(), 0, 0);
-      const diff = now - startOfYear;
-      const oneDay = 1000 * 60 * 60 * 24;
-      const dayOfYear = Math.floor(diff / oneDay);
-      console.log('Day of year:', dayOfYear);
+      const year = now.getFullYear();
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const day = now.getDate().toString().padStart(2, '0');
+      const seedString = `${year}${month}${day}`; // e.g. "20250309"
+      const seed = parseInt(seedString, 10);
       
-      // Add an offset to force a different character (change the offset value as needed)
-      const offset = 0; // For example, offset of 1 will pick a character one position later than the default
-      const index = (dayOfYear + offset) % characters.length;
-      console.log('Selected index:', index);
+      // Simple Linear Congruential Generator (LCG) for seeded randomness.
+      function seededRandom(seed) {
+        const m = 0x80000000; // 2^31
+        const a = 1103515245;
+        const c = 12345;
+        seed = (seed * a + c) % m;
+        return seed / m;
+      }
+      
+      const rand = seededRandom(seed);
+      const index = Math.floor(rand * characters.length);
+      console.log('Random index:', index);
       const cod = characters[index];
       console.log('Character of the Day:', cod);
       
-      // Inject the character info into the page.
+      // Inject the Character of the Day info into the container.
       const container = document.getElementById('cod-container');
       if (container && cod) {
         container.innerHTML = `
@@ -117,6 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
             ${cod.last_modified_at ? `<p>Last updated: ${new Date(cod.last_modified_at).toLocaleString()}</p>` : ''}
           </a>
         `;
+      } else {
+        console.warn('Container not found or no character selected.');
       }
     })
     .catch(error => {
