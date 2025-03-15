@@ -1210,14 +1210,11 @@ body.chapter .section-header {
 
 
 
-
-
-
 .discord-community {
   text-align: center;
   margin: 20px auto;
   padding: 20px;
-  background: #f7cdd5; /* Orby pink background */
+  background: #fff; /* White background */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   max-width: 600px;
@@ -1231,7 +1228,7 @@ body.chapter .section-header {
 
 .discord-button {
   display: inline-block;
-  background: #e0a8b5; /* Darker Orby Pink */
+  background: #f7cdd5; /* Orby Pink */
   color: #fff;
   text-decoration: none;
   padding: 10px 20px;
@@ -1241,5 +1238,6 @@ body.chapter .section-header {
 }
 
 .discord-button:hover {
-  background: #d09aa4;
+  background: #e0a8b5; /* Dark Orby Pink */
 }
+
