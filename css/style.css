@@ -1253,7 +1253,6 @@ body.chapter .section-header {
 
 .discord-button:hover {
   background: #e0a8b5; /* Dark Orby Pink */
-  transform: translateY(-3px);
 }
 
 /* --- Character Item Hover Effect --- */
