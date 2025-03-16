@@ -184,45 +184,6 @@
 <div class="custom-cursor" id="customCursor"></div>
 
 
-  document.addEventListener('DOMContentLoaded', function() {
-  const cursor = document.getElementById('customCursor');
-  let initialized = false;
-  
-  // List of selectors for interactive elements
-  const interactiveSelectors = [
-    'a', 
-    'button', 
-    'input[type="button"]', 
-    'input[type="submit"]', 
-    'input[type="reset"]',
-    '.nav-button',
-    '.back-select-btn',
-    '.sort-tab',
-    '.discord-button'
-  ];
-
-  // Add event listeners to change cursor appearance on hover
-  interactiveSelectors.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover');
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover');
-      });
-    });
-  });
-
-  // Show and update the custom cursor on mouse movement
-  document.addEventListener('mousemove', function(e) {
-    if (!initialized) {
-      cursor.style.display = 'block';
-      initialized = true;
-    }
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-});
 
 </body>
 </html>
