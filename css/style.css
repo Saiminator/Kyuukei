@@ -1241,7 +1241,7 @@ body.chapter .section-header {
 
 /* Default cursor for the page */
 body {
-  cursor: url('/kyuukei/assets/Kyuu_01_Pointer.cur'), auto;
+  cursor: url('/Kyuukei/assets/Kyuu_01_Pointer.cur'), auto;
 }
 
 /* When hovering over interactive elements, switch to the select cursor */
@@ -1249,7 +1249,7 @@ a:hover,
 button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover {
-  cursor: url('/kyuukei/assets/Kyuu_13_Select.cur'), pointer;
+  cursor: url('/Kyuukei/assets/Kyuu_13_Select.cur'), pointer;
 }
 
 .discord-button:hover {
