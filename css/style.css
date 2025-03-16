@@ -1239,15 +1239,18 @@ body.chapter .section-header {
 
 
 
-/* Default cursor for the page */
-body {
-  cursor: url('/Kyuukei/assets/Kyuu_01_Pointer.cur'), auto;
-}
-
-/* When hovering over interactive elements, switch to the select cursor */
-a:hover,
-button:hover,
-input[type="button"]:hover,
-input[type="submit"]:hover {
-  cursor: url('/Kyuukei/assets/Kyuu_13_Select.cur'), pointer;
-}
+<head>
+  <!-- ... other head elements ... -->
+  <style>
+    body {
+      cursor: url('/Kyuukei/assets/Kyuu_01_Pointer.cur'), auto;
+    }
+    a:hover,
+    button:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover {
+      cursor: url('/Kyuukei/assets/Kyuu_13_Select.cur'), pointer;
+    }
+  </style>
+  <!-- ... -->
+</head>
