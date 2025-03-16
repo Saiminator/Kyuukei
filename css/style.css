@@ -1237,6 +1237,21 @@ body.chapter .section-header {
   transition: background 0.3s ease;
 }
 
+
+
+/* Default cursor for the page */
+body {
+  cursor: url('/kyuukei/assets/Kyuu_01_Pointer.cur'), auto;
+}
+
+/* When hovering over interactive elements, switch to the select cursor */
+a:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  cursor: url('/kyuukei/assets/Kyuu_13_Select.cur'), pointer;
+}
+
 .discord-button:hover {
   background: #e0a8b5; /* Dark Orby Pink */
 }
