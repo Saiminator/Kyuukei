@@ -1251,8 +1251,3 @@ input[type="button"]:hover,
 input[type="submit"]:hover {
   cursor: url('/Kyuukei/assets/Kyuu_13_Select.cur'), pointer;
 }
-
-.discord-button:hover {
-  background: #e0a8b5; /* Dark Orby Pink */
-}
-
