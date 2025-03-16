@@ -1208,6 +1208,12 @@ body.chapter .section-header {
   line-height: 1.1;
 }
 
+/* Character of the Day hover effect */
+#cod-container a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
 
 
