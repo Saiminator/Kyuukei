@@ -1239,18 +1239,10 @@ body.chapter .section-header {
 
 
 
-<head>
-  <!-- ... other head elements ... -->
-  <style>
-    body {
-      cursor: url('/Kyuukei/assets/Kyuu_01_Pointer.cur'), auto;
-    }
-    a:hover,
-    button:hover,
-    input[type="button"]:hover,
-    input[type="submit"]:hover {
-      cursor: url('/Kyuukei/assets/Kyuu_13_Select.cur'), pointer;
-    }
-  </style>
-  <!-- ... -->
-</head>
+body {
+  cursor: url('https://Simon-Minchk.github.io/Kyuukei/assets/Kyuu_01_Pointer.cur'), auto;
+}
+a:hover,
+button:hover {
+  cursor: url('https://Simon-Minchk.github.io/Kyuukei/assets/Kyuu_13_Select.cur'), pointer;
+}
