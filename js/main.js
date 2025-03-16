@@ -139,3 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Error fetching characters:', error);
     });
 });
+
+
+document.addEventListener('mousemove', function(e) {
+  var cursor = document.getElementById('customCursor');
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
