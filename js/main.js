@@ -142,11 +142,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+  const cursor = document.getElementById('customCursor');
+  let initialized = false;
+  
   document.addEventListener('mousemove', function(e) {
-    var cursor = document.getElementById('customCursor');
-    if (cursor) {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+    // On the first mousemove, make the cursor visible
+    if (!initialized) {
+      cursor.style.display = 'block';
+      initialized = true;
     }
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
   });
 });
