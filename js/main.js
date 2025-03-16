@@ -141,29 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const cursor = document.getElementById('customCursor');
-    let mouseX = 0, mouseY = 0;
-
-    // Update mouse position on movement
-    document.addEventListener('mousemove', function(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    // Use requestAnimationFrame to continuously update the custom cursor's position
-    function animateCursor() {
-      if (cursor) {
-        cursor.style.left = mouseX + 'px';
-        cursor.style.top = mouseY + 'px';
-      }
-      requestAnimationFrame(animateCursor);
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('mousemove', function(e) {
+    var cursor = document.getElementById('customCursor');
+    if (cursor) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
     }
-    
-    animateCursor();
   });
-</script>
+});
