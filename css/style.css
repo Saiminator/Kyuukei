@@ -1,26 +1,3 @@
-/* ----------------------------
-   Default Custom Pointer Cursor
------------------------------ */
-body {
-  /* Use explicit hotspot coordinates (0 0) */
-  cursor: url('data:image/x-icon;base64,AAACAAEAQEAAAAQABAAYAwAAFgAAAIlQTkcNChoKAAAADUlIRFIAAABAAAAAQAgDAAAAnbeB7AAAAGNQTFRF/tf0/tf0qY+iAAAAAAAA97C/4GuBvqG38MLJ7Lu7yYRL3q1i8NSE+eyQ9szP+r2U/+bV88nDFhIftMfH////95Wo+snTzGJFSTg4eGptYVNTyk9mKCkqHR8hsJWtoYiexKW+YVvdTAAAACF0Uk5TAP8AAP///wAAAP////8A//8A////////////////AAAAU9FoZAAAAAlwSFlzAAAPYQAAD2EBqD+naQAAAi5JREFUWIW9l4FSwjAQRBPECA2SEgoItOj/f6Ws2/NajM4oV3eGTtNkn73LJY3OXeV7zWbOPfxSzgAA6/xDf0HYAObzx6sU8Z2mBISgiKenxcIXtFyWELYAQXhfFVRG2AGICAGAqopxtXoeaLWKsYywBUg5jc0KKSHsAEwkASX7dwgLwGzGxUSA2H8KwxYAhiCGAcQ4NspdjN6v14qwAAiCkuEEiFFxKKlhEDYA7q3ey7CqQrLUKC3ipgEAMQTEmBIWFIx4abQENw3AufUay5ivWVUp1TVMCAZ2baF3OJE2AOc2GwkgxvyplGBLSZ9oEJsNERYAteOHYdstf3WNV69rfZIzRynCBkA7Jw0hNE0Iu10IdS+2moYhMJUymVYAfjqIiRGA/X4IQKtpuNljOvmhsQMsl/ycyYDDoS7ocJA/ALNsrhYAWcwsWwIweTQJLCUCuMTw+qNKvBMgiUQXi0kRamcRcZQuaBuAczjUsIvTCQQgFO5RROwlYLEY5eBugAZA+8tLvhGesHccxBQADD4eT1cxkSnh/ngE4j8AOZ/PsAPStkhh28IMxPnMMKYCoEixjaUUQs4wtL0AzDkEbm+ynGwBWNAMgEUL++nUdbB3HVsscAahRy0bgG4q3rNomMauF1PI4ro9+lsB+v//HAAhcDhTxrTmDCSSy62keD64E0DI5ULEbifXnPFRkav3l8vNYdsUoAgMlZQNW7d2e4AgvH99xfXtKm19tRsA3gE8VpIppCEbqQAAAABJRU5ErkJggg==') 0 0, auto;
-}
-
-/* ----------------------------
-   Custom Select Cursor on Interactive Elements
-   (On hover for links, buttons, etc.)
------------------------------ */
-a:hover,
-button:hover,
-input[type="button"]:hover,
-input[type="submit"]:hover,
-.back-select-btn:hover,
-.spoilers-btn:hover {
-  cursor: url('data:image/x-icon;base64,AAACAAEAQEAAAAQABAAwAwAAFgAAAIlQTkcNChoKAAAADUlIRFIAAABAAAAAQAgDAAAAnbeB7AAAAGZQTFRFAAAA/tf0qY+i/tf0AAAA97C/vqG37Lu74GuBwJuhyYRL3q1i8NSE+eyQ9szP+r2U/+bV88nDFhIftMfH////95Wo+snTzGJF8MLJSTg4eGptYVNTyk9mKCkqHR8hsJWtoYiexKW+SvNZ4AAAACJ0Uk5TAAAA////AAD/AP////8A//8A////////AP///////wAAAFkcjb0AAAAJcEhZcwAAD2EAAA9hAag/p2kAAAJCSURBVFiFvZeNcsIgEITFayoNViKN1aqJ9v1fsu6s9JKW9A/szSQTAvvJHccRZ7OZMfO5XGw+N2b2FysAELm72J8RhQBVpQgzYbcBGHN/HwERsVhIwhaLJCIbgCWEtKqsJeLhQaRO2AQiGwA5pFUFBENZ184tl48DWy6dm0AUAkBKA2AsVkgSURgAZ0RS8klENoDLSMRQ/pUbZQEsJ3dX0+k7Nxbqe5HVaoDIBmhJg3Eg7gREoeKQUkknMgCxgIjEYXWNYKkwtoi7BYCQIcA577GhIMSk0Yq42wCMWa2wjTnNuva+aSCCM5BrC72fFjIbYMx6HR1wLryb95B5r2/UifV6lI1ZAJXjwrCnJ15Ng6k3jb4JgaNGiAIAyrlocKFtrd1srG2uxlbb0gWGcrCYRQA8OohxDoDn5yEArbZlscdy8qApB+BhGo8T57bbJmHbbfwBiAfFNRvA7QwAOgnA4lEUYd4TwC2G6Y8yMRMQA4kuJpMiVM4k4qhETcoCGLPbRQCXEwhAaHhGErGXgN1uFINsgDpA+ctL+GB4w96EE4UBGLzfHy7GQHqP5/0eiP8AhHA8Qg5I1yGEXQcxEMcj3bgVAEmKMua9tSFA0F0NwBCsZXmL26ksABuaDjBpIT8c+h7yvmeLCU4nPnxqZQO0qIgwaRjG/moMIZNr4tM/G6AfGQgWhzNkDGsIQCK4LCXJ74NMACGnExGbTbyHgEMl3kVOpy/+GmYDFIGhMWTD1jfyAoCIEDmfcX+9mLZ+IP894A0xJI49vaW8fAAAAABJRU5ErkJggg==') 0 0 !important, pointer;
-}
-
-
-
 /* =====================================================
    1. Remove Default Margins and Padding
 ===================================================== */
@@ -1014,161 +991,10 @@ body.chapter .section-header {
   border-radius: 8px;
   margin-bottom: 20px;
   padding: 10px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 .chapter-preview:hover {
   background: #f7f7f7;
-}
-.chapter-image {
-  flex: 0 0 150px;
-  height: 150px;
-  margin-right: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-}
-.chapter-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.chapter-details {
-  flex: 1;
-}
-.chapter-details h2 {
-  margin: 0 0 5px;
-  font-size: 1.2em;
-}
-.chapter-details p {
-  margin: 0;
-  color: #555;
-  font-size: 0.9em;
-}
-
-.back-to-stories-button {
-  display: inline-block;
-  margin: 20px 0;
-  padding: 8px 12px;
-  background: #f7cdd5;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  font-size: 0.9rem;
-}
-.back-to-stories-button:hover {
-  background: #e0a8b5;
-}
-
-/* Fixed Chapter Navigation at Bottom */
-.chapter-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-
-.chapter-nav-container {
-  max-width: 1120px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-}
-
-.nav-button {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-  background: #f7cdd5;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  margin: 0 5px;
-}
-
-.nav-button:hover {
-  background: #e0a8b5;
-}
-
-/* Optional: Style for disabled buttons (if no previous/next chapter available) */
-.nav-button.disabled {
-  background: #ccc;
-  pointer-events: none;
-}
-
-/* Fixed Chapter Navigation that stays within the main content container */
-.chapter-nav {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;  /* For desktop */
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  z-index: 1000;
-  border-radius: 5px;
-  padding: 5px 0;
-}
-
-.chapter-nav-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 5px;
-}
-
-.nav-button {
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  background: #f7cdd5;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-  margin: 0 5px;
-  font-size: 0.9rem;
-}
-
-.nav-button:hover {
-  background: #e0a8b5;
-}
-
-.nav-button.disabled {
-  background: #ccc;
-  pointer-events: none;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-  .chapter-nav {
-    width: 90%;  /* Increase width on mobile */
-    bottom: 5px; /* Slightly adjust bottom margin if needed */
-  }
-  .nav-button {
-    font-size: 0.8rem;
-    padding: 6px;
-    margin: 0 3px;
-  }
-}
-
-.chapter-preview {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  padding: 10px;
-  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-}
-.chapter-preview:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
@@ -1179,8 +1005,6 @@ body.chapter .section-header {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-
-
 
 /* Character of the Day Section Container */
 #character-of-day {
@@ -1260,3 +1084,19 @@ body.chapter .section-header {
   transition: background 0.3s ease;
 }
 
+/* Default custom pointer cursor */
+body {
+  cursor: url('data:image/x-icon;base64,AAACAAEAQEAAAAQABAAYAwAAFgAAAIlQTkcNChoKAAAADUlIRFIAAABAAAAAQAgDAAAAnbeB7AAAAGNQTFRF/tf0/tf0qY+iAAAAAAAA97C/4GuBvqG38MLJ7Lu7yYRL3q1i8NSE+eyQ9szP+r2U/+bV88nDFhIftMfH////95Wo+snTzGJFSTg4eGptYVNTyk9mKCkqHR8hsJWtoYiexKW+YVvdTAAAACF0Uk5TAP8AAP///wAAAP////8A//8A////////////////AAAAU9FoZAAAAAlwSFlzAAAPYQAAD2EBqD+naQAAAi5JREFUWIW9l4FSwjAQRBPECA2SEgoItOj/f6Ws2/NajM4oV3eGTtNkn73LJY3OXeV7zWbOPfxSzgAA6/xDf0HYAObzx6sU8Z2mBISgiKenxcIXtFyWELYAQXhfFVRG2AGICAGAqopxtXoeaLWKsYywBUg5jc0KKSHsAEwkASX7dwgLwGzGxUSA2H8KwxYAhiCGAcQ4NspdjN6v14qwAAiCkuEEiFFxKKlhEDYA7q3ey7CqQrLUKC3ipgEAMQTEmBIWFIx4abQENw3AufUay5ivWVUp1TVMCAZ2baF3OJE2AOc2GwkgxvyplGBLSZ9oEJsNERYAteOHYdstf3WNV69rfZIzRynCBkA7Jw0hNE0Iu10IdS+2moYhMJUymVYAfjqIiRGA/X4IQKtpuNljOvmhsQMsl/ycyYDDoS7ocJA/ALNsrhYAWcwsWwIweTQJLCUCuMTw+qNKvBMgiUQXi0kRamcRcZQuaBuAczjUsIvTCQQgFO5RROwlYLEY5eBugAZA+8tLvhGesHccxBQADD4eT1cxkSnh/ngE4j8AOZ/PsAPStkhh28IMxPnMMKYCoEixjaUUQs4wtL0AzDkEbm+ynGwBWNAMgEUL++nUdbB3HVsscAahRy0bgG4q3rNomMauF1PI4ro9+lsB+v//HAAhcDhTxrTmDCSSy62keD64E0DI5ULEbifXnPFRkav3l8vNYdsUoAgMlZQNW7d2e4AgvH99xfXtKm19tRsA3gE8VpIppCEbqQAAAABJRU5ErkJggg=='), auto;
+}
+
+/* Custom select cursor on interactive elements */
+a:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+.nav-button:hover,
+.sort-tab:hover,
+.discord-button:hover {
+  cursor: url('data:image/x-icon;base64,AAACAAEAQEAAAAQABAAwAwAAFgAAAIlQTkcNChoKAAAADUlIRFIAAABAAAAAQAgDAAAAnbeB7AAAAGZQTFRFAAAA/tf0qY+i/tf0AAAA97C/vqG37Lu74GuBwJuhyYRL3q1i8NSE+eyQ9szP+r2U/+bV88nDFhIftMfH////95Wo+snTzGJF8MLJSTg4eGptYVNTyk9mKCkqHR8hsJWtoYiexKW+SvNZ4AAAACJ0Uk5TAAAA////AAD/AP////8A//8A////////AP///////wAAAFkcjb0AAAAJcEhZcwAAD2EAAA9hAag/p2kAAAJCSURBVFiFvZeNcsIgEITFayoNViKN1aqJ9v1fsu6s9JKW9A/szSQTAvvJHccRZ7OZMfO5XGw+N2b2FysAELm72J8RhQBVpQgzYbcBGHN/HwERsVhIwhaLJCIbgCWEtKqsJeLhQaRO2AQiGwA5pFUFBENZ184tl48DWy6dm0AUAkBKA2AsVkgSURgAZ0RS8klENoDLSMRQ/pUbZQEsJ3dX0+k7Nxbqe5HVaoDIBmhJg3Eg7gREoeKQUkknMgCxgIjEYXWNYKkwtoi7BYCQIcA577GhIMSk0Yq42wCMWa2wjTnNuva+aSCCM5BrC72fFjIbYMx6HR1wLryb95B5r2/UifV6lI1ZAJXjwrCnJ15Ng6k3jb4JgaNGiAIAyrlocKFtrd1srG2uxlbb0gWGcrCYRQA8OohxDoDn5yEArbZlscdy8qApB+BhGo8T57bbJmHbbfwBiAfFNRvA7QwAOgnA4lEUYd4TwC2G6Y8yMRMQA4kuJpMiVM4k4qhETcoCGLPbRQCXEwhAaHhGErGXgN1uFINsgDpA+ctL+GB4w96EE4UBGLzfHy7GQHqP5/0eiP8AhHA8Qg5I1yGEXQcxEMcj3bgVAEmKMua9tSFA0F0NwBCsZXmL26ksABuaDjBpIT8c+h7yvmeLCU4nPnxqZQO0qIgwaRjG/moMIZNr4tM/G6AfGQgWhzNkDGsIQCK4LCXJ74NMACGnExGbTbyHgEMl3kVOpy/+GmYDFIGhMWTD1jfyAoCIEDmfcX+9mLZ+IP894A0xJI49vaW8fAAAAABJRU5ErkJggg=='), pointer;
+}
