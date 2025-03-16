@@ -141,10 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-document.addEventListener('mousemove', function(e) {
-  var cursor = document.getElementById('customCursor');
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('mousemove', function(e) {
+    var cursor = document.getElementById('customCursor');
+    if (cursor) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    }
+  });
 });
