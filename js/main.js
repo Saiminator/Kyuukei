@@ -141,11 +141,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   const cursor = document.getElementById('customCursor');
   let initialized = false;
   
-  // List of selectors for interactive elements
+  // List of selectors for interactive elements that should trigger the hover state
   const interactiveSelectors = [
     'a', 
     'button', 
@@ -158,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     '.discord-button'
   ];
 
-  // Add hover event listeners to interactive elements to toggle the hover state
+  // Add event listeners to toggle a hover state (optional: you can style .custom-cursor.hover differently)
   interactiveSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
       el.addEventListener('mouseenter', () => {
@@ -172,9 +179,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Show and update the custom cursor on mouse movement
   document.addEventListener('mousemove', function(e) {
-    // On first mouse move, make the custom cursor visible (by setting opacity to 1)
     if (!initialized) {
-      cursor.style.opacity = '1';
+      cursor.style.display = 'block';
       initialized = true;
     }
     cursor.style.left = e.clientX + 'px';
