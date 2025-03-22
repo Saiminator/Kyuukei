@@ -1,5 +1,5 @@
 ---
-title: "First Character Poll (Pre-story)"
+title: "Custom Kyuu Cursor"
 date: 2025-03-18
 ---
 
