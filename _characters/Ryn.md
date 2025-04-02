@@ -2,7 +2,7 @@
 layout: character
 title: "Ryn"
 order: 10
-image: "https://i.imgur.com/2ScZPoX.jpeg"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/ryn/pfp.png"
 age: "23"
 birthday: "May 18th"
 species: "Human"
