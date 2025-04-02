@@ -14,7 +14,7 @@ mana_color: "Cyan"
 hair_color: "Brown"
 eye_color: "Bright Cerulean"
 credit: "@1sukaa"
-last_modified_at: "2025-03-08"
+last_modified_at: "2025-03-08T23:20:00"
 ---
 
 ## Background
