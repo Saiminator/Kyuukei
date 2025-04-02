@@ -14,7 +14,7 @@ mana_color: "Golden Orange"
 hair_color: "Brown"
 eye_color: "Bright Blue with a Golden Hue in the Center"
 credit: "@1sukaa"
-last_modified_at: "2025-03-08"
+last_modified_at: "2025-04-01T23:20:00"
 ---
 
 ## Background
