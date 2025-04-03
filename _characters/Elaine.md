@@ -13,7 +13,8 @@ cup_size: "?"
 mana_color: "Light Purple"
 hair_color: "Silver"
 eye_color: "Gold"
-last_modified_at: "2025-03-08"
+artist: "@__mr121_"
+last_modified_at: "2025-03-08T15"
 ---
 
 ## Background
