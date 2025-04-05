@@ -305,7 +305,7 @@ header {
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
-@media (min-width: 601px) and (max-width: 1023px) {
+@media (min-width: 601px) and (max-width: 1024px) {
   .scroll-container { height: calc(100vh - 50px); }
 }
 
@@ -400,7 +400,7 @@ header {
   gap: 20px;
   grid-template-columns: repeat(4, 1fr);
 }
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   #characterScrollContainer {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -735,7 +735,7 @@ header {
 }
 
 /* Tablet: 3 columns */
-@media (max-width: 1023px) and (min-width: 601px) {
+@media (max-width: 1024px) and (min-width: 601px) {
   .character-view-container {
     grid-template-columns: repeat(3, 1fr);
   }
