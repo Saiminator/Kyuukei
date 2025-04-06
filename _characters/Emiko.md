@@ -2,7 +2,7 @@
 layout: character
 title: "Emiko Stürzen"
 slug: "Emiko"
-image: "https://i.imgur.com/2ScZPoX.jpeg"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
 age: "**26 (deceased)**"
 birthday: "March 21st"
 species: "Human"
