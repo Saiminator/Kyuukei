@@ -2,7 +2,7 @@
 layout: character
 title: "Via"
 order: 5
-image: "https://i.imgur.com/zOOHPmU.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/via/pfp.png"
 age: "26"
 birthday: "September 22nd"
 species: "Human"
