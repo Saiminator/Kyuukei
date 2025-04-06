@@ -11,7 +11,7 @@ layout: default
     {% for chapter in chapters %}
       <a href="{{ chapter.url | relative_url }}" class="chapter-preview">
         <div class="chapter-image">
-          <img src="{{ chapter.preview_image | default: 'https://via.placeholder.com/150x150?text=Chapter+Image' }}" alt="Chapter {{ chapter.chapter_number }} image">
+          <img src="{{ chapter.preview_image | default: '' }}" alt="Chapter {{ chapter.chapter_number }} image">
         </div>
         <div class="chapter-details">
           <h2>Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h2>
