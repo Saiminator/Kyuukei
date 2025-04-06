@@ -24,7 +24,7 @@
     </header>
     <!-- Category Representative Image -->
     <div class="category-header-image" style="text-align: center; margin: 20px 0;">
-      <img src="{{ page.image | default: 'https://via.placeholder.com/420' }}" alt="{{ page.title }}" style="max-width: 100%; height: auto;">
+      <img src="{{ page.image | default: '' }}" alt="{{ page.title }}" style="max-width: 100%; height: auto;">
     </div>
     <!-- Category Characters List -->
     <div class="category-characters" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
@@ -32,7 +32,7 @@
         {% assign character = site.characters | where_exp:"char", "char.title | slugify == char_slug" | first %}
         {% if character %}
           <a href="{{ character.url }}" class="character-item" style="text-decoration: none; color: inherit; width: 200px;">
-            <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}'); width: 200px; height: 200px; background-size: cover; background-position: center; border: 2px solid #ddd; border-radius: 5px;"></div>
+            <div class="character-image" style="background-image: url('{{ character.image | default: '' }}'); width: 200px; height: 200px; background-size: cover; background-position: center; border: 2px solid #ddd; border-radius: 5px;"></div>
             <div class="character-name" style="text-align: center; margin-top: 10px;">{{ character.title }}</div>
           </a>
         {% else %}
