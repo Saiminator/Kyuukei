@@ -3,7 +3,7 @@ layout: character
 title: "Shimi Selbst"
 slug: "Shimi"
 order: 2
-image: "https://i.imgur.com/pklrIMA.jpeg"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/shimi/pfp.png"
 age: "20"
 birthday: "May 1st"
 species: "Human"
