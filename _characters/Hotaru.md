@@ -2,7 +2,7 @@
 layout: character
 title: "Hotaru Stürzen"
 slug: "Hotaru"
-image: "https://i.imgur.com/2ScZPoX.jpeg"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
 age: "16"
 birthday: "September 22nd"
 species: "Human"
