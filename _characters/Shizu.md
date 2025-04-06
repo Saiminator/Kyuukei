@@ -2,7 +2,7 @@
 layout: character
 title: "Shizu"
 order: 4
-image: "https://i.imgur.com/RaFwHGD.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/shizu/pfp.png"
 age: "24"
 birthday: "May 8th"
 species: "Human"
