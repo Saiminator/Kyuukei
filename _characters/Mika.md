@@ -2,7 +2,7 @@
 layout: character
 title: "Mika"
 order: 7
-image: "https://i.imgur.com/6tYyKTf.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/mika/pfp.png"
 age: "21"
 birthday: "January 13th"
 species: "Demi-Human (Cat)"
