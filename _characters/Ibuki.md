@@ -2,7 +2,7 @@
 layout: character
 title: "Ibuki Weitschall"
 slug: "Ibuki"
-image: "https://i.imgur.com/2ScZPoX.jpeg"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
 age: "26 (actually 6)"
 birthday: "February 29th"
 species: "Human"
