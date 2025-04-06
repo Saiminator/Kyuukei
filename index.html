@@ -55,7 +55,7 @@ title: Welcome to Kyuukei
     {% if recentCharacters != empty %}
       {% for character in recentCharacters %}
         <a href="{{ character.url | relative_url }}" class="character-item">
-          <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+          <div class="character-image" style="background-image: url('{{ character.image | default: '' }}');"></div>
           <div class="character-name">{{ character.title }}</div>
         </a>
       {% endfor %}
