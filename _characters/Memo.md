@@ -2,7 +2,7 @@
 layout: character
 title: "Memo"
 order: 13
-image: "https://i.imgur.com/msrtKJd.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/memo/pfp.png"
 age: "256"
 birthday: "TBD"
 species: "Fairy"
