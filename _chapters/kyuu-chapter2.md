@@ -5,7 +5,7 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 2
 global_chapter: 2
 permalink: /stories/kyuus-breaktime-stories/chapter-2/
-preview_image: "https://i.imgur.com/fmHFqfR.png"
+preview_image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/2.png"
 preview_description: "While wandering, Kyuu encounters her first threat"
 
 ---
