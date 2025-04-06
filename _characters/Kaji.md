@@ -1,7 +1,7 @@
 ---
 layout: character
 title: "Kaji"
-image: "https://i.imgur.com/GVeTVGF.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/kaji/pfp.png"
 age: "327"
 birthday: "September (Forgot Day)"
 species: "Dragon"
