@@ -2,7 +2,7 @@
 layout: character
 title: "Dreymi"
 order: 3
-image: "https://i.imgur.com/FqobgRz.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/dreymi/pfp.png"
 age: "20"
 birthday: "April 7th"
 species: "Vampire, Succubus"
