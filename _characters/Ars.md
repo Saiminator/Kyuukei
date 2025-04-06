@@ -2,7 +2,7 @@
 layout: character
 title: "Ars"
 order: 12
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/ars/pfp.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
 age: "24"
 birthday: "TBD"
 species: "Human"
