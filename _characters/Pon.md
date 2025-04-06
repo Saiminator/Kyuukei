@@ -2,7 +2,7 @@
 layout: character
 title: "Pon"
 order: 8
-image: "https://i.imgur.com/bVnV9Ak.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/pon/pfp.png"
 age: "18"
 birthday: "September 30th"
 species: "Demi-Human (Cat)"
