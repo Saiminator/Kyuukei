@@ -13,7 +13,7 @@ cup_size: "C"
 mana_color: "Bright Cyan"
 hair_color: "White"
 eye_color: "Cyan"
-credit: "https://charat.me/en/genesis/"
+credit: "4headboiii"
 last_modified_at: "2025-03-08"
 ---
 
