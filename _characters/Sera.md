@@ -2,7 +2,7 @@
 layout: character
 title: "Sera"
 order: 14
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
+image: "https://i.imgur.com/tPA3s6e.png"
 age: "26"
 birthday: "TBD"
 species: "Human (Spirit-Bound)"
