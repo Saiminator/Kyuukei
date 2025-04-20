@@ -72,7 +72,7 @@ function loadCategory(slug) {
   }
 }
 
-/* --- Character of the Day Section with Yesterday ("Old News") and Clean Date Formatting --- */
+/* --- Character of the Day Section --- */
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
     .then(response => {
@@ -88,8 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       const now = new Date();
-      const yesterday = new Date(now);
-      yesterday.setDate(now.getDate() - 1);
 
       function getSeedIndex(date) {
         const year = date.getFullYear();
@@ -112,40 +110,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       const todayIndex = getSeedIndex(now);
-      const yesterdayIndex = getSeedIndex(yesterday);
-
-      const todayCharacter = characters[todayIndex];
-      const yesterdayCharacter = characters[yesterdayIndex];
+      const character = characters[todayIndex];
 
       const container = document.getElementById('cod-container');
-      if (container && todayCharacter) {
-        const updatedDate = new Date(todayCharacter.last_modified_at).toLocaleDateString(undefined, {
+      if (container && character) {
+        const currentDate = now.toLocaleDateString(undefined, {
           year: 'numeric', month: 'long', day: 'numeric'
         });
-        const weekday = now.toLocaleDateString(undefined, { weekday: 'long' });
+
+        const lastUpdatedDate = new Date(character.last_modified_at).toLocaleDateString(undefined, {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
 
         container.innerHTML = `
-          <h2>Character of the Day — ${weekday}</h2>
-          <a href="${todayCharacter.url}">
-            <div class="cod-image" style="background-image: url('${todayCharacter.image}');"></div>
-            <h3>${todayCharacter.title}</h3>
-            ${todayCharacter.last_modified_at ? `<p>Last updated: ${updatedDate}</p>` : ''}
-          </a>
-        `;
-      }
-
-      const oldNewsContainer = document.getElementById('cod-oldnews');
-      if (oldNewsContainer && yesterdayCharacter) {
-        const oldDate = new Date(yesterdayCharacter.last_modified_at).toLocaleDateString(undefined, {
-          year: 'numeric', month: 'long', day: 'numeric'
-        });
-
-        oldNewsContainer.innerHTML = `
-          <h3>Old News — Yesterday's Character</h3>
-          <a href="${yesterdayCharacter.url}">
-            <div class="cod-image" style="background-image: url('${yesterdayCharacter.image}');"></div>
-            <h4>${yesterdayCharacter.title}</h4>
-            ${yesterdayCharacter.last_modified_at ? `<p>Last updated: ${oldDate}</p>` : ''}
+          <h2>Character of the Day</h2>
+          <p>${currentDate}</p>
+          <a href="${character.url}">
+            <div class="cod-image" style="background-image: url('${character.image}');"></div>
+            <h3>${character.title}</h3>
+            ${character.last_modified_at ? `<p>Last updated: ${lastUpdatedDate}</p>` : ''}
           </a>
         `;
       }
