@@ -27,11 +27,8 @@ She thrives in social environments, guiding students and faculty alike by gently
 
 ## Abilities
 
-Null Magic Specialist:
-Mizue uses null magic as her magic of choice to create barely-visible constructs—floating hands, barriers, projectiles, cages, platforms, and more. Her mastery of null magic gives her the illusion of omnipresence within her territory, often grabbing things or people from great distances without moving.
+**Null Magic Specialist:** Mizue uses null magic as her magic of choice to create barely-visible constructs—floating hands, barriers, projectiles, cages, platforms, and more. Her mastery of null magic gives her the illusion of omnipresence within her territory, often grabbing things or people from great distances without moving.
 
-Social Manipulation:
-Her true strength lies in people. Mizue can read a student’s mood in seconds and knows exactly how to poke, praise, or prank them to shape their behavior. She prefers to lead through nudging rather than commanding, and finds joy in stirring drama or growth through unexpected pressure.
+**Social Manipulation:** Her true strength lies in people. Mizue can read a student’s mood in seconds and knows exactly how to poke, praise, or prank them to shape their behavior. She prefers to lead through nudging rather than commanding, and finds joy in stirring drama or growth through unexpected pressure.
 
-Disarming Charisma:
-Mizue’s eccentric behavior, flashy antics, and self-deprecation keep people guessing. It’s easy to underestimate her—which she encourages—until she turns the room on its head with a flick of her wand.
+**Disarming Charisma:** Mizue’s eccentric behavior, flashy antics, and self-deprecation keep people guessing. It’s easy to underestimate her—which she encourages—until she turns the room on its head with a flick of her wand.
