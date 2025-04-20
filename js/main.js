@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function(){
   var popularityTab = document.getElementById('popularity-tab');
   var alphabeticalTab = document.getElementById('alphabetical-tab');
@@ -42,13 +41,13 @@ document.addEventListener('DOMContentLoaded', function(){
       if(popularityContainer) popularityContainer.style.display = 'none';
       if(alphabeticalContainer) alphabeticalContainer.style.display = 'none';
       if(sortedContainer) {
-          sortedContainer.style.display = 'grid';
-          var categoryList = document.getElementById('sorted-category-list');
-          if(categoryList) categoryList.style.display = 'grid';
-          var categoryContainers = document.querySelectorAll('.category-characters');
-          categoryContainers.forEach(function(container) {
-            container.style.display = 'none';
-          });
+        sortedContainer.style.display = 'grid';
+        var categoryList = document.getElementById('sorted-category-list');
+        if(categoryList) categoryList.style.display = 'grid';
+        var categoryContainers = document.querySelectorAll('.category-characters');
+        categoryContainers.forEach(function(container) {
+          container.style.display = 'none';
+        });
       }
     });
   }
@@ -73,7 +72,7 @@ function loadCategory(slug) {
   }
 }
 
-/* --- Character of the Day Section using Seeded Random with Enhanced Mixing and Fixed Modulo --- */
+/* --- Character of the Day Section with Yesterday ("Old News") and Clean Date Formatting --- */
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
     .then(response => {
@@ -83,57 +82,72 @@ document.addEventListener('DOMContentLoaded', function() {
       return response.json();
     })
     .then(characters => {
-      console.log('Fetched characters:', characters);
       if (!Array.isArray(characters) || characters.length === 0) {
         console.warn('No characters found in JSON.');
         return;
       }
-      
-      // Build a seed string from today's date in YYYYMMDD format.
+
       const now = new Date();
-      const year = now.getFullYear();
-      const month = (now.getMonth() + 1).toString().padStart(2, '0');
-      const day = now.getDate().toString().padStart(2, '0');
-      const seedString = `${year}${month}${day}`; // e.g., "20250314"
-      console.log("Seed string:", seedString);
-      
-      // djb2 hash algorithm to generate a base hash.
-      function hashString(str) {
-        let hash = 5381;
-        for (let i = 0; i < str.length; i++) {
-          hash = ((hash << 5) + hash) + str.charCodeAt(i); // hash * 33 + c
+      const yesterday = new Date(now);
+      yesterday.setDate(now.getDate() - 1);
+
+      function getSeedIndex(date) {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const seedString = `${year}${month}${day}`;
+
+        function hashString(str) {
+          let hash = 5381;
+          for (let i = 0; i < str.length; i++) {
+            hash = ((hash << 5) + hash) + str.charCodeAt(i);
+          }
+          return Math.abs(hash);
         }
-        return Math.abs(hash);
+
+        const baseHash = hashString(seedString);
+        const dayOfWeek = date.getDay();
+        const mixedSeed = baseHash ^ (dayOfWeek * 10007);
+        return ((mixedSeed % characters.length) + characters.length) % characters.length;
       }
-      
-      const baseHash = hashString(seedString);
-      console.log("Base hash:", baseHash);
-      
-      // Mix in the day of the week using XOR with a prime multiplier.
-      const dayOfWeek = now.getDay(); // 0 (Sun) to 6 (Sat)
-      console.log("Day of week:", dayOfWeek);
-      const mixedSeed = baseHash ^ (dayOfWeek * 10007);
-      console.log("Mixed seed (may be negative):", mixedSeed);
-      
-      // Ensure a positive index using a proper modulo operation.
-      const index = ((mixedSeed % characters.length) + characters.length) % characters.length;
-      console.log("Selected index:", index);
-      
-      const cod = characters[index];
-      console.log("Character of the Day:", cod);
-      
-      // Inject the character info into the container with ID 'cod-container'
+
+      const todayIndex = getSeedIndex(now);
+      const yesterdayIndex = getSeedIndex(yesterday);
+
+      const todayCharacter = characters[todayIndex];
+      const yesterdayCharacter = characters[yesterdayIndex];
+
       const container = document.getElementById('cod-container');
-      if (container && cod) {
+      if (container && todayCharacter) {
+        const updatedDate = new Date(todayCharacter.last_modified_at).toLocaleDateString(undefined, {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+        const weekday = now.toLocaleDateString(undefined, { weekday: 'long' });
+
         container.innerHTML = `
-          <a href="${cod.url}">
-            <div class="cod-image" style="background-image: url('${cod.image}');"></div>
-            <h3>${cod.title}</h3>
-            ${cod.last_modified_at ? `<p>Last updated: ${new Date(cod.last_modified_at).toLocaleString()}</p>` : ''}
+          <h2>Character of the Day — ${weekday}</h2>
+          <a href="${todayCharacter.url}">
+            <div class="cod-image" style="background-image: url('${todayCharacter.image}');"></div>
+            <h3>${todayCharacter.title}</h3>
+            ${todayCharacter.last_modified_at ? `<p>Last updated: ${updatedDate}</p>` : ''}
           </a>
         `;
-      } else {
-        console.warn('cod-container not found or no character selected.');
+      }
+
+      const oldNewsContainer = document.getElementById('cod-oldnews');
+      if (oldNewsContainer && yesterdayCharacter) {
+        const oldDate = new Date(yesterdayCharacter.last_modified_at).toLocaleDateString(undefined, {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        oldNewsContainer.innerHTML = `
+          <h3>Old News — Yesterday's Character</h3>
+          <a href="${yesterdayCharacter.url}">
+            <div class="cod-image" style="background-image: url('${yesterdayCharacter.image}');"></div>
+            <h4>${yesterdayCharacter.title}</h4>
+            ${yesterdayCharacter.last_modified_at ? `<p>Last updated: ${oldDate}</p>` : ''}
+          </a>
+        `;
       }
     })
     .catch(error => {
@@ -141,13 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
   const cursor = document.getElementById('customCursor');
   let initialized = false;
-  
+
   document.addEventListener('mousemove', function(e) {
-    // On the first mousemove, make the cursor visible
     if (!initialized) {
       cursor.style.display = 'block';
       initialized = true;
