@@ -64,9 +64,13 @@ Mizue gave her a pointed look. “Yura.”
 Mizue dragged a board into the center of the room and scrawled glowing letters across it:
 
 AH
+
 EE
+
 MM
+
 NO
+
 YES
 
 Yura groaned, crouching beside Kyuu like she was defusing a bomb. She pulled fine, silver threads from her fingertips, guiding each one to her own throat, then hesitantly hovering the other ends near Kyuu’s.
