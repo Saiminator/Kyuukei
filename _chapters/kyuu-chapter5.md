@@ -31,6 +31,8 @@ She turned and pointed her wand out the window.
 
 "Time for Plan B."
 
+- - -
+
 The sound came before the source.
 
 Somewhere down the stone halls of Ebonvale, a distant scream pierced the quiet. It grew louder, more panicked—then more squeaky.
@@ -56,6 +58,8 @@ Mizue gave her a pointed look. “Yura.”
 “Yura.”
 
 “FINE.”
+
+- - -
 
 Mizue dragged a board into the center of the room and scrawled glowing letters across it:
 
@@ -108,6 +112,8 @@ Mizue sighed and conjured a construct—a semi-transparent floating textbook—w
 “Stop crying. You’re doing fine.”
 
 “I AM NOT FINE.”
+
+- - -
 
 Eventually, Mizue pried her out of the corner. With gritted teeth and tears still threatening to fall, Yura reconnected the threads.
 
