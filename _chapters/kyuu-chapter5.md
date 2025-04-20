@@ -39,7 +39,7 @@ Somewhere down the stone halls of Ebonvale, a distant scream pierced the quiet. 
 
 Seconds later, the heavy oak doors of Mizue’s office burst open as a young girl slid violently across the floor, her hands clawing at the smooth stone as a hand made of mana dragged her by her uniform.
 
-"PLEASE STOP DOING THIS!"
+"PLEASE STOP DOING THAT!"
 
 Yura came to a stop at Mizue’s feet, sniffling, hair in disarray.
 
