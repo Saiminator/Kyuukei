@@ -25,7 +25,8 @@ In reality, Mizue is sharp, observant, and extraordinarily good at reading peopl
 
 She thrives in social environments, guiding students and faculty alike by gently (or dramatically) manipulating their expectations, emotions, and ambitions. Mizue sees education as a stage—and herself as both director and lead actress, orchestrating chaos with flair.
 
-Abilities
+## Abilities
+
 Null Magic Specialist:
 Mizue uses null magic as her magic of choice to create barely-visible constructs—floating hands, barriers, projectiles, cages, platforms, and more. Her mastery of null magic gives her the illusion of omnipresence within her territory, often grabbing things or people from great distances without moving.
 
