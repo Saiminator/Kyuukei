@@ -126,6 +126,9 @@ They continued.
 “Brick.”
 “Brick.”
 
+“Dumb.”
+“Dumb.”
+
 “Cat.”
 “Cat.”
 
@@ -137,9 +140,6 @@ They continued.
 
 “Boy.”
 “Boy.”
-
-“Blue.”
-“Blue.”
 
 Yura was still trembling.
 
