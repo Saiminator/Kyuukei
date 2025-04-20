@@ -55,9 +55,13 @@ Mizue gave her a pointed look. “Yura.”
 
 “Nope.”
 
-“Yura.”
+“Yura~.”
 
-“FINE.”
+“NO!”
+
+“Yuuuura~.”
+
+"FINE!"
 
 - - -
 
