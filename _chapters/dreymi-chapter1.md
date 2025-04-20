@@ -72,7 +72,7 @@ But all of them belong to her.
 
 <br>
 **Final Notes**<br>
-This text has been lightly edited for readability, with occasional clarifications where necessary. Otherwise, it remains as Dreymi originally wrote it—a record of loneliness, longing, and something she never expected to find.
+This text has been lightly edited for readability, with occasional clarifications where necessary. Otherwise, it remains as Dreymi originally wrote it—a record of loneliness.
 
 And now, for whatever reason, you’re reading it.
 
