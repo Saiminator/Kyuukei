@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       const now = new Date();
+      const yesterday = new Date();
+      yesterday.setDate(now.getDate() - 1);
 
       function getSeedIndex(date) {
         const year = date.getFullYear();
@@ -110,26 +112,30 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       const todayIndex = getSeedIndex(now);
-      const character = characters[todayIndex];
+      const yesterdayIndex = getSeedIndex(yesterday);
+
+      const todayCharacter = characters[todayIndex];
+      const yesterdayCharacter = characters[yesterdayIndex];
 
       const container = document.getElementById('cod-container');
-      if (container && character) {
+      if (container && todayCharacter) {
         const currentDate = now.toLocaleDateString(undefined, {
           year: 'numeric', month: 'long', day: 'numeric'
         });
 
-        const lastUpdatedDate = new Date(character.last_modified_at).toLocaleDateString(undefined, {
+        const lastUpdatedDate = new Date(Date.parse(todayCharacter.last_modified_at)).toLocaleDateString(undefined, {
           year: 'numeric', month: 'long', day: 'numeric'
         });
 
         container.innerHTML = `
           <h2>Character of the Day</h2>
           <p>${currentDate}</p>
-          <a href="${character.url}">
-            <div class="cod-image" style="background-image: url('${character.image}');"></div>
-            <h3>${character.title}</h3>
-            ${character.last_modified_at ? `<p>Last updated: ${lastUpdatedDate}</p>` : ''}
+          <a href="${todayCharacter.url}">
+            <div class="cod-image" style="background-image: url('${todayCharacter.image}');"></div>
+            <h3>${todayCharacter.title}</h3>
+            ${todayCharacter.last_modified_at ? `<p>Last updated: ${lastUpdatedDate}</p>` : ''}
           </a>
+          ${yesterdayCharacter ? `<div style="margin-top: 1em;"><strong>Day Old News:</strong> ${yesterdayCharacter.title}</div>` : ''}
         `;
       }
     })
