@@ -13,7 +13,7 @@ cup_size: "A"
 mana_color: "Smokey Lavender"
 hair_color: "Black"
 eye_color: " Dull Blue"
-last_modified_at: "2025-03-08"
+last_modified_at: "2025-04-20"
 ---
 
 ## Background
