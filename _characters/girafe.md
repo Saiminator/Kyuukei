@@ -1,11 +1,11 @@
 ---
 layout: character
-title: "Girafe"
+title: "Merchant"
 order: 12
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/girafe/pfp.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
 age: "??"
 birthday: "TBD"
-species: "Giraffe"
+species: "Human"
 gender: "Male"
 height: "??"
 weight: "??"
