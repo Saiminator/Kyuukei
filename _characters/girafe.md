@@ -1,0 +1,24 @@
+---
+layout: character
+title: "Girafe"
+order: 12
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/girafe/pfp.png"
+age: "??"
+birthday: "TBD"
+species: "Giraffe"
+gender: "Male"
+height: "??"
+weight: "??"
+mana_color: "??"
+hair_color: "??"
+eye_color: "Black"
+last_modified_at: "2025-04-28"
+---
+
+## Background
+
+??
+
+## Abilities
+
+??
