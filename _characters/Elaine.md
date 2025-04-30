@@ -2,7 +2,7 @@
 layout: character
 title: "Elaine Sternbruch"
 slug: "Elaine"
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/elaine/pfp.png
 age: "21"
 birthday: "January 4th"
 species: "Human"
@@ -10,11 +10,11 @@ gender: "Female"
 height: "5'6\" | 167cm"
 weight: "99lbs? | 45kg?"
 cup_size: "?"
-mana_color: "Light Purple"
+mana_color: "Light Gold"
 hair_color: "Silver"
 eye_color: "Gold"
 credit: "@__mr121_"
-last_modified_at: "2025-04-03T15"
+last_modified_at: "2025-04-30"
 ---
 
 ## Background
