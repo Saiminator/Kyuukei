@@ -2,7 +2,7 @@
 layout: character
 title: "Elaine Sternbruch"
 slug: "Elaine"
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/elaine/pfp.png
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/elaine/pfp.png"
 age: "21"
 birthday: "January 4th"
 species: "Human"
