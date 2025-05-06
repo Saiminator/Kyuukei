@@ -5,7 +5,6 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 3
 global_chapter: 3
 permalink: /stories/kyuus-breaktime-stories/chapter-3/
-preview_image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/3.png"
 preview_description: "Kyuu experiments with her new ability"
 
 ---
