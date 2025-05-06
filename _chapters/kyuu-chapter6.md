@@ -5,7 +5,7 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 6
 global_chapter: 7
 permalink: /stories/kyuus-breaktime-stories/chapter-6/
-preview_image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/6.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/6.png"
 preview_description: "Kyuu gets sleepy from studies and takes a bath"
 
 ---
