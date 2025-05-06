@@ -5,6 +5,7 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 1
 global_chapter: 1
 permalink: /stories/kyuus-breaktime-stories/chapter-1/
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/1.png"
 preview_image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/1.png"
 preview_description: "Kyuu wakes for the first time"
 
