@@ -34,7 +34,7 @@ title: Welcome to Kyuukei
         {% endif %}
         <a href="{{ chapter.url | relative_url }}" class="chapter-preview">
           <div class="chapter-image">
-            <img src="{{ chapter.preview_image | default: '' }}" alt="Chapter {{ chapter.chapter_number }} image">
+            <img src="{{ chapter.image}}" alt="Chapter {{ chapter.chapter_number }} image">
           </div>
           <div class="chapter-details" style="text-align: left;">
             <h2>{{ story_title }} - Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h2>
