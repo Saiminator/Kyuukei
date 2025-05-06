@@ -5,7 +5,7 @@ segment: "kyuus-breaktime-stories"
 chapter_number: 7
 global_chapter: 8
 permalink: /stories/kyuus-breaktime-stories/chapter-7/
-preview_image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/7.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/7.png"
 preview_description: "Yura brings Kyuu out to find her some clothing."
 
 ---
