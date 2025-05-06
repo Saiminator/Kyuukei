@@ -23,7 +23,7 @@ title: "Character Wiki"
     {% endfor %}
     {% if found_character %}
       <a href="{{ found_character.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ found_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+        <div class="character-image" style="background-image: url('{{ found_character.image}}');"></div>
         <div class="character-name">{{ found_character.title }}</div>
       </a>
     {% endif %}
@@ -33,7 +33,7 @@ title: "Character Wiki"
     {% assign thisSlug = char.slug | default: char.title | slugify %}
     {% unless rankedSlugs contains thisSlug %}
       <a href="{{ char.url }}" class="character-item">
-        <div class="character-image" style="background-image: url('{{ char.image | default: 'https://via.placeholder.com/420' }}');"></div>
+        <div class="character-image" style="background-image: url('{{ char.image}}');"></div>
         <div class="character-name">{{ char.title }}</div>
       </a>
     {% endunless %}
@@ -45,7 +45,7 @@ title: "Character Wiki"
   {% assign alpha_chars = site.characters | sort: "title" %}
   {% for character in alpha_chars %}
     <a href="{{ character.url }}" class="character-item">
-      <div class="character-image" style="background-image: url('{{ character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+      <div class="character-image" style="background-image: url('{{ character.image}}');"></div>
       <div class="character-name">{{ character.title }}</div>
     </a>
   {% endfor %}
@@ -57,7 +57,7 @@ title: "Character Wiki"
   <div id="sorted-category-list" class="character-view-container">
     {% for category in site.data.character_categories %}
       <a href="javascript:void(0)" class="character-item" onclick="loadCategory('{{ category.slug | default: category.name | slugify }}')">
-        <div class="character-image" style="background-image: url('{{ category.image | default: 'https://via.placeholder.com/420' }}');"></div>
+        <div class="character-image" style="background-image: url('{{ category.image}}');"></div>
         <div class="character-name">{{ category.name }}</div>
       </a>
     {% endfor %}
@@ -76,7 +76,7 @@ title: "Character Wiki"
         {% endfor %}
         {% if matched_character %}
           <a href="{{ matched_character.url }}" class="character-item">
-            <div class="character-image" style="background-image: url('{{ matched_character.image | default: 'https://via.placeholder.com/420' }}');"></div>
+            <div class="character-image" style="background-image: url('{{ matched_character.image}}');"></div>
             <div class="character-name">{{ matched_character.title }}</div>
           </a>
         {% endif %}
