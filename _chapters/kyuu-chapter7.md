@@ -165,6 +165,6 @@ Mizue clutched her heart.
 “Yura,” she whispered, “this is your greatest achievement.”
 
 “I just bought clothes...” Yura muttered, dead inside.
-
-
+.
+.
 .
