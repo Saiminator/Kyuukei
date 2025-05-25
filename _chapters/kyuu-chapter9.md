@@ -4,8 +4,8 @@ title: "Insight"
 segment: "kyuus-breaktime-stories"
 chapter_number: 9
 global_chapter: 10
-permalink: /stories/kyuus-breaktime-stories/chapter-8/
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/8.png"
+permalink: /stories/kyuus-breaktime-stories/chapter-9/
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/chapter/kyuu/9.png"
 preview_description: "Mizue prys Kyuu for answers and begins to test her abilities."
 
 ---
