@@ -1,6 +1,6 @@
 ---
 layout: chapter
-title: "Insight"
+title: "Practice"
 segment: "kyuus-breaktime-stories"
 chapter_number: 9
 global_chapter: 10
