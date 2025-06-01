@@ -15,7 +15,7 @@ hair_color: "Dark Purple"
 eye_color: "Pale Violet"
 credit: "TBD"
 last_modified_at: "2025-05-31"
-credit: "4headboiii"
+credit: "@4headboiii"
 ---
 
 ## Background
