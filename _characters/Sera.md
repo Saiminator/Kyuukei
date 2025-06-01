@@ -13,7 +13,7 @@ cup_size: "C"
 mana_color: "Bright Cyan"
 hair_color: "White"
 eye_color: "Cyan"
-credit: "4headboiii"
+credit: "@4headboiii"
 last_modified_at: "2025-05-31"
 ---
 
