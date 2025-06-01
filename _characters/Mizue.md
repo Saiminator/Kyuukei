@@ -2,7 +2,7 @@
 layout: character
 title: "Mizue von Lichtspiel"
 order: 13
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/mizue/pfp.png"
 age: "32"
 birthday: "TBD"
 species: "Human"
@@ -14,7 +14,7 @@ mana_color: "Pearl"
 hair_color: "Dark Purple"
 eye_color: "Pale Violet"
 credit: "TBD"
-last_modified_at: "2025-04-20"
+last_modified_at: "2025-05-31"
 ---
 
 ## Background
