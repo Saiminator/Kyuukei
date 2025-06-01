@@ -2,7 +2,7 @@
 layout: character
 title: "Sera"
 order: 14
-image: "https://i.imgur.com/tPA3s6e.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/sera/pfp.png"
 age: "26"
 birthday: "TBD"
 species: "Human (Spirit-Bound)"
@@ -14,7 +14,7 @@ mana_color: "Bright Cyan"
 hair_color: "White"
 eye_color: "Cyan"
 credit: "4headboiii"
-last_modified_at: "2025-03-08"
+last_modified_at: "2025-05-31"
 ---
 
 ## Background
