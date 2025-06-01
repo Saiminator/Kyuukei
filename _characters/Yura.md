@@ -14,7 +14,7 @@ mana_color: "Smokey Lavender"
 hair_color: "Black"
 eye_color: " Dull Blue"
 last_modified_at: "2025-05-31"
-credit: "4headboiii"
+credit: "@4headboiii"
 ---
 
 ## Background
