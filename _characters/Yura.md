@@ -2,7 +2,7 @@
 layout: character
 title: "Yura Saite"
 slug: "Yura"
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/yura/pfp.png"
 age: "20"
 birthday: "September 20th"
 species: "Human"
