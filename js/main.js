@@ -87,9 +87,25 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      const now = new Date();
-      const yesterday = new Date();
-      yesterday.setDate(now.getDate() - 1);
+function getDateInTimezone(timeZone) {
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  });
+  const parts = formatter.formatToParts(now);
+  const year = parseInt(parts.find(p => p.type === 'year').value);
+  const month = parseInt(parts.find(p => p.type === 'month').value) - 1; // zero-based month
+  const day = parseInt(parts.find(p => p.type === 'day').value);
+  return new Date(Date.UTC(year, month, day));
+}
+
+const timezone = 'America/New_York';
+const now = getDateInTimezone(timezone);
+const yesterday = new Date(now);
+yesterday.setUTCDate(now.getUTCDate() - 1);
 
       function getSeedIndex(date) {
         const year = date.getFullYear();
