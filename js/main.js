@@ -87,25 +87,98 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-function getDateInTimezone(timeZone) {
-  const now = new Date();
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  });
-  const parts = formatter.formatToParts(now);
-  const year = parseInt(parts.find(p => p.type === 'year').value);
-  const month = parseInt(parts.find(p => p.type === 'month').value) - 1; // zero-based month
-  const day = parseInt(parts.find(p => p.type === 'day').value);
-  return new Date(Date.UTC(year, month, day));
-}
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/characters.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(characters => {
+      if (!Array.isArray(characters) || characters.length === 0) {
+        console.warn('No characters found in JSON.');
+        return;
+      }
 
-const timezone = 'America/New_York';
-const now = getDateInTimezone(timezone);
-const yesterday = new Date(now);
-yesterday.setUTCDate(now.getUTCDate() - 1);
+      // Optional: ensure character list is sorted consistently
+      characters.sort((a, b) => a.title.localeCompare(b.title));
+
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+
+      function getSeedIndex(date) {
+        const parts = formatter.formatToParts(date);
+        const year = parts.find(p => p.type === 'year').value;
+        const month = parts.find(p => p.type === 'month').value;
+        const day = parts.find(p => p.type === 'day').value;
+        const seedString = `${year}${month}${day}`;
+
+        function hashString(str) {
+          let hash = 5381;
+          for (let i = 0; i < str.length; i++) {
+            hash = ((hash << 5) + hash) + str.charCodeAt(i);
+          }
+          return Math.abs(hash);
+        }
+
+        const baseHash = hashString(seedString);
+        const dayOfWeek = date.getDay();
+        const mixedSeed = baseHash ^ (dayOfWeek * 10007);
+        return ((mixedSeed % characters.length) + characters.length) % characters.length;
+      }
+
+      const now = new Date();
+      const todayIndex = getSeedIndex(now);
+
+      const yesterday = new Date(now);
+      yesterday.setDate(now.getDate() - 1);
+      const yesterdayIndex = getSeedIndex(yesterday);
+
+      const todayCharacter = characters[todayIndex];
+      const yesterdayCharacter = characters[yesterdayIndex];
+
+      const displayFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      const container = document.getElementById('cod-container');
+      if (container && todayCharacter) {
+        const currentDate = displayFormatter.format(now);
+        const lastUpdatedDate = todayCharacter.last_modified_at
+          ? displayFormatter.format(new Date(todayCharacter.last_modified_at))
+          : null;
+
+        container.innerHTML = `
+          <h2>Character of the Day</h2>
+          <p>${currentDate}</p>
+          <a href="${todayCharacter.url}">
+            <div class="cod-image" style="background-image: url('${todayCharacter.image}');"></div>
+            <h3>${todayCharacter.title}</h3>
+            ${lastUpdatedDate ? `<p>Last updated: ${lastUpdatedDate}</p>` : ''}
+          </a>
+          ${yesterdayCharacter ? `<div style="margin-top: 1em;"><strong>Day Old News:</strong> ${yesterdayCharacter.title}</div>` : ''}
+        `;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching characters:', error);
+    });
+});
+
+
+
+
+
+
+      
 
       function getSeedIndex(date) {
         const year = date.getFullYear();
