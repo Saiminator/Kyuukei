@@ -89,34 +89,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
+      return response.json();
+    })
     .then(characters => {
-      if (!Array.isArray(characters) || characters.length === 0) return;
-
-      // Ensure stable sort for consistent seed
-      characters.sort((a, b) => a.title.localeCompare(b.title));
-
-      const date = new Date();
-
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/New_York',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      });
-
-      const parts = formatter.formatToParts(date);
-      const year = parts.find(p => p.type === 'year')?.value;
-      const month = parts.find(p => p.type === 'month')?.value;
-      const day = parts.find(p => p.type === 'day')?.value;
-
-      if (!year || !month || !day) {
-        console.error("Could not parse date parts properly");
+      if (!Array.isArray(characters) || characters.length === 0) {
+        console.warn('No characters loaded or invalid JSON.');
         return;
       }
 
+      // Optional: sort to ensure deterministic ordering
+      characters.sort((a, b) => a.title.localeCompare(b.title));
+
+      // --- Get today's EST date as string like '20240724'
+      const estDate = new Date(
+        new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/New_York',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        }).format(new Date())
+      );
+
+      const year = estDate.getFullYear();
+      const month = (estDate.getMonth() + 1).toString().padStart(2, '0');
+      const day = estDate.getDate().toString().padStart(2, '0');
       const seedString = `${year}${month}${day}`;
 
+      // --- Hash string to pick index
       function hashString(str) {
         let hash = 5381;
         for (let i = 0; i < str.length; i++) {
@@ -128,39 +129,44 @@ document.addEventListener('DOMContentLoaded', function() {
       const index = hashString(seedString) % characters.length;
       const character = characters[index];
 
-      const displayFormatter = new Intl.DateTimeFormat('en-US', {
+      // --- Format date to human readable string in EST
+      const formattedDate = new Intl.DateTimeFormat('en-US', {
         timeZone: 'America/New_York',
         year: 'numeric',
         month: 'long',
         day: 'numeric'
-      });
-
-      const displayDate = displayFormatter.format(date);
+      }).format(estDate);
 
       const container = document.getElementById('cod-container');
-      if (container) {
-        container.innerHTML = `
-          <h2>Character of the Day</h2>
-          <p>${displayDate}</p>
-          <a href="${character.url}">
-            <div class="cod-image" style="background-image: url('${character.image}');"></div>
-            <h3>${character.title}</h3>
-          </a>
-        `;
+      if (!container) {
+        console.error("Missing cod-container element.");
+        return;
       }
+
+      container.innerHTML = `
+        <h2>Character of the Day</h2>
+        <p>${formattedDate}</p>
+        <a href="${character.url}">
+          <div class="cod-image" style="background-image: url('${character.image}');"></div>
+          <h3>${character.title}</h3>
+          ${character.last_modified_at ? `
+            <p>Last updated: ${
+              new Intl.DateTimeFormat('en-US', {
+                timeZone: 'America/New_York',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              }).format(new Date(character.last_modified_at))
+            }</p>` : ''
+          }
+        </a>
+      `;
     })
-    .catch(err => {
-      console.error("Error loading or parsing characters:", err);
+    .catch(error => {
+      console.error('Character load error:', error);
     });
 });
 
-
-
-
-
-
-
-      
 
       function getSeedIndex(date) {
         const year = date.getFullYear();
