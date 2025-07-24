@@ -132,7 +132,10 @@ document.addEventListener('DOMContentLoaded', function() {
       if (container && todayCharacter) {
         container.innerHTML = `
           <h2>Character of the Day</h2>
-          <p>${currentDate}</p>
+          <p>
+            ${currentDate} <span style="font-size: 0.9em;">(EST)</span> —
+            <span id="live-est-clock" style="font-family: monospace; font-size: 0.9em;">--:--:--</span>
+          </p>
           <a href="${todayCharacter.url}">
             <div class="cod-image" style="background-image: url('${todayCharacter.image}');"></div>
             <h3>${todayCharacter.title}</h3>
@@ -141,6 +144,26 @@ document.addEventListener('DOMContentLoaded', function() {
           ${yesterdayCharacter ? `<div style="margin-top: 1em;"><strong>Day Old News:</strong> ${yesterdayCharacter.title}</div>` : ''}
         `;
       }
+
+      // Live EST Clock (24-hour format)
+      function updateESTClock() {
+        const clockEl = document.getElementById('live-est-clock');
+        if (!clockEl) return;
+
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/New_York',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
+
+        clockEl.textContent = formatter.format(now);
+      }
+
+      setInterval(updateESTClock, 1000);
+      updateESTClock();
     })
     .catch(error => {
       console.error('Error fetching characters:', error);
