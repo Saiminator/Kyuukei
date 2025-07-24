@@ -76,20 +76,6 @@ function loadCategory(slug) {
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok: ' + response.status);
-      }
-      return response.json();
-    })
-    .then(characters => {
-      if (!Array.isArray(characters) || characters.length === 0) {
-        console.warn('No characters found in JSON.');
-        return;
-      }
-
-document.addEventListener('DOMContentLoaded', function() {
-  fetch('/characters.json')
-    .then(response => {
       if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
       return response.json();
     })
@@ -99,16 +85,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      // Optional: sort to ensure deterministic ordering
       characters.sort((a, b) => a.title.localeCompare(b.title));
 
-      // --- Get today's EST date as string like '20240724'
+      // Get today's EST date
       const estDate = new Date(
         new Intl.DateTimeFormat('en-US', {
           timeZone: 'America/New_York',
           year: 'numeric',
           month: '2-digit',
-          day: '2-digit',
+          day: '2-digit'
         }).format(new Date())
       );
 
@@ -117,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const day = estDate.getDate().toString().padStart(2, '0');
       const seedString = `${year}${month}${day}`;
 
-      // --- Hash string to pick index
       function hashString(str) {
         let hash = 5381;
         for (let i = 0; i < str.length; i++) {
@@ -126,91 +110,33 @@ document.addEventListener('DOMContentLoaded', function() {
         return Math.abs(hash);
       }
 
-      const index = hashString(seedString) % characters.length;
-      const character = characters[index];
-
-      // --- Format date to human readable string in EST
-      const formattedDate = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/New_York',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }).format(estDate);
-
-      const container = document.getElementById('cod-container');
-      if (!container) {
-        console.error("Missing cod-container element.");
-        return;
-      }
-
-      container.innerHTML = `
-        <h2>Character of the Day</h2>
-        <p>${formattedDate}</p>
-        <a href="${character.url}">
-          <div class="cod-image" style="background-image: url('${character.image}');"></div>
-          <h3>${character.title}</h3>
-          ${character.last_modified_at ? `
-            <p>Last updated: ${
-              new Intl.DateTimeFormat('en-US', {
-                timeZone: 'America/New_York',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              }).format(new Date(character.last_modified_at))
-            }</p>` : ''
-          }
-        </a>
-      `;
-    })
-    .catch(error => {
-      console.error('Character load error:', error);
-    });
-});
-
-
-      function getSeedIndex(date) {
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        const seedString = `${year}${month}${day}`;
-
-        function hashString(str) {
-          let hash = 5381;
-          for (let i = 0; i < str.length; i++) {
-            hash = ((hash << 5) + hash) + str.charCodeAt(i);
-          }
-          return Math.abs(hash);
-        }
-
-        const baseHash = hashString(seedString);
-        const dayOfWeek = date.getDay();
-        const mixedSeed = baseHash ^ (dayOfWeek * 10007);
-        return ((mixedSeed % characters.length) + characters.length) % characters.length;
-      }
-
-      const todayIndex = getSeedIndex(now);
-      const yesterdayIndex = getSeedIndex(yesterday);
+      const todayIndex = hashString(seedString) % characters.length;
+      const yesterdayIndex = (todayIndex - 1 + characters.length) % characters.length;
 
       const todayCharacter = characters[todayIndex];
       const yesterdayCharacter = characters[yesterdayIndex];
 
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      const currentDate = formatter.format(estDate);
+      const lastUpdatedDate = todayCharacter.last_modified_at
+        ? formatter.format(new Date(todayCharacter.last_modified_at))
+        : null;
+
       const container = document.getElementById('cod-container');
       if (container && todayCharacter) {
-        const currentDate = now.toLocaleDateString(undefined, {
-          year: 'numeric', month: 'long', day: 'numeric'
-        });
-
-        const lastUpdatedDate = new Date(Date.parse(todayCharacter.last_modified_at)).toLocaleDateString(undefined, {
-          year: 'numeric', month: 'long', day: 'numeric'
-        });
-
         container.innerHTML = `
           <h2>Character of the Day</h2>
           <p>${currentDate}</p>
           <a href="${todayCharacter.url}">
             <div class="cod-image" style="background-image: url('${todayCharacter.image}');"></div>
             <h3>${todayCharacter.title}</h3>
-            ${todayCharacter.last_modified_at ? `<p>Last updated: ${lastUpdatedDate}</p>` : ''}
+            ${lastUpdatedDate ? `<p>Last updated: ${lastUpdatedDate}</p>` : ''}
           </a>
           ${yesterdayCharacter ? `<div style="margin-top: 1em;"><strong>Day Old News:</strong> ${yesterdayCharacter.title}</div>` : ''}
         `;
