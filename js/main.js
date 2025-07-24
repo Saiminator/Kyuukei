@@ -89,20 +89,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok: ' + response.status);
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(characters => {
-      if (!Array.isArray(characters) || characters.length === 0) {
-        console.warn('No characters found in JSON.');
-        return;
-      }
+      if (!Array.isArray(characters) || characters.length === 0) return;
 
-      // Optional: ensure character list is sorted consistently
+      // Ensure stable sort for consistent seed
       characters.sort((a, b) => a.title.localeCompare(b.title));
+
+      const date = new Date();
 
       const formatter = new Intl.DateTimeFormat('en-US', {
         timeZone: 'America/New_York',
@@ -111,36 +105,28 @@ document.addEventListener('DOMContentLoaded', function() {
         day: '2-digit'
       });
 
-      function getSeedIndex(date) {
-        const parts = formatter.formatToParts(date);
-        const year = parts.find(p => p.type === 'year').value;
-        const month = parts.find(p => p.type === 'month').value;
-        const day = parts.find(p => p.type === 'day').value;
-        const seedString = `${year}${month}${day}`;
+      const parts = formatter.formatToParts(date);
+      const year = parts.find(p => p.type === 'year')?.value;
+      const month = parts.find(p => p.type === 'month')?.value;
+      const day = parts.find(p => p.type === 'day')?.value;
 
-        function hashString(str) {
-          let hash = 5381;
-          for (let i = 0; i < str.length; i++) {
-            hash = ((hash << 5) + hash) + str.charCodeAt(i);
-          }
-          return Math.abs(hash);
-        }
-
-        const baseHash = hashString(seedString);
-        const dayOfWeek = date.getDay();
-        const mixedSeed = baseHash ^ (dayOfWeek * 10007);
-        return ((mixedSeed % characters.length) + characters.length) % characters.length;
+      if (!year || !month || !day) {
+        console.error("Could not parse date parts properly");
+        return;
       }
 
-      const now = new Date();
-      const todayIndex = getSeedIndex(now);
+      const seedString = `${year}${month}${day}`;
 
-      const yesterday = new Date(now);
-      yesterday.setDate(now.getDate() - 1);
-      const yesterdayIndex = getSeedIndex(yesterday);
+      function hashString(str) {
+        let hash = 5381;
+        for (let i = 0; i < str.length; i++) {
+          hash = ((hash << 5) + hash) + str.charCodeAt(i);
+        }
+        return Math.abs(hash);
+      }
 
-      const todayCharacter = characters[todayIndex];
-      const yesterdayCharacter = characters[yesterdayIndex];
+      const index = hashString(seedString) % characters.length;
+      const character = characters[index];
 
       const displayFormatter = new Intl.DateTimeFormat('en-US', {
         timeZone: 'America/New_York',
@@ -149,29 +135,25 @@ document.addEventListener('DOMContentLoaded', function() {
         day: 'numeric'
       });
 
-      const container = document.getElementById('cod-container');
-      if (container && todayCharacter) {
-        const currentDate = displayFormatter.format(now);
-        const lastUpdatedDate = todayCharacter.last_modified_at
-          ? displayFormatter.format(new Date(todayCharacter.last_modified_at))
-          : null;
+      const displayDate = displayFormatter.format(date);
 
+      const container = document.getElementById('cod-container');
+      if (container) {
         container.innerHTML = `
           <h2>Character of the Day</h2>
-          <p>${currentDate}</p>
-          <a href="${todayCharacter.url}">
-            <div class="cod-image" style="background-image: url('${todayCharacter.image}');"></div>
-            <h3>${todayCharacter.title}</h3>
-            ${lastUpdatedDate ? `<p>Last updated: ${lastUpdatedDate}</p>` : ''}
+          <p>${displayDate}</p>
+          <a href="${character.url}">
+            <div class="cod-image" style="background-image: url('${character.image}');"></div>
+            <h3>${character.title}</h3>
           </a>
-          ${yesterdayCharacter ? `<div style="margin-top: 1em;"><strong>Day Old News:</strong> ${yesterdayCharacter.title}</div>` : ''}
         `;
       }
     })
-    .catch(error => {
-      console.error('Error fetching characters:', error);
+    .catch(err => {
+      console.error("Error loading or parsing characters:", err);
     });
 });
+
 
 
 
