@@ -14,7 +14,7 @@ cup_size: "D"
 mana_color: "Lime Green"
 hair_color: "Pink"
 eye_color: "Green"
-credit: "@Ytkano"
+credit: "@YurusuDelight"
 last_modified_at: "2025-03-08"
 ---
 
