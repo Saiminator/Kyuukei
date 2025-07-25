@@ -13,7 +13,7 @@ cup_size: "AA"
 mana_color: "Murky Yellow"
 hair_color: "Blonde"
 eye_color: "Yellow"
-credit: "@bis_maki"
+credit: "@if959u"
 last_modified_at: "2025-03-08"
 ---
 
