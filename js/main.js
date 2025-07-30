@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
       popularityTab.classList.add('active');
       if(popularityContainer) popularityContainer.style.display = 'grid';
       if(alphabeticalContainer) alphabeticalContainer.style.display = 'none';
-      if(sortedContainer) sortedContainer.style.display = 'none';
+      if(sortedContainer) alphabeticalContainer.style.display = 'none';
     });
   }
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
       alphabeticalTab.classList.add('active');
       if(popularityContainer) popularityContainer.style.display = 'none';
       if(alphabeticalContainer) alphabeticalContainer.style.display = 'grid';
-      if(sortedContainer) sortedContainer.style.display = 'none';
+      if(sortedContainer) alphabeticalContainer.style.display = 'none';
     });
   }
 
@@ -87,20 +87,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
       characters.sort((a, b) => a.title.localeCompare(b.title));
 
-      // Get today's EST date
-      const estDate = new Date(
-        new Intl.DateTimeFormat('en-US', {
-          timeZone: 'America/New_York',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit'
-        }).format(new Date())
-      );
+      const now = new Date();
+      const estParts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(now);
 
-      const year = estDate.getFullYear();
-      const month = (estDate.getMonth() + 1).toString().padStart(2, '0');
-      const day = estDate.getDate().toString().padStart(2, '0');
-      const seedString = `${year}${month}${day}`;
+      const year = parseInt(estParts.find(p => p.type === 'year').value, 10);
+      const month = parseInt(estParts.find(p => p.type === 'month').value, 10);
+      const day = parseInt(estParts.find(p => p.type === 'day').value, 10);
+      const estDate = new Date(Date.UTC(year, month - 1, day));
+
+      function buildSeedString(dateObj) {
+        const y = dateObj.getUTCFullYear();
+        const m = (dateObj.getUTCMonth() + 1).toString().padStart(2, '0');
+        const d = dateObj.getUTCDate().toString().padStart(2, '0');
+        return `${y}${m}${d}`;
+      }
 
       function hashString(str) {
         let hash = 5381;
@@ -110,8 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
         return Math.abs(hash);
       }
 
-      const todayIndex = hashString(seedString) % characters.length;
-      const yesterdayIndex = (todayIndex - 1 + characters.length) % characters.length;
+      const todaySeed = buildSeedString(estDate);
+      const todayIndex = hashString(todaySeed) % characters.length;
+
+      const estYesterday = new Date(estDate);
+      estYesterday.setUTCDate(estDate.getUTCDate() - 1);
+      const yesterdaySeed = buildSeedString(estYesterday);
+      const yesterdayIndex = hashString(yesterdaySeed) % characters.length;
 
       const todayCharacter = characters[todayIndex];
       const yesterdayCharacter = characters[yesterdayIndex];
