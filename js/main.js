@@ -98,12 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const year = parseInt(estParts.find(p => p.type === 'year').value, 10);
       const month = parseInt(estParts.find(p => p.type === 'month').value, 10);
       const day = parseInt(estParts.find(p => p.type === 'day').value, 10);
-      const estDate = new Date(Date.UTC(year, month - 1, day));
+
+      // ✅ This is now a proper local EST date (not UTC skewed)
+      const estDate = new Date(year, month - 1, day);
 
       function buildSeedString(dateObj) {
-        const y = dateObj.getUTCFullYear();
-        const m = (dateObj.getUTCMonth() + 1).toString().padStart(2, '0');
-        const d = dateObj.getUTCDate().toString().padStart(2, '0');
+        const y = dateObj.getFullYear();
+        const m = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const d = dateObj.getDate().toString().padStart(2, '0');
         return `${y}${m}${d}`;
       }
 
@@ -119,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const todayIndex = hashString(todaySeed) % characters.length;
 
       const estYesterday = new Date(estDate);
-      estYesterday.setUTCDate(estDate.getUTCDate() - 1);
+      estYesterday.setDate(estDate.getDate() - 1);
       const yesterdaySeed = buildSeedString(estYesterday);
       const yesterdayIndex = hashString(yesterdaySeed) % characters.length;
 
