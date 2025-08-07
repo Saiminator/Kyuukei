@@ -4,7 +4,7 @@ title: "Kyuu"
 order: 1
 image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/kyuu/pfp.png"
 age: "22"
-birthday: "August 6th"
+birthday: "August 7th"
 species: "Human, Slime girl"
 gender: "Female"
 height: "5'5\" | 167cm"
