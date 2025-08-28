@@ -19,11 +19,11 @@ layout: default
     <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <div class="image-container">
-        <!-- Clickable profile image (opens lightbox at gallery[0], NOT included as an image itself) -->
+        <!-- Clickable profile image (opens lightbox; pfp is NOT part of slideshow) -->
         <img id="profile-image"
              src="{{ page.image | relative_url }}"
              alt="{{ page.title | escape }}"
-             style="cursor: zoom-in;">
+             style="cursor: zoom-in; max-width: 100%; height: auto;">
       </div>
 
       <div class="basic-info">
@@ -85,24 +85,24 @@ Supports short form (string) and object form {src, alt}.
 </div>
 
 <style>
-  /* Lightbox container */
+  /* ====== LIGHTBOX: Desktop-first sizing (bigger), mobile overrides below ====== */
+
   .lb { position: fixed; inset: 0; display: none; z-index: 1000; }
   .lb[aria-hidden="false"] { display: block; }
 
-  /* Backdrop */
   .lb-backdrop {
     position: absolute; inset: 0;
-    background: rgba(0,0,0,.65);
+    background: rgba(0,0,0,.70);
     backdrop-filter: blur(2px);
   }
 
-  /* Content shell, centered */
+  /* Bigger desktop/lightbox shell */
   .lb-content {
     position: absolute;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-    max-width: 96vw;
-    max-height: 92vh;
+    max-width: min(98vw, 1400px);  /* wider */
+    max-height: 96vh;              /* taller */
     display: grid;
     grid-template-rows: 1fr auto;
     gap: .5rem;
@@ -110,29 +110,27 @@ Supports short form (string) and object form {src, alt}.
     outline: none;
   }
 
-  /* Stage adapts to image; no fixed square/aspect lock */
   .lb-stage {
     position: relative;
     width: 100%;
     height: auto;
     display: grid; place-items: center;
     background: rgba(0,0,0,.25);
-    border-radius: .5rem;
-    box-shadow: 0 12px 32px rgba(0,0,0,.35);
+    border-radius: .6rem;
+    box-shadow: 0 16px 40px rgba(0,0,0,.45);
     overflow: hidden;
   }
 
-  /* Image fits viewport while preserving aspect ratio; no crop */
+  /* Image: fit within viewport, no crop, bigger allowances */
   #lb-img {
     display: block;
-    max-width: 96vw;
-    max-height: 86vh; /* leave room for caption & controls */
+    max-width: 98vw;
+    max-height: 90vh;   /* more vertical space than before */
     object-fit: contain;
     opacity: 0;
     transition: opacity .15s ease;
   }
 
-  /* Caption */
   #lb-caption {
     color: #fff;
     text-align: center;
@@ -140,7 +138,7 @@ Supports short form (string) and object form {src, alt}.
     min-height: 1.2em;
   }
 
-  /* Buttons */
+  /* Controls (desktop sizing) */
   .lb-btn {
     position: absolute;
     top: 50%;
@@ -148,7 +146,7 @@ Supports short form (string) and object form {src, alt}.
     background: rgba(0,0,0,.55);
     color: #fff;
     border: none;
-    width: 44px; height: 44px;
+    width: 48px; height: 48px;      /* slightly larger */
     border-radius: 999px;
     display: grid; place-items: center;
     font-size: 22px;
@@ -159,19 +157,13 @@ Supports short form (string) and object form {src, alt}.
   .lb-btn:hover { background: rgba(0,0,0,.8); }
 
   .lb-close {
-    top: -18px; right: -18px; transform: none;
-    width: 36px; height: 36px; font-size: 28px;
+    top: -20px; right: -20px; transform: none;
+    width: 40px; height: 40px; font-size: 28px;
     background: rgba(0,0,0,.7);
   }
-  .lb-prev { left: -58px; }
-  .lb-next { right: -58px; }
+  .lb-prev { left: -64px; }
+  .lb-next { right: -64px; }
 
-  @media (max-width: 720px) {
-    .lb-prev { left: 8px; }
-    .lb-next { right: 8px; }
-  }
-
-  /* Spinner */
   .lb-spinner {
     position: absolute; inset: 0;
     display: grid; place-items: center;
@@ -179,7 +171,7 @@ Supports short form (string) and object form {src, alt}.
   }
   .lb-spinner::after {
     content: "";
-    width: 34px; height: 34px;
+    width: 38px; height: 38px;
     border-radius: 999px;
     border: 3px solid rgba(255,255,255,.35);
     border-top-color: #fff;
@@ -188,6 +180,55 @@ Supports short form (string) and object form {src, alt}.
   [aria-hidden="true"] > .lb-spinner,
   .lb-spinner[aria-hidden="true"] { display: none; }
   @keyframes lbspin { to { transform: rotate(360deg); } }
+
+  /* ====== Mobile-first overrides ====== */
+  @media (max-width: 720px) {
+    /* Use true full-screen content with safe-area insets */
+    .lb-content {
+      left: 0; top: 0; transform: none;
+      width: 100vw; height: 100vh;
+      max-width: 100vw; max-height: 100vh;
+      grid-template-rows: 1fr auto;
+      padding: env(safe-area-inset-top, 8px) 8px env(safe-area-inset-bottom, 12px);
+    }
+
+    .lb-stage {
+      width: 100%;
+      height: calc(100vh - 84px); /* leave space for caption and paddings */
+      border-radius: 0;
+      box-shadow: none;
+      background: rgba(0,0,0,.15);
+    }
+
+    #lb-img {
+      max-width: 100vw;
+      max-height: calc(100vh - 140px); /* keeps big image but room for UI */
+    }
+
+    #lb-caption {
+      padding: 6px 8px 0;
+      font-size: .95rem;
+    }
+
+    /* Larger, inside-edge buttons for thumbs */
+    .lb-btn {
+      width: 56px; height: 56px;
+      font-size: 24px;
+      background: rgba(0,0,0,.55);
+    }
+    .lb-prev { left: 10px; }
+    .lb-next { right: 10px; }
+    .lb-close {
+      position: absolute;
+      top: calc(env(safe-area-inset-top, 8px));
+      right: 10px;
+      width: 44px; height: 44px;
+      font-size: 28px;
+      transform: none;
+      background: rgba(0,0,0,.7);
+      border-radius: 999px;
+    }
+  }
 </style>
 
 <script>
@@ -210,6 +251,9 @@ Supports short form (string) and object form {src, alt}.
   function setAriaVisible(vis) {
     lb.setAttribute('aria-hidden', vis ? 'false' : 'true');
     document.body.style.overflow = vis ? 'hidden' : '';
+    // On mobile, prevent double-scroll/overscroll behind
+    if (vis) document.documentElement.style.overscrollBehavior = 'none';
+    else document.documentElement.style.overscrollBehavior = '';
   }
 
   function loadAt(i){
@@ -268,7 +312,7 @@ Supports short form (string) and object form {src, alt}.
     else if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
   });
 
-  // (Optional) Swipe support for touch
+  // Swipe for touch (mobile)
   let touchStartX = null;
   lb.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].clientX;
