@@ -17,6 +17,7 @@ credit: "@yousalbum"
 last_modified_at: "2025-03-08"
 gallery:
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/kyuu/1.png
+    alt: Kyuu — image 1
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/kyuu/2.png
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/kyuu/3.png
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/kyuu/4.png
