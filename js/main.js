@@ -1,3 +1,6 @@
+// main.js  — COTD uses SHA-256 + rejection sampling (date-seeded, deterministic, natural-looking)
+
+/* ----------------- Tabs: Popularity / Alphabetical / Sorted ----------------- */
 document.addEventListener('DOMContentLoaded', function(){
   var popularityTab = document.getElementById('popularity-tab');
   var alphabeticalTab = document.getElementById('alphabetical-tab');
@@ -53,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 
+/* -------------------------------- Mobile Nav -------------------------------- */
 document.addEventListener('DOMContentLoaded', function() {
   const navToggle = document.getElementById('nav-toggle');
   const navMobileMenu = document.getElementById('nav-mobile-menu');
@@ -63,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+/* ------------------------------- Load Category ------------------------------ */
 function loadCategory(slug) {
   var categoryList = document.getElementById('sorted-category-list');
   if(categoryList) categoryList.style.display = 'none';
@@ -72,21 +77,26 @@ function loadCategory(slug) {
   }
 }
 
-/* --- Character of the Day Section --- */
+/* ----------------------- Character of the Day (COTD) ------------------------ */
+/* Uses SHA-256(hash) of (SALT + YYYYMMDD in EST), then rejection sampling
+   to map to 0..N-1 without modulo bias. This is deterministic per day but
+   produces natural-looking randomness (doubles/triples can occur).           */
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/characters.json')
     .then(response => {
       if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
       return response.json();
     })
-    .then(characters => {
+    .then(async (characters) => {
       if (!Array.isArray(characters) || characters.length === 0) {
         console.warn('No characters loaded or invalid JSON.');
         return;
       }
 
+      // Sort alphabetically by title (your site behavior)
       characters.sort((a, b) => a.title.localeCompare(b.title));
 
+      // Build an EST date for "today"
       const now = new Date();
       const estParts = new Intl.DateTimeFormat('en-US', {
         timeZone: 'America/New_York',
@@ -98,32 +108,69 @@ document.addEventListener('DOMContentLoaded', function() {
       const year = parseInt(estParts.find(p => p.type === 'year').value, 10);
       const month = parseInt(estParts.find(p => p.type === 'month').value, 10);
       const day = parseInt(estParts.find(p => p.type === 'day').value, 10);
+      const estDate = new Date(year, month - 1, day); // local EST "midnight" date
 
-      // ✅ This is now a proper local EST date (not UTC skewed)
-      const estDate = new Date(year, month - 1, day);
+      // ---- RNG helpers (SHA-256 + rejection sampling) ----
+      const SEED_SALT = 'cotd-v3-2025-08-28'; // <— NEW SALT (different from anything tested)
+      const encoder = new TextEncoder();
 
-      function buildSeedString(dateObj) {
+      async function sha256Bytes(message) {
+        const data = encoder.encode(message);
+        const buf = await crypto.subtle.digest('SHA-256', data);
+        return new Uint8Array(buf);
+      }
+
+      // Convert first 16 bytes to a BigInt
+      function first128ToBigInt(bytes) {
+        let x = 0n;
+        for (let i = 0; i < 16; i++) {
+          x = (x << 8n) | BigInt(bytes[i]);
+        }
+        return x;
+      }
+
+      // Unbiased mapping to [0, n)
+      async function uniformIndexFromSeed(seedStr, n) {
+        // Rejection sampling within a 2^128 range
+        const M = 1n << 128n;
+        let suffix = '';
+        for (let attempt = 0; attempt < 8; attempt++) {
+          const bytes = await sha256Bytes(`${SEED_SALT}:${seedStr}${suffix}`);
+          const x = first128ToBigInt(bytes);
+          const bound = M - (M % BigInt(n)); // largest multiple of n ≤ M
+          if (x < bound) {
+            return Number(x % BigInt(n));
+          }
+          // If we fell in the rejection tail, perturb and try again
+          suffix = `:retry:${attempt + 1}`;
+        }
+        // Extremely unlikely fallback (still deterministic):
+        return 0;
+      }
+
+      function yyyymmdd(dateObj) {
         const y = dateObj.getFullYear();
-        const m = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-        const d = dateObj.getDate().toString().padStart(2, '0');
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
         return `${y}${m}${d}`;
       }
 
-      function hashString(str) {
-        let hash = 5381;
-        for (let i = 0; i < str.length; i++) {
-          hash = ((hash << 5) + hash) + str.charCodeAt(i);
-        }
-        return Math.abs(hash);
-      }
-
-      const todaySeed = buildSeedString(estDate);
-      const todayIndex = hashString(todaySeed) % characters.length;
-
+      // Build today & yesterday seeds in EST
+      const todaySeed = yyyymmdd(estDate);
       const estYesterday = new Date(estDate);
       estYesterday.setDate(estDate.getDate() - 1);
-      const yesterdaySeed = buildSeedString(estYesterday);
-      const yesterdayIndex = hashString(yesterdaySeed) % characters.length;
+      const yesterdaySeed = yyyymmdd(estYesterday);
+
+      // Pick indices (ALLOW doubles naturally — comment back in the guard if you want to avoid)
+      const todayIndex = await uniformIndexFromSeed(todaySeed, characters.length);
+      const yesterdayIndex = await uniformIndexFromSeed(yesterdaySeed, characters.length);
+
+      // Optional anti-repeat guard (OFF by default to keep true randomness)
+      // let finalTodayIndex = todayIndex;
+      // if (finalTodayIndex === yesterdayIndex && characters.length > 1) {
+      //   // derive a different seed path for the same day, still deterministic
+      //   finalTodayIndex = await uniformIndexFromSeed(`${todaySeed}:alt`, characters.length);
+      // }
 
       const todayCharacter = characters[todayIndex];
       const yesterdayCharacter = characters[yesterdayIndex];
@@ -161,19 +208,16 @@ document.addEventListener('DOMContentLoaded', function() {
       function updateESTClock() {
         const clockEl = document.getElementById('live-est-clock');
         if (!clockEl) return;
-
         const now = new Date();
-        const formatter = new Intl.DateTimeFormat('en-US', {
+        const clockFmt = new Intl.DateTimeFormat('en-US', {
           timeZone: 'America/New_York',
           hour: '2-digit',
           minute: '2-digit',
           second: '2-digit',
           hour12: false
         });
-
-        clockEl.textContent = formatter.format(now);
+        clockEl.textContent = clockFmt.format(now);
       }
-
       setInterval(updateESTClock, 1000);
       updateESTClock();
     })
@@ -182,15 +226,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+/* ------------------------------ Custom Cursor ------------------------------ */
 document.addEventListener('DOMContentLoaded', function() {
   const cursor = document.getElementById('customCursor');
   let initialized = false;
 
   document.addEventListener('mousemove', function(e) {
-    if (!initialized) {
+    if (!initialized && cursor) {
       cursor.style.display = 'block';
       initialized = true;
     }
+    if (!cursor) return;
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
   });
