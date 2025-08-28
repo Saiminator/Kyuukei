@@ -19,7 +19,7 @@ layout: default
     <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <div class="image-container">
-        <!-- Clickable profile image (opens lightbox; pfp is NOT part of slideshow) -->
+        <!-- Clickable profile image (opens lightbox if gallery exists; PFP is NOT in the slideshow) -->
         <img id="profile-image"
              src="{{ page.image | relative_url }}"
              alt="{{ page.title | escape }}"
@@ -44,7 +44,7 @@ layout: default
 </div>
 
 {%- comment -%}
-Lightbox items come ONLY from page.gallery (profile image is *not* included).
+Lightbox items come ONLY from page.gallery (profile image is not included).
 Supports short form (string) and object form {src, alt}.
 {%- endcomment -%}
 {% assign gallery = page.gallery %}
@@ -85,7 +85,9 @@ Supports short form (string) and object form {src, alt}.
 </div>
 
 <style>
-  /* ====== LIGHTBOX: Desktop-first sizing (bigger), mobile overrides below ====== */
+  /* Global safety: keep padding inside size calcs & prevent image inline gaps */
+  .lb, .lb * { box-sizing: border-box; }
+  #lb-img { margin: 0 auto; }
 
   .lb { position: fixed; inset: 0; display: none; z-index: 1000; }
   .lb[aria-hidden="false"] { display: block; }
@@ -96,13 +98,13 @@ Supports short form (string) and object form {src, alt}.
     backdrop-filter: blur(2px);
   }
 
-  /* Bigger desktop/lightbox shell */
+  /* ====== DESKTOP / LARGE ====== */
   .lb-content {
     position: absolute;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-    max-width: min(98vw, 1400px);  /* wider */
-    max-height: 96vh;              /* taller */
+    max-width: min(98vw, 1400px);
+    max-height: 96vh;
     display: grid;
     grid-template-rows: 1fr auto;
     gap: .5rem;
@@ -121,11 +123,10 @@ Supports short form (string) and object form {src, alt}.
     overflow: hidden;
   }
 
-  /* Image: fit within viewport, no crop, bigger allowances */
   #lb-img {
     display: block;
     max-width: 98vw;
-    max-height: 90vh;   /* more vertical space than before */
+    max-height: 90vh;
     object-fit: contain;
     opacity: 0;
     transition: opacity .15s ease;
@@ -138,7 +139,6 @@ Supports short form (string) and object form {src, alt}.
     min-height: 1.2em;
   }
 
-  /* Controls (desktop sizing) */
   .lb-btn {
     position: absolute;
     top: 50%;
@@ -146,7 +146,7 @@ Supports short form (string) and object form {src, alt}.
     background: rgba(0,0,0,.55);
     color: #fff;
     border: none;
-    width: 48px; height: 48px;      /* slightly larger */
+    width: 48px; height: 48px;
     border-radius: 999px;
     display: grid; place-items: center;
     font-size: 22px;
@@ -181,46 +181,68 @@ Supports short form (string) and object form {src, alt}.
   .lb-spinner[aria-hidden="true"] { display: none; }
   @keyframes lbspin { to { transform: rotate(360deg); } }
 
-  /* ====== Mobile-first overrides ====== */
+  /* ====== MOBILE OVERRIDES ====== */
   @media (max-width: 720px) {
-    /* Use true full-screen content with safe-area insets */
+    /* Fullscreen modal that includes padding INSIDE its width/height */
     .lb-content {
-      left: 0; top: 0; transform: none;
-      width: 100vw; height: 100vh;
-      max-width: 100vw; max-height: 100vh;
-      grid-template-rows: 1fr auto;
-      padding: env(safe-area-inset-top, 8px) 8px env(safe-area-inset-bottom, 12px);
+      position: fixed;
+      inset: 0;
+      transform: none;
+      width: 100dvw;
+      height: 100dvh;
+      max-width: 100dvw;
+      max-height: 100dvh;
+      padding:
+        calc(env(safe-area-inset-top, 0px) + 10px)
+        12px
+        calc(env(safe-area-inset-bottom, 0px) + 12px);
+      box-sizing: border-box;   /* padding inside box => no overflow */
+      display: flex;            /* robust centering */
+      flex-direction: column;
+      gap: 8px;
+      margin: 0 auto;
     }
 
     .lb-stage {
+      flex: 1 1 auto;
       width: 100%;
-      height: calc(100vh - 84px); /* leave space for caption and paddings */
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 0;
       box-shadow: none;
       background: rgba(0,0,0,.15);
+      overflow: hidden;         /* never spill horizontally */
     }
 
     #lb-img {
-      max-width: 100vw;
-      max-height: calc(100vh - 140px); /* keeps big image but room for UI */
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
     }
 
     #lb-caption {
-      padding: 6px 8px 0;
+      padding: 4px 2px 0;
       font-size: .95rem;
+      text-align: center;
     }
 
-    /* Larger, inside-edge buttons for thumbs */
+    /* Larger, inside-edge buttons for touch */
     .lb-btn {
       width: 56px; height: 56px;
       font-size: 24px;
       background: rgba(0,0,0,.55);
     }
-    .lb-prev { left: 10px; }
-    .lb-next { right: 10px; }
+    .lb-prev { left: 10px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 10px; top: 50%; transform: translateY(-50%); }
+
+    /* Close sits in the safe area (status bar notch safe) */
     .lb-close {
       position: absolute;
-      top: calc(env(safe-area-inset-top, 8px));
+      top: calc(env(safe-area-inset-top, 0px) + 8px);
       right: 10px;
       width: 44px; height: 44px;
       font-size: 28px;
@@ -251,7 +273,7 @@ Supports short form (string) and object form {src, alt}.
   function setAriaVisible(vis) {
     lb.setAttribute('aria-hidden', vis ? 'false' : 'true');
     document.body.style.overflow = vis ? 'hidden' : '';
-    // On mobile, prevent double-scroll/overscroll behind
+    // Prevent background overscroll on mobile
     if (vis) document.documentElement.style.overscrollBehavior = 'none';
     else document.documentElement.style.overscrollBehavior = '';
   }
