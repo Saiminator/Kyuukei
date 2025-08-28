@@ -36,3 +36,41 @@ layout: default
     </div>
   </div>
 </div>
+
+<!-- ✨ Character Gallery goes here -->
+{% assign gallery = page.gallery %}
+{% if gallery and gallery.size > 0 %}
+  <section class="character-gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      {% for item in gallery %}
+        {% if item.src %}
+          {% assign src = item.src %}
+          {% assign alt = item.alt | default: page.title | append: ' image ' | append: forloop.index %}
+        {% else %}
+          {% assign src = item %}
+          {% assign alt = page.title | append: ' image ' | append: forloop.index %}
+        {% endif %}
+        <button class="gallery-thumb" data-index="{{ forloop.index0 }}" aria-label="Open image {{ forloop.index }}">
+          <img src="{{ src | relative_url }}" alt="{{ alt | escape }}">
+        </button>
+      {% endfor %}
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-backdrop" data-close></div>
+      <figure class="lightbox-content">
+        <img id="lightbox-img" src="" alt="">
+        <figcaption id="lightbox-caption"></figcaption>
+        <button class="lightbox-close" data-close aria-label="Close">&times;</button>
+        <button class="lightbox-prev" data-prev aria-label="Previous">&#10094;</button>
+        <button class="lightbox-next" data-next aria-label="Next">&#10095;</button>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Include gallery CSS/JS (inline or in your assets) -->
+  <style>/* … from the earlier snippet … */</style>
+  <script>/* … from the earlier snippet … */</script>
+{% endif %}
