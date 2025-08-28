@@ -19,7 +19,7 @@ layout: default
     <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <div class="image-container">
-        <!-- Clickable profile image (opens lightbox at index 0) -->
+        <!-- Clickable profile image (opens lightbox at gallery[0], NOT included as an image itself) -->
         <img id="profile-image"
              src="{{ page.image | relative_url }}"
              alt="{{ page.title | escape }}"
@@ -44,20 +44,16 @@ layout: default
 </div>
 
 {%- comment -%}
-Build the lightbox items array:
-- First item is the character's main image (page.image).
-- Then any additional images from page.gallery (supports both short and {src, alt} forms).
+Lightbox items come ONLY from page.gallery (profile image is *not* included).
+Supports short form (string) and object form {src, alt}.
 {%- endcomment -%}
 {% assign gallery = page.gallery %}
 <script>
+  // Build items from gallery only (no profile image)
   window.__characterLightboxItems = [
-    {
-      src: "{{ page.image | relative_url }}",
-      alt: {{ page.title | jsonify }}
-    }
     {% if gallery and gallery.size > 0 %}
       {% for item in gallery %}
-        ,{
+        {
           {% if item.src %}
             "src": "{{ item.src | relative_url }}",
             "alt": {{ (item.alt | default: page.title) | jsonify }}
@@ -65,7 +61,7 @@ Build the lightbox items array:
             "src": "{{ item | relative_url }}",
             "alt": {{ page.title | jsonify }}
           {% endif %}
-        }
+        }{% unless forloop.last %},{% endunless %}
       {% endfor %}
     {% endif %}
   ];
@@ -75,7 +71,7 @@ Build the lightbox items array:
 <div id="lb" class="lb" aria-hidden="true">
   <div class="lb-backdrop" data-close></div>
 
-  <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
     <div class="lb-stage">
       <div class="lb-spinner" id="lb-spinner" aria-hidden="true"></div>
       <img id="lb-img" src="" alt="" />
@@ -100,13 +96,13 @@ Build the lightbox items array:
     backdrop-filter: blur(2px);
   }
 
-  /* Content */
+  /* Content shell, centered */
   .lb-content {
     position: absolute;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-    width: min(92vw, 1100px);
-    max-height: 90vh;
+    max-width: 96vw;
+    max-height: 92vh;
     display: grid;
     grid-template-rows: 1fr auto;
     gap: .5rem;
@@ -114,10 +110,11 @@ Build the lightbox items array:
     outline: none;
   }
 
+  /* Stage adapts to image; no fixed square/aspect lock */
   .lb-stage {
     position: relative;
     width: 100%;
-    height: min(80vh, 70vw);
+    height: auto;
     display: grid; place-items: center;
     background: rgba(0,0,0,.25);
     border-radius: .5rem;
@@ -125,10 +122,11 @@ Build the lightbox items array:
     overflow: hidden;
   }
 
-  /* Image resizes to fit stage */
+  /* Image fits viewport while preserving aspect ratio; no crop */
   #lb-img {
-    max-width: 100%;
-    max-height: 100%;
+    display: block;
+    max-width: 96vw;
+    max-height: 86vh; /* leave room for caption & controls */
     object-fit: contain;
     opacity: 0;
     transition: opacity .15s ease;
@@ -195,10 +193,9 @@ Build the lightbox items array:
 <script>
 (function(){
   const items = (window.__characterLightboxItems || []).filter(Boolean);
-  // If nothing at all, do nothing
-  if (!items.length) return;
-
   const profileImg = document.getElementById('profile-image');
+  if (!profileImg) return;
+
   const lb         = document.getElementById('lb');
   const imgEl      = document.getElementById('lb-img');
   const captionEl  = document.getElementById('lb-caption');
@@ -228,7 +225,6 @@ Build the lightbox items array:
       imgEl.alt = it.alt || '';
       captionEl.textContent = it.alt || '';
       spinner.setAttribute('aria-hidden','true');
-      // fade in once source swapped
       requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
     };
     img.onerror = () => {
@@ -239,23 +235,20 @@ Build the lightbox items array:
   }
 
   function openAt(i){
+    if (!items.length) return; // no gallery => do nothing
     setAriaVisible(true);
     loadAt(i);
-    // Focus the dialog for keyboard users
     lb.querySelector('.lb-content')?.focus();
   }
   function close(){
     setAriaVisible(false);
-    // free memory on mobile
     imgEl.src = '';
   }
   function prev(){ loadAt(index - 1); }
   function next(){ loadAt(index + 1); }
 
-  // Click profile image → open at 0
-  if (profileImg) {
-    profileImg.addEventListener('click', () => openAt(0));
-  }
+  // Click profile image → open at first gallery image (index 0)
+  profileImg.addEventListener('click', () => openAt(0));
 
   // Controls
   btnPrev?.addEventListener('click', prev);
