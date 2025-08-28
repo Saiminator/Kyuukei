@@ -15,11 +15,17 @@ layout: default
     <div class="left-panel">
       {{ content }}
     </div>
+
     <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <div class="image-container">
-        <img src="{{ page.image }}" alt="{{ page.title }}">
+        <!-- Clickable profile image (opens lightbox at index 0) -->
+        <img id="profile-image"
+             src="{{ page.image | relative_url }}"
+             alt="{{ page.title | escape }}"
+             style="cursor: zoom-in;">
       </div>
+
       <div class="basic-info">
         {% if page.age %}<p><strong>Age:</strong> {{ page.age }}</p>{% endif %}
         {% if page.birthday %}<p><strong>Birthday:</strong> {{ page.birthday }}</p>{% endif %}
@@ -37,40 +43,248 @@ layout: default
   </div>
 </div>
 
-<!-- ✨ Character Gallery goes here -->
+{%- comment -%}
+Build the lightbox items array:
+- First item is the character's main image (page.image).
+- Then any additional images from page.gallery (supports both short and {src, alt} forms).
+{%- endcomment -%}
 {% assign gallery = page.gallery %}
-{% if gallery and gallery.size > 0 %}
-  <section class="character-gallery">
-    <h2>Gallery</h2>
-    <div class="gallery-grid">
+<script>
+  window.__characterLightboxItems = [
+    {
+      src: "{{ page.image | relative_url }}",
+      alt: {{ page.title | jsonify }}
+    }
+    {% if gallery and gallery.size > 0 %}
       {% for item in gallery %}
-        {% if item.src %}
-          {% assign src = item.src %}
-          {% assign alt = item.alt | default: page.title | append: ' image ' | append: forloop.index %}
-        {% else %}
-          {% assign src = item %}
-          {% assign alt = page.title | append: ' image ' | append: forloop.index %}
-        {% endif %}
-        <button class="gallery-thumb" data-index="{{ forloop.index0 }}" aria-label="Open image {{ forloop.index }}">
-          <img src="{{ src | relative_url }}" alt="{{ alt | escape }}">
-        </button>
+        ,{
+          {% if item.src %}
+            "src": "{{ item.src | relative_url }}",
+            "alt": {{ (item.alt | default: page.title) | jsonify }}
+          {% else %}
+            "src": "{{ item | relative_url }}",
+            "alt": {{ page.title | jsonify }}
+          {% endif %}
+        }
       {% endfor %}
-    </div>
+    {% endif %}
+  ];
+</script>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <div class="lightbox-backdrop" data-close></div>
-      <figure class="lightbox-content">
-        <img id="lightbox-img" src="" alt="">
-        <figcaption id="lightbox-caption"></figcaption>
-        <button class="lightbox-close" data-close aria-label="Close">&times;</button>
-        <button class="lightbox-prev" data-prev aria-label="Previous">&#10094;</button>
-        <button class="lightbox-next" data-next aria-label="Next">&#10095;</button>
-      </figure>
-    </div>
-  </section>
+<!-- LIGHTBOX MARKUP -->
+<div id="lb" class="lb" aria-hidden="true">
+  <div class="lb-backdrop" data-close></div>
 
-  <!-- Include gallery CSS/JS (inline or in your assets) -->
-  <style>/* … from the earlier snippet … */</style>
-  <script>/* … from the earlier snippet … */</script>
-{% endif %}
+  <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lb-stage">
+      <div class="lb-spinner" id="lb-spinner" aria-hidden="true"></div>
+      <img id="lb-img" src="" alt="" />
+    </div>
+    <figcaption id="lb-caption"></figcaption>
+
+    <button class="lb-btn lb-close" data-close aria-label="Close">&times;</button>
+    <button class="lb-btn lb-prev" data-prev aria-label="Previous">&#10094;</button>
+    <button class="lb-btn lb-next" data-next aria-label="Next">&#10095;</button>
+  </figure>
+</div>
+
+<style>
+  /* Lightbox container */
+  .lb { position: fixed; inset: 0; display: none; z-index: 1000; }
+  .lb[aria-hidden="false"] { display: block; }
+
+  /* Backdrop */
+  .lb-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(2px);
+  }
+
+  /* Content */
+  .lb-content {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(92vw, 1100px);
+    max-height: 90vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: .5rem;
+    z-index: 1;
+    outline: none;
+  }
+
+  .lb-stage {
+    position: relative;
+    width: 100%;
+    height: min(80vh, 70vw);
+    display: grid; place-items: center;
+    background: rgba(0,0,0,.25);
+    border-radius: .5rem;
+    box-shadow: 0 12px 32px rgba(0,0,0,.35);
+    overflow: hidden;
+  }
+
+  /* Image resizes to fit stage */
+  #lb-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity .15s ease;
+  }
+
+  /* Caption */
+  #lb-caption {
+    color: #fff;
+    text-align: center;
+    font-size: .95rem;
+    min-height: 1.2em;
+  }
+
+  /* Buttons */
+  .lb-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,.55);
+    color: #fff;
+    border: none;
+    width: 44px; height: 44px;
+    border-radius: 999px;
+    display: grid; place-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background .15s ease;
+    z-index: 2;
+  }
+  .lb-btn:hover { background: rgba(0,0,0,.8); }
+
+  .lb-close {
+    top: -18px; right: -18px; transform: none;
+    width: 36px; height: 36px; font-size: 28px;
+    background: rgba(0,0,0,.7);
+  }
+  .lb-prev { left: -58px; }
+  .lb-next { right: -58px; }
+
+  @media (max-width: 720px) {
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+  }
+
+  /* Spinner */
+  .lb-spinner {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    background: transparent;
+  }
+  .lb-spinner::after {
+    content: "";
+    width: 34px; height: 34px;
+    border-radius: 999px;
+    border: 3px solid rgba(255,255,255,.35);
+    border-top-color: #fff;
+    animation: lbspin 0.8s linear infinite;
+  }
+  [aria-hidden="true"] > .lb-spinner,
+  .lb-spinner[aria-hidden="true"] { display: none; }
+  @keyframes lbspin { to { transform: rotate(360deg); } }
+</style>
+
+<script>
+(function(){
+  const items = (window.__characterLightboxItems || []).filter(Boolean);
+  // If nothing at all, do nothing
+  if (!items.length) return;
+
+  const profileImg = document.getElementById('profile-image');
+  const lb         = document.getElementById('lb');
+  const imgEl      = document.getElementById('lb-img');
+  const captionEl  = document.getElementById('lb-caption');
+  const spinner    = document.getElementById('lb-spinner');
+
+  const btnCloseEls = lb.querySelectorAll('[data-close]');
+  const btnPrev     = lb.querySelector('[data-prev]');
+  const btnNext     = lb.querySelector('[data-next]');
+
+  let index = 0;
+
+  function setAriaVisible(vis) {
+    lb.setAttribute('aria-hidden', vis ? 'false' : 'true');
+    document.body.style.overflow = vis ? 'hidden' : '';
+  }
+
+  function loadAt(i){
+    index = ((i % items.length) + items.length) % items.length;
+    const it = items[index];
+
+    spinner.setAttribute('aria-hidden','false');
+    imgEl.style.opacity = '0';
+
+    const img = new Image();
+    img.onload = () => {
+      imgEl.src = it.src;
+      imgEl.alt = it.alt || '';
+      captionEl.textContent = it.alt || '';
+      spinner.setAttribute('aria-hidden','true');
+      // fade in once source swapped
+      requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
+    };
+    img.onerror = () => {
+      spinner.setAttribute('aria-hidden','true');
+      captionEl.textContent = 'Failed to load image';
+    };
+    img.src = it.src;
+  }
+
+  function openAt(i){
+    setAriaVisible(true);
+    loadAt(i);
+    // Focus the dialog for keyboard users
+    lb.querySelector('.lb-content')?.focus();
+  }
+  function close(){
+    setAriaVisible(false);
+    // free memory on mobile
+    imgEl.src = '';
+  }
+  function prev(){ loadAt(index - 1); }
+  function next(){ loadAt(index + 1); }
+
+  // Click profile image → open at 0
+  if (profileImg) {
+    profileImg.addEventListener('click', () => openAt(0));
+  }
+
+  // Controls
+  btnPrev?.addEventListener('click', prev);
+  btnNext?.addEventListener('click', next);
+  btnCloseEls.forEach(b => b.addEventListener('click', close));
+
+  // Backdrop click to close
+  lb.addEventListener('click', (e) => {
+    if (e.target.classList.contains('lb-backdrop')) close();
+  });
+
+  // Keyboard: Esc/Left/Right
+  document.addEventListener('keydown', (e) => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+  });
+
+  // (Optional) Swipe support for touch
+  let touchStartX = null;
+  lb.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, {passive:true});
+  lb.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    touchStartX = null;
+    if (Math.abs(dx) > 40) { dx > 0 ? prev() : next(); }
+  }, {passive:true});
+})();
+</script>
