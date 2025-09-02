@@ -15,6 +15,11 @@ hair_color: "Blonde"
 eye_color: "Yellow"
 credit: "@if959u"
 last_modified_at: "2025-03-08"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/pon/1.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/pon/2.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/pon/3.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/pon/4.png
 ---
 
 ## Background
