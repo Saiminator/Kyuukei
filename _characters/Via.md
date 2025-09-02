@@ -15,6 +15,12 @@ hair_color: "Red"
 eye_color: "Red"
 credit: "@if959u"
 last_modified_at: "2025-03-08"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/via/1.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/via/2.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/via/3.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/via/4.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/via/5.png
 ---
 
 ## Background
