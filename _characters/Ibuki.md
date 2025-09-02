@@ -15,6 +15,8 @@ hair_color: "White/Purple (Dyed)"
 eye_color: "Pink (Contacts)"
 last_modified_at: "2025-05-31"
 credit: "@4headboiii"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/ibuki/1.png
 ---
 
 ## Background
@@ -36,3 +38,4 @@ Each student’s emblem carries one of her marks, ensuring that announcements re
 
 **Null Magic Visual Projections:**
 Although Ibuki never studied Null Magic seriously, she developed a way to incorporate it into her communication system, allowing her to project maps, schedules, and visual effects through her marks. This ability was something she discovered through pure instinct, treating Null Magic more like a tool for artistic expression rather than combat. Her projections help students visualize information rather than just hearing it, making her announcements not only functional but also engaging.
+
