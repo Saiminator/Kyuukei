@@ -16,6 +16,8 @@ hair_color: "Pink"
 eye_color: "Green"
 credit: "@YurusuDelight"
 last_modified_at: "2025-03-08"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/shimi/1.png
 ---
 
 ## Background
