@@ -16,6 +16,12 @@ eye_color: "Pale Violet"
 credit: "TBD"
 last_modified_at: "2025-05-31"
 credit: "@4headboiii"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/mizue/1.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/mizue/2.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/mizue/3.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/mizue/4.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/mizue/5.png
 ---
 
 ## Background
