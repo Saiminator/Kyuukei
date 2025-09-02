@@ -15,6 +15,8 @@ hair_color: "White"
 eye_color: "Cyan"
 credit: "@4headboiii"
 last_modified_at: "2025-05-31"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/sera/1.png
 ---
 
 ## Background
