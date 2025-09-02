@@ -15,6 +15,8 @@ hair_color: "Brown"
 eye_color: "Brownish Yellow"
 credit: "@Ytkano"
 last_modified_at: "2025-03-08"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/mika/1.png
 ---
 
 ## Background
