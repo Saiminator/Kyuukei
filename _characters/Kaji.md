@@ -14,6 +14,8 @@ hair_color: "Grey"
 eye_color: "Orange"
 credit: "@tsubasa9940"
 last_modified_at: "2025-03-08"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/kaji/1.png
 ---
 
 
