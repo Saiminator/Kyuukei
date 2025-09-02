@@ -15,6 +15,8 @@ hair_color: "Brown"
 eye_color: "Bright Blue with a Golden Hue in the Center"
 credit: "@1sukaa"
 last_modified_at: "2025-04-01T23:20:00"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/ryn/1.png
 ---
 
 ## Background
