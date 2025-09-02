@@ -15,6 +15,8 @@ hair_color: "Ashy Blonde"
 eye_color: "Black"
 last_modified_at: "2025-04-29"
 credit: "@4headboiii"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/hotaru/1.png
 ---
 
 ## Background
@@ -32,5 +34,6 @@ Hotaru does not know the truth behind her mother’s assassination, but she susp
 And so, she waits.
 
 ## Abilities
+
 
 
