@@ -15,6 +15,10 @@ hair_color: "Black, Red trim"
 eye_color: "Dull Blue"
 credit: "@takomado2130"
 last_modified_at: "2025-03-09"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/dreymi/1.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/dreymi/2.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/dreymi/3.png
 ---
 
 ## Background
