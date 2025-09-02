@@ -16,7 +16,7 @@ eye_color: "Gold"
 credit: "@__mr121_"
 last_modified_at: "2025-04-30"
 gallery:
-  - https://kyuukei.s3.us-east-2.amazonaws.com/character/mizue/1.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/elaine/1.png
 ---
 
 ## Background
@@ -34,4 +34,5 @@ Her presence at Ebonvale is not without resistance—many nobles see her as an o
 **Gravity Manipulation:** As an extension of her ability, Elaine can alter the gravity of her stars, causing them to pull in or repel objects, spells, or even people within their vicinity. Elaine can choose to have her stars absorb mana from the environment, increasing their gravitational pull and making them semi-self-sustaining as they continuously draw in energy. Alternatively, she can actively feed mana into a star to make it radiate outward force, creating an anti-gravity effect that pushes objects away. This manipulation also applies to her own body, letting her lighten herself for greater speed and agility or increase her weight to add force behind her strikes.
 
 **Null Magic:** As a talented mage, Elaine is adept at Null Magic, enabling her to create constructs of elementless mana, which she primarily uses for barriers or weaponry.
+
 
