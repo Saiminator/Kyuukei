@@ -1279,11 +1279,35 @@ body.chapter .section-header {
   cursor: none !important;
 }
 
-/* Lightbox: let the overlay decide the cursor (don’t force 'none') */
+/* --- Lightbox overrides: allow grab/grabbing cursor inside the modal --- */
 .lb,
 .lb * {
-  cursor: inherit !important;
+  cursor: inherit !important;  /* undo global cursor:none inside lightbox */
 }
+
+/* Base: not zoomed or not pannable */
+.lb { cursor: default !important; }
+
+/* Zoomed (pannable but not dragging) */
+.lb.pannable { cursor: grab !important; }
+
+/* Actively dragging */
+.lb.panning  { cursor: grabbing !important; }
+
+/* Prevent text selection & native image-drag inside the lightbox */
+.lb,
+.lb * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#lb-img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none; /* ensure the stage gets the drag events cleanly */
+}
+
+
 
 /* Lightbox cursor states (JS toggles .pannable / .panning on .lb) */
 .lb { cursor: default !important; }      /* at base zoom (not pannable) */
