@@ -72,9 +72,12 @@ Supports short form (string) and object form {src, alt}.
   <div class="lb-backdrop" data-close></div>
 
   <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
-    <div class="lb-stage">
+    <div class="lb-stage" id="lb-stage">
       <div class="lb-spinner" id="lb-spinner" aria-hidden="true"></div>
-      <img id="lb-img" src="" alt="" />
+      <!-- Wrap the image in a transform layer so we can scale/translate cleanly -->
+      <div id="lb-layer">
+        <img id="lb-img" src="" alt="" />
+      </div>
     </div>
     <figcaption id="lb-caption"></figcaption>
 
@@ -85,9 +88,9 @@ Supports short form (string) and object form {src, alt}.
 </div>
 
 <style>
-  /* Global safety: keep padding inside size calcs & prevent image inline gaps */
+  /* Global safety */
   .lb, .lb * { box-sizing: border-box; }
-  #lb-img { margin: 0 auto; }
+  #lb-img { margin: 0; display: block; }
 
   .lb { position: fixed; inset: 0; display: none; z-index: 1000; }
   .lb[aria-hidden="false"] { display: block; }
@@ -116,20 +119,32 @@ Supports short form (string) and object form {src, alt}.
     position: relative;
     width: 100%;
     height: auto;
+    min-height: 40vh; /* ensure usable stage when very short */
     display: grid; place-items: center;
     background: rgba(0,0,0,.25);
     border-radius: .6rem;
     box-shadow: 0 16px 40px rgba(0,0,0,.45);
-    overflow: hidden;
+    overflow: hidden; /* contain the zoomed image while panning */
   }
 
+  /* Transform layer we scale/translate (keeps image sizing rules intact) */
+  #lb-layer {
+    transform: translate(0px, 0px) scale(1);
+    transform-origin: center center;
+    will-change: transform;
+    touch-action: none; /* allow custom pinch/drag */
+  }
+
+  /* Base image sizing: always fit inside stage at scale=1 */
   #lb-img {
-    display: block;
     max-width: 98vw;
     max-height: 90vh;
-    object-fit: contain;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* never crop */
     opacity: 0;
     transition: opacity .15s ease;
+    pointer-events: none; /* pointer goes to layer for dragging */
   }
 
   #lb-caption {
@@ -183,7 +198,6 @@ Supports short form (string) and object form {src, alt}.
 
   /* ====== MOBILE OVERRIDES ====== */
   @media (max-width: 720px) {
-    /* Fullscreen modal that includes padding INSIDE its width/height */
     .lb-content {
       position: fixed;
       inset: 0;
@@ -196,8 +210,7 @@ Supports short form (string) and object form {src, alt}.
         calc(env(safe-area-inset-top, 0px) + 10px)
         12px
         calc(env(safe-area-inset-bottom, 0px) + 12px);
-      box-sizing: border-box;   /* padding inside box => no overflow */
-      display: flex;            /* robust centering */
+      display: flex;
       flex-direction: column;
       gap: 8px;
       margin: 0 auto;
@@ -213,24 +226,14 @@ Supports short form (string) and object form {src, alt}.
       border-radius: 0;
       box-shadow: none;
       background: rgba(0,0,0,.15);
-      overflow: hidden;         /* never spill horizontally */
+      overflow: hidden;
     }
 
     #lb-img {
       max-width: 100%;
       max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
     }
 
-    #lb-caption {
-      padding: 4px 2px 0;
-      font-size: .95rem;
-      text-align: center;
-    }
-
-    /* Larger, inside-edge buttons for touch */
     .lb-btn {
       width: 56px; height: 56px;
       font-size: 24px;
@@ -239,7 +242,6 @@ Supports short form (string) and object form {src, alt}.
     .lb-prev { left: 10px; top: 50%; transform: translateY(-50%); }
     .lb-next { right: 10px; top: 50%; transform: translateY(-50%); }
 
-    /* Close sits in the safe area (status bar notch safe) */
     .lb-close {
       position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 8px);
@@ -260,6 +262,8 @@ Supports short form (string) and object form {src, alt}.
   if (!profileImg) return;
 
   const lb         = document.getElementById('lb');
+  const stage      = document.getElementById('lb-stage');
+  const layer      = document.getElementById('lb-layer');
   const imgEl      = document.getElementById('lb-img');
   const captionEl  = document.getElementById('lb-caption');
   const spinner    = document.getElementById('lb-spinner');
@@ -268,14 +272,72 @@ Supports short form (string) and object form {src, alt}.
   const btnPrev     = lb.querySelector('[data-prev]');
   const btnNext     = lb.querySelector('[data-next]');
 
+  // Zoom/Pan state
   let index = 0;
+  let scale = 1;
+  let minScale = 1;
+  let maxScale = 6;         // cap zoom
+  let tx = 0, ty = 0;       // translation in px
+  let isPanning = false;
+  let startX = 0, startY = 0;
+
+  // Pinch support
+  let pinchStartDist = 0;
+  let pinchStartScale = 1;
 
   function setAriaVisible(vis) {
     lb.setAttribute('aria-hidden', vis ? 'false' : 'true');
     document.body.style.overflow = vis ? 'hidden' : '';
-    // Prevent background overscroll on mobile
     if (vis) document.documentElement.style.overscrollBehavior = 'none';
     else document.documentElement.style.overscrollBehavior = '';
+  }
+
+  function applyTransform() {
+    layer.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  }
+
+  function clampPan() {
+    // Clamp translation so image stays within stage bounds at current scale
+    const rect = stage.getBoundingClientRect();
+    const iw = imgEl.naturalWidth;
+    const ih = imgEl.naturalHeight;
+    if (!iw || !ih) return;
+
+    // Compute the fitted size (scale=1) the image is rendered at (object-fit: contain)
+    const stageW = rect.width, stageH = rect.height;
+    const fitScale = Math.min(stageW / iw, stageH / ih);
+    const displayW = iw * fitScale * scale;
+    const displayH = ih * fitScale * scale;
+
+    // When image is smaller than stage, keep centered (no pan)
+    const maxX = Math.max(0, (displayW - stageW) / 2);
+    const maxY = Math.max(0, (displayH - stageH) / 2);
+
+    tx = Math.min(maxX, Math.max(-maxX, tx));
+    ty = Math.min(maxY, Math.max(-maxY, ty));
+  }
+
+  function resetView() {
+    scale = 1;
+    tx = 0; ty = 0;
+    applyTransform();
+  }
+
+  function zoomAt(stageX, stageY, deltaScale) {
+    const prevScale = scale;
+    scale = Math.max(minScale, Math.min(maxScale, scale * deltaScale));
+    if (scale === prevScale) return;
+
+    // Keep the point under cursor stationary: adjust translation
+    const rect = stage.getBoundingClientRect();
+    const cx = stageX - rect.left - rect.width / 2;   // cursor from center
+    const cy = stageY - rect.top  - rect.height / 2;
+
+    tx = tx - cx * (scale/prevScale - 1);
+    ty = ty - cy * (scale/prevScale - 1);
+
+    clampPan();
+    applyTransform();
   }
 
   function loadAt(i){
@@ -291,7 +353,10 @@ Supports short form (string) and object form {src, alt}.
       imgEl.alt = it.alt || '';
       captionEl.textContent = it.alt || '';
       spinner.setAttribute('aria-hidden','true');
-      requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
+      imgEl.style.opacity = '1';
+
+      // After image is ready, reset view to fit
+      resetView();
     };
     img.onerror = () => {
       spinner.setAttribute('aria-hidden','true');
@@ -326,24 +391,110 @@ Supports short form (string) and object form {src, alt}.
     if (e.target.classList.contains('lb-backdrop')) close();
   });
 
-  // Keyboard: Esc/Left/Right
+  // Keyboard: Esc/Left/Right, +/- zoom
   document.addEventListener('keydown', (e) => {
     if (lb.getAttribute('aria-hidden') === 'true') return;
     if (e.key === 'Escape') { e.preventDefault(); close(); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    else if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); }
     else if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    else if (e.key === '+') { e.preventDefault(); zoomAt(window.innerWidth/2, window.innerHeight/2, 1.15); }
+    else if (e.key === '-') { e.preventDefault(); zoomAt(window.innerWidth/2, window.innerHeight/2, 1/1.15); }
+    else if (e.key === '0') { e.preventDefault(); resetView(); }
   });
 
-  // Swipe for touch (mobile)
-  let touchStartX = null;
-  lb.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].clientX;
-  }, {passive:true});
-  lb.addEventListener('touchend', (e) => {
-    if (touchStartX === null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    touchStartX = null;
-    if (Math.abs(dx) > 40) { dx > 0 ? prev() : next(); }
-  }, {passive:true});
+  // Wheel zoom (trackpads, mice)
+  stage.addEventListener('wheel', (e) => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    e.preventDefault();
+    const delta = e.deltaY;
+    const factor = delta > 0 ? (1/1.15) : 1.15;
+    zoomAt(e.clientX, e.clientY, factor);
+  }, { passive: false });
+
+  // Double-click/tap to toggle zoom
+  let lastTap = 0;
+  stage.addEventListener('dblclick', (e) => {
+    e.preventDefault();
+    if (scale === 1) zoomAt(e.clientX, e.clientY, 2.0);
+    else resetView();
+  });
+  stage.addEventListener('touchend', (e) => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      // double tap
+      const t = e.changedTouches[0];
+      if (scale === 1) zoomAt(t.clientX, t.clientY, 2.0);
+      else resetView();
+    }
+    lastTap = now;
+  }, { passive: true });
+
+  // Drag to pan (when zoomed)
+  stage.addEventListener('pointerdown', (e) => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    if (e.pointerType === 'touch' && e.isPrimary === false) return;
+    isPanning = true;
+    startX = e.clientX - tx;
+    startY = e.clientY - ty;
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!isPanning) return;
+    tx = e.clientX - startX;
+    ty = e.clientY - startY;
+    clampPan();
+    applyTransform();
+  });
+  stage.addEventListener('pointerup', (e) => {
+    isPanning = false;
+    stage.releasePointerCapture(e.pointerId);
+  });
+  stage.addEventListener('pointercancel', () => { isPanning = false; });
+
+  // Pinch zoom (two-finger)
+  stage.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+      pinchStartDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      pinchStartScale = scale;
+    }
+  }, { passive: true });
+  stage.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const factor = dist / (pinchStartDist || dist);
+      const newScale = Math.max(minScale, Math.min(maxScale, pinchStartScale * factor));
+      const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      const prev = scale;
+      scale = newScale;
+
+      // Adjust translate to keep zoom center stable
+      const rect = stage.getBoundingClientRect();
+      const cx = centerX - rect.left - rect.width / 2;
+      const cy = centerY - rect.top  - rect.height / 2;
+      tx = tx - cx * (scale/prev - 1);
+      ty = ty - cy * (scale/prev - 1);
+
+      clampPan();
+      applyTransform();
+    }
+  }, { passive: false });
+
+  // Re-fit on resize/orientation change (fixes half-window clipping)
+  window.addEventListener('resize', () => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    // Keep current zoom if >1, but clamp pan to new bounds; if at base, stay fit
+    if (scale === 1) { resetView(); }
+    else { clampPan(); applyTransform(); }
+  });
+
+  // Backdrop click already handled above
 })();
 </script>
