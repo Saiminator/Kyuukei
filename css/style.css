@@ -1279,6 +1279,17 @@ body.chapter .section-header {
   cursor: none !important;
 }
 
+/* Lightbox: let the overlay decide the cursor (don’t force 'none') */
+.lb,
+.lb * {
+  cursor: inherit !important;
+}
+
+/* Lightbox cursor states (JS toggles .pannable / .panning on .lb) */
+.lb { cursor: default !important; }      /* at base zoom (not pannable) */
+.lb.pannable { cursor: grab !important; }  /* zoomed-in but not dragging */
+.lb.panning  { cursor: grabbing !important; } /* actively dragging */
+
 /* Ensure .back-select-btn and its children always hide the native cursor */
 .back-select-btn,
 .back-select-btn:hover,
