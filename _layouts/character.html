@@ -1,3 +1,72 @@
+---
+layout: default
+---
+
+<div class="character-detail">
+  <!-- Back Button Container for Centering -->
+  <div class="back-btn-container" style="text-align: center; margin-bottom: 1rem;">
+    <button class="back-select-btn" onclick="window.history.back();">
+      Back to Character Selection
+    </button>
+  </div>
+
+  <div class="detail-container">
+    <!-- Left Panel: Character Background/Abilities -->
+    <div class="left-panel">
+      {{ content }}
+    </div>
+
+    <!-- Right Panel: Character Image and Basic Info -->
+    <div class="right-panel">
+      <div class="image-container">
+        <img src="{{ page.image }}" alt="{{ page.title }}" id="character-pfp" style="cursor: zoom-in;">
+      </div>
+      <div class="basic-info">
+        {% if page.age %}<p><strong>Age:</strong> {{ page.age }}</p>{% endif %}
+        {% if page.birthday %}<p><strong>Birthday:</strong> {{ page.birthday }}</p>{% endif %}
+        {% if page.species %}<p><strong>Species:</strong> {{ page.species }}</p>{% endif %}
+        {% if page.gender %}<p><strong>Gender:</strong> {{ page.gender }}</p>{% endif %}
+        {% if page.height %}<p><strong>Height:</strong> {{ page.height }}</p>{% endif %}
+        {% if page.weight %}<p><strong>Weight:</strong> {{ page.weight }}</p>{% endif %}
+        {% if page.cup_size %}<p><strong>Cup Size:</strong> {{ page.cup_size }}</p>{% endif %}
+        {% if page.mana_color %}<p><strong>Mana Color:</strong> {{ page.mana_color }}</p>{% endif %}
+        {% if page.hair_color %}<p><strong>Hair color:</strong> {{ page.hair_color }}</p>{% endif %}
+        {% if page.eye_color %}<p><strong>Eye color:</strong> {{ page.eye_color }}</p>{% endif %}
+        {% if page.credit %}<p><strong>Picture Credit:</strong> {{ page.credit }}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================= -->
+<!-- Gallery Lightbox Overlay  -->
+<!-- ========================= -->
+<div class="gallery-overlay" aria-hidden="true" style="display:none;">
+  <div class="gallery-backdrop"></div>
+  <div class="gallery-modal" role="dialog" aria-modal="true" aria-label="Image gallery">
+    <button class="gallery-btn gallery-close" aria-label="Close (Esc)">&times;</button>
+
+    <div class="gallery-stage">
+      <div class="gallery-viewport" aria-label="Image viewport">
+        <img class="gallery-image" alt="" draggable="false">
+      </div>
+
+      <!-- UI Controls -->
+      <div class="gallery-controls">
+        <button class="gallery-btn gallery-prev" aria-label="Previous (←)">&#10094;</button>
+        <div class="gallery-zoom">
+          <button class="gallery-btn gallery-zoom-out" aria-label="Zoom out">−</button>
+          <button class="gallery-btn gallery-zoom-reset" aria-label="Reset zoom">1:1</button>
+          <button class="gallery-btn gallery-zoom-in" aria-label="Zoom in">+</button>
+        </div>
+        <button class="gallery-btn gallery-next" aria-label="Next (→)">&#10095;</button>
+      </div>
+
+      <div class="gallery-counter" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
 <style>
   /* ===== Lightbox Base (scoped) ===== */
   .gallery-overlay {
@@ -19,14 +88,23 @@
   }
 
   .gallery-stage {
-    width: 60vw;       /* consistent width */
-    height: 95vh;      /* 95% of screen height */
+    width: 60vw;       /* desktop width */
+    height: 95vh;      /* tall vertical space */
     background: #111;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     position: relative;
     overflow: hidden;
     pointer-events: auto;
+  }
+
+  /* ✅ Mobile/tablet responsive override */
+  @media (max-width: 1280px) {
+    .gallery-stage {
+      width: 100vw;    /* full width on smaller screens */
+      height: 95vh;
+      border-radius: 0; /* optional fullscreen feel */
+    }
   }
 
   .gallery-close {
@@ -114,3 +192,145 @@
 
   .character-detail .right-panel .image-container img#character-pfp { display: block; }
 </style>
+
+<script>
+(function(){
+  const GALLERY = ({% if page.gallery and page.gallery.size > 0 %}[{% for url in page.gallery %}"{{ url | escape }}"{% unless forloop.last %},{% endunless %}{% endfor %}]{% else %}[] {% endif %});
+  if (!GALLERY.length) return;
+
+  const pfp = document.getElementById('character-pfp');
+  const overlay = document.querySelector('.gallery-overlay');
+  const viewport = document.querySelector('.gallery-viewport');
+  const img = document.querySelector('.gallery-image');
+  const btnClose = document.querySelector('.gallery-close');
+  const btnPrev = document.querySelector('.gallery-prev');
+  const btnNext = document.querySelector('.gallery-next');
+  const btnZoomIn = document.querySelector('.gallery-zoom-in');
+  const btnZoomOut = document.querySelector('.gallery-zoom-out');
+  const btnZoomReset = document.querySelector('.gallery-zoom-reset');
+  const counter = document.querySelector('.gallery-counter');
+
+  let index = 0;
+  let scale0 = 1;
+  let scale = 1;
+  const minScale = 1, maxScale = 6;
+  let pos = { x: 0, y: 0 };
+  let isPanning = false;
+  let start = { x: 0, y: 0 };
+
+  img.ondragstart = () => false;
+
+  function updateCounter(){ counter.textContent = (index+1)+" / "+GALLERY.length; }
+
+  function computeFitScale(){
+    const rect = viewport.getBoundingClientRect();
+    const iw = img.naturalWidth||1, ih = img.naturalHeight||1;
+    const heightFit = rect.height / ih;
+    const widthFit  = rect.width  / iw;
+    scale0 = Math.min(heightFit, widthFit);
+  }
+
+  function applyTransform(){
+    img.style.transform =
+      `translate(-50%, -50%) translate(${pos.x}px, ${pos.y}px) scale(${scale0*scale})`;
+  }
+
+  function clampPan(){
+    const rect = viewport.getBoundingClientRect();
+    const iw = (img.naturalWidth||1)*scale0*scale;
+    const ih = (img.naturalHeight||1)*scale0*scale;
+    const halfW = Math.max(0,(iw-rect.width)/2);
+    const halfH = Math.max(0,(ih-rect.height)/2);
+    pos.x = Math.min(halfW, Math.max(-halfW,pos.x));
+    pos.y = Math.min(halfH, Math.max(-halfH,pos.y));
+  }
+
+  function centerImage(){ pos={x:0,y:0}; }
+
+  function loadImage(i){
+    index=(i+GALLERY.length)%GALLERY.length;
+    img.src=GALLERY[index];
+    img.onload=function(){
+      computeFitScale();
+      scale=1; centerImage();
+      applyTransform();
+      updateCounter();
+    };
+  }
+
+  function openOverlay(startIndex=0){
+    overlay.style.display='block';
+    overlay.setAttribute('aria-hidden','false');
+    loadImage(startIndex);
+    btnClose.focus();
+    document.documentElement.style.overflow='hidden';
+  }
+  function closeOverlay(){
+    overlay.style.display='none';
+    overlay.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow='';
+  }
+
+  function zoomAt(deltaY,clientX,clientY){
+    const prev=scale;
+    const next=deltaY<0?scale*1.1:scale/1.1;
+    scale=Math.max(minScale,Math.min(maxScale,next));
+    const rect=viewport.getBoundingClientRect();
+    const cx=clientX-rect.left-rect.width/2-pos.x;
+    const cy=clientY-rect.top-rect.height/2-pos.y;
+    const ratio=scale/prev;
+    pos.x-=cx*(ratio-1);
+    pos.y-=cy*(ratio-1);
+    clampPan(); applyTransform();
+  }
+
+  window.addEventListener('resize',()=>{
+    if(overlay.getAttribute('aria-hidden')==='true')return;
+    const currentAbs=scale0*scale;
+    computeFitScale();
+    scale=Math.max(minScale,Math.min(maxScale,currentAbs/scale0));
+    clampPan(); applyTransform();
+  });
+
+  pfp.addEventListener('click',()=>openOverlay(0));
+  btnClose.addEventListener('click',closeOverlay);
+  overlay.querySelector('.gallery-backdrop').addEventListener('click',closeOverlay);
+  btnPrev.addEventListener('click',()=>loadImage(index-1));
+  btnNext.addEventListener('click',()=>loadImage(index+1));
+  btnZoomIn.addEventListener('click',()=>{scale=Math.min(maxScale,scale*1.2);clampPan();applyTransform();});
+  btnZoomOut.addEventListener('click',()=>{scale=Math.max(minScale,scale/1.2);clampPan();applyTransform();});
+  btnZoomReset.addEventListener('click',()=>{computeFitScale();scale=1;centerImage();applyTransform();});
+
+  window.addEventListener('keydown',e=>{
+    if(overlay.getAttribute('aria-hidden')==='true')return;
+    if(e.key==='Escape')closeOverlay();
+    if(e.key==='ArrowLeft')loadImage(index-1);
+    if(e.key==='ArrowRight')loadImage(index+1);
+  });
+
+  function pointerDown(e){
+    if(scale<=1)return;
+    isPanning=true; viewport.classList.add('grabbing'); e.preventDefault();
+    const cX=e.clientX??(e.touches&&e.touches[0].clientX);
+    const cY=e.clientY??(e.touches&&e.touches[0].clientY);
+    start.x=cX-pos.x; start.y=cY-pos.y;
+  }
+  function pointerMove(e){
+    if(!isPanning)return;
+    const cX=e.clientX??(e.touches&&e.touches[0].clientX);
+    const cY=e.clientY??(e.touches&&e.touches[0].clientY);
+    pos.x=cX-start.x; pos.y=cY-start.y;
+    clampPan(); applyTransform();
+  }
+  function pointerUp(){isPanning=false;viewport.classList.remove('grabbing');}
+
+  viewport.addEventListener('mousedown',pointerDown);
+  window.addEventListener('mousemove',pointerMove);
+  window.addEventListener('mouseup',pointerUp);
+  viewport.addEventListener('touchstart',pointerDown,{passive:false});
+  window.addEventListener('touchmove',e=>{if(isPanning){e.preventDefault();pointerMove(e);}},{passive:false});
+  window.addEventListener('touchend',pointerUp);
+
+  viewport.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.deltaY,e.clientX,e.clientY);},{passive:false});
+})();
+</script>
