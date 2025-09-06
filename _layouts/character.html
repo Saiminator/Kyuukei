@@ -44,9 +44,10 @@ layout: default
 <div class="gallery-overlay" aria-hidden="true" style="display:none;">
   <div class="gallery-backdrop"></div>
   <div class="gallery-modal" role="dialog" aria-modal="true" aria-label="Image gallery">
-    <button class="gallery-btn gallery-close" aria-label="Close (Esc)">&times;</button>
-
     <div class="gallery-stage">
+      <!-- Move Close button INSIDE the stage so it's always tappable -->
+      <button class="gallery-btn gallery-close" aria-label="Close (Esc)">&times;</button>
+
       <div class="gallery-viewport" aria-label="Image viewport">
         <img class="gallery-image" alt="" draggable="false">
       </div>
@@ -84,7 +85,8 @@ layout: default
     inset: 0;
     display: grid;
     place-items: center;
-    pointer-events: none;
+    /* IMPORTANT: allow taps/clicks inside modal (fixes mobile close button) */
+    pointer-events: auto;
   }
 
   .gallery-stage {
@@ -116,17 +118,18 @@ layout: default
     background: rgba(0,0,0,0.45);
     color: #fff;
     border: none;
-    border-radius: 8px;
-    padding: 6px 10px;
+    border-radius: 10px;
+    padding: 10px 14px;       /* larger tap target */
     cursor: pointer;
-    z-index: 2;
+    z-index: 3;
+    touch-action: manipulation; /* faster taps on mobile */
   }
 
   .gallery-viewport {
     position: absolute;
     inset: 48px 0 56px 0;
     overflow: hidden;
-    touch-action: none;
+    touch-action: none;   /* we handle pan/pinch ourselves */
     user-select: none;
     cursor: grab;
   }
@@ -200,6 +203,7 @@ layout: default
 
   const pfp = document.getElementById('character-pfp');
   const overlay = document.querySelector('.gallery-overlay');
+  const backdrop = document.querySelector('.gallery-backdrop');
   const viewport = document.querySelector('.gallery-viewport');
   const img = document.querySelector('.gallery-image');
   const btnClose = document.querySelector('.gallery-close');
@@ -211,12 +215,25 @@ layout: default
   const counter = document.querySelector('.gallery-counter');
 
   let index = 0;
-  let scale0 = 1;
-  let scale = 1;
+
+  // Zoom & pan state
+  let scale0 = 1;   // fitted baseline (computed per image)
+  let scale = 1;    // current scale (relative to fitted)
   const minScale = 1, maxScale = 6;
   let pos = { x: 0, y: 0 };
   let isPanning = false;
   let start = { x: 0, y: 0 };
+
+  // Gesture helpers
+  let isPinching = false;
+  let pinchStartDist = 0;
+  let pinchStartScale = 1;
+  let pinchMid = { x: 0, y: 0 };
+  let tapTimer = 0;
+  const DOUBLE_TAP_MS = 280;
+
+  // Swipe helpers (when not zoomed)
+  let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
 
   img.ondragstart = () => false;
 
@@ -227,7 +244,7 @@ layout: default
     const iw = img.naturalWidth||1, ih = img.naturalHeight||1;
     const heightFit = rect.height / ih;
     const widthFit  = rect.width  / iw;
-    scale0 = Math.min(heightFit, widthFit);
+    scale0 = Math.min(heightFit, widthFit);  // contain (no crop), height-first intention
   }
 
   function applyTransform(){
@@ -237,8 +254,8 @@ layout: default
 
   function clampPan(){
     const rect = viewport.getBoundingClientRect();
-    const iw = (img.naturalWidth||1)*scale0*scale;
-    const ih = (img.naturalHeight||1)*scale0*scale;
+    const iw = (img.naturalWidth||1) * scale0 * scale;
+    const ih = (img.naturalHeight||1) * scale0 * scale;
     const halfW = Math.max(0,(iw-rect.width)/2);
     const halfH = Math.max(0,(ih-rect.height)/2);
     pos.x = Math.min(halfW, Math.max(-halfW,pos.x));
@@ -262,7 +279,6 @@ layout: default
     overlay.style.display='block';
     overlay.setAttribute('aria-hidden','false');
     loadImage(startIndex);
-    btnClose.focus();
     document.documentElement.style.overflow='hidden';
   }
   function closeOverlay(){
@@ -273,7 +289,7 @@ layout: default
 
   function zoomAt(deltaY,clientX,clientY){
     const prev=scale;
-    const next=deltaY<0?scale*1.1:scale/1.1;
+    const next=deltaY<0?scale*1.1:scale/1.1; // inverted: wheel up => zoom in
     scale=Math.max(minScale,Math.min(maxScale,next));
     const rect=viewport.getBoundingClientRect();
     const cx=clientX-rect.left-rect.width/2-pos.x;
@@ -284,6 +300,7 @@ layout: default
     clampPan(); applyTransform();
   }
 
+  // Maintain visual zoom after orientation/resize
   window.addEventListener('resize',()=>{
     if(overlay.getAttribute('aria-hidden')==='true')return;
     const currentAbs=scale0*scale;
@@ -292,15 +309,19 @@ layout: default
     clampPan(); applyTransform();
   });
 
+  // Open/Close hooks
   pfp.addEventListener('click',()=>openOverlay(0));
   btnClose.addEventListener('click',closeOverlay);
-  overlay.querySelector('.gallery-backdrop').addEventListener('click',closeOverlay);
+  backdrop.addEventListener('click',closeOverlay);
+
+  // Buttons
   btnPrev.addEventListener('click',()=>loadImage(index-1));
   btnNext.addEventListener('click',()=>loadImage(index+1));
   btnZoomIn.addEventListener('click',()=>{scale=Math.min(maxScale,scale*1.2);clampPan();applyTransform();});
   btnZoomOut.addEventListener('click',()=>{scale=Math.max(minScale,scale/1.2);clampPan();applyTransform();});
   btnZoomReset.addEventListener('click',()=>{computeFitScale();scale=1;centerImage();applyTransform();});
 
+  // Keyboard
   window.addEventListener('keydown',e=>{
     if(overlay.getAttribute('aria-hidden')==='true')return;
     if(e.key==='Escape')closeOverlay();
@@ -308,29 +329,152 @@ layout: default
     if(e.key==='ArrowRight')loadImage(index+1);
   });
 
+  /* =========================
+     Pointer & Touch Gestures
+     ========================= */
+
+  // Helpers
+  function distance(t1, t2){
+    const dx = t1.clientX - t2.clientX;
+    const dy = t1.clientY - t2.clientY;
+    return Math.hypot(dx, dy);
+  }
+  function midpoint(t1, t2){
+    return { x: (t1.clientX + t2.clientX)/2, y: (t1.clientY + t2.clientY)/2 };
+  }
+
+  // Double-tap to toggle zoom (1 -> 2 -> 1)
+  function handleDoubleTap(e){
+    const now = Date.now();
+    if (now - tapTimer < DOUBLE_TAP_MS) {
+      // toggle between fitted(1) and ~2x
+      const prev = scale;
+      scale = scale > 1 ? 1 : 2;
+      // zoom around tap point
+      const rect = viewport.getBoundingClientRect();
+      const cx = (e.changedTouches ? e.changedTouches[0].clientX : e.clientX) - rect.left - rect.width/2 - pos.x;
+      const cy = (e.changedTouches ? e.changedTouches[0].clientY : e.clientY) - rect.top - rect.height/2 - pos.y;
+      const ratio = scale / prev;
+      pos.x -= cx * (ratio - 1);
+      pos.y -= cy * (ratio - 1);
+      clampPan(); applyTransform();
+    }
+    tapTimer = now;
+  }
+
+  // Touch start
+  viewport.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+      // Begin pinch
+      isPinching = true;
+      isPanning = false;
+      const [t1, t2] = e.touches;
+      pinchStartDist = distance(t1, t2);
+      pinchStartScale = scale;
+      pinchMid = midpoint(t1, t2);
+    } else if (e.touches.length === 1) {
+      // Possible pan or swipe or double-tap
+      handleDoubleTap(e);
+      const t = e.touches[0];
+      if (scale > 1) {
+        isPanning = true;
+        viewport.classList.add('grabbing');
+        e.preventDefault();
+        start.x = t.clientX - pos.x;
+        start.y = t.clientY - pos.y;
+      } else {
+        // track swipe when not zoomed
+        touchStartX = t.clientX;
+        touchStartY = t.clientY;
+        touchStartTime = Date.now();
+      }
+    }
+  }, { passive: false });
+
+  // Touch move
+  viewport.addEventListener('touchmove', (e) => {
+    if (isPinching && e.touches.length === 2) {
+      e.preventDefault();
+      const [t1, t2] = e.touches;
+      const newDist = distance(t1, t2);
+      const prev = scale;
+      scale = Math.max(minScale, Math.min(maxScale, (newDist / pinchStartDist) * pinchStartScale));
+
+      // Keep pinch midpoint stable
+      const rect = viewport.getBoundingClientRect();
+      const cx = pinchMid.x - rect.left - rect.width/2 - pos.x;
+      const cy = pinchMid.y - rect.top  - rect.height/2 - pos.y;
+      const ratio = scale / prev;
+      pos.x -= cx * (ratio - 1);
+      pos.y -= cy * (ratio - 1);
+
+      clampPan(); applyTransform();
+    } else if (isPanning && e.touches.length === 1) {
+      e.preventDefault();
+      const t = e.touches[0];
+      pos.x = t.clientX - start.x;
+      pos.y = t.clientY - start.y;
+      clampPan(); applyTransform();
+    }
+  }, { passive: false });
+
+  // Touch end
+  viewport.addEventListener('touchend', (e) => {
+    if (isPinching && e.touches.length < 2) {
+      isPinching = false;
+    }
+    if (isPanning && e.touches.length === 0) {
+      isPanning = false;
+      viewport.classList.remove('grabbing');
+    }
+
+    // Swipe detection (only when NOT zoomed and not pinching)
+    if (!isPinching && scale <= 1 && e.changedTouches && e.changedTouches.length) {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      const dt = Date.now() - touchStartTime;
+
+      // basic swipe: quick, mostly horizontal
+      if (dt < 600 && Math.abs(dx) > 50 && Math.abs(dy) < 60) {
+        if (dx < 0) {
+          // swipe left -> next
+          loadImage(index + 1);
+        } else {
+          // swipe right -> prev
+          loadImage(index - 1);
+        }
+      }
+    }
+  });
+
+  // Mouse pan / wheel zoom
   function pointerDown(e){
-    if(scale<=1)return;
-    isPanning=true; viewport.classList.add('grabbing'); e.preventDefault();
-    const cX=e.clientX??(e.touches&&e.touches[0].clientX);
-    const cY=e.clientY??(e.touches&&e.touches[0].clientY);
-    start.x=cX-pos.x; start.y=cY-pos.y;
+    if (scale <= 1) return; // only pan when zoomed
+    isPanning = true;
+    viewport.classList.add('grabbing');
+    e.preventDefault(); // stop image drag/select
+    start.x = e.clientX - pos.x;
+    start.y = e.clientY - pos.y;
   }
   function pointerMove(e){
-    if(!isPanning)return;
-    const cX=e.clientX??(e.touches&&e.touches[0].clientX);
-    const cY=e.clientY??(e.touches&&e.touches[0].clientY);
-    pos.x=cX-start.x; pos.y=cY-start.y;
+    if (!isPanning) return;
+    pos.x = e.clientX - start.x;
+    pos.y = e.clientY - start.y;
     clampPan(); applyTransform();
   }
-  function pointerUp(){isPanning=false;viewport.classList.remove('grabbing');}
+  function pointerUp(){
+    isPanning = false;
+    viewport.classList.remove('grabbing');
+  }
 
-  viewport.addEventListener('mousedown',pointerDown);
-  window.addEventListener('mousemove',pointerMove);
-  window.addEventListener('mouseup',pointerUp);
-  viewport.addEventListener('touchstart',pointerDown,{passive:false});
-  window.addEventListener('touchmove',e=>{if(isPanning){e.preventDefault();pointerMove(e);}},{passive:false});
-  window.addEventListener('touchend',pointerUp);
+  viewport.addEventListener('mousedown', pointerDown);
+  window.addEventListener('mousemove', pointerMove);
+  window.addEventListener('mouseup', pointerUp);
 
-  viewport.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.deltaY,e.clientX,e.clientY);},{passive:false});
+  viewport.addEventListener('wheel', e => {
+    e.preventDefault();
+    zoomAt(e.deltaY, e.clientX, e.clientY);
+  }, { passive: false });
 })();
 </script>
