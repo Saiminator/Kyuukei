@@ -49,7 +49,6 @@ Supports short form (string) and object form {src, alt}.
 {%- endcomment -%}
 {% assign gallery = page.gallery %}
 <script>
-  // Build items from gallery only (no profile image)
   window.__characterLightboxItems = [
     {% if gallery and gallery.size > 0 %}
       {% for item in gallery %}
@@ -71,193 +70,134 @@ Supports short form (string) and object form {src, alt}.
 <div id="lb" class="lb" aria-hidden="true">
   <div class="lb-backdrop" data-close></div>
 
-  <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
-    <div class="lb-stage">
+  <div class="lb-shell" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
+    <div class="lb-stage" id="lb-stage">
       <div class="lb-spinner" id="lb-spinner" aria-hidden="true"></div>
-      <img id="lb-img" src="" alt="" />
-    </div>
-    <figcaption id="lb-caption"></figcaption>
+      <div id="lb-layer" aria-hidden="true">
+        <img id="lb-img" src="" alt="" draggable="false" />
+      </div>
 
-    <button class="lb-btn lb-close" data-close aria-label="Close">&times;</button>
-    <button class="lb-btn lb-prev" data-prev aria-label="Previous">&#10094;</button>
-    <button class="lb-btn lb-next" data-next aria-label="Next">&#10095;</button>
-  </figure>
+      <!-- Overlay controls anchored to the stage edges (consistent position) -->
+      <button class="lb-btn lb-prev" data-prev aria-label="Previous">&#10094;</button>
+      <button class="lb-btn lb-next" data-next aria-label="Next">&#10095;</button>
+      <button class="lb-btn lb-close" data-close aria-label="Close">&times;</button>
+    </div>
+
+    <div class="lb-captionbar">
+      <figcaption id="lb-caption" class="lb-caption"></figcaption>
+    </div>
+  </div>
 </div>
 
 <style>
-  /* Global safety: keep padding inside size calcs & prevent image inline gaps */
+  /* ===== Global safety ===== */
   .lb, .lb * { box-sizing: border-box; }
-  #lb-img { margin: 0 auto; }
-
   .lb { position: fixed; inset: 0; display: none; z-index: 1000; }
   .lb[aria-hidden="false"] { display: block; }
+  .lb-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.72); backdrop-filter: blur(2px); }
+  #lb-img {
+    display: block; margin: 0;
+    user-select: none; -webkit-user-drag: none;
+    pointer-events: none; /* stage handles pointer events */
+  }
 
-  .lb-backdrop {
+  /* ===== Fixed-size shell with consistent stage size ===== */
+  .lb-shell {
     position: absolute; inset: 0;
-    background: rgba(0,0,0,.70);
-    backdrop-filter: blur(2px);
-  }
-
-  /* ====== DESKTOP / LARGE ====== */
-  .lb-content {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: min(98vw, 1400px);
-    max-height: 96vh;
     display: grid;
-    grid-template-rows: 1fr auto;
-    gap: .5rem;
-    z-index: 1;
-    outline: none;
+    place-items: center;
+    padding:
+      calc(env(safe-area-inset-top, 0px) + 12px)
+      12px
+      calc(env(safe-area-inset-bottom, 0px) + 12px);
   }
 
+  /* CONSISTENT STAGE SIZE:
+     Desktop → width = min(92vw, 1200px), height = 80vh
+     Mobile  → width = 100vw, height = 85vh (overridden in media query)
+  */
   .lb-stage {
     position: relative;
-    width: 100%;
-    height: auto;
-    display: grid; place-items: center;
+    width: min(92vw, 1200px);
+    height: 80vh;
+    display: grid;
+    place-items: center;
     background: rgba(0,0,0,.25);
     border-radius: .6rem;
     box-shadow: 0 16px 40px rgba(0,0,0,.45);
-    overflow: hidden;
+    overflow: hidden; /* contain zoom/pan */
   }
 
-  #lb-img {
-    display: block;
-    max-width: 98vw;
-    max-height: 90vh;
-    object-fit: contain;
-    opacity: 0;
-    transition: opacity .15s ease;
-    /* === additions to make zoom/pan behave nicely === */
-    user-select: none;           /* no selection flash */
-    -webkit-user-drag: none;     /* prevent native drag image ghost */
-    will-change: transform;
+  /* Image fitting: Change 'contain' to 'cover' or 'fill' if you prefer */
+  #lb-layer {
+    touch-action: none;            /* allow custom pinch/drag */
     transform: translate(0px, 0px) scale(1);
     transform-origin: center center;
-    cursor: default;
+    will-change: transform;
+    width: 100%; height: 100%;
+    display: grid; place-items: center;
+  }
+  #lb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;           /* <= main fit rule (no crop, no distortion) */
+    opacity: 0; transition: opacity .12s ease;
   }
 
-  #lb-caption {
+  /* Caption bar stays at a fixed place below the stage */
+  .lb-captionbar {
+    width: min(92vw, 1200px);
+    margin-top: .6rem;
+    display: grid; place-items: center;
+  }
+  .lb-caption {
     color: #fff;
-    text-align: center;
+    width: 100%;
+    text-align: left;
     font-size: .95rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     min-height: 1.2em;
   }
 
+  /* Controls fixed relative to the stage */
   .lb-btn {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     background: rgba(0,0,0,.55);
-    color: #fff;
-    border: none;
-    width: 48px; height: 48px;
-    border-radius: 999px;
-    display: grid; place-items: center;
-    font-size: 22px;
-    cursor: pointer;
-    transition: background .15s ease;
+    color: #fff; border: none; border-radius: 999px;
+    width: 48px; height: 48px; display: grid; place-items: center;
+    font-size: 22px; cursor: pointer; transition: background .15s ease;
     z-index: 2;
   }
   .lb-btn:hover { background: rgba(0,0,0,.8); }
+  .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-close { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 28px; background: rgba(0,0,0,.7); }
 
-  .lb-close {
-    top: -20px; right: -20px; transform: none;
-    width: 40px; height: 40px; font-size: 28px;
-    background: rgba(0,0,0,.7);
-  }
-  .lb-prev { left: -64px; }
-  .lb-next { right: -64px; }
-
-  .lb-spinner {
-    position: absolute; inset: 0;
-    display: grid; place-items: center;
-    background: transparent;
-  }
+  /* Spinner */
+  .lb-spinner { position: absolute; inset: 0; display: grid; place-items: center; }
   .lb-spinner::after {
-    content: "";
-    width: 38px; height: 38px;
-    border-radius: 999px;
-    border: 3px solid rgba(255,255,255,.35);
-    border-top-color: #fff;
+    content: ""; width: 38px; height: 38px; border-radius: 999px;
+    border: 3px solid rgba(255,255,255,.35); border-top-color: #fff;
     animation: lbspin 0.8s linear infinite;
   }
-  [aria-hidden="true"] > .lb-spinner,
-  .lb-spinner[aria-hidden="true"] { display: none; }
+  [aria-hidden="true"] > .lb-spinner, .lb-spinner[aria-hidden="true"] { display: none; }
   @keyframes lbspin { to { transform: rotate(360deg); } }
 
-  /* ====== MOBILE OVERRIDES ====== */
+  /* Mobile: make stage full width and taller, controls larger */
   @media (max-width: 720px) {
-    /* Fullscreen modal that includes padding INSIDE its width/height */
-    .lb-content {
-      position: fixed;
-      inset: 0;
-      transform: none;
-      width: 100dvw;
-      height: 100dvh;
-      max-width: 100dvw;
-      max-height: 100dvh;
-      padding:
-        calc(env(safe-area-inset-top, 0px) + 10px)
-        12px
-        calc(env(safe-area-inset-bottom, 0px) + 12px);
-      box-sizing: border-box;   /* padding inside box => no overflow */
-      display: flex;            /* robust centering */
-      flex-direction: column;
-      gap: 8px;
-      margin: 0 auto;
-    }
-
-    .lb-stage {
-      flex: 1 1 auto;
-      width: 100%;
-      height: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0;
-      box-shadow: none;
-      background: rgba(0,0,0,.15);
-      overflow: hidden;         /* never spill horizontally */
-    }
-
-    #lb-img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-    }
-
-    #lb-caption {
-      padding: 4px 2px 0;
-      font-size: .95rem;
-      text-align: center;
-    }
-
-    /* Larger, inside-edge buttons for touch */
-    .lb-btn {
-      width: 56px; height: 56px;
-      font-size: 24px;
-      background: rgba(0,0,0,.55);
-    }
-    .lb-prev { left: 10px; top: 50%; transform: translateY(-50%); }
-    .lb-next { right: 10px; top: 50%; transform: translateY(-50%); }
-
-    /* Close sits in the safe area (status bar notch safe) */
-    .lb-close {
-      position: absolute;
-      top: calc(env(safe-area-inset-top, 0px) + 8px);
-      right: 10px;
-      width: 44px; height: 44px;
-      font-size: 28px;
-      transform: none;
-      background: rgba(0,0,0,.7);
-      border-radius: 999px;
-    }
+    .lb-stage { width: 100vw; height: 85vh; border-radius: 0; box-shadow: none; }
+    .lb-captionbar { width: 100vw; padding: 0 10px; }
+    .lb-btn { width: 56px; height: 56px; font-size: 24px; }
+    .lb-close { width: 44px; height: 44px; font-size: 28px; }
+    .lb-prev { left: 10px; }
+    .lb-next { right: 10px; }
   }
+
+  /* Cursor management (so it won't freeze with custom site cursors) */
+  .lb, .lb * { cursor: inherit; }
+  .lb { cursor: default; }
+  .lb.pannable { cursor: grab; }
+  .lb.panning  { cursor: grabbing; }
 </style>
 
 <script>
@@ -267,103 +207,66 @@ Supports short form (string) and object form {src, alt}.
   if (!profileImg) return;
 
   const lb         = document.getElementById('lb');
-  const stage      = lb.querySelector('.lb-stage');
+  const stage      = document.getElementById('lb-stage');
+  const layer      = document.getElementById('lb-layer');
   const imgEl      = document.getElementById('lb-img');
   const captionEl  = document.getElementById('lb-caption');
   const spinner    = document.getElementById('lb-spinner');
 
-  const btnCloseEls = lb.querySelectorAll('[data-close]');
-  const btnPrev     = lb.querySelector('[data-prev]');
-  const btnNext     = lb.querySelector('[data-next]');
+  const btnClose   = lb.querySelector('.lb-close');
+  const btnPrev    = lb.querySelector('.lb-prev');
+  const btnNext    = lb.querySelector('.lb-next');
 
+  // Zoom/Pan state (kept simple; stage size is fixed now)
   let index = 0;
-
-  function setAriaVisible(vis) {
-    lb.setAttribute('aria-hidden', vis ? 'false' : 'true');
-    document.body.style.overflow = vis ? 'hidden' : '';
-    if (vis) document.documentElement.style.overscrollBehavior = 'none';
-    else document.documentElement.style.overscrollBehavior = '';
-  }
-
-  function loadAt(i){
-    index = ((i % items.length) + items.length) % items.length;
-    const it = items[index];
-
-    spinner.setAttribute('aria-hidden','false');
-    imgEl.style.opacity = '0';
-
-    const img = new Image();
-    img.onload = () => {
-      imgEl.src = it.src;
-      imgEl.alt = it.alt || '';
-      captionEl.textContent = it.alt || '';
-      spinner.setAttribute('aria-hidden','true');
-      requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
-      // reset zoom/pan when a new image loads
-      scale = 1; tx = 0; ty = 0; applyTransform();
-    };
-    img.onerror = () => {
-      spinner.setAttribute('aria-hidden','true');
-      captionEl.textContent = 'Failed to load image';
-    };
-    img.src = it.src;
-  }
-
-  function openAt(i){
-    if (!items.length) return; // no gallery => do nothing
-    setAriaVisible(true);
-    loadAt(i);
-    lb.querySelector('.lb-content')?.focus();
-  }
-  function close(){
-    setAriaVisible(false);
-    imgEl.src = '';
-  }
-  function prev(){ loadAt(index - 1); }
-  function next(){ loadAt(index + 1); }
-
-  // Click profile image → open at first gallery image (index 0)
-  profileImg.addEventListener('click', () => openAt(0));
-
-  // Controls
-  btnPrev?.addEventListener('click', prev);
-  btnNext?.addEventListener('click', next);
-  btnCloseEls.forEach(b => b.addEventListener('click', close));
-
-  // Backdrop click to close
-  lb.addEventListener('click', (e) => {
-    if (e.target.classList.contains('lb-backdrop')) close();
-  });
-
-  // Keyboard: Esc/Left/Right
-  document.addEventListener('keydown', (e) => {
-    if (lb.getAttribute('aria-hidden') === 'true') return;
-    if (e.key === 'Escape') { e.preventDefault(); close(); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
-    else if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
-  });
-
-  // ==== SCROLL-TO-ZOOM + DRAG-TO-PAN (added) ====
-  let scale = 1, tx = 0, ty = 0;
+  let scale = 1;
   const minScale = 1, maxScale = 6;
+  let tx = 0, ty = 0;
   let panning = false, startX = 0, startY = 0;
 
+  function setVisible(vis) {
+    lb.setAttribute('aria-hidden', vis ? 'false' : 'true');
+    document.body.style.overflow = vis ? 'hidden' : '';
+    document.documentElement.style.overscrollBehavior = vis ? 'none' : '';
+  }
+
+  function updateCursor(){
+    if (scale > 1) lb.classList.add('pannable'); else lb.classList.remove('pannable');
+  }
+
   function applyTransform() {
-    imgEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
-    imgEl.style.cursor = scale > 1 ? 'grab' : 'default';
+    layer.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
   }
 
   function clampPan() {
-    // keep the zoomed image within the stage bounds
+    // Keep the zoomed image within the fixed stage bounds
     const rect = stage.getBoundingClientRect();
     const iw = imgEl.naturalWidth || 1;
     const ih = imgEl.naturalHeight || 1;
+
+    // At scale=1, image is rendered to exactly the stage size (contain), so:
+    // base drawn size within stage is:
+    // Since we use width:100%/height:100% with object-fit:contain, compute the
+    // displayed size along the limiting dimension
     const stageW = rect.width, stageH = rect.height;
-    const fitScale = Math.min(stageW / iw, stageH / ih);
-    const dispW = iw * fitScale * scale;
-    const dispH = ih * fitScale * scale;
+    const imgAspect = iw / ih;
+    const stageAspect = stageW / stageH;
+
+    let baseW, baseH;
+    if (imgAspect > stageAspect) {
+      // limited by width
+      baseW = stageW; baseH = stageW / imgAspect;
+    } else {
+      // limited by height
+      baseH = stageH; baseW = stageH * imgAspect;
+    }
+
+    const dispW = baseW * scale;
+    const dispH = baseH * scale;
+
     const maxX = Math.max(0, (dispW - stageW) / 2);
     const maxY = Math.max(0, (dispH - stageH) / 2);
+
     tx = Math.min(maxX, Math.max(-maxX, tx));
     ty = Math.min(maxY, Math.max(-maxY, ty));
   }
@@ -373,32 +276,81 @@ Supports short form (string) and object form {src, alt}.
     scale = Math.max(minScale, Math.min(maxScale, scale * factor));
     if (scale === prev) return;
 
-    // keep cursor point fixed while zooming
     const rect = stage.getBoundingClientRect();
     const cx = clientX - rect.left - rect.width / 2;
     const cy = clientY - rect.top  - rect.height / 2;
     tx = tx - cx * (scale/prev - 1);
     ty = ty - cy * (scale/prev - 1);
 
-    clampPan();
-    applyTransform();
+    clampPan(); applyTransform(); updateCursor();
   }
 
-  // wheel zoom (trackpad/mouse)
+  function fitBase() {
+    scale = 1; tx = 0; ty = 0; applyTransform(); updateCursor();
+  }
+
+  function loadAt(i){
+    index = ((i % items.length) + items.length) % items.length;
+    const it = items[index];
+    spinner.setAttribute('aria-hidden','false');
+    imgEl.style.opacity = '0';
+
+    const probe = new Image();
+    probe.onload = () => {
+      imgEl.src = it.src; imgEl.alt = it.alt || ''; captionEl.textContent = it.alt || '';
+      spinner.setAttribute('aria-hidden','true'); imgEl.style.opacity = '1';
+      fitBase(); // always open perfectly fit inside the fixed stage
+    };
+    probe.onerror = () => { spinner.setAttribute('aria-hidden','true'); captionEl.textContent = 'Failed to load image'; };
+    probe.src = it.src;
+  }
+
+  function openAt(i){
+    if (!items.length) return;
+    setVisible(true);
+    loadAt(i);
+  }
+  function close(){ setVisible(false); imgEl.src=''; }
+
+  function prev(){ loadAt(index - 1); }
+  function next(){ loadAt(index + 1); }
+
+  // Open on profile image
+  if (items.length) profileImg.addEventListener('click', () => openAt(0));
+
+  // Controls
+  btnClose?.addEventListener('click', close);
+  btnPrev ?.addEventListener('click', prev);
+  btnNext ?.addEventListener('click', next);
+
+  // Backdrop click
+  lb.addEventListener('click', (e) => { if (e.target.classList.contains('lb-backdrop')) close(); });
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') prev();
+    else if (e.key === 'ArrowRight') next();
+    else if (e.key === '+') zoomAt(window.innerWidth/2, window.innerHeight/2, 1.15);
+    else if (e.key === '-') zoomAt(window.innerWidth/2, window.innerHeight/2, 1/1.15);
+    else if (e.key === '0') fitBase();
+  });
+
+  // Wheel zoom
   stage.addEventListener('wheel', (e) => {
     if (lb.getAttribute('aria-hidden') === 'true') return;
     e.preventDefault();
-    const factor = e.deltaY > 0 ? (1/1.15) : 1.15;
-    zoomAt(e.clientX, e.clientY, factor);
+    zoomAt(e.clientX, e.clientY, e.deltaY > 0 ? 1/1.15 : 1.15);
   }, { passive: false });
 
-  // drag to pan when zoomed
+  // Drag to pan while zoomed
   stage.addEventListener('pointerdown', (e) => {
-    if (scale <= 1) return; // only pan if zoomed
+    if (scale <= 1) return;
     e.preventDefault();
     panning = true;
+    lb.classList.add('panning');
     startX = e.clientX - tx; startY = e.clientY - ty;
-    imgEl.style.cursor = 'grabbing';
     stage.setPointerCapture(e.pointerId);
   });
   stage.addEventListener('pointermove', (e) => {
@@ -410,10 +362,31 @@ Supports short form (string) and object form {src, alt}.
   function endPan(e){
     if (!panning) return;
     panning = false;
-    imgEl.style.cursor = 'grab';
+    lb.classList.remove('panning');
     try { stage.releasePointerCapture(e.pointerId); } catch(_) {}
   }
   stage.addEventListener('pointerup', endPan);
   stage.addEventListener('pointercancel', endPan);
+
+  // Double-click / double-tap toggle zoom
+  let lastTap = 0;
+  stage.addEventListener('dblclick', (e) => {
+    e.preventDefault();
+    if (scale === 1) zoomAt(e.clientX, e.clientY, 2.0); else fitBase();
+  });
+  stage.addEventListener('touchend', (e) => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      const t = e.changedTouches[0];
+      if (scale === 1) zoomAt(t.clientX, t.clientY, 2.0); else fitBase();
+    }
+    lastTap = now;
+  }, { passive: true });
+
+  // Re-clamp pan on resize (stage size is fixed % of viewport, so re-center)
+  window.addEventListener('resize', () => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    if (scale === 1) fitBase(); else { clampPan(); applyTransform(); }
+  });
 })();
 </script>
