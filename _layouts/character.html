@@ -203,6 +203,7 @@ layout: default
   const pfp = document.getElementById('character-pfp');
   const overlay = document.querySelector('.gallery-overlay');
   const backdrop = document.querySelector('.gallery-backdrop');
+  const modal = document.querySelector('.gallery-modal');
   const viewport = document.querySelector('.gallery-viewport');
   const img = document.querySelector('.gallery-image');
   const btnClose = document.querySelector('.gallery-close');
@@ -306,6 +307,13 @@ layout: default
   pfp.addEventListener('click',()=>openOverlay(0));
   btnClose.addEventListener('click',closeOverlay);
   backdrop.addEventListener('click',closeOverlay);
+
+  // ✅ NEW: close when clicking outside stage
+  modal.addEventListener('click', (e) => {
+    if (!e.target.closest('.gallery-stage')) {
+      closeOverlay();
+    }
+  });
 
   btnPrev.addEventListener('click',()=>loadImage(index-1));
   btnNext.addEventListener('click',()=>loadImage(index+1));
@@ -435,7 +443,4 @@ layout: default
 
   viewport.addEventListener('wheel', e => {
     e.preventDefault();
-    zoomAt(e.deltaY, e.clientX, e.clientY);
-  }, { passive: false });
-})();
-</script>
+    zoomAt(e.deltaY, e.clientX, e
