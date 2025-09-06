@@ -1,336 +1,428 @@
 ---
 layout: default
+title: {{ page.title }}
 ---
 
-<div class="character-detail">
-  <!-- Back Button Container for Centering -->
-  <div class="back-btn-container" style="text-align: center; margin-bottom: 1rem;">
-    <button class="back-select-btn" onclick="window.history.back();">
-      Back to Character Selection
+<!-- Character Page Template -->
+<main class="character-page">
+  <header class="char-header">
+    <h1 class="char-name">{{ page.title }}</h1>
+    <!-- Profile image (click to open gallery). Not included in slideshow. -->
+    <button id="pfp-trigger" class="pfp-trigger" aria-label="Open gallery">
+      <img id="pfp" src="{{ page.image | default: '/assets/img/placeholder.png' }}" alt="{{ page.title }} profile picture" />
     </button>
-  </div>
-  
-  <div class="detail-container">
-    <!-- Left Panel: Character Background/Abilities -->
-    <div class="left-panel">
-      {{ content }}
-    </div>
+  </header>
 
-    <!-- Right Panel: Character Image and Basic Info -->
-    <div class="right-panel">
-      <div class="image-container">
-        <!-- Clickable profile image (opens lightbox if gallery exists; PFP is NOT in the slideshow) -->
-        <img id="profile-image"
-             src="{{ page.image | relative_url }}"
-             alt="{{ page.title | escape }}"
-             style="cursor: zoom-in; max-width: 100%; height: auto;">
-      </div>
+  <article class="char-body">
+    {{ content }}
+  </article>
+</main>
 
-      <div class="basic-info">
-        {% if page.age %}<p><strong>Age:</strong> {{ page.age }}</p>{% endif %}
-        {% if page.birthday %}<p><strong>Birthday:</strong> {{ page.birthday }}</p>{% endif %}
-        {% if page.species %}<p><strong>Species:</strong> {{ page.species }}</p>{% endif %}
-        {% if page.gender %}<p><strong>Gender:</strong> {{ page.gender }}</p>{% endif %}
-        {% if page.height %}<p><strong>Height:</strong> {{ page.height }}</p>{% endif %}
-        {% if page.weight %}<p><strong>Weight:</strong> {{ page.weight }}</p>{% endif %}
-        {% if page.cup_size %}<p><strong>Cup Size:</strong> {{ page.cup_size }}</p>{% endif %}
-        {% if page.mana_color %}<p><strong>Mana Color:</strong> {{ page.mana_color }}</p>{% endif %}
-        {% if page.hair_color %}<p><strong>Hair color:</strong> {{ page.hair_color }}</p>{% endif %}
-        {% if page.eye_color %}<p><strong>Eye color:</strong> {{ page.eye_color }}</p>{% endif %}
-        {% if page.credit %}<p><strong>Picture Credit:</strong> {{ page.credit }}</p>{% endif %}
+<!-- Lightspace (modal lightbox) -->
+<div id="lb" class="lb-root" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="lb-backdrop" data-close="1" aria-hidden="true"></div>
+
+  <div class="lb-content" tabindex="-1" aria-live="polite">
+    <div class="lb-stage">
+      <img id="lb-img" alt="Character gallery image" />
+      <!-- On-screen controls -->
+      <button class="lb-nav lb-prev" aria-label="Previous image" title="Previous (←)">&lsaquo;</button>
+      <button class="lb-nav lb-next" aria-label="Next image" title="Next (→)">&rsaquo;</button>
+
+      <div class="lb-zoom-controls">
+        <button class="lb-zoom-btn" data-zoom="in" aria-label="Zoom in" title="Zoom in (+)">+</button>
+        <button class="lb-zoom-btn" data-zoom="out" aria-label="Zoom out" title="Zoom out (-)">−</button>
+        <button class="lb-zoom-btn" data-zoom="reset" aria-label="Reset zoom" title="Reset zoom (0)">⟲</button>
       </div>
     </div>
-  </div>
-</div>
 
-{%- comment -%}
-Lightbox items come ONLY from page.gallery (profile image is not included).
-Supports short form (string) and object form {src, alt}.
-{%- endcomment -%}
-{% assign gallery = page.gallery %}
-<script>
-  window.__characterLightboxItems = [
-    {% if gallery and gallery.size > 0 %}
-      {% for item in gallery %}
-        {
-          {% if item.src %}
-            "src": "{{ item.src | relative_url }}",
-            "alt": {{ (item.alt | default: page.title) | jsonify }}
-          {% else %}
-            "src": "{{ item | relative_url }}",
-            "alt": {{ page.title | jsonify }}
-          {% endif %}
-        }{% unless forloop.last %},{% endunless %}
-      {% endfor %}
-    {% endif %}
-  ];
-</script>
-
-<!-- LIGHTBOX MARKUP -->
-<div id="lb" class="lb" aria-hidden="true">
-  <div class="lb-backdrop" data-close></div>
-
-  <div class="lb-shell" role="dialog" aria-modal="true" aria-label="Image viewer" tabindex="-1">
-    <!-- consistent, larger, lower stage -->
-    <div class="lb-stage" id="lb-stage">
-      <div class="lb-spinner" id="lb-spinner" aria-hidden="true"></div>
-
-      <!-- transform layer for zoom/pan inside fixed stage -->
-      <div id="lb-layer" aria-hidden="true">
-        <img id="lb-img" src="" alt="" draggable="false" />
-      </div>
-
-      <!-- controls locked to stage edges -->
-      <button class="lb-btn lb-prev" data-prev aria-label="Previous">&#10094;</button>
-      <button class="lb-btn lb-next" data-next aria-label="Next">&#10095;</button>
-      <button class="lb-btn lb-close" data-close aria-label="Close">&times;</button>
-    </div>
-
-    <div class="lb-captionbar">
-      <figcaption id="lb-caption" class="lb-caption"></figcaption>
+    <div class="lb-footer">
+      <div class="lb-counter"><span id="lb-index">1</span>/<span id="lb-total">1</span></div>
+      <button class="lb-close" aria-label="Close (Esc)" title="Close (Esc)">Close</button>
     </div>
   </div>
 </div>
 
 <style>
-  /* ===== base ===== */
-  .lb, .lb * { box-sizing: border-box; }
-  .lb { position: fixed; inset: 0; display: none; z-index: 1000; }
-  .lb[aria-hidden="false"] { display: block; }
-  .lb-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.72); backdrop-filter: blur(2px); }
+/* ===== Base page bits (scoped) ===== */
+.character-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+.char-header {
+  display: grid;
+  grid-template-columns: auto 160px;
+  align-items: center;
+  gap: 1rem;
+}
+.char-name { margin: 0; }
+.pfp-trigger {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: .5rem;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,.15);
+}
+.pfp-trigger img {
+  display: block;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+}
 
-  /* shell: centers content, but pushes it further down */
-  .lb-shell {
-    position: absolute; inset: 0;
-    display: grid;
-    place-items: start center;      /* center horizontally, top vertically */
-    padding:
-      calc(env(safe-area-inset-top, 0px) + 10vh)   /* push down ~10vh */
-      12px
-      calc(env(safe-area-inset-bottom, 0px) + 12px);
-  }
+/* ===== Lightspace (modal) ===== */
+.lb-root {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 1000;
+}
+.lb-root[aria-hidden="false"] { display: block; }
 
-  /* ===== CONSISTENT STAGE SIZE =====
-     ~20% wider than before: up to 1440px (was 1200px), and more vertical space.
-     Desktop: width = min(100vw, 1440px), height = 82vh
-  */
-  .lb-stage {
-    position: relative;
-    width: min(100vw, 1440px);
-    height: 82vh;                   /* big vertical space */
-    background: rgba(0,0,0,.25);
-    border-radius: .6rem;
-    box-shadow: 0 16px 40px rgba(0,0,0,.45);
-    overflow: hidden;
-    display: grid; place-items: center;
-  }
+.lb-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(2px);
+}
 
-  /* image layer: fixed to the stage size; image fits (contain) */
-  #lb-layer {
-    width: 100%; height: 100%;
-    display: grid; place-items: center;
-    transform: translate(0px, 0px) scale(1);
-    transform-origin: center center;
-    will-change: transform;
-    touch-action: none;
-  }
+.lb-content {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  /* Consistent size per request */
+  width: 60vw;
+  height: 80vh;
+  max-width: 60vw;
+  max-height: 80vh;
 
-  #lb-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;            /* <= fit best, keep aspect; empty side space for tall imgs */
-    opacity: 0; transition: opacity .12s ease;
-    user-select: none; -webkit-user-drag: none;
-    pointer-events: none;           /* stage handles interactions */
-  }
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: .5rem;
+  z-index: 1;
+  outline: none;
+}
 
-  /* caption under stage, fixed width matching stage */
-  .lb-captionbar {
-    width: min(100vw, 1440px);
-    margin-top: .6rem;
-    display: grid; place-items: center;
-  }
-  .lb-caption {
-    color: #fff; width: 100%;
-    font-size: .95rem; text-align: left;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    min-height: 1.2em;
-  }
+.lb-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,.25);
+  border-radius: .6rem;
+  box-shadow: 0 16px 40px rgba(0,0,0,.45);
+  overflow: hidden; /* required for panning */
+}
 
-  /* controls anchored to stage */
-  .lb-btn {
-    position: absolute;
-    background: rgba(0,0,0,.55);
-    color: #fff; border: none; border-radius: 999px;
-    width: 48px; height: 48px; display: grid; place-items: center;
-    font-size: 22px; cursor: pointer; transition: background .15s ease;
-    z-index: 2;
-  }
-  .lb-btn:hover { background: rgba(0,0,0,.8); }
-  .lb-prev { left: 14px; top: 50%; transform: translateY(-50%); }
-  .lb-next { right: 14px; top: 50%; transform: translateY(-50%); }
-  .lb-close { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 28px; background: rgba(0,0,0,.7); }
+#lb-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;       /* FIT (contain) by default */
+  transform-origin: center;
+  will-change: transform, opacity;
+  opacity: 0;
+  transition: opacity .15s ease;
+}
 
-  /* spinner */
-  .lb-spinner { position: absolute; inset: 0; display: grid; place-items: center; }
-  .lb-spinner::after {
-    content: ""; width: 38px; height: 38px; border-radius: 999px;
-    border: 3px solid rgba(255,255,255,.35); border-top-color: #fff;
-    animation: lbspin 0.8s linear infinite;
-  }
-  [aria-hidden="true"] > .lb-spinner, .lb-spinner[aria-hidden="true"] { display: none; }
-  @keyframes lbspin { to { transform: rotate(360deg); } }
+/* Nav buttons */
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0,0,0,.5);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.lb-prev { left: .5rem; }
+.lb-next { right: .5rem; }
+.lb-nav:hover { background: rgba(0,0,0,.7); }
 
-  /* mobile: full width stage, tall height, still pushed down a bit */
-  @media (max-width: 720px) {
-    .lb-shell {
-      padding-top: calc(env(safe-area-inset-top, 0px) + 6vh); /* still lower than center */
-      padding-left: 0; padding-right: 0;
-    }
-    .lb-stage { width: 100vw; height: 85vh; border-radius: 0; box-shadow: none; }
-    .lb-captionbar { width: 100vw; padding: 0 10px; }
-    .lb-btn { width: 56px; height: 56px; font-size: 24px; }
-    .lb-close { width: 44px; height: 44px; font-size: 28px; }
-    .lb-prev { left: 10px; }
-    .lb-next { right: 10px; }
-  }
+/* Zoom controls */
+.lb-zoom-controls {
+  position: absolute;
+  right: .6rem;
+  bottom: .6rem;
+  display: flex;
+  gap: .35rem;
+}
+.lb-zoom-btn {
+  border: none;
+  border-radius: .5rem;
+  padding: .3rem .55rem;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.lb-zoom-btn:hover { background: rgba(0,0,0,.75); }
 
-  /* cursors managed on the overlay so they never "freeze" */
-  .lb, .lb * { cursor: inherit; }
-  .lb { cursor: default; }
-  .lb.pannable { cursor: grab; }
-  .lb.panning  { cursor: grabbing; }
+/* Footer */
+.lb-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lb-counter {
+  font-size: .95rem;
+  color: #ddd;
+}
+.lb-close {
+  border: none;
+  border-radius: .5rem;
+  padding: .45rem .75rem;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+.lb-close:hover { background: #000; }
+
+/* Mobile: fallback to full-screen */
+@media (max-width: 768px) {
+  .char-header { grid-template-columns: 1fr 120px; }
+  .pfp-trigger img { width: 120px; height: 120px; }
+
+  .lb-content {
+    width: 96vw;
+    height: 86vh;
+    max-width: 96vw;
+    max-height: 86vh;
+  }
+}
 </style>
 
 <script>
+/* ========= GALLERY SETUP =========
+  The gallery is driven by page.gallery in the character's front matter:
+  gallery:
+    - https://kyuukei.s3.../1.png
+    - https://...
+*/
 (function(){
-  const items = (window.__characterLightboxItems || []).filter(Boolean);
-  const profileImg = document.getElementById('profile-image');
-  if (!profileImg) return;
+  const gallery = {{ page.gallery | default: '[]' | jsonify }};
 
-  const lb         = document.getElementById('lb');
-  const stage      = document.getElementById('lb-stage');
-  const layer      = document.getElementById('lb-layer');
-  const imgEl      = document.getElementById('lb-img');
-  const captionEl  = document.getElementById('lb-caption');
-  const spinner    = document.getElementById('lb-spinner');
-
-  const btnClose   = lb.querySelector('.lb-close');
-  const btnPrev    = lb.querySelector('.lb-prev');
-  const btnNext    = lb.querySelector('.lb-next');
+  // Elements
+  const lb = document.getElementById('lb');
+  const pfpBtn = document.getElementById('pfp-trigger');
+  const imgEl = document.getElementById('lb-img');
+  const stage = lb.querySelector('.lb-stage');
+  const prevBtn = lb.querySelector('.lb-prev');
+  const nextBtn = lb.querySelector('.lb-next');
+  const closeBtn = lb.querySelector('.lb-close');
+  const backdrop = lb.querySelector('.lb-backdrop');
+  const idxEl = document.getElementById('lb-index');
+  const totEl = document.getElementById('lb-total');
 
   let index = 0;
-  let scale = 1;
-  const minScale = 1, maxScale = 6;
-  let tx = 0, ty = 0;
-  let panning = false, startX = 0, startY = 0;
 
-  function setVisible(vis) {
-    lb.setAttribute('aria-hidden', vis ? 'false' : 'true');
-    document.body.style.overflow = vis ? 'hidden' : '';
-    document.documentElement.style.overscrollBehavior = vis ? 'none' : '';
-  }
-  function updateCursor(){ if (scale > 1) lb.classList.add('pannable'); else lb.classList.remove('pannable'); }
-  function applyTransform(){ layer.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
-
-  function clampPan() {
-    const rect = stage.getBoundingClientRect();
-    const iw = imgEl.naturalWidth || 1, ih = imgEl.naturalHeight || 1;
-    const stageW = rect.width, stageH = rect.height;
-    const imgAspect = iw/ih, stageAspect = stageW/stageH;
-    let baseW, baseH;
-    if (imgAspect > stageAspect) { baseW = stageW; baseH = stageW / imgAspect; }
-    else { baseH = stageH; baseW = stageH * imgAspect; }
-    const dispW = baseW * scale, dispH = baseH * scale;
-    const maxX = Math.max(0, (dispW - stageW) / 2);
-    const maxY = Math.max(0, (dispH - stageH) / 2);
-    tx = Math.min(maxX, Math.max(-maxX, tx));
-    ty = Math.min(maxY, Math.max(-maxY, ty));
+  function openAt(i=0){
+    if (!gallery.length) return;
+    index = (i+gallery.length) % gallery.length;
+    totEl.textContent = String(gallery.length);
+    lb.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden'; // lock scroll
+    loadCurrent();
+    focusTrap();
   }
 
-  function zoomAt(clientX, clientY, factor) {
-    const prev = scale;
-    scale = Math.max(minScale, Math.min(maxScale, scale * factor));
-    if (scale === prev) return;
-    const rect = stage.getBoundingClientRect();
-    const cx = clientX - rect.left - rect.width / 2;
-    const cy = clientY - rect.top  - rect.height / 2;
-    tx = tx - cx * (scale/prev - 1);
-    ty = ty - cy * (scale/prev - 1);
-    clampPan(); applyTransform(); updateCursor();
-  }
-  function fitBase(){ scale = 1; tx = 0; ty = 0; applyTransform(); updateCursor(); }
-
-  function loadAt(i){
-    index = ((i % items.length) + items.length) % items.length;
-    const it = items[index];
-    spinner.setAttribute('aria-hidden','false'); imgEl.style.opacity = '0';
-
-    const probe = new Image();
-    probe.onload = () => {
-      imgEl.src = it.src; imgEl.alt = it.alt || ''; captionEl.textContent = it.alt || '';
-      spinner.setAttribute('aria-hidden','true'); imgEl.style.opacity = '1';
-      fitBase();  // fits into the fixed stage; tall images get side space automatically
-    };
-    probe.onerror = () => { spinner.setAttribute('aria-hidden','true'); captionEl.textContent = 'Failed to load image'; };
-    probe.src = it.src;
+  function close(){
+    lb.setAttribute('aria-hidden', 'true');
+    document.documentElement.style.overflow = '';
   }
 
-  function openAt(i){ if (!items.length) return; setVisible(true); loadAt(i); }
-  function close(){ setVisible(false); imgEl.src=''; }
+  function loadCurrent(){
+    const url = gallery[index];
+    idxEl.textContent = String(index+1);
+    imgEl.style.opacity = 0;
+    // Reset zoom/pan; onload handler will ensure transform reset as well
+    imgEl.src = url;
+  }
 
-  function prev(){ loadAt(index - 1); }
-  function next(){ loadAt(index + 1); }
+  function next(){ if (!gallery.length) return; index = (index + 1) % gallery.length; loadCurrent(); }
+  function prev(){ if (!gallery.length) return; index = (index - 1 + gallery.length) % gallery.length; loadCurrent(); }
 
-  if (items.length) profileImg.addEventListener('click', () => openAt(0));
+  // Trigger from PFP (do not include PFP in gallery)
+  if (pfpBtn) pfpBtn.addEventListener('click', () => openAt(0));
 
-  btnClose?.addEventListener('click', close);
-  btnPrev ?.addEventListener('click', prev);
-  btnNext ?.addEventListener('click', next);
-  lb.addEventListener('click', (e) => { if (e.target.classList.contains('lb-backdrop')) close(); });
+  // Basic controls
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', (e) => { if (e.target.dataset.close) close(); });
 
-  // keyboard
+  // Keyboard: arrows, esc (plus handled in zoom script below)
   document.addEventListener('keydown', (e) => {
     if (lb.getAttribute('aria-hidden') === 'true') return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowLeft') prev();
-    else if (e.key === 'ArrowRight') next();
-    else if (e.key === '+') zoomAt(window.innerWidth/2, window.innerHeight/2, 1.15);
-    else if (e.key === '-') zoomAt(window.innerWidth/2, window.innerHeight/2, 1/1.15);
-    else if (e.key === '0') fitBase();
+    if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); }
+    if (e.key === 'Escape')     { e.preventDefault(); close(); }
   });
 
-  // wheel zoom
+  // Simple focus trap inside modal
+  function focusTrap(){
+    const focusables = lb.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const first = focusables[0], last = focusables[focusables.length - 1];
+    if (first) first.focus();
+    lb.addEventListener('keydown', function(e){
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+
+  // Fade in when loaded
+  imgEl.addEventListener('load', () => { imgEl.style.opacity = 1; });
+
+  /* ====== Pan + Zoom (FIT by default) ====== */
+  let scale = 1, minScale = 1, maxScale = 6;
+  let posX = 0, posY = 0;
+  let isPanning = false;
+  let startX = 0, startY = 0;
+
+  let pinchStartDist = 0;
+  let pinchStartScale = 1;
+  function dist(a, b){ const dx = a.clientX - b.clientX, dy = a.clientY - b.clientY; return Math.hypot(dx, dy); }
+
+  function applyTransform() {
+    imgEl.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+  }
+  function resetTransform() {
+    scale = 1; posX = 0; posY = 0; applyTransform();
+  }
+  function clampPan() {
+    const rect = stage.getBoundingClientRect();
+    const iw = imgEl.naturalWidth || rect.width;
+    const ih = imgEl.naturalHeight || rect.height;
+    const stageRatio = rect.width / rect.height;
+    const imgRatio = iw / ih;
+
+    let fitW, fitH;
+    if (imgRatio > stageRatio) { fitW = rect.width; fitH = rect.width / imgRatio; }
+    else { fitH = rect.height; fitW = rect.height * imgRatio; }
+
+    const shownW = fitW * scale;
+    const shownH = fitH * scale;
+
+    const maxX = Math.max(0, (shownW - rect.width) / 2);
+    const maxY = Math.max(0, (shownH - rect.height) / 2);
+
+    posX = Math.min(maxX, Math.max(-maxX, posX));
+    posY = Math.min(maxY, Math.max(-maxY, posY));
+  }
+  function zoomAt(factor, cx, cy) {
+    const rect = stage.getBoundingClientRect();
+    const prevScale = scale;
+    scale = Math.min(maxScale, Math.max(minScale, scale * factor));
+    const eff = scale / prevScale;
+
+    const offsetX = (cx ?? (rect.left + rect.width/2)) - (rect.left + rect.width/2);
+    const offsetY = (cy ?? (rect.top + rect.height/2)) - (rect.top + rect.height/2);
+
+    posX = (posX - offsetX) * eff + offsetX;
+    posY = (posY - offsetY) * eff + offsetY;
+
+    clampPan();
+    applyTransform();
+  }
+
+  // Reset zoom when new image loads
+  imgEl.addEventListener('load', resetTransform);
+
+  // Wheel zoom
   stage.addEventListener('wheel', (e) => {
     if (lb.getAttribute('aria-hidden') === 'true') return;
     e.preventDefault();
-    zoomAt(e.clientX, e.clientY, e.deltaY > 0 ? 1/1.15 : 1.15);
+    const factor = e.deltaY < 0 ? 1.1 : 1/1.1;
+    zoomAt(factor, e.clientX, e.clientY);
   }, { passive: false });
 
-  // pan while zoomed
-  stage.addEventListener('pointerdown', (e) => {
-    if (scale <= 1) return;
-    e.preventDefault();
-    panning = true; lb.classList.add('panning');
-    startX = e.clientX - tx; startY = e.clientY - ty;
-    stage.setPointerCapture(e.pointerId);
+  // Drag to pan
+  stage.addEventListener('mousedown', (e) => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    isPanning = true;
+    startX = e.clientX - posX;
+    startY = e.clientY - posY;
+    stage.style.cursor = (scale > 1) ? 'grabbing' : 'default';
   });
-  stage.addEventListener('pointermove', (e) => {
-    if (!panning) return;
-    e.preventDefault();
-    tx = e.clientX - startX; ty = e.clientY - startY;
-    clampPan(); applyTransform();
+  window.addEventListener('mousemove', (e) => {
+    if (!isPanning) return;
+    posX = e.clientX - startX;
+    posY = e.clientY - startY;
+    clampPan();
+    applyTransform();
   });
-  function endPan(e){ if (!panning) return; panning = false; lb.classList.remove('panning'); try { stage.releasePointerCapture(e.pointerId); } catch(_) {} }
-  stage.addEventListener('pointerup', endPan);
-  stage.addEventListener('pointercancel', endPan);
+  window.addEventListener('mouseup', () => {
+    isPanning = false;
+    stage.style.cursor = '';
+  });
 
-  // double click / tap toggle
-  let lastTap = 0;
-  stage.addEventListener('dblclick', (e) => { e.preventDefault(); if (scale === 1) zoomAt(e.clientX, e.clientY, 2.0); else fitBase(); });
-  stage.addEventListener('touchend', (e) => { const now = Date.now(); if (now - lastTap < 300) { const t = e.changedTouches[0]; if (scale === 1) zoomAt(t.clientX, t.clientY, 2.0); else fitBase(); } lastTap = now; }, { passive: true });
+  // Double-click toggle zoom
+  stage.addEventListener('dblclick', (e) => {
+    if (scale === 1) zoomAt(2, e.clientX, e.clientY);
+    else { resetTransform(); }
+  });
 
-  // resize: keep centered/clamped in the fixed stage
-  window.addEventListener('resize', () => { if (lb.getAttribute('aria-hidden') === 'true') return; if (scale === 1) fitBase(); else { clampPan(); applyTransform(); } });
+  // Touch pan/pinch
+  stage.addEventListener('touchstart', (e) => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    if (e.touches.length === 1) {
+      isPanning = true;
+      startX = e.touches[0].clientX - posX;
+      startY = e.touches[0].clientY - posY;
+    } else if (e.touches.length === 2) {
+      isPanning = false;
+      pinchStartDist = dist(e.touches[0], e.touches[1]);
+      pinchStartScale = scale;
+    }
+  }, {passive: true});
+
+  stage.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1 && isPanning) {
+      posX = e.touches[0].clientX - startX;
+      posY = e.touches[0].clientY - startY;
+      clampPan();
+      applyTransform();
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      const d = dist(e.touches[0], e.touches[1]);
+      const factor = d / (pinchStartDist || d);
+      scale = Math.min(maxScale, Math.max(minScale, pinchStartScale * factor));
+      clampPan();
+      applyTransform();
+    }
+  }, {passive: false});
+
+  window.addEventListener('touchend', () => { isPanning = false; }, {passive: true});
+
+  // Keyboard helpers
+  document.addEventListener('keydown', (e) => {
+    if (lb.getAttribute('aria-hidden') === 'true') return;
+    if (e.key === '+') { e.preventDefault(); zoomAt(1.1); }
+    if (e.key === '-') { e.preventDefault(); zoomAt(1/1.1); }
+    if (e.key === '0') { e.preventDefault(); resetTransform(); }
+  });
+
+  // Zoom buttons
+  lb.querySelectorAll('.lb-zoom-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.zoom;
+      if (mode === 'in') zoomAt(1.1);
+      if (mode === 'out') zoomAt(1/1.1);
+      if (mode === 'reset') resetTransform();
+    });
+  });
+
 })();
 </script>
