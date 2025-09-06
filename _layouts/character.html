@@ -9,12 +9,13 @@ layout: default
       Back to Character Selection
     </button>
   </div>
-  
+
   <div class="detail-container">
     <!-- Left Panel: Character Background/Abilities -->
     <div class="left-panel">
       {{ content }}
     </div>
+
     <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <div class="image-container">
@@ -49,6 +50,7 @@ layout: default
       <div class="gallery-viewport">
         <img class="gallery-image" alt="">
       </div>
+
       <!-- UI Controls -->
       <div class="gallery-controls">
         <button class="gallery-btn gallery-prev" aria-label="Previous (←)">&#10094;</button>
@@ -59,6 +61,7 @@ layout: default
         </div>
         <button class="gallery-btn gallery-next" aria-label="Next (→)">&#10095;</button>
       </div>
+
       <div class="gallery-counter" aria-live="polite"></div>
     </div>
   </div>
@@ -81,7 +84,7 @@ layout: default
     inset: 0;
     display: grid;
     place-items: center;
-    pointer-events: none; /* allow clicks to pass unless on children */
+    pointer-events: none;
   }
 
   .gallery-stage {
@@ -92,10 +95,9 @@ layout: default
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     position: relative;
     overflow: hidden;
-    pointer-events: auto; /* re-enable inside modal */
+    pointer-events: auto;
   }
 
-  /* Close button */
   .gallery-close {
     position: absolute;
     top: 12px;
@@ -114,26 +116,24 @@ layout: default
   /* Viewport keeps consistent size, image fits (no crop) */
   .gallery-viewport {
     position: absolute;
-    inset: 48px 0 56px 0; /* leave room for controls/counter */
+    inset: 48px 0 56px 0; /* room for controls/counter */
     display: grid;
     place-items: center;
-    overflow: hidden; /* for panning bounds */
-    touch-action: none; /* for better pointer handling */
+    overflow: hidden;     /* panning bounds */
+    touch-action: none;   /* better pointer handling */
   }
+
+  /* IMPORTANT: Fit by default; never crop */
   .gallery-image {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;      /* full image always visible */
     user-select: none;
     will-change: transform;
     transform-origin: center center;
-    /* IMPORTANT: Fit by default; never crop */
-    object-fit: contain; /* (safe with explicit width/height auto) */
-    pointer-events: none; /* image itself won’t intercept events; container handles drag */
+    pointer-events: none;     /* viewport handles drag */
   }
 
-  /* Controls */
   .gallery-controls {
     position: absolute;
     left: 0;
@@ -160,7 +160,6 @@ layout: default
     font-size: 18px;
     min-width: 44px;
   }
-
   .gallery-zoom {
     display: flex;
     align-items: center;
@@ -178,7 +177,7 @@ layout: default
     border-radius: 6px;
   }
 
-  /* Make sure nothing outside gets affected */
+  /* Ensure nothing outside gets affected */
   .character-detail .right-panel .image-container img#character-pfp { display: block; }
 </style>
 
@@ -186,14 +185,11 @@ layout: default
 (function(){
   // Pull gallery URLs from front matter
   const GALLERY = ({% if page.gallery and page.gallery.size > 0 %}[{% for url in page.gallery %}"{{ url | escape }}"{% unless forloop.last %},{% endunless %}{% endfor %}]{% else %}[] {% endif %});
-
-  // Early exit if no gallery defined
   if (!GALLERY.length) return;
 
   // Elements
   const pfp = document.getElementById('character-pfp');
   const overlay = document.querySelector('.gallery-overlay');
-  const stage = document.querySelector('.gallery-stage');
   const viewport = document.querySelector('.gallery-viewport');
   const img = document.querySelector('.gallery-image');
   const btnClose = document.querySelector('.gallery-close');
@@ -206,8 +202,8 @@ layout: default
 
   let index = 0;
   let scale = 1;
-  let minScale = 1;
-  let maxScale = 6;
+  const minScale = 1;
+  const maxScale = 6;
   let pos = { x: 0, y: 0 };
   let isPanning = false;
   let start = { x: 0, y: 0 };
@@ -216,11 +212,24 @@ layout: default
     counter.textContent = (index + 1) + ' / ' + GALLERY.length;
   }
 
+  function applyTransform(){
+    img.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${scale})`;
+  }
+
+  function clampPan(){
+    const rect = viewport.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect(); // includes current scale
+    const halfW = Math.max(0, (imgRect.width - rect.width) / 2);
+    const halfH = Math.max(0, (imgRect.height - rect.height) / 2);
+    pos.x = Math.min(halfW, Math.max(-halfW, pos.x));
+    pos.y = Math.min(halfH, Math.max(-halfH, pos.y));
+  }
+
   function loadImage(i){
     index = (i + GALLERY.length) % GALLERY.length;
     img.src = GALLERY[index];
     img.onload = function(){
-      // Reset zoom and pan on image change
+      // Reset zoom and pan on image change — baseline is fitted (contain)
       scale = 1;
       pos.x = 0;
       pos.y = 0;
@@ -233,38 +242,14 @@ layout: default
     overlay.style.display = 'block';
     overlay.setAttribute('aria-hidden','false');
     loadImage(startIndex);
-    // Trap focus to modal (simple)
     btnClose.focus();
-    // Prevent page scroll while open
-    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden'; // lock page scroll
   }
 
   function closeOverlay(){
     overlay.style.display = 'none';
     overlay.setAttribute('aria-hidden','true');
     document.documentElement.style.overflow = '';
-  }
-
-  function applyTransform(){
-    img.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${scale})`;
-  }
-
-  function clampPan(){
-    // Constrain panning so image never disappears completely
-    const rect = viewport.getBoundingClientRect();
-    const imgW = img.naturalWidth;
-    const imgH = img.naturalHeight;
-
-    // Compute displayed size at current scale (fit by default)
-    const fitScale = Math.min(rect.width / imgW, rect.height / imgH);
-    const displayedW = imgW * fitScale * scale;
-    const displayedH = imgH * fitScale * scale;
-
-    const limitX = Math.max(0, (displayedW - rect.width) / 2);
-    const limitY = Math.max(0, (displayedH - rect.height) / 2);
-
-    pos.x = Math.min(limitX, Math.max(-limitX, pos.x));
-    pos.y = Math.min(limitY, Math.max(-limitY, pos.y));
   }
 
   function zoomAt(delta, clientX, clientY){
@@ -283,11 +268,14 @@ layout: default
     applyTransform();
   }
 
-  // Event hooks
+  // Open from PFP click
   pfp.addEventListener('click', () => openOverlay(0));
+
+  // Close/backdrop
   btnClose.addEventListener('click', closeOverlay);
   overlay.querySelector('.gallery-backdrop').addEventListener('click', closeOverlay);
 
+  // Buttons
   btnPrev.addEventListener('click', () => loadImage(index - 1));
   btnNext.addEventListener('click', () => loadImage(index + 1));
   btnZoomIn.addEventListener('click', () => { scale = Math.min(maxScale, scale * 1.2); clampPan(); applyTransform(); });
@@ -304,8 +292,8 @@ layout: default
 
   // Pan handlers (mouse + touch)
   function pointerDown(e){
+    if (scale <= 1) return; // only pan when zoomed
     isPanning = true;
-    viewport.setPointerCapture ? viewport.setPointerCapture(e.pointerId || 1) : null;
     start.x = (e.clientX ?? (e.touches && e.touches[0].clientX)) - pos.x;
     start.y = (e.clientY ?? (e.touches && e.touches[0].clientY)) - pos.y;
   }
@@ -318,25 +306,22 @@ layout: default
     clampPan();
     applyTransform();
   }
-  function pointerUp(){
-    isPanning = false;
-  }
+  function pointerUp(){ isPanning = false; }
 
   // Mouse
-  viewport.addEventListener('mousedown', (e) => { if (scale > 1) pointerDown(e); });
+  viewport.addEventListener('mousedown', pointerDown);
   window.addEventListener('mousemove', pointerMove);
   window.addEventListener('mouseup', pointerUp);
 
   // Touch
-  viewport.addEventListener('touchstart', (e) => { if (scale > 1) pointerDown(e); }, {passive:false});
+  viewport.addEventListener('touchstart', pointerDown, {passive:false});
   window.addEventListener('touchmove', (e) => { if (isPanning) { e.preventDefault(); pointerMove(e); } }, {passive:false});
   window.addEventListener('touchend', pointerUp);
 
-  // Wheel zoom (fit by default, never crop)
+  // Wheel zoom
   viewport.addEventListener('wheel', (e) => {
     e.preventDefault();
     zoomAt(e.deltaY, e.clientX, e.clientY);
   }, { passive: false });
-
 })();
 </script>
