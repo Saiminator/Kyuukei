@@ -1,72 +1,3 @@
----
-layout: default
----
-
-<div class="character-detail">
-  <!-- Back Button Container for Centering -->
-  <div class="back-btn-container" style="text-align: center; margin-bottom: 1rem;">
-    <button class="back-select-btn" onclick="window.history.back();">
-      Back to Character Selection
-    </button>
-  </div>
-
-  <div class="detail-container">
-    <!-- Left Panel: Character Background/Abilities -->
-    <div class="left-panel">
-      {{ content }}
-    </div>
-
-    <!-- Right Panel: Character Image and Basic Info -->
-    <div class="right-panel">
-      <div class="image-container">
-        <img src="{{ page.image }}" alt="{{ page.title }}" id="character-pfp" style="cursor: zoom-in;">
-      </div>
-      <div class="basic-info">
-        {% if page.age %}<p><strong>Age:</strong> {{ page.age }}</p>{% endif %}
-        {% if page.birthday %}<p><strong>Birthday:</strong> {{ page.birthday }}</p>{% endif %}
-        {% if page.species %}<p><strong>Species:</strong> {{ page.species }}</p>{% endif %}
-        {% if page.gender %}<p><strong>Gender:</strong> {{ page.gender }}</p>{% endif %}
-        {% if page.height %}<p><strong>Height:</strong> {{ page.height }}</p>{% endif %}
-        {% if page.weight %}<p><strong>Weight:</strong> {{ page.weight }}</p>{% endif %}
-        {% if page.cup_size %}<p><strong>Cup Size:</strong> {{ page.cup_size }}</p>{% endif %}
-        {% if page.mana_color %}<p><strong>Mana Color:</strong> {{ page.mana_color }}</p>{% endif %}
-        {% if page.hair_color %}<p><strong>Hair color:</strong> {{ page.hair_color }}</p>{% endif %}
-        {% if page.eye_color %}<p><strong>Eye color:</strong> {{ page.eye_color }}</p>{% endif %}
-        {% if page.credit %}<p><strong>Picture Credit:</strong> {{ page.credit }}</p>{% endif %}
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ========================= -->
-<!-- Gallery Lightbox Overlay  -->
-<!-- ========================= -->
-<div class="gallery-overlay" aria-hidden="true" style="display:none;">
-  <div class="gallery-backdrop"></div>
-  <div class="gallery-modal" role="dialog" aria-modal="true" aria-label="Image gallery">
-    <button class="gallery-btn gallery-close" aria-label="Close (Esc)">&times;</button>
-
-    <div class="gallery-stage">
-      <div class="gallery-viewport" aria-label="Image viewport">
-        <img class="gallery-image" alt="" draggable="false">
-      </div>
-
-      <!-- UI Controls -->
-      <div class="gallery-controls">
-        <button class="gallery-btn gallery-prev" aria-label="Previous (←)">&#10094;</button>
-        <div class="gallery-zoom">
-          <button class="gallery-btn gallery-zoom-out" aria-label="Zoom out">−</button>
-          <button class="gallery-btn gallery-zoom-reset" aria-label="Reset zoom">1:1</button>
-          <button class="gallery-btn gallery-zoom-in" aria-label="Zoom in">+</button>
-        </div>
-        <button class="gallery-btn gallery-next" aria-label="Next (→)">&#10095;</button>
-      </div>
-
-      <div class="gallery-counter" aria-live="polite"></div>
-    </div>
-  </div>
-</div>
-
 <style>
   /* ===== Lightbox Base (scoped) ===== */
   .gallery-overlay {
@@ -89,7 +20,7 @@ layout: default
 
   .gallery-stage {
     width: 60vw;       /* consistent width */
-    height: 88vh;      /* a bit taller than before */
+    height: 95vh;      /* 95% of screen height */
     background: #111;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
@@ -113,10 +44,9 @@ layout: default
     z-index: 2;
   }
 
-  /* Viewport keeps consistent size; we manage scaling in JS */
   .gallery-viewport {
     position: absolute;
-    inset: 48px 0 56px 0;  /* space for controls/counter */
+    inset: 48px 0 56px 0;
     overflow: hidden;
     touch-action: none;
     user-select: none;
@@ -124,7 +54,6 @@ layout: default
   }
   .gallery-viewport.grabbing { cursor: grabbing; }
 
-  /* Absolutely center the image so its natural size never breaks layout */
   .gallery-image {
     position: absolute;
     left: 50%;
@@ -135,7 +64,7 @@ layout: default
     max-height: none;
     transform-origin: center center;
     will-change: transform;
-    pointer-events: none;   /* viewport handles interactions */
+    pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;
   }
@@ -183,200 +112,5 @@ layout: default
     border-radius: 6px;
   }
 
-  /* Keep existing page layout intact */
   .character-detail .right-panel .image-container img#character-pfp { display: block; }
 </style>
-
-<script>
-(function(){
-  // Pull gallery URLs from front matter
-  const GALLERY = ({% if page.gallery and page.gallery.size > 0 %}[{% for url in page.gallery %}"{{ url | escape }}"{% unless forloop.last %},{% endunless %}{% endfor %}]{% else %}[] {% endif %});
-  if (!GALLERY.length) return;
-
-  // Elements
-  const pfp = document.getElementById('character-pfp');
-  const overlay = document.querySelector('.gallery-overlay');
-  const viewport = document.querySelector('.gallery-viewport');
-  const img = document.querySelector('.gallery-image');
-  const btnClose = document.querySelector('.gallery-close');
-  const btnPrev = document.querySelector('.gallery-prev');
-  const btnNext = document.querySelector('.gallery-next');
-  const btnZoomIn = document.querySelector('.gallery-zoom-in');
-  const btnZoomOut = document.querySelector('.gallery-zoom-out');
-  const btnZoomReset = document.querySelector('.gallery-zoom-reset');
-  const counter = document.querySelector('.gallery-counter');
-
-  let index = 0;
-
-  // Zoom & pan state
-  let scale0 = 1;   // fitted baseline (computed per image)
-  let scale = 1;    // current scale (relative to fitted)
-  const minScale = 1;
-  const maxScale = 6;
-  let pos = { x: 0, y: 0 };
-  let isPanning = false;
-  let start = { x: 0, y: 0 };
-
-  // Prevent browser image drag ghost
-  img.ondragstart = () => false;
-
-  function updateCounter(){
-    counter.textContent = (index + 1) + ' / ' + GALLERY.length;
-  }
-
-  // Compute fitted baseline: prioritize HEIGHT of viewport but contain overall (no crop).
-  function computeFitScale(){
-    const rect = viewport.getBoundingClientRect();
-    const vw = rect.width;
-    const vh = rect.height;
-    const iw = img.naturalWidth || 1;
-    const ih = img.naturalHeight || 1;
-
-    // Height-first intention, but clamp with contain to avoid horizontal overflow.
-    const heightFit = vh / ih;
-    const widthFit  = vw / iw;
-    scale0 = Math.min(heightFit, widthFit);  // auto-scales down big images
-  }
-
-  function applyTransform(){
-    // Translate from absolute center, then apply pan + scale
-    img.style.transform =
-      `translate(-50%, -50%) translate(${pos.x}px, ${pos.y}px) scale(${scale0 * scale})`;
-  }
-
-  function clampPan(){
-    const rect = viewport.getBoundingClientRect();
-    const iw = (img.naturalWidth  || 1) * scale0 * scale;
-    const ih = (img.naturalHeight || 1) * scale0 * scale;
-
-    const halfW = Math.max(0, (iw - rect.width) / 2);
-    const halfH = Math.max(0, (ih - rect.height) / 2);
-
-    pos.x = Math.min(halfW, Math.max(-halfW, pos.x));
-    pos.y = Math.min(halfH, Math.max(-halfH, pos.y));
-  }
-
-  function centerImage(){ pos.x = 0; pos.y = 0; }
-
-  function loadImage(i){
-    index = (i + GALLERY.length) % GALLERY.length;
-    img.src = GALLERY[index];
-    img.onload = function(){
-      computeFitScale();   // baseline fit (auto-downscale if needed)
-      scale = 1;           // 1 == fitted
-      centerImage();
-      applyTransform();
-      updateCounter();
-    };
-  }
-
-  function openOverlay(startIndex=0){
-    overlay.style.display = 'block';
-    overlay.setAttribute('aria-hidden','false');
-    loadImage(startIndex);
-    btnClose.focus();
-    document.documentElement.style.overflow = 'hidden'; // lock page scroll
-  }
-
-  function closeOverlay(){
-    overlay.style.display = 'none';
-    overlay.setAttribute('aria-hidden','true');
-    document.documentElement.style.overflow = '';
-  }
-
-  function zoomAt(deltaY, clientX, clientY){
-    // Scroll up = zoom in, down = out
-    const prevScale = scale;
-    const newScale = deltaY < 0 ? scale * 1.1 : scale / 1.1;
-    scale = Math.max(minScale, Math.min(maxScale, newScale));
-
-    // Keep the point under the cursor stable while zooming
-    const rect = viewport.getBoundingClientRect();
-    const cx = clientX - rect.left - rect.width  / 2 - pos.x;
-    const cy = clientY - rect.top  - rect.height / 2 - pos.y;
-    const ratio = scale / prevScale;
-    pos.x -= cx * (ratio - 1);
-    pos.y -= cy * (ratio - 1);
-
-    clampPan();
-    applyTransform();
-  }
-
-  // Refit on resize (keeps image contained)
-  window.addEventListener('resize', () => {
-    if (overlay.getAttribute('aria-hidden') === 'true') return;
-    const keepCenter = { x: 0, y: 0 };
-    // recompute baseline but keep current relative zoom level
-    const currentAbsScale = scale0 * scale;
-    computeFitScale();
-    // adjust scale to preserve visual zoom as closely as possible
-    const newScale = currentAbsScale / scale0;
-    scale = Math.max(minScale, Math.min(maxScale, newScale));
-    clampPan();
-    applyTransform();
-  });
-
-  // Open from PFP click
-  pfp.addEventListener('click', () => openOverlay(0));
-
-  // Close/backdrop
-  btnClose.addEventListener('click', closeOverlay);
-  overlay.querySelector('.gallery-backdrop').addEventListener('click', closeOverlay);
-
-  // Buttons
-  btnPrev.addEventListener('click', () => loadImage(index - 1));
-  btnNext.addEventListener('click', () => loadImage(index + 1));
-  btnZoomIn.addEventListener('click', () => { scale = Math.min(maxScale, scale * 1.2); clampPan(); applyTransform(); });
-  btnZoomOut.addEventListener('click', () => { scale = Math.max(minScale, scale / 1.2); clampPan(); applyTransform(); });
-  btnZoomReset.addEventListener('click', () => { computeFitScale(); scale = 1; centerImage(); applyTransform(); });
-
-  // Keyboard controls
-  window.addEventListener('keydown', (e) => {
-    if (overlay.getAttribute('aria-hidden') === 'true') return;
-    if (e.key === 'Escape') closeOverlay();
-    if (e.key === 'ArrowLeft') loadImage(index - 1);
-    if (e.key === 'ArrowRight') loadImage(index + 1);
-  });
-
-  // Pan handlers (mouse + touch)
-  function pointerDown(e){
-    if (scale <= 1) return; // only pan when zoomed
-    isPanning = true;
-    viewport.classList.add('grabbing');
-    e.preventDefault(); // stop browser image drag/select
-    const cX = e.clientX ?? (e.touches && e.touches[0].clientX);
-    const cY = e.clientY ?? (e.touches && e.touches[0].clientY);
-    start.x = cX - pos.x;
-    start.y = cY - pos.y;
-  }
-  function pointerMove(e){
-    if (!isPanning) return;
-    const cX = e.clientX ?? (e.touches && e.touches[0].clientX);
-    const cY = e.clientY ?? (e.touches && e.touches[0].clientY);
-    pos.x = cX - start.x;
-    pos.y = cY - start.y;
-    clampPan();
-    applyTransform();
-  }
-  function pointerUp(){
-    isPanning = false;
-    viewport.classList.remove('grabbing');
-  }
-
-  // Mouse
-  viewport.addEventListener('mousedown', pointerDown);
-  window.addEventListener('mousemove', pointerMove);
-  window.addEventListener('mouseup', pointerUp);
-
-  // Touch
-  viewport.addEventListener('touchstart', pointerDown, {passive:false});
-  window.addEventListener('touchmove', (e) => { if (isPanning) { e.preventDefault(); pointerMove(e); } }, {passive:false});
-  window.addEventListener('touchend', pointerUp);
-
-  // Wheel zoom
-  viewport.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    zoomAt(e.deltaY, e.clientX, e.clientY);
-  }, { passive: false });
-})();
-</script>
