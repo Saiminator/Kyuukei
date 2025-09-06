@@ -7,6 +7,19 @@ height: "90mm"
 weight: "243g"
 mana_color: "Pink"
 last_modified_at: "2025-08-28"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/1.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/2.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/3.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/4.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/5.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/6.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/7.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/8.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/9.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/10.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/11.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/orby/12.png
 ---
 
 ## Background
