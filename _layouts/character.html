@@ -45,9 +45,6 @@ layout: default
   <div class="gallery-backdrop"></div>
   <div class="gallery-modal" role="dialog" aria-modal="true" aria-label="Image gallery">
     <div class="gallery-stage">
-      <!-- Move Close button INSIDE the stage so it's always tappable -->
-      <button class="gallery-btn gallery-close" aria-label="Close (Esc)">&times;</button>
-
       <div class="gallery-viewport" aria-label="Image viewport">
         <img class="gallery-image" alt="" draggable="false">
       </div>
@@ -65,6 +62,8 @@ layout: default
 
       <div class="gallery-counter" aria-live="polite"></div>
     </div>
+    <!-- Close button (fixed to viewport) -->
+    <button class="gallery-btn gallery-close" aria-label="Close (Esc)">&times;</button>
   </div>
 </div>
 
@@ -85,13 +84,12 @@ layout: default
     inset: 0;
     display: grid;
     place-items: center;
-    /* IMPORTANT: allow taps/clicks inside modal (fixes mobile close button) */
     pointer-events: auto;
   }
 
   .gallery-stage {
-    width: 60vw;       /* desktop width */
-    height: 95vh;      /* tall vertical space */
+    width: 60vw;
+    height: 100vh;   /* full vertical on desktop */
     background: rgba(17,17,17,0.4); /* 40% transparent black */
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
@@ -103,33 +101,33 @@ layout: default
   /* ✅ Mobile/tablet responsive override */
   @media (max-width: 1280px) {
     .gallery-stage {
-      width: 100vw;    /* full width on smaller screens */
-      height: 90vh;    /* 5% shorter to account for mobile browser UI */
-      border-radius: 0; /* fullscreen feel */
+      width: 100vw;
+      height: 90vh;   /* shorter to avoid mobile URL bar */
+      border-radius: 0;
     }
   }
 
   .gallery-close {
-    position: absolute;
-    top: 12px;
+    position: fixed;   /* fixed to viewport, not stage */
+    top: 16px;
     right: 16px;
     font-size: 28px;
     line-height: 1;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.55);
     color: #fff;
     border: none;
     border-radius: 10px;
-    padding: 10px 14px;       /* larger tap target */
+    padding: 10px 14px;
     cursor: pointer;
-    z-index: 3;
-    touch-action: manipulation; /* faster taps on mobile */
+    z-index: 10000;   /* above everything */
+    touch-action: manipulation;
   }
 
   .gallery-viewport {
     position: absolute;
     inset: 48px 0 56px 0;
     overflow: hidden;
-    touch-action: none;   /* we handle pan/pinch ourselves */
+    touch-action: none;
     user-select: none;
     cursor: grab;
   }
@@ -215,16 +213,13 @@ layout: default
   const counter = document.querySelector('.gallery-counter');
 
   let index = 0;
-
-  // Zoom & pan state
-  let scale0 = 1;   // fitted baseline (computed per image)
-  let scale = 1;    // current scale (relative to fitted)
+  let scale0 = 1;
+  let scale = 1;
   const minScale = 1, maxScale = 6;
   let pos = { x: 0, y: 0 };
   let isPanning = false;
   let start = { x: 0, y: 0 };
 
-  // Gesture helpers
   let isPinching = false;
   let pinchStartDist = 0;
   let pinchStartScale = 1;
@@ -232,7 +227,6 @@ layout: default
   let tapTimer = 0;
   const DOUBLE_TAP_MS = 280;
 
-  // Swipe helpers (when not zoomed)
   let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
 
   img.ondragstart = () => false;
@@ -244,7 +238,7 @@ layout: default
     const iw = img.naturalWidth||1, ih = img.naturalHeight||1;
     const heightFit = rect.height / ih;
     const widthFit  = rect.width  / iw;
-    scale0 = Math.min(heightFit, widthFit);  // contain (no crop), height-first intention
+    scale0 = Math.min(heightFit, widthFit);
   }
 
   function applyTransform(){
@@ -289,7 +283,7 @@ layout: default
 
   function zoomAt(deltaY,clientX,clientY){
     const prev=scale;
-    const next=deltaY<0?scale*1.1:scale/1.1; // inverted: wheel up => zoom in
+    const next=deltaY<0?scale*1.1:scale/1.1;
     scale=Math.max(minScale,Math.min(maxScale,next));
     const rect=viewport.getBoundingClientRect();
     const cx=clientX-rect.left-rect.width/2-pos.x;
@@ -300,7 +294,6 @@ layout: default
     clampPan(); applyTransform();
   }
 
-  // Maintain visual zoom after orientation/resize
   window.addEventListener('resize',()=>{
     if(overlay.getAttribute('aria-hidden')==='true')return;
     const currentAbs=scale0*scale;
@@ -309,19 +302,16 @@ layout: default
     clampPan(); applyTransform();
   });
 
-  // Open/Close hooks
   pfp.addEventListener('click',()=>openOverlay(0));
   btnClose.addEventListener('click',closeOverlay);
   backdrop.addEventListener('click',closeOverlay);
 
-  // Buttons
   btnPrev.addEventListener('click',()=>loadImage(index-1));
   btnNext.addEventListener('click',()=>loadImage(index+1));
   btnZoomIn.addEventListener('click',()=>{scale=Math.min(maxScale,scale*1.2);clampPan();applyTransform();});
   btnZoomOut.addEventListener('click',()=>{scale=Math.max(minScale,scale/1.2);clampPan();applyTransform();});
   btnZoomReset.addEventListener('click',()=>{computeFitScale();scale=1;centerImage();applyTransform();});
 
-  // Keyboard
   window.addEventListener('keydown',e=>{
     if(overlay.getAttribute('aria-hidden')==='true')return;
     if(e.key==='Escape')closeOverlay();
@@ -329,11 +319,6 @@ layout: default
     if(e.key==='ArrowRight')loadImage(index+1);
   });
 
-  /* =========================
-     Pointer & Touch Gestures
-     ========================= */
-
-  // Helpers
   function distance(t1, t2){
     const dx = t1.clientX - t2.clientX;
     const dy = t1.clientY - t2.clientY;
@@ -343,14 +328,11 @@ layout: default
     return { x: (t1.clientX + t2.clientX)/2, y: (t1.clientY + t2.clientY)/2 };
   }
 
-  // Double-tap to toggle zoom (1 -> 2 -> 1)
   function handleDoubleTap(e){
     const now = Date.now();
     if (now - tapTimer < DOUBLE_TAP_MS) {
-      // toggle between fitted(1) and ~2x
       const prev = scale;
       scale = scale > 1 ? 1 : 2;
-      // zoom around tap point
       const rect = viewport.getBoundingClientRect();
       const cx = (e.changedTouches ? e.changedTouches[0].clientX : e.clientX) - rect.left - rect.width/2 - pos.x;
       const cy = (e.changedTouches ? e.changedTouches[0].clientY : e.clientY) - rect.top - rect.height/2 - pos.y;
@@ -362,10 +344,8 @@ layout: default
     tapTimer = now;
   }
 
-  // Touch start
   viewport.addEventListener('touchstart', (e) => {
     if (e.touches.length === 2) {
-      // Begin pinch
       isPinching = true;
       isPanning = false;
       const [t1, t2] = e.touches;
@@ -373,7 +353,6 @@ layout: default
       pinchStartScale = scale;
       pinchMid = midpoint(t1, t2);
     } else if (e.touches.length === 1) {
-      // Possible pan or swipe or double-tap
       handleDoubleTap(e);
       const t = e.touches[0];
       if (scale > 1) {
@@ -383,7 +362,6 @@ layout: default
         start.x = t.clientX - pos.x;
         start.y = t.clientY - pos.y;
       } else {
-        // track swipe when not zoomed
         touchStartX = t.clientX;
         touchStartY = t.clientY;
         touchStartTime = Date.now();
@@ -391,7 +369,6 @@ layout: default
     }
   }, { passive: false });
 
-  // Touch move
   viewport.addEventListener('touchmove', (e) => {
     if (isPinching && e.touches.length === 2) {
       e.preventDefault();
@@ -399,15 +376,12 @@ layout: default
       const newDist = distance(t1, t2);
       const prev = scale;
       scale = Math.max(minScale, Math.min(maxScale, (newDist / pinchStartDist) * pinchStartScale));
-
-      // Keep pinch midpoint stable
       const rect = viewport.getBoundingClientRect();
       const cx = pinchMid.x - rect.left - rect.width/2 - pos.x;
       const cy = pinchMid.y - rect.top  - rect.height/2 - pos.y;
       const ratio = scale / prev;
       pos.x -= cx * (ratio - 1);
       pos.y -= cy * (ratio - 1);
-
       clampPan(); applyTransform();
     } else if (isPanning && e.touches.length === 1) {
       e.preventDefault();
@@ -418,7 +392,6 @@ layout: default
     }
   }, { passive: false });
 
-  // Touch end
   viewport.addEventListener('touchend', (e) => {
     if (isPinching && e.touches.length < 2) {
       isPinching = false;
@@ -427,33 +400,23 @@ layout: default
       isPanning = false;
       viewport.classList.remove('grabbing');
     }
-
-    // Swipe detection (only when NOT zoomed and not pinching)
     if (!isPinching && scale <= 1 && e.changedTouches && e.changedTouches.length) {
       const t = e.changedTouches[0];
       const dx = t.clientX - touchStartX;
       const dy = t.clientY - touchStartY;
       const dt = Date.now() - touchStartTime;
-
-      // basic swipe: quick, mostly horizontal
       if (dt < 600 && Math.abs(dx) > 50 && Math.abs(dy) < 60) {
-        if (dx < 0) {
-          // swipe left -> next
-          loadImage(index + 1);
-        } else {
-          // swipe right -> prev
-          loadImage(index - 1);
-        }
+        if (dx < 0) loadImage(index + 1);
+        else loadImage(index - 1);
       }
     }
   });
 
-  // Mouse pan / wheel zoom
   function pointerDown(e){
-    if (scale <= 1) return; // only pan when zoomed
+    if (scale <= 1) return;
     isPanning = true;
     viewport.classList.add('grabbing');
-    e.preventDefault(); // stop image drag/select
+    e.preventDefault();
     start.x = e.clientX - pos.x;
     start.y = e.clientY - pos.y;
   }
@@ -463,10 +426,7 @@ layout: default
     pos.y = e.clientY - start.y;
     clampPan(); applyTransform();
   }
-  function pointerUp(){
-    isPanning = false;
-    viewport.classList.remove('grabbing');
-  }
+  function pointerUp(){ isPanning = false; viewport.classList.remove('grabbing'); }
 
   viewport.addEventListener('mousedown', pointerDown);
   window.addEventListener('mousemove', pointerMove);
