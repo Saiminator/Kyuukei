@@ -90,7 +90,7 @@ layout: default
   .gallery-stage {
     width: 60vw;       /* desktop width */
     height: 95vh;      /* tall vertical space */
-    background: #111;
+    background: rgba(17,17,17,0.4); /* 40% transparent black */
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     position: relative;
@@ -102,8 +102,8 @@ layout: default
   @media (max-width: 1280px) {
     .gallery-stage {
       width: 100vw;    /* full width on smaller screens */
-      height: 95vh;
-      border-radius: 0; /* optional fullscreen feel */
+      height: 90vh;    /* 5% shorter to account for mobile browser UI */
+      border-radius: 0; /* fullscreen feel */
     }
   }
 
