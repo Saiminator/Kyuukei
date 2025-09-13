@@ -19,7 +19,7 @@ layout: default
     <!-- Right Panel: Character Image and Basic Info -->
     <div class="right-panel">
       <div class="image-container">
-        <img src="{{ page.image }}" alt="{{ page.title }}" id="character-pfp" style="cursor: zoom-in;">
+        <img src="{{ page.image }}" alt="{{ page.title }}" id="character-pfp" style="cursor: zoom-in;" data-cursor="select">
       </div>
       <div class="basic-info">
         {% if page.age %}<p><strong>Age:</strong> {{ page.age }}</p>{% endif %}
