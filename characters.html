@@ -5,9 +5,9 @@ title: "Character Wiki"
 
 <!-- Sorting Tabs -->
 <div class="character-sort-tabs">
-  <button id="popularity-tab" class="sort-tab active">Popularity</button>
-  <button id="alphabetical-tab" class="sort-tab">Alphabetical</button>
-  <button id="sorted-tab" class="sort-tab">Sorted</button>
+  <button id="popularity-tab" class="sort-tab active" data-target="popularity-container">Popularity</button>
+  <button id="alphabetical-tab" class="sort-tab" data-target="alphabetical-container">Alphabetical</button>
+  <button id="sorted-tab" class="sort-tab" data-target="sorted-container">Sorted</button>
 </div>
 
 <!-- Popularity View (Default) -->
@@ -85,67 +85,4 @@ title: "Character Wiki"
   {% endfor %}
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  var popularityTab = document.getElementById('popularity-tab');
-  var alphabeticalTab = document.getElementById('alphabetical-tab');
-  var sortedTab = document.getElementById('sorted-tab');
 
-  var popularityContainer = document.getElementById('popularity-container');
-  var alphabeticalContainer = document.getElementById('alphabetical-container');
-  var sortedContainer = document.getElementById('sorted-container');
-
-  function clearActive() {
-    var tabs = document.querySelectorAll('.sort-tab');
-    tabs.forEach(function(tab){
-      tab.classList.remove('active');
-    });
-  }
-
-  if (popularityTab) {
-    popularityTab.addEventListener('click', function(){
-      clearActive();
-      popularityTab.classList.add('active');
-      popularityContainer.style.display = 'grid';
-      alphabeticalContainer.style.display = 'none';
-      sortedContainer.style.display = 'none';
-    });
-  }
-
-  if (alphabeticalTab) {
-    alphabeticalTab.addEventListener('click', function(){
-      clearActive();
-      alphabeticalTab.classList.add('active');
-      popularityContainer.style.display = 'none';
-      alphabeticalContainer.style.display = 'grid';
-      sortedContainer.style.display = 'none';
-    });
-  }
-
-  if (sortedTab) {
-    sortedTab.addEventListener('click', function(){
-      clearActive();
-      sortedTab.classList.add('active');
-      popularityContainer.style.display = 'none';
-      alphabeticalContainer.style.display = 'none';
-      sortedContainer.style.display = 'block';
-      // Reset: show the category list and hide all category detail containers.
-      document.getElementById('sorted-category-list').style.display = 'grid';
-      var detailContainers = document.querySelectorAll('#sorted-container > .character-view-container[id^="category-"]');
-      detailContainers.forEach(function(container){
-        container.style.display = 'none';
-      });
-    });
-  }
-});
-
-function loadCategory(slug) {
-  // Hide the category list.
-  document.getElementById('sorted-category-list').style.display = 'none';
-  // Show the container for the chosen category.
-  var container = document.getElementById('category-' + slug + '-container');
-  if (container) {
-    container.style.display = 'grid';
-  }
-}
-</script>
