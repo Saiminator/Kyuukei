@@ -238,7 +238,7 @@ function init() {
 
   setCursorState('default');
 
-  document.querySelectorAll('a, button').forEach(el => {
+  document.querySelectorAll('a, button, [data-cursor="select"]').forEach(el => {
     el.addEventListener('mouseenter', () => setCursorState('select'));
     el.addEventListener('mouseleave', () => setCursorState('default'));
   });
