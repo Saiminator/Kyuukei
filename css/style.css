@@ -206,9 +206,7 @@ header {
   align-items: center;
 }
 .nav-menu-desktop li { margin: 0 15px; }
-.nav-menu-desktop a,
-.nav-link {
-  display: inline-block;
+.nav-menu-desktop a {
   font-weight: 500;
   background: #f7cdd5; /* Orby Pink background */
   color: #fff;        /* White text */
@@ -218,19 +216,16 @@ header {
   border-radius: 5px;
   transition: background 0.3s ease, color 0.3s ease;
 }
-.nav-menu-desktop a:hover,
-.nav-link:hover { background: #e0a8b5; }
+.nav-menu-desktop a:hover { background: #e0a8b5; }
 
 /* Active Desktop Menu Link */
-.nav-menu-desktop a.active,
-.nav-link.active {
+.nav-menu-desktop a.active {
   background: #e0a8b5; /* Darker Orby Pink */
 }
 
 /* Responsive adjustments for desktop menu when viewport is below 750px */
 @media (max-width: 750px) {
-  .nav-menu-desktop a,
-  .nav-link {
+  .nav-menu-desktop a {
     font-size: 1.3rem;
     padding: 6px 10px;
   }
@@ -647,9 +642,21 @@ header {
   border-right: 1px solid #eee;
 }
 
-/* Back to Character Selection link */
+/* Back to Character Selection Button styled in Blue */
 .character-detail .back-select-btn {
+  display: inline-block;
   margin-bottom: 20px;
+  padding: 8px 12px;
+  font-size: 0.9em;
+  background: #f7cdd5 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.character-detail .back-select-btn:hover {
+  background: #e0a8b5 !important;
 }
 
 .section-title {
@@ -826,7 +833,20 @@ body.chapter .section-header {
   color: #333;
 }
 
-/* (Deprecated styling removed; nav-link handles appearance) */
+.character-detail .back-select-btn {
+  background-color: #f7cdd5 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 8px 12px !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.character-detail .back-select-btn:hover {
+  background-color: #e0a8b5 !important;
+}
 
 @media (max-width: 800px) {
   .section-header h1 {
@@ -1293,6 +1313,13 @@ body.chapter .section-header {
 .lb { cursor: default !important; }      /* at base zoom (not pannable) */
 .lb.pannable { cursor: grab !important; }  /* zoomed-in but not dragging */
 .lb.panning  { cursor: grabbing !important; } /* actively dragging */
+
+/* Ensure .back-select-btn and its children always hide the native cursor */
+.back-select-btn,
+.back-select-btn:hover,
+.back-select-btn * {
+  cursor: none !important;
+}
 
 /* Custom cursor default styling (normal state) */
 .custom-cursor {
