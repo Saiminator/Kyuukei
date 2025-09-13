@@ -1323,7 +1323,7 @@ body.chapter .section-header {
 
 /* Custom cursor default styling (normal state) */
 .custom-cursor {
-  display: none; /* hidden until first mouse move */
+  opacity: 0; /* hidden until first mouse move */
   position: fixed;
   top: 0;
   left: 0;
@@ -1335,6 +1335,7 @@ body.chapter .section-header {
   background-repeat: no-repeat;
   will-change: transform;
   transform: none; /* no centering transform: top-left is active */
+  transition: opacity 0.2s;
 }
 
 .custom-cursor.cursor-default {

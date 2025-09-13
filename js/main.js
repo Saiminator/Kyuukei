@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
     y = e.clientY;
 
     if (!initialized && cursor) {
-      cursor.style.display = 'block';
+      cursor.style.opacity = '1';
       initialized = true;
     }
   });
