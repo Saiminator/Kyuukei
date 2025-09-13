@@ -2,6 +2,7 @@
 
 /* ----------------- Tabs: Popularity / Alphabetical / Sorted ----------------- */
 document.addEventListener('DOMContentLoaded', function() {
+codex/refactor-tab-click-event-listeners-1fvavs
   const tabs = document.querySelectorAll('.sort-tab[data-target]');
   const containers = {};
   const categoryList = document.getElementById('sorted-category-list');
@@ -32,6 +33,37 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           target.style.display = 'grid';
           if (categoryList) categoryList.style.display = 'none';
+=======
+  var tabs = document.querySelectorAll('.sort-tab[data-target]');
+  var containers = {};
+
+  tabs.forEach(function(tab) {
+    var targetId = tab.getAttribute('data-target');
+    containers[targetId] = document.getElementById(targetId);
+
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+      });
+      this.classList.add('active');
+
+      Object.values(containers).forEach(function(container) {
+        if (container) container.style.display = 'none';
+      });
+
+      var target = containers[targetId];
+      if (target) {
+        if (targetId === 'sorted-container') {
+          target.style.display = 'block';
+          var categoryList = document.getElementById('sorted-category-list');
+          if (categoryList) categoryList.style.display = 'grid';
+          var categoryContainers = document.querySelectorAll('.category-characters');
+          categoryContainers.forEach(function(container) {
+            container.style.display = 'none';
+          });
+        } else {
+          target.style.display = 'grid';
+main
         }
       }
     });
