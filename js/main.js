@@ -1,59 +1,41 @@
 // main.js  — COTD uses SHA-256 + rejection sampling (date-seeded, deterministic, natural-looking)
 
 /* ----------------- Tabs: Popularity / Alphabetical / Sorted ----------------- */
-document.addEventListener('DOMContentLoaded', function(){
-  var popularityTab = document.getElementById('popularity-tab');
-  var alphabeticalTab = document.getElementById('alphabetical-tab');
-  var sortedTab = document.getElementById('sorted-tab');
+document.addEventListener('DOMContentLoaded', function() {
+  var tabs = document.querySelectorAll('.sort-tab[data-target]');
+  var containers = {};
+  var categoryList = document.getElementById('sorted-category-list');
+  var categoryContainers = document.querySelectorAll('#sorted-container [id^="category-"][id$="-container"]');
 
-  var popularityContainer = document.getElementById('popularity-container');
-  var alphabeticalContainer = document.getElementById('alphabetical-container');
-  var sortedContainer = document.getElementById('sorted-container');
+  tabs.forEach(function(tab) {
+    var targetId = tab.getAttribute('data-target');
+    containers[targetId] = document.getElementById(targetId);
 
-  function clearActive() {
-    var tabs = document.querySelectorAll('.sort-tab');
-    tabs.forEach(function(tab){
-      tab.classList.remove('active');
-    });
-  }
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+      });
+      this.classList.add('active');
 
-  if(popularityTab) {
-    popularityTab.addEventListener('click', function(){
-      clearActive();
-      popularityTab.classList.add('active');
-      if(popularityContainer) popularityContainer.style.display = 'grid';
-      if(alphabeticalContainer) alphabeticalContainer.style.display = 'none';
-      if(sortedContainer) alphabeticalContainer.style.display = 'none';
-    });
-  }
+      Object.values(containers).forEach(function(container) {
+        if (container) container.style.display = 'none';
+      });
+      categoryContainers.forEach(function(container) {
+        container.style.display = 'none';
+      });
 
-  if(alphabeticalTab) {
-    alphabeticalTab.addEventListener('click', function(){
-      clearActive();
-      alphabeticalTab.classList.add('active');
-      if(popularityContainer) popularityContainer.style.display = 'none';
-      if(alphabeticalContainer) alphabeticalContainer.style.display = 'grid';
-      if(sortedContainer) alphabeticalContainer.style.display = 'none';
-    });
-  }
-
-  if(sortedTab) {
-    sortedTab.addEventListener('click', function(){
-      clearActive();
-      sortedTab.classList.add('active');
-      if(popularityContainer) popularityContainer.style.display = 'none';
-      if(alphabeticalContainer) alphabeticalContainer.style.display = 'none';
-      if(sortedContainer) {
-        sortedContainer.style.display = 'grid';
-        var categoryList = document.getElementById('sorted-category-list');
-        if(categoryList) categoryList.style.display = 'grid';
-        var categoryContainers = document.querySelectorAll('.category-characters');
-        categoryContainers.forEach(function(container) {
-          container.style.display = 'none';
-        });
+      var target = containers[targetId];
+      if (target) {
+        if (targetId === 'sorted-container') {
+          target.style.display = 'block';
+          if (categoryList) categoryList.style.display = 'grid';
+        } else {
+          target.style.display = 'grid';
+          if (categoryList) categoryList.style.display = 'none';
+        }
       }
     });
-  }
+  });
 });
 
 /* -------------------------------- Mobile Nav -------------------------------- */
