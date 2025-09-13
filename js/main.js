@@ -237,7 +237,7 @@ function init() {
   requestAnimationFrame(update);
 
   setCursorState('default');
-
+  // Apply select-state cursor to navigational links and buttons
   document.querySelectorAll('a, button, [data-cursor="select"]').forEach(el => {
     el.addEventListener('mouseenter', () => setCursorState('select'));
     el.addEventListener('mouseleave', () => setCursorState('default'));
