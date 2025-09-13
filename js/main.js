@@ -2,6 +2,38 @@
 
 /* ----------------- Tabs: Popularity / Alphabetical / Sorted ----------------- */
 document.addEventListener('DOMContentLoaded', function() {
+codex/refactor-tab-click-event-listeners-1fvavs
+  const tabs = document.querySelectorAll('.sort-tab[data-target]');
+  const containers = {};
+  const categoryList = document.getElementById('sorted-category-list');
+  const categoryContainers = document.querySelectorAll('#sorted-container [id^="category-"][id$="-container"]');
+
+  tabs.forEach(function(tab) {
+    const targetId = tab.getAttribute('data-target');
+    containers[targetId] = document.getElementById(targetId);
+
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+      });
+      this.classList.add('active');
+
+      Object.values(containers).forEach(function(container) {
+        if (container) container.style.display = 'none';
+      });
+      categoryContainers.forEach(function(container) {
+        container.style.display = 'none';
+      });
+
+      const target = containers[targetId];
+      if (target) {
+        if (targetId === 'sorted-container') {
+          target.style.display = 'block';
+          if (categoryList) categoryList.style.display = 'grid';
+        } else {
+          target.style.display = 'grid';
+          if (categoryList) categoryList.style.display = 'none';
+=======
   var tabs = document.querySelectorAll('.sort-tab[data-target]');
   var containers = {};
 
@@ -31,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
           });
         } else {
           target.style.display = 'grid';
+main
         }
       }
     });
@@ -50,9 +83,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* ------------------------------- Load Category ------------------------------ */
 function loadCategory(slug) {
-  var categoryList = document.getElementById('sorted-category-list');
-  if(categoryList) categoryList.style.display = 'none';
-  var container = document.getElementById('category-' + slug + '-container');
+  const categoryList = document.getElementById('sorted-category-list');
+  if (categoryList) categoryList.style.display = 'none';
+
+  const categoryContainers = document.querySelectorAll('#sorted-container [id^="category-"][id$="-container"]');
+  categoryContainers.forEach(function(container) {
+    container.style.display = 'none';
+  });
+
+  const container = document.getElementById('category-' + slug + '-container');
   if (container) {
     container.style.display = 'grid';
   }
