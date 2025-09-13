@@ -212,14 +212,25 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   const cursor = document.getElementById('customCursor');
   let initialized = false;
+  let x = 0;
+  let y = 0;
 
-  document.addEventListener('mousemove', function(e) {
+  document.addEventListener('pointermove', function(e) {
+    x = e.clientX;
+    y = e.clientY;
+
     if (!initialized && cursor) {
       cursor.style.display = 'block';
       initialized = true;
     }
-    if (!cursor) return;
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
   });
+
+  function update() {
+    if (cursor) {
+      cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    }
+    requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
 });
