@@ -1,7 +1,25 @@
 // main.js  — COTD uses SHA-256 + rejection sampling (date-seeded, deterministic, natural-looking)
 
-/* ----------------- Tabs: Popularity / Alphabetical / Sorted ----------------- */
-document.addEventListener('DOMContentLoaded', function() {
+/* ------------------------------- Load Category ------------------------------ */
+function loadCategory(slug) {
+  var categoryList = document.getElementById('sorted-category-list');
+  if (categoryList) categoryList.style.display = 'none';
+  var container = document.getElementById('category-' + slug + '-container');
+  if (container) {
+    container.style.display = 'grid';
+  }
+}
+
+/* ------------------------------ Custom Cursor ------------------------------ */
+function setCursorState(state) {
+  const cursor = document.getElementById('customCursor');
+  if (!cursor) return;
+  cursor.classList.remove('cursor-default', 'cursor-select', 'cursor-text', 'cursor-move');
+  cursor.classList.add(`cursor-${state}`);
+}
+
+function init() {
+  /* ----------------- Tabs: Popularity / Alphabetical / Sorted ----------------- */
   var tabs = document.querySelectorAll('.sort-tab[data-target]');
   var containers = {};
   var categoryList = document.getElementById('sorted-category-list');
@@ -36,10 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-});
 
-/* -------------------------------- Mobile Nav -------------------------------- */
-document.addEventListener('DOMContentLoaded', function() {
+  /* -------------------------------- Mobile Nav -------------------------------- */
   const navToggle = document.getElementById('nav-toggle');
   const navMobileMenu = document.getElementById('nav-mobile-menu');
   if (navToggle && navMobileMenu) {
@@ -47,23 +63,11 @@ document.addEventListener('DOMContentLoaded', function() {
       navMobileMenu.style.display = (navMobileMenu.style.display === 'block') ? 'none' : 'block';
     });
   }
-});
 
-/* ------------------------------- Load Category ------------------------------ */
-function loadCategory(slug) {
-  var categoryList = document.getElementById('sorted-category-list');
-  if(categoryList) categoryList.style.display = 'none';
-  var container = document.getElementById('category-' + slug + '-container');
-  if (container) {
-    container.style.display = 'grid';
-  }
-}
-
-/* ----------------------- Character of the Day (COTD) ------------------------ */
-/* Uses SHA-256(hash) of (SALT + YYYYMMDD in EST), then rejection sampling
-   to map to 0..N-1 without modulo bias. This is deterministic per day but
-   produces natural-looking randomness (doubles/triples can occur).           */
-document.addEventListener('DOMContentLoaded', function() {
+  /* ----------------------- Character of the Day (COTD) ------------------------ */
+  /* Uses SHA-256(hash) of (SALT + YYYYMMDD in EST), then rejection sampling
+     to map to 0..N-1 without modulo bias. This is deterministic per day but
+     produces natural-looking randomness (doubles/triples can occur).           */
   fetch('/characters.json')
     .then(response => {
       if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
@@ -206,17 +210,8 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
       console.error('Error fetching characters:', error);
     });
-});
 
-/* ------------------------------ Custom Cursor ------------------------------ */
-function setCursorState(state) {
-  const cursor = document.getElementById('customCursor');
-  if (!cursor) return;
-  cursor.classList.remove('cursor-default', 'cursor-select', 'cursor-text', 'cursor-move');
-  cursor.classList.add(`cursor-${state}`);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
+  /* ------------------------------ Custom Cursor ------------------------------ */
   const cursor = document.getElementById('customCursor');
   let initialized = false;
   let x = 0;
@@ -257,4 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('lb-panning-end', () => setCursorState('default'));
   document.addEventListener('panningstart', () => setCursorState('move'));
   document.addEventListener('panningend', () => setCursorState('default'));
-});
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
