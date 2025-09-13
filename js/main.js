@@ -209,6 +209,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ------------------------------ Custom Cursor ------------------------------ */
+function setCursorState(state) {
+  const cursor = document.getElementById('customCursor');
+  if (!cursor) return;
+  cursor.classList.remove('cursor-default', 'cursor-select', 'cursor-text', 'cursor-move');
+  cursor.classList.add(`cursor-${state}`);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   const cursor = document.getElementById('customCursor');
   let initialized = false;
@@ -233,4 +240,21 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   requestAnimationFrame(update);
+
+  setCursorState('default');
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => setCursorState('select'));
+    el.addEventListener('mouseleave', () => setCursorState('default'));
+  });
+
+  document.querySelectorAll('input, textarea, [contenteditable]').forEach(el => {
+    el.addEventListener('mouseenter', () => setCursorState('text'));
+    el.addEventListener('mouseleave', () => setCursorState('default'));
+  });
+
+  document.addEventListener('lb-panning-start', () => setCursorState('move'));
+  document.addEventListener('lb-panning-end', () => setCursorState('default'));
+  document.addEventListener('panningstart', () => setCursorState('move'));
+  document.addEventListener('panningend', () => setCursorState('default'));
 });
