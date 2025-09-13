@@ -35,25 +35,6 @@
   *:hover {
     cursor: none !important;
   }
-  
-  /* Custom cursor styling */
-  .custom-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 64px;       /* Increased size */
-    height: 64px;      /* Increased size */
-    pointer-events: none;
-    z-index: 9999;
-    background-image: url("https://kyuukei.s3.us-east-2.amazonaws.com/icon/cursor.gif");
-    background-size: contain;
-    background-repeat: no-repeat;
-    will-change: transform;
-    /* No transform, so the top-left corner is the active point */
-    transform: none;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
 </style>
 
 </head>
@@ -186,7 +167,7 @@
 </script>
 
 <!-- Custom Cursor Element -->
-<div class="custom-cursor" id="customCursor"></div>
+<div class="custom-cursor cursor-default" id="customCursor"></div>
 
 
 
