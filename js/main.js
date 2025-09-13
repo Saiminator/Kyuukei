@@ -2,13 +2,13 @@
 
 /* ----------------- Tabs: Popularity / Alphabetical / Sorted ----------------- */
 document.addEventListener('DOMContentLoaded', function() {
-  var tabs = document.querySelectorAll('.sort-tab[data-target]');
-  var containers = {};
-  var categoryList = document.getElementById('sorted-category-list');
-  var categoryContainers = document.querySelectorAll('#sorted-container [id^="category-"][id$="-container"]');
+  const tabs = document.querySelectorAll('.sort-tab[data-target]');
+  const containers = {};
+  const categoryList = document.getElementById('sorted-category-list');
+  const categoryContainers = document.querySelectorAll('#sorted-container [id^="category-"][id$="-container"]');
 
   tabs.forEach(function(tab) {
-    var targetId = tab.getAttribute('data-target');
+    const targetId = tab.getAttribute('data-target');
     containers[targetId] = document.getElementById(targetId);
 
     tab.addEventListener('click', function() {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.style.display = 'none';
       });
 
-      var target = containers[targetId];
+      const target = containers[targetId];
       if (target) {
         if (targetId === 'sorted-container') {
           target.style.display = 'block';
@@ -51,9 +51,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* ------------------------------- Load Category ------------------------------ */
 function loadCategory(slug) {
-  var categoryList = document.getElementById('sorted-category-list');
-  if(categoryList) categoryList.style.display = 'none';
-  var container = document.getElementById('category-' + slug + '-container');
+  const categoryList = document.getElementById('sorted-category-list');
+  if (categoryList) categoryList.style.display = 'none';
+
+  const categoryContainers = document.querySelectorAll('#sorted-container [id^="category-"][id$="-container"]');
+  categoryContainers.forEach(function(container) {
+    container.style.display = 'none';
+  });
+
+  const container = document.getElementById('category-' + slug + '-container');
   if (container) {
     container.style.display = 'grid';
   }
