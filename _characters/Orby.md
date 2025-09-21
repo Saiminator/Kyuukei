@@ -38,7 +38,7 @@ Shape Manipulation: Though usually a simple floating orb, Orby can morph its sli
 
 Residual Personality: When triggered by familiar stimuli, Orby mimics faint traits of entities it has absorbed in the past. This manifests in subtle gestures or reactions, but never reaches full consciousness.
 
-
+Orby has the ability to strain soup automatically, not requiring the presence of a strainer to do so. Kyuu prefers her soup this way as to avoid the liquid portion.
 
 
 orby orby orby, i made it out of clay, orby orby orby, i think thats actually just megumins staff ngl
