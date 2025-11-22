@@ -524,11 +524,24 @@ layout: default
       duration.textContent = formatTime(audio.duration);
     });
 
-    audio.addEventListener('timeupdate', () => {
-      const percent = (audio.currentTime / (audio.duration || 1)) * 100;
+    let isScrubbing = false;
+    let pendingRatio = null;
+
+    const updateProgressUI = (ratio) => {
+      const clamped = Math.max(0, Math.min(1, ratio || 0));
+      const percent = clamped * 100;
       fill.style.width = `${percent}%`;
       progress.setAttribute('aria-valuenow', Math.round(percent));
-      current.textContent = formatTime(audio.currentTime);
+      if (isFinite(audio.duration)) {
+        current.textContent = formatTime(clamped * audio.duration);
+      }
+      pendingRatio = clamped;
+    };
+
+    audio.addEventListener('timeupdate', () => {
+      if (isScrubbing) return;
+      const percent = (audio.currentTime / (audio.duration || 1)) * 100;
+      updateProgressUI(percent / 100);
     });
 
     audio.addEventListener('ended', () => {
@@ -558,10 +571,51 @@ layout: default
       audio.currentTime = ratio * audio.duration;
     };
 
+    const handlePointerPosition = (clientX) => {
+      const rect = progress.getBoundingClientRect();
+      if (!rect.width) return pendingRatio ?? 0;
+      const ratio = (clientX - rect.left) / rect.width;
+      updateProgressUI(ratio);
+      return Math.max(0, Math.min(1, ratio));
+    };
+
     progress?.addEventListener('click', (e) => {
       const rect = progress.getBoundingClientRect();
       const ratio = (e.clientX - rect.left) / rect.width;
       seekTo(ratio);
+    });
+
+    progress?.addEventListener('pointerdown', (e) => {
+      if (!progress.hasPointerCapture?.(e.pointerId)) {
+        progress.setPointerCapture?.(e.pointerId);
+      }
+      isScrubbing = true;
+      pendingRatio = handlePointerPosition(e.clientX);
+    });
+
+    progress?.addEventListener('pointermove', (e) => {
+      if (!isScrubbing) return;
+      pendingRatio = handlePointerPosition(e.clientX);
+    });
+
+    const endScrub = (evt) => {
+      if (!isScrubbing) return;
+      const ratio = handlePointerPosition(evt.clientX);
+      isScrubbing = false;
+      if (progress.hasPointerCapture?.(evt.pointerId)) {
+        progress.releasePointerCapture(evt.pointerId);
+      }
+      if (ratio != null) {
+        seekTo(ratio);
+      }
+    };
+
+    progress?.addEventListener('pointerup', (e) => {
+      endScrub(e);
+    });
+
+    progress?.addEventListener('pointercancel', (e) => {
+      endScrub(e);
     });
 
     progress?.addEventListener('keydown', (e) => {
