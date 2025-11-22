@@ -704,6 +704,67 @@ header {
   margin: 4px 0;
 }
 
+.character-music {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.music-title {
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: #333;
+}
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.music-toggle {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #f7cdd5;
+  color: #222;
+  cursor: pointer;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.music-toggle:hover {
+  background: #e6b2c0;
+}
+.music-progress {
+  position: relative;
+  flex: 1;
+  height: 10px;
+  background: #e8e8e8;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+}
+.music-progress-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: linear-gradient(90deg, #f7cdd5, #7cc7f4);
+  border-radius: 6px;
+}
+.music-progress:focus-visible {
+  box-shadow: 0 0 0 3px rgba(124,199,244,0.4);
+}
+.music-time {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #555;
+}
+
 /* Responsive adjustments for Character Detail:
    On screens 800px wide and below, show the right panel first */
 @media (max-width: 800px) {

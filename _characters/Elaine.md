@@ -17,6 +17,10 @@ credit: "@__mr121_"
 last_modified_at: "2025-04-30"
 gallery:
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/elaine/1.png
+music:
+  enabled: true
+  title: "Elaine Sternbruch's Theme"
+  src: "/assets/music/elaine-sternbruch-theme.wav"
 ---
 
 ## Background
