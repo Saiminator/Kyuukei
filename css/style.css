@@ -717,6 +717,11 @@ header {
   font-weight: 600;
   color: #333;
 }
+.music-credit {
+  margin: 0 0 10px;
+  font-size: 0.95em;
+  color: #444;
+}
 .music-controls {
   display: flex;
   align-items: center;
