@@ -21,6 +21,7 @@ music:
   enabled: true
   title: "The theme of Elaine Sternbruch @cresdot"
   src: "/assets/music/elaine-sternbruch-theme.wav"
+  credit: "@cresdot"
 ---
 
 ## Background
