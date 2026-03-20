@@ -3,7 +3,7 @@ layout: character
 title: "Lyn"
 order: 9
 image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/lyn/pfp.png"
-age: "23"
+age: "21"
 birthday: "May 17th"
 species: "Human"
 gender: "Female"
