@@ -3,7 +3,7 @@ layout: character
 title: "Duran"
 order: 11
 image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
-age: "29"
+age: "28"
 birthday: "TBD"
 species: "Human"
 gender: "Male"
