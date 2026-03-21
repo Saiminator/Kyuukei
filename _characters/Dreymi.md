@@ -31,8 +31,6 @@ TBW
 
 **Vampire Eyes:** Vampires all have a specific trigger that activates their vampire eyes, giving their normal eye color a red glow. While active, these eyes give them an immense ability boost, while also being hypnotic to anyone who happens to make eye contact. Dreymi's are caused by her unrequited love for Kyuu.
 
-**Succubus Hand:** Dreymi's right hand, infused with the succubus core, emits an immense amount of succubus mana, simply touching another person with this hand is enough to overload their senses and turn them into her mindless slave. Dreymi keeps a mana resistant glove over her hand to prevent accidentally using this ability.
-
 **Succubus Tail:** Dreymi's tail can be used to ingest mana through various sources. It is fairly strong, allowing her to restrain her prey and even lift them off the ground.
 
 **Built in Kyuu Radar:** After becoming a succubus, Dreymi has obtained an innate ability to smell Kyuu and locate her within a 3000 mile radius.
