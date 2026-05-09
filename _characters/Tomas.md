@@ -13,6 +13,7 @@ mana_color: "??"
 hair_color: "Grey"
 eye_color: "Brown"
 last_modified_at: "2026-03-20"
+credit: "@aa_inuyo"
 gallery:
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/tomas/1.png
 ---
