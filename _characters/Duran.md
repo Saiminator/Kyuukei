@@ -2,7 +2,7 @@
 layout: character
 title: "Duran"
 order: 11
-image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/default.png"
+image: "https://kyuukei.s3.us-east-2.amazonaws.com/character/duran/pfp.png"
 age: "26"
 birthday: "TBD"
 species: "Human"
@@ -13,6 +13,8 @@ mana_color: "Deep Green"
 hair_color: "Dirty Blonde"
 eye_color: "Brown/Orange"
 last_modified_at: "2025-03-09"
+gallery:
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/duran/1.png
 ---
 
 ## Background
