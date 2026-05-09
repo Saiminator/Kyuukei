@@ -13,6 +13,7 @@ mana_color: "Deep Green"
 hair_color: "Dirty Blonde"
 eye_color: "Brown/Orange"
 last_modified_at: "2025-03-09"
+credit: "@aa_inuyo"
 gallery:
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/duran/1.png
 ---
