@@ -17,6 +17,7 @@ credit: "@1sukaa"
 last_modified_at: "2025-04-01T23:20:00"
 gallery:
   - https://kyuukei.s3.us-east-2.amazonaws.com/character/lyn/1.png
+  - https://kyuukei.s3.us-east-2.amazonaws.com/character/lyn/2.png
 ---
 
 ## Background
