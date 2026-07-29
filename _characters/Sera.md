@@ -21,11 +21,7 @@ gallery:
 
 ## Background
 
-Sera was once a dedicated hunter of evil, wielding powerful wind magic and a formidable spellblade technique. Her life took a drastic turn when, after nearly dying in battle, she was saved by a powerful wind spirit that bonded with her mana core, permanently enhancing her abilities. With her enhanced strength, speed, and near-perfect wind affinity, she became an unstoppable force against her enemies.
-
-However, despite her power and purpose, Sera always harbored a deep desire to be protected instead of being the protector. This longing led her to abandon her destiny after a noble "saved" her from a monster, despite her not truly needing the help. She willingly chose to become his maid, embracing a life of servitude while waiting for the day he could justify marrying her despite her lower status.
-
-Though she has stepped away from her former path, the wind spirit inside her remains restless, seeking to pull her back into a life of battle. While she outwardly embraces her quiet, submissive role, the warrior within her still exists, ready to awaken if the time ever comes.
+TBD
 
 ## Abilities
 
