@@ -8,5 +8,11 @@
   "x_url": "https://x.com/KyuukeiOfficial",
   "kit_form_url": null,
   "kit_privacy_url": "https://kit.com/privacy",
-  "fourthwall_privacy_url": "https://fourthwall.com/privacy"
+  "fourthwall_privacy_url": "https://fourthwall.com/privacy",
+  "favicon_url": "https://kyuukei.s3.us-east-2.amazonaws.com/icon/comfavicon.gif",
+  "cursor": {
+    "default": "https://kyuukei.s3.us-east-2.amazonaws.com/icon/cursor.gif",
+    "select": "https://kyuukei.s3.us-east-2.amazonaws.com/icon/cursor_select.gif",
+    "text": "https://kyuukei.s3.us-east-2.amazonaws.com/icon/cursor_text.gif"
+  }
 }

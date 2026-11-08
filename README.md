@@ -51,4 +51,17 @@ npm ci --ignore-scripts
 SITE_URL=http://127.0.0.1:4120 CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
 ```
 
-Browser artifacts default to `/tmp/kyuukei-release-checks`; set `TEST_ARTIFACTS` to choose another location. The checks cover 320–1920px layouts, the mobile menu without a current-tab dot, highlighted tab text, native cursor states, touch-device behavior, dialogs, the real news archive, unavailable newsletter controls, local assets and accessibility rules. The cursor is browser-native and static, so it requires no pointer-tracking loop and respects touch devices and reduced-motion preferences.
+Browser artifacts default to `/tmp/kyuukei-release-checks`; set `TEST_ARTIFACTS` to choose another location. The checks cover 320–1920px layouts, the mobile menu without a current-tab dot, highlighted tab text, native cursor states, touch-device behavior, dialogs, the real news archive, unavailable newsletter controls, local assets and accessibility rules. The desktop cursor uses the original animated GIFs in a decorative top-layer element. Pointer events schedule a single position update per animation frame; there is no continuous JavaScript animation loop. Local PNG frames cover loading failures and reduced-motion preferences. Touch devices retain their usual behavior.
+
+
+### Cursor and favicon
+
+`_data/site.json` retains the original favicon (`comfavicon.gif`) and the original default, select and text cursor GIF URLs from the Kyuukei S3 bucket. The `.cur` and PNG files remain local fallbacks; they are not used as the favicon.
+
+A small early bootstrap restores the last pointer position before the new page needs a mouse event. Only pointer coordinates, cursor state and a timestamp are kept in this tab's `sessionStorage`; nothing is sent to a server. Entries expire after five minutes and disappear with the tab. Click navigation, reloads and history restoration share this behavior. A manual popover keeps the cursor above character dialogs without intercepting clicks or taking focus.
+
+```bash
+SITE_URL=http://127.0.0.1:4120 CHROMIUM_PATH=/usr/bin/chromium npm run test:cursor
+```
+
+The focused tests check actual GIF frame changes, idle rendering, navigation with destination pointer events suppressed, reload/back restoration, dialog controls, reduced motion, touch, unavailable image URLs and restricted storage. The cloud environment blocks access to the original S3 bucket, so automated tests substitute an explicitly isolated two-frame GIF for those external image requests. The published site continues to request the original artwork URLs, not the test fixture.

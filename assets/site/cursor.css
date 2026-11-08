@@ -11,3 +11,29 @@
   body :is(input, textarea, [contenteditable="true"]) { cursor: text; }
   body :is(button, input, select, textarea):disabled { cursor: not-allowed; }
 }
+
+/* Activate the animated layer only after its image and position are ready. */
+html.custom-cursor-active, html.custom-cursor-active * { cursor: none !important; }
+#customCursor {
+  position: fixed;
+  inset: 0 auto auto 0;
+  width: 64px;
+  height: 64px;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2147483647;
+  will-change: transform;
+}
+#customCursor::backdrop { display: none; }
+#customCursor img { display: none; width: 64px; height: 64px; max-width: none; pointer-events: none; }
+html[data-cursor-state="default"] #customCursor [data-cursor-image="default"],
+html[data-cursor-state="select"] #customCursor [data-cursor-image="select"],
+html[data-cursor-state="text"] #customCursor [data-cursor-image="text"] { display: block; }
+@media (hover: none), (pointer: coarse) { #customCursor { display: none !important; } }

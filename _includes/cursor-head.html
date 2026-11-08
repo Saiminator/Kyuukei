@@ -1,0 +1,31 @@
+{% assign cursor_media = '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)' %}
+<link rel="preload" as="image" href="{{ site.data.site.cursor.default }}" media="{{ cursor_media }}">
+<link rel="preload" as="image" href="{{ site.data.site.cursor.select }}" media="{{ cursor_media }}">
+<link rel="preload" as="image" href="{{ site.data.site.cursor.text }}" media="{{ cursor_media }}">
+<script>
+(() => {
+  const key = 'kyuukei.cursor.position.v1';
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  const read = () => {
+    try {
+      const value = JSON.parse(sessionStorage.getItem(key));
+      const age = Date.now() - value?.at;
+      if (value?.inside === true && Number.isFinite(value.x) && Number.isFinite(value.y) && value.x >= 0 && value.y >= 0 && value.x < innerWidth && value.y < innerHeight && age >= 0 && age < 300000) return value;
+    } catch (_) {}
+    return null;
+  };
+  const saved = read();
+  window.KyuukeiCursorBoot = {
+    key, fine, read, saved,
+    mount() {
+      const cursor = document.getElementById('customCursor');
+      if (!fine.matches || !saved || !cursor?.showPopover || document.visibilityState !== 'visible' || !['default','select'].includes(saved.state)) return;
+      cursor.style.transform = `translate3d(${saved.x - 4}px,${saved.y - 4}px,0)`;
+      document.documentElement.dataset.cursorState = saved.state;
+      cursor.showPopover();
+      document.documentElement.classList.add('custom-cursor-active');
+    }
+  };
+})();
+</script>
+<script src="{{ '/assets/site/cursor.js?v=1' | relative_url }}" defer></script>
