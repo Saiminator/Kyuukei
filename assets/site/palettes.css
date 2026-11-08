@@ -1,0 +1,18 @@
+---
+layout: null
+---
+{% assign palette = site.data.palettes | where: 'id', site.palette | first %}
+:root {
+  --bg: {{ palette.base }};
+  --surface: {{ palette.surface }};
+  --trim: {{ palette.trim }};
+  --accent: {{ palette.accent }};
+  --button: {{ palette.button }};
+  --glow: {{ palette.glow }};
+  --ink: {{ palette.ink }};
+  --muted: {{ palette.muted }};
+  --orby: var(--button);
+  --accent-ink: #281f2b;
+  --action-ink: #281f2b;
+  --line: color-mix(in srgb, {{ palette.trim }} 32%, {{ palette.base }});
+}

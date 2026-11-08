@@ -1,0 +1,22 @@
+<div class="character-gallery">
+  {% capture registry_order %}{% for entry in include.people %}{% assign identity = site.data.characters | where: 'id', entry.character | first %}{{ entry.order | default: identity.introduction_order | plus: 1000000 }}:{{ identity.introduction_order | plus: 1000000 }}:{{ entry.character }}|{% endfor %}{% endcapture %}
+  {% assign ordered_keys = registry_order | split: '|' | sort %}
+  {% for key in ordered_keys %}
+  {% assign character_id = key | split: ':' | last %}{% assign person = site.data.characters | where: 'id', character_id | first %}{% assign entry = include.people | where: 'character', character_id | first %}
+  <button class="character-tile" data-character="{{ person.id }}" data-open-profile="profile-template-{{ person.id }}" aria-label="Open profile for {{ person.name | escape }}" aria-haspopup="dialog" aria-controls="character-profile" disabled>
+    {% include portrait.html person=person %}
+    <span class="character-tile-name">{{ person.name }}</span>
+  </button>
+  <template id="profile-template-{{ person.id }}">
+    <div class="character-profile-layout">
+      <figure class="character-illustration"><img src="{{ person.illustration.src | default: person.portrait.src | default: '/assets/site/images/illustration.svg' | relative_url }}" {% if person.illustration.srcset %}srcset="{{ person.illustration.srcset }}" sizes="(max-width:600px) 160px,320px"{% endif %} width="600" height="800" alt="{% if person.illustration.src or person.portrait.src %}{{ person.name | escape }} illustration{% else %}Illustration of {{ person.name | escape }}{% endif %}" decoding="async"></figure>
+      <div class="character-profile-copy"><p class="eyebrow" id="profile-context">Characters to remember · Before Volume {{ include.volume.number }}</p><h2 id="profile-name">{{ person.name }}</h2><div class="character-profile-prose">{{ entry.description | markdownify }}</div></div>
+    </div>
+  </template>
+  {% endfor %}
+</div>
+<noscript><div class="profile-fallback"><p>Character profiles</p>{% for entry in include.people %}{% assign person = site.data.characters | where: 'id', entry.character | first %}<details><summary>{{ person.name }}</summary>{{ entry.description | markdownify }}</details>{% endfor %}</div></noscript>
+<dialog class="character-dialog" id="character-profile" aria-labelledby="profile-name" aria-describedby="profile-context">
+  <button class="profile-close" type="button" aria-label="Close character profile" autofocus><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+  <div class="profile-dialog-content" tabindex="0" role="region" aria-label="Character profile details"></div>
+</dialog>

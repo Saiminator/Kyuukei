@@ -1,0 +1,13 @@
+{
+  "name": "kyuukei-website",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Browser and accessibility checks for the Kyuukei Jekyll website.",
+  "scripts": {
+    "test:browser": "node tests/browser.cjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.14.0",
+    "playwright": "1.62.1"
+  }
+}

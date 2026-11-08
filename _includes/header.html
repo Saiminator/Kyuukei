@@ -1,0 +1,9 @@
+<header class="site-header">
+  <a class="brand" href="{{ '/' | relative_url }}"><span class="brand-symbol">{% include orby.html %}</span><span>Kyuukei<small>no Hanashi</small></span></a>
+  <nav class="site-nav" id="primary-nav" aria-label="Primary"><ul>
+    <li><a href="{{ '/' | relative_url }}" {% if page.kind == 'home' %}aria-current="page"{% endif %}>Home</a></li>
+    <li><a href="{{ '/story/' | relative_url }}" {% if page.kind == 'story' or page.kind == 'volume' %}aria-current="page"{% endif %}>Story</a></li>
+    <li><a href="{{ '/news/' | relative_url }}" {% if page.kind == 'news' or page.kind == 'news-post' %}aria-current="page"{% endif %}>News</a></li>
+  </ul></nav>
+  <div class="header-tools"><a class="shop-shortcut" href="{{ site.data.site.store_url }}">Official Store {% include arrow.html %}</a><button class="menu-toggle" data-menu-toggle aria-controls="primary-nav" aria-expanded="false">Menu <span aria-hidden="true">＋</span></button></div>
+</header>

@@ -1,0 +1,13 @@
+---
+layout: base
+---
+{% assign featured = site.volumes | where: 'published', true | where: 'status', 'Upcoming' | sort: 'number' | last %}
+<section class="opening{% unless featured %} opening-no-feature{% endunless %}">
+  <div class="opening-copy"><p class="eyebrow">Kyuukei no Hanashi</p><h1 class="series-heading"><span>Kyuu's</span><span class="series-heading-rest">Breaktime Stories</span></h1><p class="opening-intro">{{ site.data.site.intro }}</p><div class="opening-actions"><a class="button" href="{{ '/story/' | relative_url }}">Explore the series {% include arrow.html %}</a><a class="quiet-link" href="{{ '/volumes/volume-1/' | relative_url }}">Start with Volume 1</a></div></div>
+  {% if featured %}<div class="opening-feature" data-featured-volume="{{ featured.number }}">
+    <p class="eyebrow latest-volume-label">Latest volume <span class="status">{{ featured.status }}</span></p>
+    <div class="featured-art"><div class="orbital-frame" aria-hidden="true"><span></span></div><a class="hero-book" href="{{ featured.slug | prepend: '/volumes/' | append: '/' | relative_url }}" aria-label="Open Volume {{ featured.number }}">{% include cover.html volume=featured eager=true %}</a></div>
+    <div class="featured-caption"><h2><a href="{{ featured.slug | prepend: '/volumes/' | append: '/' | relative_url }}">{{ featured.title }}</a></h2>{% if featured.release_label %}<p>{{ featured.release_label }}</p>{% endif %}{% if featured.synopsis %}<p class="featured-synopsis">{{ featured.synopsis }}</p>{% endif %}</div>
+  </div>{% endif %}
+</section>
+{% include products.html %}

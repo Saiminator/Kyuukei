@@ -1,1 +1,54 @@
-# Kyuukei
+# Kyuukei no Hanashi
+
+The official Kyuukei website, built with Jekyll for GitHub Pages. The selected design uses local fonts, Orby-pink buttons, a responsive navigation menu and the supplied Kyuu cursors. It has no application framework, database, tracker or custom newsletter backend.
+
+## Content
+
+- **Volumes:** `_volumes/volume-1.md`, etc. Each file holds the entire volume record in YAML front matter, including status, synopsis, artwork and its independent character summaries. Jekyll creates `/volumes/volume-1/` automatically; adding a volume does not require a new layout or a separate generated-data cache.
+- **Visibility:** use `published: false` for a draft. Drafts have no published page and do not appear in the catalog or homepage. Public volumes have `published: true`.
+- **Homepage feature:** the highest-numbered public `Upcoming` volume is featured. `Planned` and `Available` volumes are excluded. No upcoming volumes means no feature.
+- **Publication:** Volume 1 is Upcoming for 2027. Volumes 2–4 are Planned, with no descriptions or character registries. Titles use “Volume 1”, “Volume 2”, etc.
+- **Characters:** `_data/characters.json` contains shared names, artwork and introduction metadata. Descriptions belong to the corresponding volume, never the shared identity record. `order` overrides introduction order; zero is valid. `known_through` must be earlier than the promoted volume. Kyuu may be introduced on Volume 1.
+- **Artwork:** volume `cover` and character `portrait` / `illustration` fields accept `src` and optional `srcset`. Supply approved assets under `assets/` or use their public URL. Current artwork slots retain their aspect ratios. No AI artwork was generated.
+- **News:** the original `_news/` archive is rendered with the selected layout. Add a Markdown file with a title and date; category and description are optional. `published: false` hides a draft.
+- **Merchandise:** edit `_data/products.json`. Only set product links when the actual Fourthwall product exists. Fourthwall handles purchases and checkout.
+- **Brand and integrations:** `_data/site.json` contains contact and service URLs. `kit_form_url` is currently null, so the newsletter controls are disabled and clearly say “Newsletter opening soon”. Configure Kit's hosted form URL to enable the subscription link; no private API key belongs in the site.
+- **Colors:** `_config.yml` selects `palette: ribbon-rose`; the palette values are in `_data/palettes.json`. Jekyll renders the selected palette into the stylesheet during its normal build. There is no palette picker on the public site.
+
+The old chapter reader, character encyclopedia and Questions interface are retired. Their authored source remains in the repository but is excluded from the website. Top-level bookmarks for About, Questions, Characters and Stories redirect to the current homepage or Story catalog. A custom 404 page handles other retired URLs. The original cursor attribution remains on Privacy Policy.
+
+## Build
+
+Use Ruby 3.3 and Bundler 2.6.9:
+
+```bash
+bundle install
+python3 scripts/validate_content.py
+JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter
+python3 scripts/check_site.py _site
+```
+
+The deployed website needs only GitHub Pages' standard Jekyll build. Python is used for development checks, not production rendering. The existing `CNAME` remains `kyuukei.com`; use the repository's current Pages publishing configuration with the approved source on `main`.
+
+For local viewing:
+
+```bash
+python3 -m http.server 4120 --directory _site
+```
+
+## Verify
+
+The publication tests build isolated copies to verify draft privacy, automatic volume pages, the Upcoming-only homepage feature, default cast order and manual overrides:
+
+```bash
+python3 tests/test_publication.py
+```
+
+Optional browser checks require Node, Chromium and the pinned development dependencies:
+
+```bash
+npm ci --ignore-scripts
+SITE_URL=http://127.0.0.1:4120 CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
+```
+
+Browser artifacts default to `/tmp/kyuukei-release-checks`; set `TEST_ARTIFACTS` to choose another location. The checks cover 320–1920px layouts, the mobile menu without a current-tab dot, highlighted tab text, native cursor states, touch-device behavior, dialogs, the real news archive, unavailable newsletter controls, local assets and accessibility rules. The cursor is browser-native and static, so it requires no pointer-tracking loop and respects touch devices and reduced-motion preferences.

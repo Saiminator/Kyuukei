@@ -1,0 +1,7 @@
+<section class="newsletter-card" aria-labelledby="newsletter-{{ include.placement }}">
+  <h2 id="newsletter-{{ include.placement }}">Newsletter</h2><p>Volume releases, story news, and new merchandise. Occasional emails, whenever there’s something to share.</p>
+  {% if site.data.site.kit_form_url %}<a class="button" href="{{ site.data.site.kit_form_url }}">Subscribe {% include arrow.html %}</a><p class="newsletter-note">Mailing list powered by Kit. <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a></p>
+  {% else %}
+  <div class="newsletter-form-row"><input type="email" placeholder="Email address" aria-label="Newsletter email address" disabled><button class="button" type="button" disabled>Subscribe {% include arrow.html %}</button></div><p class="newsletter-note">Newsletter opening soon.</p>
+  {% endif %}
+</section>

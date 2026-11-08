@@ -1,0 +1,662 @@
+:root {
+  --bg: #241b27;
+  --ink: #f3e8e6;
+  --muted: #bfb0be;
+  --accent: #e5acc6;
+  --accent-ink: #291c29;
+  --line: #51404f;
+  --preview-bg: #382838;
+  --preview-ink: #e6c9da;
+  --display: Lora, Georgia, serif;
+  --product-bg: #382a3a;
+  --product-ink: #513449;
+  --product-object: #dec8c7;
+  --product-frame: #92717f;
+}
+.site-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  padding: 25px 4%;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 20;
+  gap: 20px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 400 29px/1 var(--display);
+  letter-spacing: -0.06em;
+  justify-self: start;
+}
+.brand small {
+  display: block;
+  font:
+    400 8px/2.3 "DM Sans",
+    sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+.brand-symbol {
+  width: 35px;
+  color: var(--accent);
+}
+.brand-symbol .star-mark {
+  width: 34px;
+  height: 34px;
+}
+.site-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin: 0;
+}
+.site-nav a {
+  font-size: 12px;
+  padding: 13px 0;
+  position: relative;
+}
+.site-nav a[aria-current] {
+  color: var(--accent);
+}
+
+.site-nav a:hover {
+  color: var(--accent);
+}
+.header-tools {
+  justify-self: end;
+}
+.shop-shortcut {
+  font-size: 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border: 1px solid var(--line);
+  padding: 11px 15px;
+}
+.shop-shortcut:hover {
+  border-color: var(--accent);
+}
+.menu-toggle {
+  display: none;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  padding: 10px 15px;
+  min-height: 44px;
+}
+.opening {
+  width: min(1260px, calc(100% - 112px));
+  margin: auto;
+  padding: 85px 0 65px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 65px;
+  align-items: center;
+}
+.opening-copy h1 {
+  font-size: clamp(58px, 6.7vw, 96px);
+  line-height: 1.1;
+  margin-bottom: 30px;
+  letter-spacing: -0.055em;
+}
+.opening h1 em,
+.story-intro em,
+.page-characters h1 em {
+  color: var(--accent);
+  font-weight: 400;
+}
+.opening-copy .eyebrow {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.tiny-star {
+  font-size: 16px;
+}
+.opening-intro {
+  font-size: 15px;
+  max-width: 370px;
+  line-height: 1.9;
+}
+.opening-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.quiet-link {
+  font-size: 11px;
+  border-bottom: 1px solid var(--line);
+  padding: 9px 0;
+}
+.quiet-link:hover {
+  color: var(--accent);
+}
+.opening-caption {
+  margin-top: 50px;
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+.opening-caption span {
+  color: var(--accent);
+  margin-inline: 6px;
+}
+.opening-feature {
+  position: relative;
+  padding-top: 20px;
+  text-align: center;
+  isolation: isolate;
+}
+.hero-book {
+  width: 230px;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  transform: rotate(-9deg);
+  box-shadow: 20px 20px 35px #100a1859;
+  transition: transform 0.3s;
+}
+.hero-book:hover {
+  transform: rotate(-5deg) translateY(-4px);
+}
+.orbital-frame {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 375px;
+  height: 375px;
+  border: 1px solid #d2a1c23d;
+  border-radius: 50%;
+  z-index: -1;
+}
+.orbital-frame::before {
+  content: "";
+  position: absolute;
+  inset: 30px -25px;
+  border: 1px solid #d2a1c229;
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+.orbital-frame::after {
+  content: "";
+  position: absolute;
+  inset: -25px 55px;
+  border: 1px solid #d2a1c21f;
+  border-radius: 50%;
+  transform: rotate(40deg);
+}
+.orbital-frame i {
+  position: absolute;
+  top: 27px;
+  right: 20px;
+  color: var(--accent);
+  font-size: 25px;
+  font-style: normal;
+}
+.orbital-frame span {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  left: 5px;
+  top: 58%;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.featured-caption {
+  margin: 43px auto 0;
+  max-width: 350px;
+}
+.featured-caption .eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.featured-caption h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.featured-caption > p:not(.eyebrow) {
+  font-size: 10px;
+}
+.featured-caption .featured-synopsis {
+  font-size: 12px !important;
+  line-height: 1.7;
+  margin-bottom: 7px;
+}
+.featured-caption .text-link {
+  font-size: 11px;
+}
+.world-invitation {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr;
+  gap: 28px;
+  align-items: center;
+  background: #2e212e;
+  border-block: 1px solid var(--line);
+  padding: 35px max(56px, calc((100vw - 1260px) / 2));
+  margin-top: 12px;
+}
+.world-invitation > span {
+  color: var(--accent);
+}
+.world-invitation p {
+  font-family: var(--display);
+  font-size: 19px;
+  line-height: 1.6;
+  margin: 0;
+}
+.world-invitation strong {
+  font-weight: 400;
+  color: var(--ink);
+}
+.world-invitation > a {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 390px;
+  justify-self: end;
+}
+.world-invitation > a:hover {
+  color: var(--ink);
+}
+.merch-section {
+  padding-top: 85px;
+}
+.merch-section .section-heading {
+  margin-bottom: 32px;
+}
+.merch-section .section-heading h2 {
+  font-size: 42px;
+}
+.concept-01 .newsletter {
+  position: relative;
+}
+.concept-01 .newsletter::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  top: 44px;
+  bottom: 44px;
+  left: 56%;
+  background: var(--line);
+}
+.story-intro {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: end;
+  gap: 60px;
+  max-width: none;
+}
+.story-intro h1 {
+  font-size: clamp(45px, 5.7vw, 77px);
+  margin-bottom: 0;
+}
+.story-intro > div > p:not(.eyebrow) {
+  max-width: 40ch;
+  font-size: 14px;
+}
+.story-intro > div > .sample-label {
+  font-size: 11px !important;
+}
+.catalog-heading {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding: 0 0 20px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.volume-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 45px;
+}
+.volume-card {
+  display: grid;
+  grid-template-columns: 145px minmax(0, 1fr);
+  gap: 25px;
+  padding: 45px 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 25px;
+  align-items: start;
+}
+.volume-copy h2 {
+  font-size: 29px;
+  margin: 12px 0 15px;
+  line-height: 1.2;
+}
+.volume-copy .eyebrow {
+  font-size: 9px;
+  margin: 18px 0 8px;
+}
+.volume-synopsis {
+  font-size: 12px;
+  line-height: 1.9;
+}
+.release-label {
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.volume-copy .sample-label {
+  font-size: 9px;
+}
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 38px 26px;
+}
+.character-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.character-name > span {
+  color: var(--accent);
+  font-size: 15px;
+}
+.character-name h2 {
+  font-size: 29px;
+}
+.page-characters .page-intro h1 {
+  font-size: clamp(45px, 6vw, 80px);
+}
+.concept-01 .character-card:nth-child(3n + 2) .portrait-orbit {
+  transform: rotate(25deg);
+}
+@media (max-width: 1100px) {
+  .site-header {
+    padding-inline: 32px;
+  }
+  .site-nav ul {
+    gap: 18px;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .shop-shortcut {
+    display: none;
+  }
+  .opening {
+    width: calc(100% - 80px);
+    gap: 40px;
+  }
+  .opening-copy h1 {
+    font-size: 64px;
+  }
+  .opening-actions {
+    gap: 20px;
+  }
+  .hero-book {
+    width: 210px;
+  }
+  .orbital-frame {
+    width: 315px;
+    height: 315px;
+  }
+  .opening-caption {
+    margin-top: 35px;
+  }
+  .volume-card {
+    grid-template-columns: 115px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .volume-copy h2 {
+    font-size: 25px;
+  }
+  .world-invitation {
+    padding-inline: 40px;
+  }
+  .world-invitation p {
+    font-size: 17px;
+  }
+}
+@media (max-width: 900px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+    padding-block: 20px;
+  }
+  .header-tools .menu-toggle {
+    display: flex;
+    gap: 20px;
+  }
+  .site-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 32px;
+    display: none;
+  }
+  .site-nav ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .site-nav a {
+    display: block;
+  }
+  .site-header:has(.menu-toggle[aria-expanded="true"]) .site-nav {
+    display: block;
+  }
+  .opening {
+    width: calc(100% - 64px);
+    padding-top: 60px;
+    gap: 25px;
+  }
+  .opening-copy h1 {
+    font-size: 55px;
+  }
+  .hero-book {
+    width: 180px;
+  }
+  .orbital-frame {
+    width: 265px;
+    height: 265px;
+    top: 0;
+  }
+  .featured-caption h2 {
+    font-size: 24px;
+  }
+  .world-invitation {
+    grid-template-columns: 30px 1fr;
+    padding: 28px 32px;
+  }
+  .world-invitation > a {
+    grid-column: 2;
+    justify-self: start;
+    max-width: 600px;
+  }
+  .volume-grid {
+    grid-template-columns: 1fr;
+  }
+  .volume-card {
+    grid-template-columns: 185px minmax(0, 1fr);
+    gap: 35px;
+  }
+  .volume-copy h2 {
+    font-size: 32px;
+  }
+  .volume-synopsis {
+    font-size: 14px;
+  }
+  .story-intro {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .story-intro h1 {
+    font-size: 64px;
+  }
+  .story-intro > div > p:not(.eyebrow) {
+    max-width: 64ch;
+  }
+  .character-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px 20px;
+  }
+  .character-name h2 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 600px) {
+  .site-header {
+    padding: 18px 20px;
+  }
+  .brand {
+    font-size: 26px;
+  }
+  .brand-symbol {
+    width: 28px;
+  }
+  .site-nav {
+    padding: 20px;
+  }
+  .site-nav ul {
+    grid-template-columns: 1fr 1fr;
+  }
+  .opening {
+    width: calc(100% - 40px);
+    grid-template-columns: 1fr;
+    padding: 48px 0 40px;
+    gap: 40px;
+  }
+  .opening-copy h1 {
+    font-size: clamp(51px, 13.5vw, 76px);
+    line-height: 1.12;
+    margin-bottom: 25px;
+  }
+  .opening-copy .eyebrow {
+    margin-bottom: 22px;
+  }
+  .opening-intro {
+    font-size: 14px;
+  }
+  .opening-actions {
+    gap: 22px;
+    margin-top: 25px;
+  }
+  .opening-actions .button {
+    font-size: 12px;
+  }
+  .quiet-link {
+    font-size: 10px;
+  }
+  .opening-caption {
+    margin-top: 30px;
+    font-size: 9px;
+  }
+  .opening-feature {
+    padding-top: 35px;
+    margin: 10px 0 0;
+  }
+  .hero-book {
+    width: 200px;
+  }
+  .orbital-frame {
+    width: 290px;
+    height: 290px;
+    top: 10px;
+  }
+  .featured-caption {
+    max-width: 310px;
+    margin-top: 38px;
+  }
+  .featured-caption h2 {
+    font-size: 28px;
+  }
+  .featured-caption .featured-synopsis {
+    font-size: 12px !important;
+  }
+  .world-invitation {
+    padding: 27px 20px;
+    gap: 18px;
+    margin: 0;
+  }
+  .world-invitation p {
+    font-size: 16px;
+  }
+  .world-invitation > a {
+    font-size: 11px;
+  }
+  .merch-section {
+    padding-top: 50px;
+  }
+  .merch-section .section-heading {
+    gap: 15px;
+  }
+  .merch-section .section-heading h2 {
+    font-size: 29px;
+    max-width: 200px;
+  }
+  .concept-01 .newsletter::after {
+    display: none;
+  }
+  .story-intro h1 {
+    font-size: 48px;
+  }
+  .catalog-heading {
+    font-size: 8px;
+    gap: 12px;
+  }
+  .volume-card {
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 20px;
+    padding: 30px 0;
+  }
+  .volume-copy h2 {
+    font-size: 25px;
+    margin-top: 8px;
+  }
+  .volume-synopsis {
+    font-size: 12px;
+  }
+  .volume-copy .eyebrow {
+    margin-top: 12px;
+    font-size: 8px;
+  }
+  .volume-card .status {
+    font-size: 8px;
+    padding: 4px 7px;
+  }
+  .release-label {
+    font-size: 9px;
+  }
+  .character-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
+  }
+  .character-name h2 {
+    font-size: 26px;
+  }
+  .character-card p {
+    font-size: 10px;
+  }
+  .page-characters .page-intro h1 {
+    font-size: 47px;
+  }
+}
+
+@media (max-width: 600px) {
+  .orbital-frame {
+    width: min(290px, calc(100% - 40px));
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .orbital-frame::before {
+    inset: 30px -10px;
+  }
+}

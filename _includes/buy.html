@@ -1,0 +1,1 @@
+<a class="button purchase-link" href="{{ include.volume.purchase_url | default: site.data.site.store_url }}">{% if include.volume.purchase_url %}{{ include.label | default: 'Shop this volume' }}{% else %}Visit the official store{% endif %} {% include arrow.html %}</a>

@@ -1,0 +1,13 @@
+/* Native cursors use the supplied Kyuu artwork without a tracking/animation loop. */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url("../Kyuu_01_Pointer.cur") 4 4,
+      url("../Kyuu_01_Pointer.png") 4 4, auto;
+  }
+  body :is(a[href], button, summary, select, [role="button"], label[for]) {
+    cursor: url("../Kyuu_13_Select.cur") 4 4,
+      url("../Kyuu_13_Select.png") 4 4, pointer;
+  }
+  body :is(input, textarea, [contenteditable="true"]) { cursor: text; }
+  body :is(button, input, select, textarea):disabled { cursor: not-allowed; }
+}

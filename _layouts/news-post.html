@@ -1,0 +1,4 @@
+---
+layout: base
+---
+<article class="page-shell prose-page news-article"><a class="back-link" href="{{ '/news/' | relative_url }}">← All announcements</a><p class="eyebrow">{{ page.category | default: 'General' }} · {{ page.date | date: '%B %d, %Y' }}</p><h1>{{ page.title }}</h1><div class="post-content">{{ content }}</div></article>

@@ -1,0 +1,12 @@
+/* Keep the desktop navigation beside the store; the mobile menu retains its layout. */
+@media(min-width:901px) {
+  .site-header { grid-template-columns: minmax(0,1fr) auto auto; column-gap: 28px; }
+  .site-nav { justify-self: end; }
+}
+.opening.opening-no-feature { grid-template-columns: 1fr; }
+.volume-copy .status { margin-bottom: 18px; }
+.volume-copy h2 { margin-top: 0; }
+
+.news-article .post-content { overflow-wrap: anywhere; }
+.news-article .post-content h2 { font-size: 30px; margin-top: 32px; }
+.news-article .post-content h3 { font-size: 24px; margin-top: 25px; }

@@ -1,34 +1,50 @@
-# Site settings
-title: "Kyuukei"
-email: "saiminator@kyuukei.com"
-description: "Kyuu’s Breaktime Stories"
-baseurl: ""  # the subpath of your site, e.g. /blog, or empty for root
-url: "https://Kyuukei.com"  # the base hostname & protocol for your site
-
-# Build settings
+title: Kyuukei no Hanashi
+email: ask@kyuukei.com
+description: "Waking up for the first time with a floating orb beside her, where will their journey lead?"
+url: https://kyuukei.com
+baseurl: ""
+option: a
+palette: ribbon-rose
+theme: null
 markdown: kramdown
-theme: jekyll-theme-primer
+kramdown:
+  input: Kramdown
 permalink: pretty
-
-# Collections
+plugins: []
 collections:
-  chapters:
+  volumes:
     output: true
-    permalink: /chapters/:title/
-  characters:
-    output: true
-    permalink: /characters/:title/
+    permalink: /volumes/:name/
   news:
     output: true
     permalink: /news/:title/
-  questions:
-    output: true
-    permalink: /questions/:title/
-  stories:
-    output: true
-    permalink: /stories/:slug/
-
-# Plugins (if you use any)
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
+defaults:
+  - scope:
+      path: ""
+      type: volumes
+    values:
+      layout: volume
+      kind: volume
+  - scope:
+      path: ""
+      type: news
+    values:
+      layout: news-post
+      kind: news-post
+      published: true
+exclude:
+  - _concepts
+  - _chapters
+  - _characters
+  - _questions
+  - _stories
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - package.json
+  - package-lock.json
+  - scripts
+  - tests
+  - docs
+  - vendor
+  - node_modules

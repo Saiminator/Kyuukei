@@ -1,0 +1,12 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{ '/' | absolute_url }}</loc></url>
+  <url><loc>{{ '/story/' | absolute_url }}</loc></url>
+  <url><loc>{{ '/news/' | absolute_url }}</loc></url>
+  <url><loc>{{ '/privacy/' | absolute_url }}</loc></url>
+  {% for volume in site.volumes %}{% if volume.published %}<url><loc>{{ volume.url | absolute_url }}</loc></url>{% endif %}{% endfor %}
+  {% for post in site.news %}{% if post.published %}<url><loc>{{ post.url | absolute_url }}</loc><lastmod>{{ post.date | date_to_xmlschema }}</lastmod></url>{% endif %}{% endfor %}
+</urlset>

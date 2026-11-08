@@ -1,0 +1,9 @@
+---
+layout: base
+---
+<div class="page-shell">
+  <header class="page-intro news-intro"><div class="news-intro-copy"><p class="eyebrow">Official announcements</p><h1>Kyuukei news.</h1><p>Volume announcements, release dates, and merchandise updates.</p></div>{% include newsletter.html placement='news-header' %}</header>
+  <div class="news-list">{% assign posts = site.news | where: 'published', true | sort: 'date' | reverse %}{% for post in posts %}
+    <a class="news-row" href="{{ post.url | relative_url }}"><div class="news-date"><span>{{ post.date | date: '%d' }}</span>{{ post.date | date: '%b %Y' }}</div><div><span class="eyebrow">{{ post.category | default: 'General' }}</span><h2>{{ post.title }}</h2><p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 155 }}</p></div>{% include arrow.html %}</a>
+  {% endfor %}</div>
+</div>

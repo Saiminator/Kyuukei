@@ -1,0 +1,91 @@
+[
+  {
+    "id": "kyuu",
+    "name": "Kyuu",
+    "introduced_in": 1,
+    "introduction_order": 10,
+    "protagonist": true,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "tomas",
+    "name": "Tomas",
+    "introduced_in": 1,
+    "introduction_order": 20,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "duran",
+    "name": "Duran",
+    "introduced_in": 1,
+    "introduction_order": 30,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "mizue",
+    "name": "Mizue",
+    "introduced_in": 1,
+    "introduction_order": 40,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "yura",
+    "name": "Yura",
+    "introduced_in": 1,
+    "introduction_order": 50,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "ibuki",
+    "name": "Ibuki",
+    "introduced_in": 1,
+    "introduction_order": 60,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "elaine",
+    "name": "Elaine",
+    "introduced_in": 1,
+    "introduction_order": 70,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "shimi",
+    "name": "Shimi",
+    "introduced_in": 2,
+    "introduction_order": 80,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "via",
+    "name": "Via",
+    "introduced_in": 2,
+    "introduction_order": 90,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "dreymi",
+    "name": "Dreymi",
+    "introduced_in": 3,
+    "introduction_order": 100,
+    "portrait": null,
+    "illustration": null
+  },
+  {
+    "id": "pon",
+    "name": "Pon",
+    "introduced_in": 3,
+    "introduction_order": 110,
+    "portrait": null,
+    "illustration": null
+  }
+]
