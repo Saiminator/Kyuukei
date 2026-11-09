@@ -1,0 +1,32 @@
+/*
+ * Kyuukei no Hanashi — Fourthwall CSS handoff
+ *
+ * Repository reference only. This file is excluded from GitHub Pages and is
+ * never imported by kyuukei.com. It is not automatically applied to Fourthwall.
+ *
+ * Current stage: approved brand tokens. Theme-specific selector mappings are
+ * intentionally pending inspection of the actual Fourthwall shop/theme.
+ * These namespaced variables do not change a theme by themselves.
+ */
+
+:root {
+  --kyuukei-background: #27232c;
+  --kyuukei-surface: #39323f;
+  --kyuukei-text: #f2edf0;
+  --kyuukei-muted: #c6bdc8;
+  --kyuukei-trim: #ae9ab5;
+  --kyuukei-accent: #d6b0c8;
+  --kyuukei-button: #e993b4;
+  --kyuukei-button-hover: #f6bdd4;
+  --kyuukei-button-text: #281f2b;
+  --kyuukei-font-body: "DM Sans", system-ui, sans-serif;
+  --kyuukei-font-display: "Lora", Georgia, serif;
+}
+
+/*
+ * Theme adapter
+ * Add only selectors or platform variables verified against the selected shop
+ * theme. Apply typography/colors in Fourthwall's native settings where offered.
+ * Keep font loading separate: family names above do not download font files.
+ * No Jekyll/Liquid syntax, @import, copied main-site layout, or cursor scripts.
+ */

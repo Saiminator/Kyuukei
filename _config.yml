@@ -46,5 +46,6 @@ exclude:
   - scripts
   - tests
   - docs
+  - fourthwall
   - vendor
   - node_modules

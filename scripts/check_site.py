@@ -12,8 +12,12 @@ class Links(HTMLParser):
         super().__init__()
         self.links=[]
         self.ids=set()
+        self.meta={}
+        self.icons=[]
     def handle_starttag(self,tag,attrs):
         attrs=dict(attrs)
+        if tag=='meta': self.meta[attrs.get('property') or attrs.get('name')]=attrs.get('content')
+        if tag=='link' and attrs.get('rel')=='icon': self.icons.append(attrs.get('href'))
         if attrs.get('id'): self.ids.add(attrs['id'])
         for key in ['href','src']:
             if attrs.get(key): self.links.append(attrs[key])
@@ -46,7 +50,11 @@ def main(root):
         if 'Liquid error' in text or '{{' in text or '{%' in text: failures.append(f'{path}: unresolved template')
         if 'noindex,nofollow' in text or 'robots" content="noindex' in text: failures.append(f'{path}: development noindex remains')
         if '<link rel="canonical"' not in text: failures.append(f'{path}: missing canonical URL')
-    for path in ['_concepts','_chapters','_characters','_questions','_stories','scripts','tests','docs','characters.json']:
+        parser=pages[root/path]
+        if not parser.icons or parser.meta.get('og:image')!=parser.icons[0] or parser.meta.get('twitter:image')!=parser.icons[0]:
+            failures.append(f'{path}: social previews must use the original favicon')
+        if parser.meta.get('twitter:card')!='summary': failures.append(f'{path}: favicon preview must use a summary card')
+    for path in ['_concepts','_chapters','_characters','_questions','_stories','scripts','tests','docs','fourthwall','characters.json']:
         if (root/path).exists(): failures.append(f'Retired/development content was published: {path}')
     if failures: raise AssertionError('\n'.join(failures))
     print(f'Checked {len(pages)} rendered pages, local links, CSS assets and publishing boundaries.')
