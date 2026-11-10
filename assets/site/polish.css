@@ -2,8 +2,8 @@
 :root { --page-title-size: clamp(38px, 4.2vw, 58px); --section-title-size: clamp(27px, 2.8vw, 36px); }
 body { min-height: 100dvh; display: flex; flex-direction: column; }
 .brand { max-width: 100%; }
-.brand-logo { display: block; width: 190px; max-width: 100%; height: auto; }
-@media (max-width: 600px) { .brand-logo { width: 160px; } }
+.brand-symbol { flex-shrink: 0; }
+.brand-icon { display: block; width: 100%; height: auto; }
 body > main { flex: 1; }
 .option-a .opening-copy .series-heading,
 .option-a .page-intro h1,
