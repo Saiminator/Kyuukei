@@ -13,7 +13,7 @@ The official Kyuukei website, built with Jekyll for GitHub Pages. The selected d
 - **News:** the original `_news/` archive is rendered with the selected layout. Add a Markdown file with a title and date; category and description are optional. `published: false` hides a draft.
 - **Merchandise:** edit `_data/products.json`. Only set product links when the actual Fourthwall product exists. Fourthwall handles purchases and checkout.
 - **Brand and integrations:** `_data/site.json` contains contact and service URLs. `kit_form_url` is currently null, so the newsletter controls are disabled and clearly say “Newsletter opening soon”. Configure Kit's hosted form URL to enable the subscription link; no private API key belongs in the site.
-- **Colors:** `_config.yml` selects `palette: ribbon-rose`; the palette values are in `_data/palettes.json`. Jekyll renders the selected palette into the stylesheet during its normal build. There is no palette picker on the public site.
+- **Colors:** `_config.yml` selects palette 05, `palette: charcoal-blush` (Charcoal & Blush); the palette values are in `_data/palettes.json`. Jekyll renders the selected palette into the stylesheet during its normal build. There is no palette picker on the public site.
 - **Shop CSS reference:** `fourthwall/custom.css` is a GitHub-only handoff for manual Fourthwall customization. It is excluded from Jekyll and not imported by either site. See `fourthwall/README.md` for the research, recommended workflow and remaining theme-verification step.
 - **Social previews:** Open Graph and Twitter summary-card images use the same original favicon URL as the browser icon, including for Discord link previews. Existing messages may retain cached previews until the platform refreshes them.
 

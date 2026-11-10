@@ -49,8 +49,8 @@ def validate(root=ROOT):
             raise ValueError(f'{path.name}: public Planned volumes cannot include a description or cast')
         if volume.get('purchase_url'):
             url=urlsplit(volume['purchase_url'])
-            if url.scheme!='https' or url.hostname!='shop.kyuukei.com' or url.path in ('','/'):
-                raise ValueError(f'{path.name}: purchase URL must point to the specific HTTPS shop product')
+            if url.scheme!='https' or not url.hostname or url.username or url.password or url.path in ('','/'):
+                raise ValueError(f'{path.name}: purchase URL must point to a specific HTTPS product page')
         seen=set()
         for entry in volume.get('featured_characters',[]):
             cid=entry['character']
