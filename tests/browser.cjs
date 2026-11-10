@@ -30,6 +30,8 @@ async function noDot(page){
   fs.mkdirSync(output,{recursive:true});
   const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
   const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
+  const castFixture=require('./returning-cast.cjs')();
+  await context.route(origin+'/__test__/returning-cast/',route=>route.fulfill({contentType:'text/html',body:castFixture}));
   await context.route('https://kyuukei.s3.us-east-2.amazonaws.com/icon/*',route=>route.fulfill({contentType:'image/gif',body:fs.readFileSync(path.join(__dirname,'fixtures/animated-cursor.gif'))}));
   const page=await context.newPage();watch(page);
   for(const width of [320,390,768,1024,1440,1920]){
@@ -41,6 +43,7 @@ async function noDot(page){
       if(route!='/privacy/')await noDot(page);
       if(route==='/')check(await page.locator('.opening-feature').getAttribute('data-featured-volume')==='1','Upcoming Volume 1 remains featured');
       if(route==='/volumes/volume-2/')check(await page.locator('.registry-section,.public-synopsis,dialog').count()===0,'Planned page has no description or cast');
+      if(route==='/volumes/volume-1/')check(await page.locator('.registry-section,.character-tile,template[id^="profile-template-"],dialog').count()===0,'Volume 1 contains no cast or character profiles');
       if(route==='/story/'&&width<=768){
         await page.getByRole('button',{name:'Menu'}).click();await noDot(page);
         check(await page.locator('.site-nav').isVisible(),'Mobile navigation opens');
@@ -65,21 +68,23 @@ async function noDot(page){
   await page.goto(origin+'/story/');await audit(page,'Production catalog');await shot(page,'story-desktop');
   assert.deepEqual(await page.locator('.volume-copy h2 a').allTextContents(),['Volume 1','Volume 2','Volume 3','Volume 4']);report.checks++;
   await page.goto(origin+'/news/');
-  check(await page.locator('.news-row').count()===9,'Nine real news posts replace the two design examples');
+  check(await page.locator('.news-row').count()>=9,'The original nine-post news archive is retained as new posts are added');
   const posts=await page.locator('.news-row').evaluateAll(links=>links.map(a=>a.getAttribute('href')));
   check(await page.getByRole('button',{name:'Subscribe',exact:true}).isDisabled(),'Unconfigured Kit signup is clearly unavailable');
   check(await page.getByText('Newsletter opening soon.',{exact:true}).isVisible(),'Honest signup status');
   check(await page.locator('form').count()===0,'No inactive form collects an email');
   await audit(page,'Production News');await shot(page,'news-desktop');
   for(const route of posts){await page.goto(origin+route);check(await page.locator('.post-content').innerText()!=='','Real news body renders');check(await page.locator('.post-content').innerText().then(t=>!t.includes('Sample announcement')),'No fictional news copy');await noDot(page)}
-  await page.goto(origin+'/volumes/volume-1/');
+  await page.goto(origin+'/__test__/returning-cast/');
+  check(await page.locator('.registry-gate').getAttribute('open')===null,'Returning cast starts behind a closed spoiler gate');
+  await page.locator('.registry-gate summary').click();
   const opener=page.getByRole('button',{name:'Open profile for Kyuu'});await opener.click();
   check(await page.getByRole('dialog',{name:'Kyuu',exact:true}).isVisible(),'Profile dialog opens');
   check(await page.locator('dialog .character-profile-prose p').count()===3,'Volume-specific Markdown biography renders');
   await page.getByRole('button',{name:'Close character profile'}).hover();
   await page.waitForFunction(()=>document.documentElement.dataset.cursorState==='select'&&document.querySelector('#customCursor').matches(':popover-open'));
   check(await page.locator('#customCursor').evaluate(el=>el.matches(':popover-open')),'Cursor remains in the top layer over the dialog');
-  await audit(page,'Production profile');await shot(page,'profile-desktop',false);
+  await audit(page,'Returning-cast fixture profile');await shot(page,'profile-desktop',false);
   await page.keyboard.press('Shift+Tab');check(await page.locator('.profile-dialog-content').evaluate(el=>el===document.activeElement),'Dialog traps reverse Tab');
   await page.keyboard.press('Escape');check(await opener.evaluate(el=>el===document.activeElement),'Dialog restores focus');
   await page.goto(origin+'/privacy/');await audit(page,'Production privacy');

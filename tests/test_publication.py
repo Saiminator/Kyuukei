@@ -24,11 +24,29 @@ def main():
         stage=Path(tmp)/'source';output=Path(tmp)/'public'
         shutil.copytree(ROOT,stage,ignore=shutil.ignore_patterns('.git','_concepts','node_modules','_site','__pycache__','artifacts'))
         env={**os.environ,'BUNDLE_GEMFILE':str(ROOT/'Gemfile'),'JEKYLL_ENV':'production'}
-        def build():
-            content.validate(stage)
+        def build(validate=True):
+            if validate:content.validate(stage)
             subprocess.run(['bundle','_2.6.9_','exec','jekyll','build','--destination',str(output),'--strict_front_matter','--trace'],cwd=stage,env=env,check=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
             return (output/'index.html').read_text()
         original=content.front_matter(stage/'_volumes/volume-2.md')
+        first=content.front_matter(stage/'_volumes/volume-1.md')
+        save(stage/'_volumes/volume-1.md',{**first,'featured_characters':[{'character':'kyuu','known_through':0,'description':'PRIVATE_KYUU_SENTINEL'}]})
+        try:content.validate(stage)
+        except ValueError as error:
+            assert 'must not include a cast list' in str(error)
+        else:raise AssertionError('Volume 1 cast was accepted')
+        build(validate=False)
+        first_page=(output/'volumes/volume-1/index.html').read_text()
+        assert 'PRIVATE_KYUU_SENTINEL' not in first_page and 'registry-section' not in first_page
+        save(stage/'_volumes/volume-1.md',first)
+        for status in ['Upcoming','Available']:
+            save(stage/'_volumes/volume-2.md',{**original,'status':status})
+            try:content.validate(stage)
+            except ValueError as error:
+                assert 'require a returning cast list' in str(error)
+            else:raise AssertionError(status+' Volume 2 without a cast was accepted')
+        save(stage/'_volumes/volume-2.md',original)
+        passed.append('Volume 1 rejects profiles; later published Upcoming and Available volumes require a returning cast')
         for key,value in [('synopsis','Unannounced information'),('featured_characters',[{'character':'kyuu'}])]:
             save(stage/'_volumes/volume-2.md',{**original,key:value})
             try:content.validate(stage)
@@ -38,6 +56,10 @@ def main():
         save(stage/'_volumes/volume-6.md',{**original,'number':6,'slug':'volume-6','title':'Volume 6'})
         save(stage/'_volumes/volume-99.md',{**original,'number':99,'slug':'volume-99','title':'Volume 99','published':False,'synopsis':'PRIVATE_DRAFT_SENTINEL'})
         html=build()
+        first_page=(output/'volumes/volume-1/index.html').read_text()
+        for marker in ['registry-section','character-tile','profile-template-','<dialog','PRIVATE_KYUU_SENTINEL']:
+            assert marker not in first_page
+        passed.append('Volume 1 publishes no cast section, profile template, dialog or character summary')
         assert 'data-featured-volume="1"' in html
         assert (output/'volumes/volume-6/index.html').exists()
         assert not (output/'volumes/volume-99/index.html').exists()

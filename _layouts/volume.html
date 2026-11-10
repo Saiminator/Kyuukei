@@ -8,16 +8,10 @@ layout: base
     <div class="volume-hero-art">{% include cover.html volume=volume eager=true %}</div>
     <div class="volume-hero-copy"><p class="eyebrow">Kyuukei no Hanashi</p><h1>{{ volume.title }}</h1><div class="publication"><span class="status {% if volume.status == 'Available' %}available{% endif %}">{{ volume.status }}</span>{% if volume.release_label %}<span>{{ volume.release_label }}</span>{% endif %}</div>{% if volume.synopsis and volume.status != 'Planned' %}<p class="lead public-synopsis">{{ volume.synopsis }}</p>{% endif %}{% include buy.html volume=volume %}</div>
   </section>
-  {% if registry.size > 0 and volume.status != 'Planned' %}<section class="registry-section" aria-labelledby="registry-heading" data-nosnippet>
+  {% if volume.number > 1 and registry.size > 0 and volume.status != 'Planned' %}<section class="registry-section" aria-labelledby="registry-heading" data-nosnippet>
     <div class="registry-heading"><div><p class="eyebrow">Before you read Volume {{ volume.number }}</p><h2 id="registry-heading">Characters to remember</h2></div></div>
-    {% if registry.size > 0 %}
-      {% if volume.number > 1 %}
         <div class="spoiler-note"><span class="spoiler-symbol" aria-hidden="true">{% include orby.html %}</span><div><h3>Spoilers through Volume {{ volume.number | minus: 1 }}</h3><p>Read the previous volumes before opening cast list and summaries.</p></div></div>
         <details class="registry-gate"><summary><span class="when-closed">Reveal characters</span><span class="when-open">Hide characters</span><span aria-hidden="true">＋</span></summary><div class="registry-content">{% include registry.html people=registry volume=volume %}</div></details>
-      {% else %}
-        <p class="intro-note">An introductory profile. No previous volumes needed.</p><div class="registry-content">{% include registry.html people=registry volume=volume %}</div>
-      {% endif %}
-    {% endif %}
   </section>
   {% endif %}
   {% if volume.bonus %}<section class="volume-bonus"><h2>{{ volume.bonus.title }}</h2>{{ volume.bonus.body | markdownify }}</section>{% endif %}

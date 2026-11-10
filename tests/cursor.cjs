@@ -21,6 +21,8 @@ async function noMotion(context){
 (async()=>{
   const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
   const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'no-preference'});
+  const castFixture=require('./returning-cast.cjs')();
+  await context.route(origin+'/__test__/returning-cast/',route=>route.fulfill({contentType:'text/html',body:castFixture}));
   await noMotion(context);
   await context.route('https://kyuukei.s3.us-east-2.amazonaws.com/icon/*',async route=>{report.assetRequests.push(route.request().url());await route.fulfill({contentType:'image/gif',body:fixture})});
   const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
@@ -48,7 +50,7 @@ async function noMotion(context){
   await page.goBack();await page.waitForURL(origin+'/');await ready(page,'select');
   check(await page.locator('#customCursor').isVisible(),'History navigation restores the custom cursor');
   await page.mouse.move(500,150);await ready(page);
-  await page.goto(origin+'/volumes/volume-1/');await page.getByRole('button',{name:'Open profile for Kyuu'}).click();
+  await page.goto(origin+'/__test__/returning-cast/');await page.locator('.registry-gate summary').click();await page.getByRole('button',{name:'Open profile for Kyuu'}).click();
   const close=page.getByRole('button',{name:'Close character profile'});await close.hover();await ready(page,'select');
   check(await page.locator('#customCursor').evaluate(el=>el.matches(':popover-open')),'Cursor stays above the modal top layer');
   await close.click();check(await page.locator('dialog[open]').count()===0,'Cursor does not intercept modal controls');

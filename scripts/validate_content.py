@@ -47,6 +47,10 @@ def validate(root=ROOT):
             raise ValueError(f'{path.name}: invalid publication state')
         if volume['published'] and volume['status']=='Planned' and (volume.get('synopsis') or volume.get('featured_characters') or volume.get('bonus')):
             raise ValueError(f'{path.name}: public Planned volumes cannot include a description or cast')
+        if n==1 and volume.get('featured_characters'):
+            raise ValueError('Volume 1 must not include a cast list or character summaries')
+        if volume['published'] and n>1 and volume['status']!='Planned' and not volume.get('featured_characters'):
+            raise ValueError(f'{path.name}: announced volumes after Volume 1 require a returning cast list')
         if volume.get('purchase_url'):
             url=urlsplit(volume['purchase_url'])
             if url.scheme!='https' or not url.hostname or url.username or url.password or url.path in ('','/'):
@@ -58,7 +62,7 @@ def validate(root=ROOT):
                 raise ValueError(f'{path.name}: unknown or repeated character {cid}')
             seen.add(cid)
             identity=identities[cid]
-            if not (identity['introduced_in']<n or (n==1 and cid=='kyuu')):
+            if not identity['introduced_in']<n:
                 raise ValueError(f'{path.name}: {cid} has not been introduced in an earlier volume')
             if not isinstance(entry['known_through'],int) or not 0<=entry['known_through']<n:
                 raise ValueError(f'{path.name}: {cid} summary includes knowledge from this volume or later')
@@ -67,8 +71,6 @@ def validate(root=ROOT):
             for order in [entry.get('order',identity['introduction_order']),identity['introduction_order']]:
                 if not isinstance(order,int) or not 0<=order<=999999:
                     raise ValueError(f'{path.name}: character order must be an integer from 0 to 999999')
-        if volume['published'] and n==1 and 'kyuu' not in seen:
-            raise ValueError('Volume 1 must retain Kyuu’s introductory profile')
     return volumes
 
 
