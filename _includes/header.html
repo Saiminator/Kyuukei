@@ -1,5 +1,5 @@
 <header class="site-header">
-  <a class="brand" href="{{ '/' | relative_url }}"><span class="brand-symbol"><img class="brand-icon" src="{{ site.data.site.favicon_url }}" alt="" width="35" height="35"></span><span>Kyuukei<small>no Hanashi</small></span></a>
+  <a class="brand" href="{{ '/' | relative_url }}"><span class="brand-symbol">{% include orby.html %}</span><span>Kyuukei<small class="brand-subtitle">no Hanashi<img class="brand-icon" src="{{ site.data.site.favicon_url }}" alt="" width="16" height="16"></small></span></a>
   <nav class="site-nav" id="primary-nav" aria-label="Primary"><ul>
     <li><a href="{{ '/' | relative_url }}" {% if page.kind == 'home' %}aria-current="page"{% endif %}>Home</a></li>
     <li><a href="{{ '/story/' | relative_url }}" {% if page.kind == 'story' or page.kind == 'volume' %}aria-current="page"{% endif %}>Story</a></li>

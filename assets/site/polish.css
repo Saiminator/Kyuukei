@@ -3,7 +3,8 @@
 body { min-height: 100dvh; display: flex; flex-direction: column; }
 .brand { max-width: 100%; }
 .brand-symbol { flex-shrink: 0; }
-.brand-icon { display: block; width: 100%; height: auto; }
+.brand .brand-subtitle { display: flex; align-items: center; gap: 6px; }
+.brand-icon { display: block; width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
 body > main { flex: 1; }
 .option-a .opening-copy .series-heading,
 .option-a .page-intro h1,
