@@ -33,11 +33,6 @@ defaults:
       kind: news-post
       published: true
 exclude:
-  - _concepts
-  - _chapters
-  - _characters
-  - _questions
-  - _stories
   - README.md
   - Gemfile
   - Gemfile.lock
@@ -49,3 +44,4 @@ exclude:
   - fourthwall
   - vendor
   - node_modules
+  - .github

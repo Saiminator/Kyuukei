@@ -17,7 +17,7 @@ The official Kyuukei website, built with Jekyll for GitHub Pages. The selected d
 - **Shop CSS reference:** `fourthwall/custom.css` is a GitHub-only handoff for manual Fourthwall customization. It is excluded from Jekyll and not imported by either site. See `fourthwall/README.md` for the research, recommended workflow and remaining theme-verification step.
 - **Social previews:** Open Graph and Twitter summary-card images use the same original favicon URL as the browser icon, including for Discord link previews. Existing messages may retain cached previews until the platform refreshes them.
 
-The old chapter reader, character encyclopedia and Questions interface are retired. Their authored source remains in the repository but is excluded from the website. Top-level bookmarks for About, Questions, Characters and Stories redirect to the current homepage or Story catalog. A custom 404 page handles other retired URLs. The original cursor attribution remains on Privacy Policy.
+The old chapter reader, character encyclopedia and Questions interface are retired. Their unused source, old data tables and music were removed; previous versions remain in Git history. Top-level bookmarks for About, Questions, Characters and Stories redirect to the current homepage or Story catalog. A custom 404 page handles other retired URLs. The original cursor attribution remains on Privacy Policy.
 
 ## Build
 
@@ -30,7 +30,9 @@ JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter
 python3 scripts/check_site.py _site
 ```
 
-The deployed website needs only GitHub Pages' standard Jekyll build. Python is used for development checks, not production rendering. The existing `CNAME` remains `kyuukei.com`; use the repository's current Pages publishing configuration with the approved source on `main`.
+The workflow in `.github/workflows/pages.yml` builds with the locked gems and runs content, generated-site and publication checks before deployment. It uses Ubuntu 24.04 and Node 24 actions rather than GitHub's automatic Pages Jekyll build. In **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions** once. Pushes to `main` then deploy automatically; pull requests run the build checks without deploying. The workflow can also be run manually from Actions. The existing `CNAME` remains `kyuukei.com`.
+
+Action versions are pinned to commit SHAs. Dependabot checks for action updates monthly. Python is used for validation, not production rendering; browser checks remain optional local checks.
 
 For local viewing:
 
